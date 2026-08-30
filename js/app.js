@@ -754,9 +754,13 @@
       (v.queued ? ' · ' + v.queued + ' pack(s) waiting' : '');
     var area = $('#draft-area');
     if (!v.pack) {
+      App.selectedUid = null;
       area.innerHTML = '<p class="waiting">Waiting for the next pack to be passed to you…</p>';
       return;
     }
+    // Re-renders arrive whenever ANY player picks; keep this player's
+    // selection alive as long as the selected card is still in their pack.
+    var prevSelected = App.selectedUid;
     App.selectedUid = null;
     area.innerHTML =
       '<div class="card-grid">' +
@@ -788,6 +792,15 @@
     $('#btn-confirm-pick').addEventListener('click', function () {
       if (App.selectedUid) sendPick(App.selectedUid);
     });
+
+    if (prevSelected && cardByUid[prevSelected]) {
+      App.selectedUid = prevSelected;
+      var keep = area.querySelector('.card[data-uid="' + prevSelected + '"]');
+      if (keep) keep.classList.add('selected');
+      var pickBtn = $('#btn-confirm-pick');
+      pickBtn.disabled = false;
+      pickBtn.textContent = 'Pick ' + cardByUid[prevSelected].name;
+    }
   }
 
   function sendPick(uid) {
