@@ -106,18 +106,30 @@
     <h2>Draft complete — your deck (<span id="deck-count"></span>)</h2>
     <div class="actions">
       <button id="btn-copy-deck" class="primary">Copy deck list</button>
+      <button id="btn-start-game" class="primary" hidden>⚔ Play it out (1v1)</button>
       <button id="btn-back-home">Back to start</button>
     </div>
+    <p id="game-hint" class="hint" hidden>The host can start a 1v1 game right here — hang tight, the board will open automatically.</p>
     <textarea id="deck-text" rows="10" readonly></textarea>
     <div id="deck-grid" class="card-grid"></div>
+  </div>
+</section>
+
+<!-- ============ GAME (post-draft 1v1 play surface) ============ -->
+<section id="screen-game" hidden>
+  <div class="game-layout">
+    <div id="game-board"></div>
+    <aside id="game-log" class="game-log"></aside>
   </div>
 </section>
 
 <script src="vendor/peerjs.min.js"></script>
 <script src="js/parser.js"></script>
 <script src="js/draft.js"></script>
+<script src="js/game.js"></script>
 <script src="js/scryfall.js"></script>
 <script src="js/net.js"></script>
+<script src="js/gameui.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

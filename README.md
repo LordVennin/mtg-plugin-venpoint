@@ -59,6 +59,26 @@ plain `ws://` during local testing).
    two 20-card packs → a 40-card deck.
 5. When it's done, every player gets their deck as a plain text list with a
    **Copy** button — paste it straight into Moxfield/Archidekt/Cockatrice.
+6. **After a 1v1 jumpstart draft** the host can hit **Play it out** to open a
+   built-in play surface and battle right there (see below).
+
+## The play surface (1v1)
+
+A Cockatrice-style honor-system board — it enforces zones and hidden
+information, not the rules of the game. Decks are shuffled, both players
+draw 7, and you go:
+
+- **Click a card** to select it; buttons appear for what it can do.
+  Hand: *Play* / *Discard*. Battlefield: *Tap*, *± Counter*, *→ Graveyard*,
+  *→ Exile*, *→ Hand*, *→ Shuffle in*. Graveyard: *→ Hand*.
+- **Double-click** shortcuts: hand card = play it, battlefield card = tap it.
+- Bottom bar: **Draw**, **Untap all**, **Shuffle**, **Mulligan**, life **±**,
+  and **Pass turn**.
+- Your hand is yours alone; the opponent sees a count. Battlefields,
+  graveyards, exile, life, and the action log are public — every action is
+  logged so nothing happens silently.
+- Disconnected players can rejoin with the same name mid-game, same as
+  during a draft. (The host's tab is still the server.)
 
 Your cube list, packs, and settings are saved in your browser between
 sessions. If a guest disconnects mid-draft, they can rejoin with the same
@@ -111,6 +131,8 @@ comments (`//`), and section headers (`Deck`, `Sideboard`, …) are all handled.
 | `js/scryfall.js` | Batch card resolution + localStorage cache |
 | `js/net.js` | Transport layer: WebRTC (PeerJS) or WebSocket relay, same API |
 | `relay-server.mjs` | Static file server + dumb WebSocket relay (rooms, forwarding) |
+| `js/game.js` | 1v1 play-surface state machine (zones, hidden hands — pure) |
+| `js/gameui.js` | Play-surface rendering + click-to-select controls |
 | `js/app.js` | Screens, host/guest message protocol, rendering |
 | `tests/run.js` | Unit tests for the pure modules — `node tests/run.js` |
 

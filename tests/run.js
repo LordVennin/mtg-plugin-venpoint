@@ -5,6 +5,7 @@
 
 const Parser = require('../js/parser.js');
 const Draft = require('../js/draft.js');
+const Game = require('../js/game.js');
 
 let failures = 0;
 function assert(cond, msg) {
@@ -189,6 +190,79 @@ section('JumpstartDraft offer never starves later players');
   try { new Draft.JumpstartDraft(['a', 'b', 'c'], packs, {}); }
   catch (e) { threw = /Not enough packs/.test(e.message); }
   assert(threw, 'too few packs rejected with a clear error');
+}
+
+/* ---------------- 1v1 game engine ---------------- */
+section('Game setup');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i }));
+  const g = new Game.Game(['a', 'b'], { a: mkDeck('A', 20), b: mkDeck('B', 20) },
+    { a: 'Alice', b: 'Bob' }, { rng: seededRng(5) });
+
+  const va = g.viewFor('a');
+  assert(va.hand.length === 7, 'a draws an opening hand of 7');
+  assert(va.zones.a.libraryCount === 13, "a's library has 13 left");
+  assert(va.zones.b.handCount === 7 && va.zones.b.battlefield.length === 0, "b's hand is a count only");
+  assert(va.hand[0].uid !== undefined, 'cards carry uids');
+  assert(va.life.a === 20 && va.life.b === 20, 'both start at 20 life');
+  assert(g.viewFor('b').hand.every(c => c.name.startsWith('B')), "b's view shows b's own hand");
+
+  let threw = false;
+  try { new Game.Game(['a', 'b', 'c'], {}, {}); } catch (e) { threw = /1v1/.test(e.message); }
+  assert(threw, 'three players rejected');
+}
+
+section('Game actions');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i }));
+  const g = new Game.Game(['a', 'b'], { a: mkDeck('A', 20), b: mkDeck('B', 20) },
+    { a: 'Alice', b: 'Bob' }, { rng: seededRng(9) });
+
+  g.apply('a', { a: 'draw' });
+  assert(g.viewFor('a').hand.length === 8, 'draw adds a card');
+
+  const uid = g.viewFor('a').hand[0].uid;
+  g.apply('a', { a: 'play', uid });
+  let v = g.viewFor('a');
+  assert(v.hand.length === 7 && v.zones.a.battlefield.length === 1, 'play moves hand -> battlefield');
+  assert(g.viewFor('b').zones.a.battlefield.length === 1, 'opponent sees the permanent');
+
+  g.apply('a', { a: 'tap', uid });
+  assert(g.viewFor('b').zones.a.battlefield[0].tapped === true, 'tap is public');
+  g.apply('a', { a: 'untapAll' });
+  assert(g.viewFor('a').zones.a.battlefield[0].tapped === false, 'untapAll works');
+
+  g.apply('a', { a: 'counter', uid, d: 2 });
+  g.apply('a', { a: 'counter', uid, d: -1 });
+  assert(g.viewFor('a').zones.a.battlefield[0].counters === 1, 'counters adjust and floor at 0');
+
+  g.apply('a', { a: 'move', uid, to: 'graveyard' });
+  v = g.viewFor('a');
+  assert(v.zones.a.battlefield.length === 0 && v.zones.a.graveyard.length === 1, 'move -> graveyard');
+  g.apply('a', { a: 'recover', uid });
+  assert(g.viewFor('a').hand.length === 8, 'recover returns it to hand');
+
+  g.apply('a', { a: 'life', d: -3 });
+  assert(g.viewFor('b').life.a === 17, 'life change is public');
+
+  g.apply('a', { a: 'mulligan' });
+  v = g.viewFor('a');
+  // Before the mulligan: hand 8 + library 12 = 20. All 8 go back (-> 20), 7 drawn (-> 13).
+  assert(v.hand.length === 7 && v.zones.a.libraryCount === 13, 'mulligan reshuffles and draws 7');
+
+  assert(g.active === 'a', 'a starts active');
+  g.apply('b', { a: 'passTurn' });
+  assert(g.active === 'a' && g.turn === 2, 'passTurn flips active player and bumps turn');
+
+  let threw = false;
+  try { g.apply('b', { a: 'play', uid: 'not-a-card' }); } catch (e) { threw = /hand/.test(e.message); }
+  assert(threw, 'playing a card you do not hold is rejected');
+  threw = false;
+  try { g.apply('b', { a: 'tap', uid: g.viewFor('a').hand[0].uid }); } catch (e) { threw = true; }
+  assert(threw, "touching the opponent's cards is rejected");
+
+  assert(g.viewFor('a').log.length > 0 && g.viewFor('a').log.every(l => typeof l.text === 'string'),
+    'actions are logged');
 }
 
 console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));

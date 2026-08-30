@@ -27,6 +27,7 @@
     net: null,
     players: [],         // [{id, name, conn|null, connected}]  (host is players[0], conn=null)
     engine: null,
+    game: null,          // MTGGame.Game once a post-draft game starts (host only)
     setup: { mode: 'cube', cubeCards: null, jsPacks: null,
              packSize: 15, packsPerPlayer: 3, jsChoices: 3, jsPacksPerPlayer: 2 },
     // guest
@@ -40,7 +41,7 @@
   /* ---------------- screen switching ---------------- */
 
   function show(screen) {
-    ['home', 'lobby', 'draft', 'done'].forEach(function (s) {
+    ['home', 'lobby', 'draft', 'done', 'game'].forEach(function (s) {
       $('#screen-' + s).hidden = (s !== screen);
     });
   }
@@ -137,7 +138,8 @@
           ghost.connected = true;
           App.net.send(conn, { t: 'welcome', id: ghost.id });
           broadcastLobby();
-          sendViewTo(ghost);
+          if (App.game) sendGameViewTo(ghost);
+          else sendViewTo(ghost);
           toast(ghost.name + ' reconnected.');
           renderTableStatus();
           return;
@@ -160,6 +162,11 @@
       case 'pickJs': {
         var player = App.players.find(function (p) { return p.conn === conn; });
         if (player) hostApplyPick(player, msg);
+        break;
+      }
+      case 'act': {
+        var actor = App.players.find(function (p) { return p.conn === conn; });
+        if (actor) hostApplyAction(actor, msg.action);
         break;
       }
     }
@@ -356,6 +363,56 @@
     App.players.forEach(sendViewTo);
   }
 
+  /* ---------------- post-draft 1v1 game (host authority) ---------------- */
+
+  function hostStartGame() {
+    if (App.players.length !== 2) return toast('The play surface is 1v1 — need exactly 2 players.', true);
+    var decks = {};
+    var names = {};
+    App.players.forEach(function (p) {
+      decks[p.id] = MTGDraft.deckFor(App.engine, p.id);
+      names[p.id] = p.name;
+    });
+    try {
+      App.game = new MTGGame.Game(App.players.map(function (p) { return p.id; }), decks, names);
+    } catch (err) {
+      return toast(err.message, true);
+    }
+    broadcastGameViews();
+  }
+
+  function hostApplyAction(player, action) {
+    if (!App.game) return;
+    try {
+      App.game.apply(player.id, action);
+    } catch (err) {
+      if (player.conn) App.net.send(player.conn, { t: 'err', msg: err.message });
+      else toast(err.message, true);
+      return;
+    }
+    broadcastGameViews();
+  }
+
+  function sendGameViewTo(player) {
+    var payload = { t: 'game', view: App.game.viewFor(player.id) };
+    if (player.conn) App.net.send(player.conn, payload);
+    else applyGameView(payload); // the host player
+  }
+
+  function broadcastGameViews() {
+    App.players.forEach(sendGameViewTo);
+  }
+
+  function gameSend(action) {
+    if (App.role === 'host') hostApplyAction(App.players[0], action);
+    else App.conn.send({ t: 'act', action: action });
+  }
+
+  function applyGameView(payload) {
+    show('game');
+    GameUI.render(payload.view, gameSend);
+  }
+
   /* ---------------- joining (guest) ---------------- */
 
   function startJoining(name, code) {
@@ -397,6 +454,9 @@
         break;
       case 'view':
         applyView(msg);
+        break;
+      case 'game':
+        applyGameView(msg);
         break;
       case 'err':
         toast(msg.msg, true);
@@ -574,6 +634,12 @@
     $('#deck-grid').innerHTML = deck.map(function (c) {
       return '<div class="card small" title="' + escapeHtml(c.name) + '">' + cardFace(c) + '</div>';
     }).join('');
+
+    // After a 1v1 jumpstart draft, offer the play surface.
+    var isJs = App.lastView && App.lastView.mode === 'jumpstart';
+    var count = App.role === 'host' ? App.players.length : (App.lobby ? App.lobby.players.length : 0);
+    $('#btn-start-game').hidden = !(isJs && count === 2 && App.role === 'host');
+    $('#game-hint').hidden = !(isJs && count === 2 && App.role !== 'host');
   }
 
   function initDone() {
@@ -592,6 +658,9 @@
     });
     $('#btn-back-home').addEventListener('click', function () {
       window.location.reload();
+    });
+    $('#btn-start-game').addEventListener('click', function () {
+      if (App.role === 'host') hostStartGame();
     });
   }
 
