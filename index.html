@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MTG Draft Companion</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%83%8F%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>MTG Draft Companion</h1>
+  <div id="room-badge">Room: <strong id="room-code">—</strong>
+    <button id="btn-copy-code" class="mini" title="Copy room code">copy</button>
+  </div>
+</header>
+
+<div id="toast" class="toast"></div>
+
+<!-- ============ HOME ============ -->
+<section id="screen-home">
+  <div class="panel">
+    <label for="name-input">Your name</label>
+    <input id="name-input" maxlength="24" placeholder="e.g. Ven" autocomplete="nickname">
+
+    <div class="split">
+      <div class="split-col">
+        <h2>Host a draft</h2>
+        <p class="hint">You'll get a room code to share. Your browser runs the draft — keep the tab open.</p>
+        <button id="btn-host" class="primary">Create room</button>
+      </div>
+      <div class="split-col">
+        <h2>Join a draft</h2>
+        <input id="code-input" placeholder="Room code, e.g. K7XQ2" maxlength="8" style="text-transform:uppercase">
+        <button id="btn-join" class="primary">Join room</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOBBY ============ -->
+<section id="screen-lobby" hidden>
+  <div class="panel">
+    <h2>Lobby</h2>
+    <ul id="lobby-players" class="player-list"></ul>
+    <p id="lobby-info" class="hint"></p>
+
+    <div id="guest-panel" hidden>
+      <p class="hint">Waiting for the host to start the draft…</p>
+    </div>
+
+    <div id="host-panel" hidden>
+      <fieldset>
+        <legend>Draft mode</legend>
+        <label class="radio"><input type="radio" name="mode" id="mode-cube" checked> Cube draft (booster packs from a cube)</label>
+        <label class="radio"><input type="radio" name="mode" id="mode-jumpstart"> Jumpstart (pick 20-card packs)</label>
+      </fieldset>
+
+      <div id="cube-setup">
+        <label for="cube-text">Cube list — paste from Moxfield / CubeCobra (one card per line, e.g. <code>1 Lightning Bolt</code>)</label>
+        <textarea id="cube-text" rows="10" placeholder="1 Lightning Bolt&#10;1 Counterspell&#10;1 Llanowar Elves&#10;…"></textarea>
+        <div class="opts">
+          <label>Cards per pack <input id="opt-packsize" type="number" min="5" max="30" value="15"></label>
+          <label>Packs per player <input id="opt-packs" type="number" min="1" max="6" value="3"></label>
+        </div>
+      </div>
+
+      <div id="js-setup" hidden>
+        <label for="js-text">Jumpstart packs — start each pack with a <code># Pack Name</code> header, then its 20 cards</label>
+        <textarea id="js-text" rows="10" placeholder="# Goblins&#10;2 Goblin Guide&#10;1 Krenko, Mob Boss&#10;7 Mountain&#10;…&#10;&#10;# Angels&#10;1 Serra Angel&#10;…"></textarea>
+        <div class="opts">
+          <label>Packs offered per turn <input id="opt-choices" type="number" min="1" max="6" value="3"></label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="btn-load-pool">Load &amp; validate</button>
+        <span id="pool-report" class="pool-report"></span>
+      </div>
+      <div class="actions">
+        <button id="btn-start" class="primary" disabled>Start draft</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DRAFT ============ -->
+<section id="screen-draft" hidden>
+  <div class="draft-layout">
+    <main>
+      <div id="draft-status" class="status-bar"></div>
+      <div id="table-status" class="table-status"></div>
+      <div id="draft-area"></div>
+    </main>
+    <aside>
+      <h3 id="picks-title">Your picks</h3>
+      <ul id="picks-list" class="picks"></ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ DONE ============ -->
+<section id="screen-done" hidden>
+  <div class="panel">
+    <h2>Draft complete — your deck (<span id="deck-count"></span>)</h2>
+    <div class="actions">
+      <button id="btn-copy-deck" class="primary">Copy deck list</button>
+      <button id="btn-back-home">Back to start</button>
+    </div>
+    <textarea id="deck-text" rows="10" readonly></textarea>
+    <div id="deck-grid" class="card-grid"></div>
+  </div>
+</section>
+
+<script src="vendor/peerjs.min.js"></script>
+<script src="js/parser.js"></script>
+<script src="js/draft.js"></script>
+<script src="js/scryfall.js"></script>
+<script src="js/net.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
