@@ -1,9 +1,18 @@
 /*
- * Thin PeerJS wrapper — star topology.
+ * Transport layer — star topology, two interchangeable backends:
  *
- * The host's browser owns all state; guests hold a single DataConnection to
- * the host. Signaling goes through PeerJS's free public broker; after the
- * handshake, traffic is direct browser-to-browser WebRTC.
+ * 1. WebRTC via PeerJS (default): signaling through the public PeerJS broker
+ *    (or a self-hosted one via ?peerhost=...), then direct browser-to-browser
+ *    data channels. Zero server load, but needs NAT traversal to succeed.
+ *
+ * 2. WebSocket relay (?relay=1, used by host-draft.sh / relay-server.mjs):
+ *    every client holds one WebSocket to the relay, which forwards JSON
+ *    between host and guests. Works under ANY NAT/VPN/CGNAT because it is
+ *    ordinary client->server traffic. With ?relay=1 the relay is the server
+ *    that served the page; ?relayhost=some.host targets another one.
+ *
+ * Both backends expose the same host()/join() API, so the app never knows
+ * which one it is on.
  */
 
 var Net = (function () {
@@ -47,12 +56,126 @@ var Net = (function () {
     return opts;
   }
 
+  /* ------------------------- relay backend ------------------------- */
+
+  /** The relay WebSocket URL, or null when the WebRTC backend should be used. */
+  function relayUrl() {
+    try {
+      var q = new URLSearchParams(window.location.search);
+      var rh = q.get('relayhost');
+      if (rh) return 'wss://' + rh + '/ws';
+      if (q.get('relay') === '1') {
+        var proto = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+        return proto + window.location.host + '/ws';
+      }
+    } catch (e) { /* no location — WebRTC default */ }
+    return null;
+  }
+
+  function relayHost(url, handlers) {
+    var ws = new WebSocket(url);
+    var conns = Object.create(null); // guest id -> conn handle {id}
+    var opened = false;
+
+    ws.onopen = function () { ws.send(JSON.stringify({ t: 'host' })); };
+    ws.onmessage = function (ev) {
+      var msg;
+      try { msg = JSON.parse(ev.data); } catch (e) { return; }
+      switch (msg.t) {
+        case 'hosted':
+          opened = true;
+          handlers.onOpen(msg.code);
+          break;
+        case 'peer-open':
+          conns[msg.id] = { id: msg.id, open: true };
+          handlers.onConnection(conns[msg.id]);
+          break;
+        case 'from':
+          if (conns[msg.id]) handlers.onMessage(conns[msg.id], msg.data);
+          break;
+        case 'peer-close':
+          if (conns[msg.id]) {
+            conns[msg.id].open = false;
+            handlers.onDisconnect(conns[msg.id]);
+            delete conns[msg.id];
+          }
+          break;
+        case 'error':
+          handlers.onError(new Error(msg.msg || 'Relay error'));
+          break;
+      }
+    };
+    ws.onerror = function () {
+      if (!opened) handlers.onError(new Error('Could not reach the relay server.'));
+    };
+    ws.onclose = function () {
+      if (opened) handlers.onError(new Error('Lost connection to the relay server.'));
+      else handlers.onError(new Error('Could not reach the relay server.'));
+    };
+
+    return {
+      code: null,
+      send: function (conn, msg) {
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({ t: 'to', id: conn.id, data: msg }));
+        }
+      },
+      close: function () { try { ws.onclose = null; ws.close(); } catch (e) {} }
+    };
+  }
+
+  function relayJoin(url, code, handlers) {
+    var ws = new WebSocket(url);
+    var joined = false;
+    var conn = { open: true };
+
+    ws.onopen = function () { ws.send(JSON.stringify({ t: 'join', code: code })); };
+    ws.onmessage = function (ev) {
+      var msg;
+      try { msg = JSON.parse(ev.data); } catch (e) { return; }
+      switch (msg.t) {
+        case 'joined':
+          joined = true;
+          handlers.onOpen(conn);
+          break;
+        case 'msg':
+          handlers.onMessage(msg.data);
+          break;
+        case 'error':
+          handlers.onError(new Error(msg.msg || 'Relay error'));
+          break;
+      }
+    };
+    ws.onerror = function () {
+      if (!joined) handlers.onError(new Error('Could not reach the relay server.'));
+    };
+    ws.onclose = function () {
+      if (joined) handlers.onClose();
+      else handlers.onError(new Error('Could not reach the relay server.'));
+    };
+
+    return {
+      send: function (msg) {
+        if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ t: 'msg', data: msg }));
+      },
+      close: function () { try { ws.onclose = null; ws.close(); } catch (e) {} }
+    };
+  }
+
+  /* ------------------------- public API ------------------------- */
+
   /**
    * Host a room. handlers: {onOpen(code), onConnection(conn), onMessage(conn, msg),
    * onDisconnect(conn), onError(err)}
    * Returns {peer, code, broadcast(conns, msg), close()}
    */
   function host(handlers) {
+    var relay = relayUrl();
+    if (relay) return relayHost(relay, handlers);
+    return peerHost(handlers);
+  }
+
+  function peerHost(handlers) {
     var code = makeCode(5);
     var peer = new Peer(PREFIX + code, peerOptions());
 
@@ -86,6 +209,12 @@ var Net = (function () {
    */
   function join(code, handlers) {
     code = normalizeCode(code);
+    var relay = relayUrl();
+    if (relay) return relayJoin(relay, code, handlers);
+    return peerJoin(code, handlers);
+  }
+
+  function peerJoin(code, handlers) {
     var peer = new Peer(peerOptions());
     var conn = null;
 

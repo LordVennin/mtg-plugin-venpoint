@@ -1,32 +1,38 @@
 #!/usr/bin/env bash
-# Host a draft over Cloudflare quick tunnels — one command, one shareable URL.
+# Host a draft over a Cloudflare quick tunnel — one command, one shareable URL.
 #
 #   ./host-draft.sh
 #
-# Starts a local web server + PeerJS signaling server (loopback only, no
-# firewall ports needed), opens a Cloudflare quick tunnel in front of each,
-# and prints the single URL that you AND your friends open. Ctrl+C stops
-# everything. Tunnel URLs are random and change on every run.
+# Runs the relay server (which serves the app AND relays draft messages over
+# WebSockets — no WebRTC, so it works under any NAT/VPN/CGNAT), opens one
+# Cloudflare quick tunnel in front of it, and prints the URL that you AND
+# your friends open. Ctrl+C stops everything. The tunnel URL is random and
+# changes on every run.
 #
-# Requirements: python3, node/npx, curl. cloudflared is used from PATH if
-# installed, otherwise a static binary is downloaded to .cache/ on first run.
+# Requirements: node + npm, curl. cloudflared is used from PATH if installed,
+# otherwise a static binary is downloaded to .cache/ on first run.
 #
-# Options via environment: WEB_PORT (default 8000), PEER_PORT (default 9000).
+# Options via environment: PORT (default 8000).
 
 set -euo pipefail
 cd "$(dirname "$0")"
 
-WEB_PORT="${WEB_PORT:-8000}"
-PEER_PORT="${PEER_PORT:-9000}"
+PORT="${PORT:-8000}"
 CACHE_DIR=".cache"
 mkdir -p "$CACHE_DIR"
 
 log() { printf '\033[1;33m[draft]\033[0m %s\n' "$*"; }
 die() { printf '\033[1;31m[draft]\033[0m %s\n' "$*" >&2; exit 1; }
 
-command -v python3 >/dev/null 2>&1 || die "python3 is required"
-command -v npx     >/dev/null 2>&1 || die "node/npx is required (install nodejs)"
-command -v curl    >/dev/null 2>&1 || die "curl is required"
+command -v node >/dev/null 2>&1 || die "node is required (install nodejs)"
+command -v npm  >/dev/null 2>&1 || die "npm is required"
+command -v curl >/dev/null 2>&1 || die "curl is required"
+
+# ---------- dependencies ----------
+if [ ! -d node_modules/ws ]; then
+  log "Installing dependencies (first run only)…"
+  npm install --no-audit --no-fund >/dev/null
+fi
 
 # ---------- cloudflared: system binary, or download a static one ----------
 if command -v cloudflared >/dev/null 2>&1; then
@@ -57,47 +63,33 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-# ---------- local servers (loopback only; the tunnels are the public face) ----------
-log "Starting web server on 127.0.0.1:$WEB_PORT"
-python3 -m http.server "$WEB_PORT" --bind 127.0.0.1 >"$CACHE_DIR/web.log" 2>&1 &
-PIDS+=($!)
-
-log "Starting PeerJS signaling server on 127.0.0.1:$PEER_PORT"
-npx --yes --package=peer peerjs --port "$PEER_PORT" --host 127.0.0.1 >"$CACHE_DIR/peerjs.log" 2>&1 &
+# ---------- relay server (serves the app + relays draft messages) ----------
+log "Starting relay server on 127.0.0.1:$PORT"
+node relay-server.mjs --port "$PORT" --host 127.0.0.1 >"$CACHE_DIR/relay.log" 2>&1 &
 PIDS+=($!)
 
 for i in $(seq 1 30); do
-  if curl -fsS "http://127.0.0.1:$PEER_PORT/" >/dev/null 2>&1; then break; fi
-  [ "$i" = 30 ] && die "PeerJS server did not start; see $CACHE_DIR/peerjs.log"
+  if curl -fsS "http://127.0.0.1:$PORT/" >/dev/null 2>&1; then break; fi
+  [ "$i" = 30 ] && die "Relay server did not start; see $CACHE_DIR/relay.log"
   sleep 1
 done
-log "Local servers up."
+log "Relay server up."
 
-# ---------- tunnels ----------
-start_tunnel() { # $1 = local port, $2 = log file
-  : >"$2"
-  "$CLOUDFLARED" tunnel --no-autoupdate --url "http://127.0.0.1:$1" >"$2" 2>&1 &
-  PIDS+=($!)
-}
+# ---------- tunnel ----------
+: >"$CACHE_DIR/tunnel.log"
+log "Opening Cloudflare quick tunnel (takes ~15s)…"
+"$CLOUDFLARED" tunnel --no-autoupdate --url "http://127.0.0.1:$PORT" >"$CACHE_DIR/tunnel.log" 2>&1 &
+PIDS+=($!)
 
-wait_tunnel_url() { # $1 = log file → prints https://xxx.trycloudflare.com
-  for i in $(seq 1 60); do
-    url=$(grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' "$1" | head -1 || true)
-    if [ -n "$url" ]; then echo "$url"; return 0; fi
-    sleep 1
-  done
-  return 1
-}
+WEB_URL=""
+for i in $(seq 1 60); do
+  WEB_URL=$(grep -oE 'https://[a-z0-9-]+\.trycloudflare\.com' "$CACHE_DIR/tunnel.log" | head -1 || true)
+  [ -n "$WEB_URL" ] && break
+  sleep 1
+done
+[ -n "$WEB_URL" ] || die "Tunnel failed to open; see $CACHE_DIR/tunnel.log"
 
-log "Opening Cloudflare quick tunnels (takes ~15s)…"
-start_tunnel "$WEB_PORT"  "$CACHE_DIR/tunnel-web.log"
-start_tunnel "$PEER_PORT" "$CACHE_DIR/tunnel-peer.log"
-
-WEB_URL=$(wait_tunnel_url "$CACHE_DIR/tunnel-web.log")  || die "Web tunnel failed; see $CACHE_DIR/tunnel-web.log"
-PEER_URL=$(wait_tunnel_url "$CACHE_DIR/tunnel-peer.log") || die "Signaling tunnel failed; see $CACHE_DIR/tunnel-peer.log"
-PEER_HOST="${PEER_URL#https://}"
-
-SHARE_URL="$WEB_URL/?peerhost=$PEER_HOST"
+SHARE_URL="$WEB_URL/?relay=1"
 echo
 log "READY — open this URL yourself AND send it to your friends:"
 echo

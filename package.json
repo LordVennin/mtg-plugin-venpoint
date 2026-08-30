@@ -1,0 +1,12 @@
+{
+  "name": "mtg-draft-companion",
+  "private": true,
+  "description": "P2P/relay MTG draft companion — cube and jumpstart drafts with friends",
+  "scripts": {
+    "start": "node relay-server.mjs",
+    "test": "node tests/run.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

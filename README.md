@@ -19,10 +19,24 @@ It's a static site — no build step, no dependencies to install.
 - **Locally:** `python3 -m http.server` (or any static server) in the repo
   folder, or just double-click `index.html`.
 - **One-command hosting for remote friends:** `./host-draft.sh` (Linux;
-  needs python3, node, curl) starts everything locally and exposes it
-  through Cloudflare quick tunnels — no open firewall ports, no public
-  PeerJS broker. It prints a single URL for you and your friends to open.
-  The URL changes on every run.
+  needs node + npm, curl) runs the relay server behind a Cloudflare quick
+  tunnel and prints a single URL for you and your friends to open — no
+  open firewall ports, no WebRTC. The URL changes on every run.
+
+### Two transports
+
+The app picks its transport from the URL:
+
+- **Default (no params): WebRTC.** Signaling via the public PeerJS broker
+  (or self-hosted, `?peerhost=...`), then direct browser-to-browser
+  traffic. Zero infrastructure, but NAT traversal can fail behind VPNs
+  (e.g. "Negotiation of connection failed" with NordVPN active) or
+  carrier-grade NAT.
+- **`?relay=1`: WebSocket relay.** All traffic flows through
+  `relay-server.mjs` (which also serves the app), so it works from **any**
+  network — VPNs, CGNAT, strict NATs, hotel Wi-Fi. This is what
+  `host-draft.sh` uses. Run it yourself with `npm install && npm start`,
+  or point at a relay on another machine with `?relayhost=some.host`.
 
 Signaling goes through the free public PeerJS broker; after the handshake all
 draft traffic is direct browser-to-browser. To use your own
@@ -95,7 +109,8 @@ comments (`//`), and section headers (`Deck`, `Sideboard`, …) are all handled.
 | `js/parser.js` | Decklist / jumpstart-pack text parsing (pure, no DOM) |
 | `js/draft.js` | `CubeDraft` and `JumpstartDraft` state machines (pure) |
 | `js/scryfall.js` | Batch card resolution + localStorage cache |
-| `js/net.js` | Thin PeerJS wrapper (host = star-topology authority) |
+| `js/net.js` | Transport layer: WebRTC (PeerJS) or WebSocket relay, same API |
+| `relay-server.mjs` | Static file server + dumb WebSocket relay (rooms, forwarding) |
 | `js/app.js` | Screens, host/guest message protocol, rendering |
 | `tests/run.js` | Unit tests for the pure modules — `node tests/run.js` |
 
