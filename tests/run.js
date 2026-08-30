@@ -425,5 +425,53 @@ section('Game tokens + peek (scry)');
     'library order preserved after peeking (no shuffle)');
 }
 
+section('London mulligan + zone moves');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i, type: 'Sorcery' }));
+  const g = new Game.Game(['a', 'b'], { a: mkDeck('A', 20), b: mkDeck('B', 20) },
+    { a: 'Alice', b: 'Bob' }, { rng: seededRng(21) });
+  const va = () => g.viewFor('a');
+
+  assert(va().bottoming === 0, 'no bottoming owed at game start');
+  assert((() => { try { g.apply('a', { a: 'bottomCard', uid: va().hand[0].uid }); return false; } catch (e) { return /do not owe/.test(e.message); } })(),
+    'bottomCard rejected when nothing is owed');
+
+  // Mulligan 1: draw 7, owe 1.
+  g.apply('a', { a: 'mulligan' });
+  assert(va().hand.length === 7 && va().bottoming === 1, 'first mulligan: 7 cards, 1 owed to the bottom');
+  const owed = va().hand[2];
+  g.apply('a', { a: 'bottomCard', uid: owed.uid });
+  assert(va().hand.length === 6 && va().bottoming === 0, 'bottoming clears: 6-card hand');
+  assert(g.zones.a.library[g.zones.a.library.length - 1].uid === owed.uid, 'the card went to the actual bottom');
+
+  // Mulligan 2: draw 7 again, owe 2.
+  g.apply('a', { a: 'mulligan' });
+  assert(va().hand.length === 7 && va().bottoming === 2, 'second mulligan: 7 cards, 2 owed');
+  g.apply('a', { a: 'bottomCard', uid: va().hand[0].uid });
+  g.apply('a', { a: 'bottomCard', uid: va().hand[0].uid });
+  assert(va().hand.length === 5 && va().bottoming === 0, 'after bottoming 2: 5-card hand');
+  assert(/mulligan #2/.test(g.viewFor('b').log.map(l => l.text).join(' ')), 'mulligan count is logged');
+
+  // Zone moves: graveyard/exile -> anywhere.
+  g.apply('a', { a: 'discard', uid: va().hand[0].uid });
+  g.apply('a', { a: 'discard', uid: va().hand[0].uid });
+  const [gy1, gy2] = va().zones.a.graveyard;
+  g.apply('a', { a: 'zoneMove', from: 'graveyard', uid: gy1.uid, to: 'battlefield' });
+  assert(va().zones.a.battlefield.some(e => e.card.uid === gy1.uid), 'graveyard -> battlefield (reanimation)');
+  g.apply('a', { a: 'zoneMove', from: 'graveyard', uid: gy2.uid, to: 'exile' });
+  assert(va().zones.a.exile.some(c => c.uid === gy2.uid), 'graveyard -> exile');
+  g.apply('a', { a: 'zoneMove', from: 'exile', uid: gy2.uid, to: 'hand' });
+  assert(va().hand.some(c => c.uid === gy2.uid), 'exile -> hand (impulse retrieval)');
+  const libBefore = va().zones.a.libraryCount;
+  g.apply('a', { a: 'discard', uid: gy2.uid });
+  g.apply('a', { a: 'zoneMove', from: 'graveyard', uid: gy2.uid, to: 'library' });
+  assert(va().zones.a.libraryCount === libBefore + 1, 'graveyard -> shuffled into library');
+
+  assert((() => { try { g.apply('a', { a: 'zoneMove', from: 'hand', uid: 'x', to: 'exile' }); return false; } catch (e) { return /Bad source/.test(e.message); } })(),
+    'zoneMove only serves graveyard/exile');
+  assert((() => { try { g.apply('a', { a: 'zoneMove', from: 'graveyard', uid: 'nope', to: 'hand' }); return false; } catch (e) { return /not in your graveyard/.test(e.message); } })(),
+    'missing card rejected');
+}
+
 console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
 process.exit(failures ? 1 : 0);

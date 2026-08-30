@@ -11,7 +11,12 @@
  * Actions (via apply(playerId, action)):
  *   {a:'draw'}                       top of library -> hand
  *   {a:'shuffle'}                    shuffle library
- *   {a:'mulligan'}                   hand -> library, shuffle, draw 7
+ *   {a:'mulligan'}                   London mulligan: hand -> library, shuffle,
+ *                                    draw 7, then owe (mulligan count) cards to
+ *                                    the bottom via bottomCard
+ *   {a:'bottomCard', uid}            put a hand card on the bottom (owed after mulligan)
+ *   {a:'zoneMove', from, uid, to}    graveyard/exile card -> 'hand'|'battlefield'|
+ *                                    'graveyard'|'exile'|'library' (shuffled in)
  *   {a:'life', d:+1|-1|...}          adjust own life
  *   {a:'play', uid}                  hand -> battlefield
  *   {a:'discard', uid}               hand -> graveyard
@@ -79,6 +84,8 @@ var MTGGame = (function () {
     this.log = [];
     this.searching = {};
     this.peeking = {}; // pid -> how many top-of-library cards are revealed to them
+    this.mulligans = {}; // pid -> mulligans taken
+    this.bottoming = {}; // pid -> cards still owed to the bottom after a mulligan
 
     this.players.forEach(function (id) {
       var deck = (decks[id] || []).map(function (c) {
@@ -145,11 +152,51 @@ var MTGGame = (function () {
         break;
       }
       case 'mulligan': {
-        var handSize = z.hand.length;
+        // London mulligan: always draw 7, then bottom as many cards as
+        // mulligans taken. Any bottoming still owed carries over.
+        var mullCount = (this.mulligans[pid] = (this.mulligans[pid] | 0) + 1);
         z.library = shuffle(z.library.concat(z.hand), this.rng);
         z.hand = [];
         this._draw(pid, 7);
-        this._log(pid, me + ' mulligans (' + handSize + ' cards back, draws 7).');
+        this.bottoming[pid] = Math.min(mullCount, z.hand.length);
+        this._log(pid, me + ' takes mulligan #' + mullCount + ' — draws 7 and must put ' +
+          this.bottoming[pid] + ' card' + (this.bottoming[pid] === 1 ? '' : 's') + ' on the bottom.');
+        break;
+      }
+      case 'bottomCard': {
+        if (!(this.bottoming[pid] | 0)) throw new Error('You do not owe any cards to the bottom');
+        var bc = takeByUid(z.hand, action.uid, function (c) { return c.uid; });
+        if (!bc) throw new Error('Card not in your hand');
+        z.library.push(bc);
+        this.bottoming[pid]--;
+        this._log(pid, me + ' puts a card on the bottom of their library (' +
+          this.bottoming[pid] + ' to go).');
+        break;
+      }
+      case 'zoneMove': {
+        var from = action.from;
+        if (from !== 'graveyard' && from !== 'exile') throw new Error('Bad source zone');
+        var dest = action.to;
+        if (['hand', 'battlefield', 'graveyard', 'exile', 'library'].indexOf(dest) === -1 || dest === from) {
+          throw new Error('Bad destination');
+        }
+        var zc = takeByUid(z[from], action.uid, function (c) { return c.uid; });
+        if (!zc) throw new Error('Card not in your ' + from);
+        var fromLabel = 'their ' + from;
+        if (dest === 'library') {
+          z.library = shuffle(z.library.concat([zc]), this.rng);
+          this._log(pid, me + ' shuffles ' + zc.name + ' from ' + fromLabel + ' into their library.');
+        } else if (dest === 'battlefield') {
+          z.battlefield.push(permanent(zc));
+          this._log(pid, me + ' returns ' + zc.name + ' from ' + fromLabel + ' to the battlefield.');
+        } else if (dest === 'hand') {
+          z.hand.push(zc);
+          this._log(pid, me + ' returns ' + zc.name + ' from ' + fromLabel + ' to their hand.');
+        } else {
+          z[dest].push(zc);
+          this._log(pid, me + "'s " + zc.name + ' goes from ' + fromLabel + ' to ' +
+            (dest === 'graveyard' ? 'the graveyard' : 'exile') + '.');
+        }
         break;
       }
       case 'life': {
@@ -406,6 +453,7 @@ var MTGGame = (function () {
       life: Object.assign({}, this.life),
       hand: this._zonesOf(pid).hand.slice(),
       searching: !!this.searching[pid],
+      bottoming: this.bottoming[pid] | 0,
       // Library contents are revealed only to their owner, only mid-search.
       library: this.searching[pid] ? this._zonesOf(pid).library.slice() : null,
       // Scry window: top n cards, owner only, in order (index 0 = top).

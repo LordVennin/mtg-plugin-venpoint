@@ -13,7 +13,7 @@ var Scryfall = (function () {
   'use strict';
 
   var API = 'https://api.scryfall.com/cards/collection';
-  var LS_KEY = 'mtgdraft.cardcache.v1';
+  var LS_KEY = 'mtgdraft.cardcache.v2'; // v2: added oracle text + p/t
   var mem = Object.create(null);
 
   function loadCache() {
@@ -41,11 +41,22 @@ var Scryfall = (function () {
     else if (card.card_faces && card.card_faces[0].image_uris) {
       img = card.card_faces[0].image_uris.normal || card.card_faces[0].image_uris.large;
     }
+    var text = card.oracle_text ||
+      (card.card_faces
+        ? card.card_faces.map(function (f) { return f.oracle_text || ''; }).filter(Boolean).join('\n//\n')
+        : '') || '';
+    var pt = (card.power !== undefined && card.toughness !== undefined)
+      ? card.power + '/' + card.toughness
+      : (card.card_faces && card.card_faces[0].power !== undefined
+        ? card.card_faces[0].power + '/' + card.card_faces[0].toughness
+        : '');
     return {
       name: card.name,
       img: img,
       cost: card.mana_cost || (card.card_faces ? card.card_faces[0].mana_cost : '') || '',
       type: card.type_line || '',
+      text: text,
+      pt: pt,
       colors: card.color_identity || []
     };
   }

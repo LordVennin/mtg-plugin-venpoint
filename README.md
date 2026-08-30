@@ -69,10 +69,17 @@ information, not the rules of the game. Decks are shuffled, both players
 draw 7, and you go:
 
 - **Click any card** — yours or the opponent's — to read it full-size in the
-  preview pane on the left. Your own cards also get action buttons:
+  preview pane on the left, with its oracle text, mana cost, type line, and
+  power/toughness below the image. Your own cards also get action buttons:
   Hand: *Play* / *Discard*. Battlefield: *Tap*, *Attach to…* / *Detach*,
   *± Counter*, *⇅ Row*, *→ Graveyard*, *→ Exile*, *→ Hand*, *→ Shuffle in*.
-  Graveyard: *→ Hand*.
+  Graveyard and exile: *→ Hand*, *→ Battlefield*, *→ Exile*/*→ Graveyard*,
+  *→ Shuffle in* — reanimation, flashback, impulse-exile all work.
+- **Whose turn it is** glows green — the active player's whole board area is
+  highlighted on both screens.
+- **London mulligan**: each mulligan draws a fresh 7, then the board tells
+  you to put N cards on the bottom (N = mulligans taken) — select a hand
+  card and hit *⤓ Bottom of library* until the debt is paid.
 - **Double-click** shortcuts: hand card = play it, battlefield card = tap it.
 - **Two battlefield rows**: lands go to the row nearest their owner, spells
   to the row nearest the middle (auto-sorted by card type; *⇅ Row* overrides).

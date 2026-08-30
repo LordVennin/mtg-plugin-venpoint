@@ -195,6 +195,11 @@ legend { color: var(--muted); font-size: 13px; padding: 0 6px; }
   margin-bottom: 8px;
 }
 .player-area.opp { background: #1b1e27; }
+.player-area.active-turn {
+  border-color: #3fae6a;
+  box-shadow: 0 0 14px rgba(63, 174, 106, 0.25), inset 0 0 30px rgba(63, 174, 106, 0.05);
+}
+.player-area.active-turn .turn-badge { background: #3fae6a; }
 .board-divider {
   text-align: center; color: var(--muted); font-size: 12px;
   letter-spacing: 2px; text-transform: uppercase; margin: 6px 0;
@@ -276,6 +281,12 @@ button.ctx {
 .preview-name { font-weight: 700; font-size: 14px; }
 .preview-cost { color: var(--accent); font-size: 13px; }
 .preview-type { color: var(--muted); font-size: 12px; }
+.preview-pt { color: var(--muted); font-weight: 400; font-size: 12px; }
+.preview-oracle {
+  margin-top: 6px; padding-top: 6px; border-top: 1px solid #2c3140;
+  font-size: 12px; line-height: 1.45; color: var(--text);
+  max-height: 40vh; overflow-y: auto;
+}
 .gcard.previewed { outline: 1px solid var(--accent-2); }
 
 /* battlefield rows + attachment stacks */
@@ -297,6 +308,10 @@ button.ctx {
 .peek-pos { font-size: 10px; color: var(--muted); text-align: left; margin-bottom: 2px; }
 
 .attach-hint { color: var(--accent); font-size: 13px; padding: 4px 0; }
+.bottoming-banner {
+  background: rgba(224, 160, 78, 0.12); border: 1px solid var(--warn); color: var(--warn);
+  border-radius: 6px; padding: 6px 12px; margin: 4px 0; font-size: 13px; font-weight: 600;
+}
 
 /* library search modal */
 .search-modal[hidden] { display: none; }

@@ -127,7 +127,10 @@ var GameUI = (function () {
     var b = function (act, label) {
       return '<button class="ctx" data-act="' + act + '">' + label + '</button>';
     };
-    if (selected.zone === 'hand') return b('play', '▶ Play') + b('discard', 'Discard');
+    if (selected.zone === 'hand') {
+      return b('play', '▶ Play') + b('discard', 'Discard') +
+        (view.bottoming > 0 ? b('bottom', '⤓ Bottom of library') : '');
+    }
     if (selected.zone === 'battlefield') {
       var entry = null;
       view.zones[view.you].battlefield.forEach(function (e) {
@@ -140,7 +143,14 @@ var GameUI = (function () {
         b('to-graveyard', '→ Graveyard') + b('to-exile', '→ Exile') + b('to-hand', '→ Hand') +
         b('to-library', '→ Shuffle in');
     }
-    if (selected.zone === 'graveyard') return b('recover', '→ Hand');
+    if (selected.zone === 'graveyard') {
+      return b('gy-hand', '→ Hand') + b('gy-field', '→ Battlefield') +
+        b('gy-exile', '→ Exile') + b('gy-lib', '→ Shuffle in');
+    }
+    if (selected.zone === 'exile') {
+      return b('ex-hand', '→ Hand') + b('ex-field', '→ Battlefield') +
+        b('ex-gy', '→ Graveyard') + b('ex-lib', '→ Shuffle in');
+    }
     return '';
   }
 
@@ -154,9 +164,11 @@ var GameUI = (function () {
       : '<div class="preview-text"><strong>' + escapeHtml(card.name) + '</strong></div>';
     return body +
       '<div class="preview-meta">' +
-        '<div class="preview-name">' + escapeHtml(card.name) + '</div>' +
+        '<div class="preview-name">' + escapeHtml(card.name) +
+          (card.pt ? ' <span class="preview-pt">' + escapeHtml(card.pt) + '</span>' : '') + '</div>' +
         (card.cost ? '<div class="preview-cost">' + escapeHtml(card.cost) + '</div>' : '') +
         (card.type ? '<div class="preview-type">' + escapeHtml(card.type) + '</div>' : '') +
+        (card.text ? '<div class="preview-oracle">' + escapeHtml(card.text).replace(/\n/g, '<br>') + '</div>' : '') +
       '</div>';
   }
 
@@ -228,7 +240,8 @@ var GameUI = (function () {
       var still =
         (selected.zone === 'hand' && view.hand.some(function (c) { return c.uid === selected.uid; })) ||
         (selected.zone === 'battlefield' && onMyBf(selected.uid)) ||
-        (selected.zone === 'graveyard' && mz.graveyard.some(function (c) { return c.uid === selected.uid; }));
+        (selected.zone === 'graveyard' && mz.graveyard.some(function (c) { return c.uid === selected.uid; })) ||
+        (selected.zone === 'exile' && mz.exile.some(function (c) { return c.uid === selected.uid; }));
       if (!still) selected = null;
     }
     if (attachMode && !onMyBf(attachMode.uid)) attachMode = null;
@@ -237,8 +250,9 @@ var GameUI = (function () {
       return view.active === pid ? '<span class="turn-badge">turn</span>' : '';
     };
 
+    var activeCls = function (pid) { return view.active === pid ? ' active-turn' : ''; };
     $('#game-board').innerHTML =
-      '<div class="player-area opp">' +
+      '<div class="player-area opp' + activeCls(opp) + '">' +
         '<div class="player-bar">' +
           '<span class="pname">' + escapeHtml(oppName) + '</span>' + turnBadge(opp) +
           '<span class="stat">♥ ' + view.life[opp] + '</span>' +
@@ -254,13 +268,17 @@ var GameUI = (function () {
 
       '<div class="board-divider">Turn ' + view.turn + '</div>' +
 
-      '<div class="player-area mine">' +
+      '<div class="player-area mine' + activeCls(me) + '">' +
         '<div class="side-zones">' +
           zoneStrip('Graveyard', mz.graveyard, 'graveyard', true) +
-          zoneStrip('Exile', mz.exile, null, false) +
+          zoneStrip('Exile', mz.exile, 'exile', true) +
         '</div>' +
         battlefieldHtml(view, me, true, false) +
         '<div id="ctx-bar" class="ctx-bar">' + contextButtons(view) + '</div>' +
+        (view.bottoming > 0
+          ? '<div class="bottoming-banner">Mulligan: put ' + view.bottoming + ' card' +
+            (view.bottoming === 1 ? '' : 's') + ' on the bottom — select a hand card, then "⤓ Bottom of library".</div>'
+          : '') +
         '<div class="hand">' +
           view.hand.map(function (c) { return cardHtml(c, { zone: 'hand', mine: true }); }).join('') +
           (view.hand.length ? '' : '<span class="zone-empty">hand empty</span>') +
@@ -366,7 +384,15 @@ var GameUI = (function () {
           'to-exile': { a: 'move', uid: uid, to: 'exile' },
           'to-hand': { a: 'move', uid: uid, to: 'hand' },
           'to-library': { a: 'move', uid: uid, to: 'library' },
-          'recover': { a: 'recover', uid: uid }
+          'bottom': { a: 'bottomCard', uid: uid },
+          'gy-hand': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'hand' },
+          'gy-field': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'battlefield' },
+          'gy-exile': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'exile' },
+          'gy-lib': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'library' },
+          'ex-hand': { a: 'zoneMove', from: 'exile', uid: uid, to: 'hand' },
+          'ex-field': { a: 'zoneMove', from: 'exile', uid: uid, to: 'battlefield' },
+          'ex-gy': { a: 'zoneMove', from: 'exile', uid: uid, to: 'graveyard' },
+          'ex-lib': { a: 'zoneMove', from: 'exile', uid: uid, to: 'library' }
         };
         if (map[kind]) act(map[kind]);
       });
