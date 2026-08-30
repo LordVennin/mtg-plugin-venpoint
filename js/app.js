@@ -28,6 +28,8 @@
     players: [],         // [{id, name, conn|null, connected}]  (host is players[0], conn=null)
     engine: null,
     game: null,          // MTGGame.Game once a post-draft game starts (host only)
+    decks: {},           // host only: playerId -> submitted built deck (cube 1v1)
+    builder: null,       // this client's deck-building state
     setup: { mode: 'cube', cubeCards: null, jsPacks: null,
              packSize: 15, packsPerPlayer: 3, jsChoices: 3, jsPacksPerPlayer: 2 },
     // guest
@@ -41,7 +43,7 @@
   /* ---------------- screen switching ---------------- */
 
   function show(screen) {
-    ['home', 'lobby', 'draft', 'done', 'game'].forEach(function (s) {
+    ['home', 'lobby', 'draft', 'done', 'build', 'game'].forEach(function (s) {
       $('#screen-' + s).hidden = (s !== screen);
     });
   }
@@ -167,6 +169,23 @@
       case 'act': {
         var actor = App.players.find(function (p) { return p.conn === conn; });
         if (actor) hostApplyAction(actor, msg.action);
+        break;
+      }
+      case 'deck': {
+        var builderP = App.players.find(function (p) { return p.conn === conn; });
+        if (builderP && Array.isArray(msg.cards) && !App.game) {
+          App.decks[builderP.id] = msg.cards.slice(0, 500);
+          hostBroadcastReady();
+          hostMaybeStartCubeGame();
+        }
+        break;
+      }
+      case 'undeck': {
+        var unreadyP = App.players.find(function (p) { return p.conn === conn; });
+        if (unreadyP && !App.game) {
+          delete App.decks[unreadyP.id];
+          hostBroadcastReady();
+        }
         break;
       }
     }
@@ -363,6 +382,199 @@
     App.players.forEach(sendViewTo);
   }
 
+  /* ---------------- deck builder (after cube drafts) ---------------- */
+
+  var BASICS = [
+    { name: 'Plains', type: 'Basic Land — Plains', text: '({T}: Add {W}.)' },
+    { name: 'Island', type: 'Basic Land — Island', text: '({T}: Add {U}.)' },
+    { name: 'Swamp', type: 'Basic Land — Swamp', text: '({T}: Add {B}.)' },
+    { name: 'Mountain', type: 'Basic Land — Mountain', text: '({T}: Add {R}.)' },
+    { name: 'Forest', type: 'Basic Land — Forest', text: '({T}: Add {G}.)' }
+  ];
+
+  function openBuilder(deck) {
+    App.builder = {
+      pool: deck.slice(),
+      main: [],
+      lands: { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 },
+      landCards: null,
+      ready: false,
+      readyList: []
+    };
+    show('build');
+    renderBuilder();
+    // Basic land art (cached after the first draft; text-only if unreachable).
+    Scryfall.resolve(BASICS.map(function (b) { return b.name; }))
+      .then(function (res) {
+        if (!App.builder) return;
+        App.builder.landCards = {};
+        BASICS.forEach(function (b) {
+          var hit = res.cards[b.name.toLowerCase()];
+          App.builder.landCards[b.name] = hit ? Object.assign({}, hit) : null;
+        });
+        renderBuilder();
+      })
+      .catch(function () { /* text-only lands are fine */ });
+  }
+
+  function playerCount() {
+    if (App.role === 'host') return App.players.length;
+    return App.lobby ? App.lobby.players.length : 0;
+  }
+
+  /** The full built deck as fresh card objects (main + basics). */
+  function builderDeck() {
+    var b = App.builder;
+    var cards = b.main.map(function (c) { return Object.assign({}, c); });
+    BASICS.forEach(function (basic) {
+      var proto = (b.landCards && b.landCards[basic.name]) || basic;
+      for (var i = 0; i < b.lands[basic.name]; i++) {
+        var copy = Object.assign({}, proto);
+        delete copy.uid; // every land copy is its own card
+        cards.push(copy);
+      }
+    });
+    return cards;
+  }
+
+  function builderCardTile(c, from) {
+    return '<div class="card bcard" data-from="' + from + '" data-uid="' + c.uid +
+      '" title="' + escapeHtml(c.name) + '">' + cardFace(c) + '</div>';
+  }
+
+  function renderBuilder() {
+    var b = App.builder;
+    if (!b) return;
+    var landTotal = BASICS.reduce(function (s, x) { return s + b.lands[x.name]; }, 0);
+    var total = b.main.length + landTotal;
+    $('#build-count').textContent = total + ' cards (' + b.main.length + ' spells + ' + landTotal + ' lands)';
+    $('#main-count').textContent = b.main.length + (landTotal ? ' + ' + landTotal + ' lands' : '');
+    $('#pool-count').textContent = b.pool.length;
+
+    $('#build-lands').innerHTML = BASICS.map(function (basic) {
+      return '<div class="land-ctl"><span class="land-name">' + basic.name + '</span>' +
+        '<button class="land-btn" data-l="' + basic.name + '" data-d="-1"' + (b.ready ? ' disabled' : '') + '>−</button>' +
+        '<b>' + b.lands[basic.name] + '</b>' +
+        '<button class="land-btn" data-l="' + basic.name + '" data-d="1"' + (b.ready ? ' disabled' : '') + '>+</button></div>';
+    }).join('');
+
+    $('#build-main-grid').innerHTML =
+      b.main.map(function (c) { return builderCardTile(c, 'main'); }).join('') ||
+      '<span class="zone-empty">click cards in your pool to add them</span>';
+    $('#build-pool-grid').innerHTML =
+      b.pool.map(function (c) { return builderCardTile(c, 'pool'); }).join('') ||
+      '<span class="zone-empty">empty</span>';
+
+    var twoPlayer = playerCount() === 2;
+    var readyBtn = $('#btn-build-ready');
+    readyBtn.hidden = !twoPlayer;
+    readyBtn.textContent = b.ready ? '↺ Unready (edit deck)' : '✓ Ready — submit deck';
+    if (twoPlayer) {
+      var otherReady = b.readyList.filter(function (id) { return id !== App.myId; }).length > 0;
+      $('#build-status').textContent = b.ready
+        ? (otherReady ? 'Starting…' : 'Waiting for your opponent to finish their deck…')
+        : (otherReady ? 'Your opponent is ready.' : '');
+    } else {
+      $('#build-status').textContent = 'Copy your deck list when done.';
+    }
+
+    wireBuilder();
+  }
+
+  function wireBuilder() {
+    document.querySelectorAll('#build-main-grid .bcard, #build-pool-grid .bcard').forEach(function (el) {
+      el.addEventListener('click', function () {
+        if (App.builder.ready) return;
+        var uid = el.getAttribute('data-uid');
+        var from = el.getAttribute('data-from') === 'main' ? 'main' : 'pool';
+        var to = from === 'main' ? 'pool' : 'main';
+        var b = App.builder;
+        for (var i = 0; i < b[from].length; i++) {
+          if (b[from][i].uid === uid) {
+            b[to].push(b[from].splice(i, 1)[0]);
+            break;
+          }
+        }
+        renderBuilder();
+      });
+      el.addEventListener('mouseenter', function () {
+        var uid = el.getAttribute('data-uid');
+        var b = App.builder;
+        var card = b.main.concat(b.pool).find(function (c) { return c.uid === uid; });
+        if (card) $('#build-preview').innerHTML = buildPreviewHtml(card);
+      });
+    });
+    document.querySelectorAll('#build-lands .land-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (App.builder.ready) return;
+        var l = btn.getAttribute('data-l');
+        var d = parseInt(btn.getAttribute('data-d'), 10);
+        App.builder.lands[l] = Math.max(0, Math.min(30, App.builder.lands[l] + d));
+        renderBuilder();
+      });
+    });
+  }
+
+  function buildPreviewHtml(card) {
+    var body = card.img
+      ? '<img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) + '">'
+      : '<div class="preview-text"><strong>' + escapeHtml(card.name) + '</strong></div>';
+    return body + '<div class="preview-meta">' +
+      '<div class="preview-name">' + escapeHtml(card.name) +
+        (card.pt ? ' <span class="preview-pt">' + escapeHtml(card.pt) + '</span>' : '') + '</div>' +
+      (card.cost ? '<div class="preview-cost">' + escapeHtml(card.cost) + '</div>' : '') +
+      (card.type ? '<div class="preview-type">' + escapeHtml(card.type) + '</div>' : '') +
+      (card.text ? '<div class="preview-oracle">' + escapeHtml(card.text).replace(/\n/g, '<br>') + '</div>' : '') +
+      '</div>';
+  }
+
+  function initBuilder() {
+    $('#btn-build-copy').addEventListener('click', function () {
+      var text = MTGParser.formatDeckList(builderDeck().map(function (c) { return c.name; }));
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { toast('Deck copied — paste it into Moxfield.'); });
+      }
+    });
+    $('#btn-build-ready').addEventListener('click', function () {
+      var b = App.builder;
+      if (!b.ready && b.main.length === 0) return toast('Your main deck is empty.', true);
+      b.ready = !b.ready;
+      if (App.role === 'host') {
+        if (b.ready) App.decks[App.myId] = builderDeck();
+        else delete App.decks[App.myId];
+        hostBroadcastReady();
+        renderBuilder();
+        hostMaybeStartCubeGame();
+      } else {
+        if (b.ready) App.conn.send({ t: 'deck', cards: builderDeck() });
+        else App.conn.send({ t: 'undeck' });
+        renderBuilder();
+      }
+    });
+  }
+
+  function hostBroadcastReady() {
+    var ready = Object.keys(App.decks);
+    if (App.builder) { App.builder.readyList = ready; renderBuilder(); }
+    App.players.forEach(function (p) {
+      if (p.conn) App.net.send(p.conn, { t: 'ready', ready: ready });
+    });
+  }
+
+  function hostMaybeStartCubeGame() {
+    if (App.players.length !== 2) return;
+    var haveAll = App.players.every(function (p) { return App.decks[p.id]; });
+    if (!haveAll || App.game) return;
+    var names = {};
+    App.players.forEach(function (p) { names[p.id] = p.name; });
+    try {
+      App.game = new MTGGame.Game(App.players.map(function (p) { return p.id; }), App.decks, names);
+    } catch (err) {
+      return toast(err.message, true);
+    }
+    broadcastGameViews();
+  }
+
   /* ---------------- post-draft 1v1 game (host authority) ---------------- */
 
   function hostStartGame() {
@@ -458,6 +670,12 @@
       case 'game':
         applyGameView(msg);
         break;
+      case 'ready':
+        if (App.builder) {
+          App.builder.readyList = msg.ready || [];
+          renderBuilder();
+        }
+        break;
       case 'err':
         toast(msg.msg, true);
         break;
@@ -498,6 +716,10 @@
     if (payload.view.finished) {
       App.lastDeck = payload.deck ||
         (App.role === 'host' ? MTGDraft.deckFor(App.engine, 'p0') : App.lastDeck);
+      if (payload.view.mode === 'cube') {
+        openBuilder(App.lastDeck || []);
+        return;
+      }
       renderDone();
       show('done');
       return;
@@ -687,6 +909,7 @@
     initHome();
     initHostPanel();
     initDone();
+    initBuilder();
     $('#btn-copy-code').addEventListener('click', function () {
       var code = $('#room-code').textContent;
       if (navigator.clipboard && navigator.clipboard.writeText) {

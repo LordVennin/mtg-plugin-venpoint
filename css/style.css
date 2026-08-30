@@ -168,6 +168,27 @@ legend { color: var(--muted); font-size: 13px; padding: 0 6px; }
 .picks .cost { color: var(--accent); font-size: 11px; }
 .picks .js-picked ul { list-style: none; padding-left: 10px; color: var(--muted); }
 
+/* ---------- deck builder ---------- */
+
+#screen-build { max-width: 1500px; padding: 12px 16px; }
+.build-layout { display: flex; gap: 14px; align-items: flex-start; }
+.build-main { flex: 1 1 auto; min-width: 0; }
+.build-header { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.build-header h2 { margin: 0; }
+.build-count { color: var(--accent); font-weight: 700; }
+.build-main h3 { margin: 14px 0 6px; color: var(--muted); font-size: 14px; }
+.build-grid { grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); min-height: 60px; }
+.build-grid .card { cursor: pointer; }
+.build-lands { display: flex; gap: 14px; flex-wrap: wrap; margin: 8px 0; }
+.land-ctl {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--panel); border: 1px solid #2c3140; border-radius: 8px;
+  padding: 6px 10px;
+}
+.land-ctl .land-name { font-size: 13px; color: var(--muted); min-width: 62px; }
+.land-ctl b { min-width: 18px; text-align: center; }
+.land-btn { padding: 2px 9px; }
+
 /* ---------- play surface ---------- */
 
 #screen-game { max-width: 1500px; padding: 10px 16px; }

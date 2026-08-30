@@ -54,6 +54,11 @@ plain `ws://` during local testing).
    custom cards work too) — then **Start draft**.
 3. **Cube:** everyone opens a pack (default 15 cards × 3 packs), picks one
    card at a time, packs pass left/right by round. Classic booster draft.
+   Afterwards everyone gets a **deck builder**: click cards to move them
+   between your pool and your main deck, add basic lands with +/− steppers
+   (art included), hover to read cards, and copy the finished list. With
+   exactly two players, both hit **Ready** and the 1v1 play surface opens
+   with your *built* decks — lands and all.
 4. **Jumpstart:** in snake order, each player is offered up to 3 random packs
    *by name only*, keeps one, and the rest go back in the pool. Two rounds →
    two 20-card packs → a 40-card deck.
