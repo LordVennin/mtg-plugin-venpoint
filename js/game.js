@@ -21,6 +21,14 @@
  *   {a:'move', uid, to}              own battlefield card -> 'graveyard'|'exile'|'hand'|'library'
  *   {a:'recover', uid}               own graveyard card -> hand
  *   {a:'passTurn'}                   pass the turn marker (no auto-untap/draw)
+ *   {a:'roll', sides}                roll a die (host RNG, publicly logged)
+ *   {a:'coin'}                       flip a coin (host RNG, publicly logged)
+ *   {a:'row', uid}                   toggle a permanent between the land/main rows
+ *   {a:'attach', uid, target}        attach own permanent to any unattached permanent
+ *   {a:'detach', uid}                detach own permanent
+ *   {a:'searchLibrary'}              start searching (library revealed to owner only)
+ *   {a:'takeFromLibrary', uid, to}   while searching: -> 'hand'|'battlefield'|'graveyard'
+ *   {a:'endSearch'}                  stop searching; library is shuffled
  */
 
 var MTGGame = (function () {
@@ -38,6 +46,16 @@ var MTGGame = (function () {
 
   var uidCounter = 0;
 
+  var BASIC_LAND = /^(Snow-Covered )?(Plains|Island|Swamp|Mountain|Forest|Wastes)$/i;
+  function isLand(card) {
+    if (card.type) return /\bLand\b/i.test(card.type);
+    return BASIC_LAND.test(card.name); // unresolved cards: recognize basics by name
+  }
+
+  function permanent(card) {
+    return { card: card, tapped: false, counters: 0, row: isLand(card) ? 'land' : 'main', attachedTo: null };
+  }
+
   /**
    * playerIds: [id, id]  decks: {id: [card,...]}  names: {id: displayName}
    */
@@ -53,6 +71,7 @@ var MTGGame = (function () {
     this.turn = 1;
     this.active = this.players[0];
     this.log = [];
+    this.searching = {};
 
     this.players.forEach(function (id) {
       var deck = (decks[id] || []).map(function (c) {
@@ -136,7 +155,7 @@ var MTGGame = (function () {
       case 'play': {
         var card = takeByUid(z.hand, action.uid, function (c) { return c.uid; });
         if (!card) throw new Error('Card not in your hand');
-        z.battlefield.push({ card: card, tapped: false, counters: 0 });
+        z.battlefield.push(permanent(card));
         this._log(pid, me + ' plays ' + card.name + '.');
         break;
       }
@@ -180,6 +199,7 @@ var MTGGame = (function () {
         }
         var entry = takeByUid(z.battlefield, action.uid, function (e) { return e.card.uid; });
         if (!entry) throw new Error('Card not on your battlefield');
+        this._detachDependents(action.uid);
         if (to === 'library') {
           z.library = shuffle(z.library.concat([entry.card]), this.rng);
           this._log(pid, me + ' shuffles ' + entry.card.name + ' into their library.');
@@ -203,9 +223,93 @@ var MTGGame = (function () {
         this._log(pid, me + ' passes the turn. Turn ' + this.turn + ' — ' + this.name(this.active) + '.');
         break;
       }
+      case 'roll': {
+        var sides = action.sides | 0;
+        if (sides < 2 || sides > 1000) throw new Error('Bad die');
+        var roll = 1 + Math.floor(this.rng() * sides);
+        this._log(pid, me + ' rolls a d' + sides + ': ' + roll + '.');
+        break;
+      }
+      case 'coin': {
+        this._log(pid, me + ' flips a coin: ' + (this.rng() < 0.5 ? 'HEADS' : 'TAILS') + '.');
+        break;
+      }
+      case 'row': {
+        var rperm = this._findPerm(pid, action.uid);
+        if (!rperm) throw new Error('Card not on your battlefield');
+        rperm.row = rperm.row === 'land' ? 'main' : 'land';
+        break;
+      }
+      case 'attach': {
+        var aperm = this._findPerm(pid, action.uid);
+        if (!aperm) throw new Error('Card not on your battlefield');
+        if (action.target === action.uid) throw new Error('Cannot attach a card to itself');
+        var target = null;
+        this.players.forEach(function (id) {
+          target = target || this._findPerm(id, action.target);
+        }, this);
+        if (!target) throw new Error('Target is not on the battlefield');
+        if (target.attachedTo) throw new Error('Cannot attach to a card that is itself attached');
+        this._detachDependents(action.uid); // nothing may hang off an attachment
+        aperm.attachedTo = action.target;
+        this._log(pid, me + ' attaches ' + aperm.card.name + ' to ' + target.card.name + '.');
+        break;
+      }
+      case 'detach': {
+        var dperm = this._findPerm(pid, action.uid);
+        if (!dperm) throw new Error('Card not on your battlefield');
+        dperm.attachedTo = null;
+        this._log(pid, me + ' unattaches ' + dperm.card.name + '.');
+        break;
+      }
+      case 'searchLibrary': {
+        this.searching[pid] = true;
+        this._log(pid, me + ' is searching their library…');
+        break;
+      }
+      case 'takeFromLibrary': {
+        if (!this.searching[pid]) throw new Error('Search your library first');
+        var lc = takeByUid(z.library, action.uid, function (c) { return c.uid; });
+        if (!lc) throw new Error('Card not in your library');
+        if (action.to === 'hand') {
+          z.hand.push(lc);
+          this._log(pid, me + ' puts a card from their library into their hand.');
+        } else if (action.to === 'battlefield') {
+          z.battlefield.push(permanent(lc));
+          this._log(pid, me + ' puts ' + lc.name + ' onto the battlefield from their library.');
+        } else if (action.to === 'graveyard') {
+          z.graveyard.push(lc);
+          this._log(pid, me + ' puts ' + lc.name + ' into their graveyard from their library.');
+        } else {
+          z.library.unshift(lc);
+          throw new Error('Bad destination');
+        }
+        break;
+      }
+      case 'endSearch': {
+        this.searching[pid] = false;
+        z.library = shuffle(z.library, this.rng);
+        this._log(pid, me + ' finishes searching and shuffles their library.');
+        break;
+      }
       default:
         throw new Error('Unknown action');
     }
+  };
+
+  Game.prototype._findPerm = function (pid, uid) {
+    var bf = this._zonesOf(pid).battlefield;
+    for (var i = 0; i < bf.length; i++) if (bf[i].card.uid === uid) return bf[i];
+    return null;
+  };
+
+  /** Clear attachedTo on anything attached to `uid` (its host is leaving/changing). */
+  Game.prototype._detachDependents = function (uid) {
+    this.players.forEach(function (id) {
+      this.zones[id].battlefield.forEach(function (e) {
+        if (e.attachedTo === uid) e.attachedTo = null;
+      });
+    }, this);
   };
 
   /** Everything one player may know. Own hand in full; opponent hand as a count. */
@@ -218,6 +322,9 @@ var MTGGame = (function () {
       active: this.active,
       life: Object.assign({}, this.life),
       hand: this._zonesOf(pid).hand.slice(),
+      searching: !!this.searching[pid],
+      // Library contents are revealed only to their owner, only mid-search.
+      library: this.searching[pid] ? this._zonesOf(pid).library.slice() : null,
       zones: {},
       log: this.log.slice(-40)
     };
@@ -227,7 +334,7 @@ var MTGGame = (function () {
         handCount: z.hand.length,
         libraryCount: z.library.length,
         battlefield: z.battlefield.map(function (e) {
-          return { card: e.card, tapped: e.tapped, counters: e.counters };
+          return { card: e.card, tapped: e.tapped, counters: e.counters, row: e.row, attachedTo: e.attachedTo };
         }),
         graveyard: z.graveyard.slice(),
         exile: z.exile.slice()

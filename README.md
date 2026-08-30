@@ -68,12 +68,23 @@ A Cockatrice-style honor-system board — it enforces zones and hidden
 information, not the rules of the game. Decks are shuffled, both players
 draw 7, and you go:
 
-- **Click a card** to select it; buttons appear for what it can do.
-  Hand: *Play* / *Discard*. Battlefield: *Tap*, *± Counter*, *→ Graveyard*,
-  *→ Exile*, *→ Hand*, *→ Shuffle in*. Graveyard: *→ Hand*.
+- **Click any card** — yours or the opponent's — to read it full-size in the
+  preview pane on the left. Your own cards also get action buttons:
+  Hand: *Play* / *Discard*. Battlefield: *Tap*, *Attach to…* / *Detach*,
+  *± Counter*, *⇅ Row*, *→ Graveyard*, *→ Exile*, *→ Hand*, *→ Shuffle in*.
+  Graveyard: *→ Hand*.
 - **Double-click** shortcuts: hand card = play it, battlefield card = tap it.
-- Bottom bar: **Draw**, **Untap all**, **Shuffle**, **Mulligan**, life **±**,
-  and **Pass turn**.
+- **Two battlefield rows**: lands go to the row nearest their owner, spells
+  to the row nearest the middle (auto-sorted by card type; *⇅ Row* overrides).
+- **Attachments**: select an equipment/aura, hit *Attach to…*, click the
+  target — works across the table (Pacifism their creature). Attached cards
+  render tucked behind their target and auto-detach when it leaves.
+- **Library search** (Demonic Tutor, Cultivate, fetches): hit *🔍 Search* —
+  only you see your library; take cards to hand (logged without naming the
+  card), battlefield, or graveyard, then it shuffles.
+- Bottom bar: **Draw**, **🔍 Search**, **Untap all**, **Shuffle**,
+  **Mulligan**, life **±**, **🎲 d6 / d20**, **🪙 coin flip** (rolled by the
+  host's engine and publicly logged, so nobody can fudge them), **Pass turn**.
 - Your hand is yours alone; the opponent sees a count. Battlefields,
   graveyards, exile, life, and the action log are public — every action is
   logged so nothing happens silently.

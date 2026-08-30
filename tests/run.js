@@ -265,5 +265,96 @@ section('Game actions');
     'actions are logged');
 }
 
+section('Game rows, dice, attach, search');
+{
+  const deckA = [
+    { name: 'Mountain' }, { name: 'Mountain' }, { name: 'Forest' },
+    { name: 'Grizzly Bears', type: 'Creature — Bear' },
+    { name: 'Bonesplitter', type: 'Artifact — Equipment' },
+    { name: 'Pacifism', type: 'Enchantment — Aura' },
+    { name: 'Weird Terrain', type: 'Land — Weird' }
+  ];
+  while (deckA.length < 15) deckA.push({ name: 'Filler' + deckA.length, type: 'Sorcery' });
+  const deckB = Array.from({ length: 15 }, (_, i) => ({ name: 'B' + i, type: 'Creature' }));
+  const g = new Game.Game(['a', 'b'], { a: deckA, b: deckB }, { a: 'Alice', b: 'Bob' }, { rng: seededRng(3) });
+
+  // Row routing: draw the whole deck, play everything, check rows by type/name.
+  const hand = () => g.viewFor('a').hand;
+  while (g.viewFor('a').zones.a.libraryCount) g.apply('a', { a: 'draw' });
+  while (hand().length) g.apply('a', { a: 'play', uid: hand()[0].uid });
+  const bf = () => g.viewFor('a').zones.a.battlefield;
+  assert(bf().every(e => e.row === (( /\bLand\b/i.test(e.card.type || '') || /^(Mountain|Forest)$/.test(e.card.name)) ? 'land' : 'main')),
+    'lands (typed or basic-by-name) route to the land row, spells to main');
+
+  // Row toggle
+  const anyMain = bf().find(e => e.row === 'main');
+  g.apply('a', { a: 'row', uid: anyMain.card.uid });
+  assert(bf().find(e => e.card.uid === anyMain.card.uid).row === 'land', 'row toggle works');
+  g.apply('a', { a: 'row', uid: anyMain.card.uid });
+
+  // Dice + coin are logged deterministically under seeded rng
+  g.apply('a', { a: 'roll', sides: 20 });
+  g.apply('b', { a: 'coin' });
+  const log = g.viewFor('b').log.map(l => l.text).join(' | ');
+  assert(/Alice rolls a d20: \d+\./.test(log), 'die roll is logged with a result');
+  assert(/Bob flips a coin: (HEADS|TAILS)\./.test(log), 'coin flip is logged');
+  let threw = false;
+  try { g.apply('a', { a: 'roll', sides: 1 }); } catch (e) { threw = true; }
+  assert(threw, 'nonsense die rejected');
+
+  // Attach: equipment onto a creature; aura onto opponent's creature.
+  const eq = bf().find(e => e.card.name === 'Bonesplitter');
+  const bear = bf().find(e => e.card.name === 'Grizzly Bears');
+  g.apply('a', { a: 'attach', uid: eq.card.uid, target: bear.card.uid });
+  assert(bf().find(e => e.card.name === 'Bonesplitter').attachedTo === bear.card.uid, 'equipment attaches');
+
+  g.apply('b', { a: 'play', uid: g.viewFor('b').hand[0].uid });
+  const oppCreature = g.viewFor('a').zones.b.battlefield[0];
+  const aura = bf().find(e => e.card.name === 'Pacifism');
+  g.apply('a', { a: 'attach', uid: aura.card.uid, target: oppCreature.card.uid });
+  assert(bf().find(e => e.card.name === 'Pacifism').attachedTo === oppCreature.card.uid,
+    "aura attaches across the table to the opponent's creature");
+
+  threw = false;
+  try { g.apply('a', { a: 'attach', uid: bear.card.uid, target: eq.card.uid }); }
+  catch (e) { threw = /itself attached/.test(e.message); }
+  assert(threw, 'cannot attach onto an attached card');
+
+  // Target leaves -> auto-detach
+  g.apply('b', { a: 'move', uid: oppCreature.card.uid, to: 'graveyard' });
+  assert(bf().find(e => e.card.name === 'Pacifism').attachedTo === null, 'attachment auto-detaches when target leaves');
+  g.apply('a', { a: 'detach', uid: eq.card.uid });
+  assert(bf().find(e => e.card.name === 'Bonesplitter').attachedTo === null, 'manual detach works');
+
+  // Library search: hidden until searching, revealed only to owner.
+  assert(g.viewFor('a').library === null, 'library hidden while not searching');
+  threw = false;
+  try { g.apply('a', { a: 'takeFromLibrary', uid: 'x', to: 'hand' }); } catch (e) { threw = /Search/.test(e.message); }
+  assert(threw, 'cannot take from library without searching');
+
+  // Shuffle a few permanents back in so there is something to search for.
+  bf().filter(e => !e.attachedTo).slice(0, 4)
+    .forEach(e => g.apply('a', { a: 'move', uid: e.card.uid, to: 'library' }));
+
+  g.apply('a', { a: 'searchLibrary' });
+  const va = g.viewFor('a');
+  assert(Array.isArray(va.library) && va.library.length === va.zones.a.libraryCount, 'searcher sees full library');
+  assert(g.viewFor('b').library === null, "opponent still can't see it");
+
+  const libBefore = va.library.length;
+  const handBefore = va.hand.length;
+  g.apply('a', { a: 'takeFromLibrary', uid: va.library[0].uid, to: 'hand' });
+  g.apply('a', { a: 'takeFromLibrary', uid: va.library[1].uid, to: 'battlefield' });
+  const va2 = g.viewFor('a');
+  assert(va2.hand.length === handBefore + 1 && va2.library.length === libBefore - 2, 'tutored to hand and battlefield');
+  const toHandLog = g.viewFor('b').log.map(l => l.text).join(' | ');
+  assert(/puts a card from their library into their hand/.test(toHandLog) &&
+         !new RegExp('puts ' + va2.hand[va2.hand.length - 1].name + " from").test(toHandLog),
+    'tutor-to-hand is logged without naming the card');
+
+  g.apply('a', { a: 'endSearch' });
+  assert(g.viewFor('a').library === null && g.viewFor('a').searching === false, 'endSearch hides the library again');
+}
+
 console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
 process.exit(failures ? 1 : 0);
