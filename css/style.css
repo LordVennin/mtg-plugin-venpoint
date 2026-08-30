@@ -103,6 +103,9 @@ legend { color: var(--muted); font-size: 13px; padding: 0 6px; }
 /* ---------- draft screen ---------- */
 
 .draft-layout { display: flex; gap: 18px; align-items: flex-start; }
+.draft-layout .card-preview { position: sticky; top: 12px; }
+.picks li[data-uid] { cursor: default; }
+.picks li[data-uid]:hover { color: var(--accent); }
 .draft-layout main { flex: 1 1 auto; min-width: 0; }
 .draft-layout aside {
   flex: 0 0 240px;
@@ -411,5 +414,6 @@ button.ctx {
 @media (max-width: 760px) {
   .draft-layout { flex-direction: column; }
   .draft-layout aside { position: static; flex: 1 1 auto; width: 100%; max-height: none; }
+  .draft-layout .card-preview { order: 3; }
   .card-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
 }

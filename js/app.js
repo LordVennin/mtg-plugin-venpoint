@@ -743,6 +743,10 @@
     return id === App.myId ? App.myName : 'Player';
   }
 
+  function setDraftPreview(card) {
+    if (card) $('#draft-preview').innerHTML = buildPreviewHtml(card);
+  }
+
   function renderCubeView(v) {
     $('#draft-status').textContent =
       'Pack ' + (v.round + 1) + ' of ' + v.packsPerPlayer +
@@ -763,17 +767,22 @@
       '</div>' +
       '<div class="pick-bar"><button id="btn-confirm-pick" disabled>Pick a card</button></div>';
 
+    var cardByUid = Object.create(null);
+    v.pack.forEach(function (c) { cardByUid[c.uid] = c; });
     area.querySelectorAll('.card').forEach(function (el) {
+      var uid = el.getAttribute('data-uid');
       el.addEventListener('click', function () {
         area.querySelectorAll('.card.selected').forEach(function (s) { s.classList.remove('selected'); });
         el.classList.add('selected');
-        App.selectedUid = el.getAttribute('data-uid');
+        App.selectedUid = uid;
+        setDraftPreview(cardByUid[uid]);
         var btn = $('#btn-confirm-pick');
         btn.disabled = false;
         btn.textContent = 'Pick ' + el.getAttribute('title');
       });
+      el.addEventListener('mouseenter', function () { setDraftPreview(cardByUid[uid]); });
       el.addEventListener('dblclick', function () {
-        sendPick(el.getAttribute('data-uid'));
+        sendPick(uid);
       });
     });
     $('#btn-confirm-pick').addEventListener('click', function () {
@@ -816,20 +825,30 @@
 
   function renderPicks(v) {
     var side = $('#picks-list');
+    var byUid = Object.create(null);
     if (v.mode === 'cube') {
       $('#picks-title').textContent = 'Your picks (' + v.picks.length + ')';
       side.innerHTML = v.picks.slice().reverse().map(function (c) {
-        return '<li title="' + escapeHtml(c.type || '') + '">' + escapeHtml(c.name) +
+        byUid[c.uid] = c;
+        return '<li data-uid="' + c.uid + '" title="' + escapeHtml(c.type || '') + '">' + escapeHtml(c.name) +
           (c.cost ? ' <span class="cost">' + escapeHtml(c.cost) + '</span>' : '') + '</li>';
       }).join('');
     } else {
       $('#picks-title').textContent = 'Your packs (' + v.picks.length + ')';
       side.innerHTML = v.picks.map(function (p) {
         return '<li class="js-picked"><strong>' + escapeHtml(p.name) + '</strong><ul>' +
-          p.cards.map(function (c) { return '<li>' + escapeHtml(c.name) + '</li>'; }).join('') +
+          p.cards.map(function (c) {
+            byUid[c.uid] = c;
+            return '<li data-uid="' + c.uid + '">' + escapeHtml(c.name) + '</li>';
+          }).join('') +
           '</ul></li>';
       }).join('');
     }
+    side.querySelectorAll('li[data-uid]').forEach(function (el) {
+      el.addEventListener('mouseenter', function () {
+        setDraftPreview(byUid[el.getAttribute('data-uid')]);
+      });
+    });
   }
 
   function renderTableStatus() {
