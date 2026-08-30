@@ -98,12 +98,22 @@ The host is authoritative: guests only ever send `pick` messages and render
 the per-player view the host sends back, so nobody can peek at other players'
 packs or offers.
 
-## Porting to VenCord
+## Porting to VenCord / Venpoint
 
 The plan is for this to become a plugin in
-[VenCord](https://github.com/LordVennin/VenCord). `parser.js`, `draft.js`,
-and the message protocol in `app.js` are plain dependency-free JS precisely
-so they can be dropped into a plugin unchanged; the pieces that will need
-rewriting are the UI (Discord's React components instead of raw DOM) and
-possibly transport/fetch (Discord's CSP and desktop IPC). See the repo
-discussion/issues for the running notes on that.
+[VenCord](https://github.com/LordVennin/VenCord) (the Venpoint E2EE chat
+client). The code is structured for that move:
+
+- `parser.js`, `draft.js`, and `scryfall.js` are dependency-free and
+  DOM-free — they drop into the Vite/TS web client as-is (or with a light
+  TypeScript conversion).
+- All networking goes through the tiny `net.js` wrapper and the small
+  JSON message protocol documented at the top of `app.js`. Porting means
+  swapping `net.js` for a transport that wraps the draft messages in a new
+  Venpoint `MessagePayload` kind (e.g. `{v:1, kind:"draft", ...}`) and
+  fans them out over the existing Signal-encrypted mailbox, instead of a
+  PeerJS DataConnection. The host-authoritative model is unchanged — the
+  server never sees draft state, which matches Venpoint's zero-knowledge
+  design.
+- The UI is plain DOM in the same style as Venpoint's client (no
+  framework), so screens port mostly verbatim.
