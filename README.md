@@ -18,6 +18,11 @@ It's a static site — no build step, no dependencies to install.
   deploy from branch), then everyone opens the same URL.
 - **Locally:** `python3 -m http.server` (or any static server) in the repo
   folder, or just double-click `index.html`.
+- **One-command hosting for remote friends:** `./host-draft.sh` (Linux;
+  needs python3, node, curl) starts everything locally and exposes it
+  through Cloudflare quick tunnels — no open firewall ports, no public
+  PeerJS broker. It prints a single URL for you and your friends to open.
+  The URL changes on every run.
 
 Signaling goes through the free public PeerJS broker; after the handshake all
 draft traffic is direct browser-to-browser. To use your own
