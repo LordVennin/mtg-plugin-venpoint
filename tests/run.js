@@ -356,5 +356,74 @@ section('Game rows, dice, attach, search');
   assert(g.viewFor('a').library === null && g.viewFor('a').searching === false, 'endSearch hides the library again');
 }
 
+section('Game tokens + peek (scry)');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i, type: 'Sorcery' }));
+  const g = new Game.Game(['a', 'b'], { a: mkDeck('A', 20), b: mkDeck('B', 20) },
+    { a: 'Alice', b: 'Bob' }, { rng: seededRng(11) });
+  const bf = () => g.viewFor('a').zones.a.battlefield;
+
+  // Tokens
+  g.apply('a', { a: 'token', name: 'Goblin', count: 3 });
+  assert(bf().length === 3 && bf().every(e => e.card.token && e.card.name === 'Goblin'), '3 Goblin tokens created');
+  assert(bf().every(e => e.row === 'main'), 'tokens land in the main row');
+  assert(g.viewFor('b').zones.a.battlefield.length === 3, 'opponent sees the tokens');
+
+  g.apply('a', { a: 'tap', uid: bf()[0].card.uid });
+  assert(bf()[0].tapped, 'tokens can tap');
+
+  const gyBefore = g.viewFor('a').zones.a.graveyard.length;
+  g.apply('a', { a: 'move', uid: bf()[0].card.uid, to: 'graveyard' });
+  const va = g.viewFor('a');
+  assert(va.zones.a.battlefield.length === 2 && va.zones.a.graveyard.length === gyBefore,
+    'a token sent to the graveyard ceases to exist instead');
+  assert(/token ceases to exist/.test(g.viewFor('b').log.map(l => l.text).join(' ')), 'token death is logged');
+
+  assert((() => { try { g.apply('a', { a: 'token', name: '   ' }); return false; } catch (e) { return true; } })(),
+    'blank token name rejected');
+  g.apply('a', { a: 'token', name: 'Rat', count: 99 });
+  assert(bf().filter(e => e.card.name === 'Rat').length === 10, 'token count clamps at 10');
+
+  // Peek / scry
+  assert(g.viewFor('a').peek === null, 'no peek window by default');
+  assert((() => { try { g.apply('a', { a: 'peekMove', uid: 'x', to: 'top' }); return false; } catch (e) { return /Look at/.test(e.message); } })(),
+    'peekMove requires peeking');
+
+  g.apply('a', { a: 'peek', n: 3 });
+  let pk = g.viewFor('a').peek;
+  assert(pk && pk.cards.length === 3, 'peek reveals exactly 3 cards');
+  assert(g.viewFor('b').peek === null, 'opponent sees no peek window');
+  const libCount = g.viewFor('a').zones.a.libraryCount;
+
+  // Card #4 (outside the window) must be untouchable.
+  const hidden4 = g.zones.a.library[3];
+  assert((() => { try { g.apply('a', { a: 'peekMove', uid: hidden4.uid, to: 'hand' }); return false; } catch (e) { return /among the viewed/.test(e.message); } })(),
+    'cannot touch a card below the peek window');
+
+  const [c1, c2, c3] = pk.cards;
+  g.apply('a', { a: 'peekMove', uid: c3.uid, to: 'bottom' });
+  pk = g.viewFor('a').peek;
+  assert(pk.cards.length === 2 && g.zones.a.library[g.zones.a.library.length - 1].uid === c3.uid,
+    'bottom: window shrinks and card is on the bottom');
+
+  g.apply('a', { a: 'peekMove', uid: c2.uid, to: 'top' });
+  pk = g.viewFor('a').peek;
+  assert(pk.cards[0].uid === c2.uid && pk.cards[1].uid === c1.uid && pk.cards.length === 2,
+    'top: reorders within the window');
+
+  const handBefore = g.viewFor('a').hand.length;
+  g.apply('a', { a: 'peekMove', uid: c2.uid, to: 'hand' });
+  assert(g.viewFor('a').hand.length === handBefore + 1, 'peek card to hand');
+  const blog = g.viewFor('b').log.map(l => l.text).join(' | ');
+  assert(/puts a card from the top of their library into their hand/.test(blog) &&
+         blog.indexOf(c2.name + ' from the top') === -1,
+    'to-hand from peek is logged without the card name');
+
+  g.apply('a', { a: 'endPeek' });
+  assert(g.viewFor('a').peek === null, 'endPeek closes the window');
+  assert(g.viewFor('a').zones.a.libraryCount === libCount - 1 && g.zones.a.library[0].uid === c1.uid,
+    'library order preserved after peeking (no shuffle)');
+}
+
 console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
 process.exit(failures ? 1 : 0);

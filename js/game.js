@@ -29,6 +29,12 @@
  *   {a:'searchLibrary'}              start searching (library revealed to owner only)
  *   {a:'takeFromLibrary', uid, to}   while searching: -> 'hand'|'battlefield'|'graveyard'
  *   {a:'endSearch'}                  stop searching; library is shuffled
+ *   {a:'token', name, count}         create token permanent(s); tokens cease to
+ *                                    exist when they leave the battlefield
+ *   {a:'peek', n}                    scry-style look at the top n cards (owner only)
+ *   {a:'peekMove', uid, to}          while peeking: -> 'top'|'bottom'|'hand'|
+ *                                    'battlefield'|'graveyard'
+ *   {a:'endPeek'}                    stop looking (library is NOT shuffled)
  */
 
 var MTGGame = (function () {
@@ -72,6 +78,7 @@ var MTGGame = (function () {
     this.active = this.players[0];
     this.log = [];
     this.searching = {};
+    this.peeking = {}; // pid -> how many top-of-library cards are revealed to them
 
     this.players.forEach(function (id) {
       var deck = (decks[id] || []).map(function (c) {
@@ -200,6 +207,11 @@ var MTGGame = (function () {
         var entry = takeByUid(z.battlefield, action.uid, function (e) { return e.card.uid; });
         if (!entry) throw new Error('Card not on your battlefield');
         this._detachDependents(action.uid);
+        if (entry.card.token) {
+          // Tokens are not real cards: leaving the battlefield, they vanish.
+          this._log(pid, me + "'s " + entry.card.name + ' token ceases to exist.');
+          break;
+        }
         if (to === 'library') {
           z.library = shuffle(z.library.concat([entry.card]), this.rng);
           this._log(pid, me + ' shuffles ' + entry.card.name + ' into their library.');
@@ -292,6 +304,77 @@ var MTGGame = (function () {
         this._log(pid, me + ' finishes searching and shuffles their library.');
         break;
       }
+      case 'token': {
+        var tname = String(action.name || '').trim().slice(0, 60);
+        if (!tname) throw new Error('Token needs a name');
+        var tcount = Math.max(1, Math.min(10, (action.count | 0) || 1));
+        for (var ti = 0; ti < tcount; ti++) {
+          z.battlefield.push(permanent({
+            uid: 'g' + (++uidCounter),
+            name: tname,
+            token: true,
+            img: null,
+            cost: '',
+            type: 'Token'
+          }));
+        }
+        this._log(pid, me + ' creates ' + (tcount > 1 ? tcount + ' ' : 'a ') + tname +
+          ' token' + (tcount > 1 ? 's' : '') + '.');
+        break;
+      }
+      case 'peek': {
+        var pn = action.n | 0;
+        if (pn < 1 || pn > 20) throw new Error('Bad count');
+        if (!z.library.length) throw new Error('Your library is empty');
+        pn = Math.min(pn, z.library.length);
+        this.peeking[pid] = pn;
+        this._log(pid, me + ' looks at the top ' + pn + ' card' + (pn > 1 ? 's' : '') + ' of their library…');
+        break;
+      }
+      case 'peekMove': {
+        var win = this.peeking[pid] | 0;
+        if (!win) throw new Error('Look at your library first');
+        var pidx = -1;
+        for (var li = 0; li < win && li < z.library.length; li++) {
+          if (z.library[li].uid === action.uid) { pidx = li; break; }
+        }
+        if (pidx === -1) throw new Error('Card is not among the viewed cards');
+        var pc = z.library.splice(pidx, 1)[0];
+        switch (action.to) {
+          case 'top':
+            z.library.unshift(pc); // stays in the window; last "Top" ends up on top
+            break;
+          case 'bottom':
+            z.library.push(pc);
+            this.peeking[pid] = win - 1;
+            this._log(pid, me + ' puts a card on the bottom of their library.');
+            break;
+          case 'hand':
+            z.hand.push(pc);
+            this.peeking[pid] = win - 1;
+            this._log(pid, me + ' puts a card from the top of their library into their hand.');
+            break;
+          case 'battlefield':
+            z.battlefield.push(permanent(pc));
+            this.peeking[pid] = win - 1;
+            this._log(pid, me + ' puts ' + pc.name + ' onto the battlefield from the top of their library.');
+            break;
+          case 'graveyard':
+            z.graveyard.push(pc);
+            this.peeking[pid] = win - 1;
+            this._log(pid, me + ' puts ' + pc.name + ' into their graveyard from the top of their library.');
+            break;
+          default:
+            z.library.splice(pidx, 0, pc); // put it back where it was
+            throw new Error('Bad destination');
+        }
+        break;
+      }
+      case 'endPeek': {
+        this.peeking[pid] = 0;
+        this._log(pid, me + ' is done looking at their library.');
+        break;
+      }
       default:
         throw new Error('Unknown action');
     }
@@ -325,6 +408,10 @@ var MTGGame = (function () {
       searching: !!this.searching[pid],
       // Library contents are revealed only to their owner, only mid-search.
       library: this.searching[pid] ? this._zonesOf(pid).library.slice() : null,
+      // Scry window: top n cards, owner only, in order (index 0 = top).
+      peek: (this.peeking[pid] | 0) > 0
+        ? { n: this.peeking[pid], cards: this._zonesOf(pid).library.slice(0, this.peeking[pid]) }
+        : null,
       zones: {},
       log: this.log.slice(-40)
     };

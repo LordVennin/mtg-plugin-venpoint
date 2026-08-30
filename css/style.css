@@ -292,6 +292,9 @@ button.ctx {
 .perm-stack { position: relative; flex: 0 0 auto; }
 .stack-slot { position: absolute; }
 .gcard.attachment { filter: brightness(0.9); }
+.gcard.token { border-style: dashed; border-color: #4a5063; }
+.gcard.token.selected { border-color: var(--accent); }
+.peek-pos { font-size: 10px; color: var(--muted); text-align: left; margin-bottom: 2px; }
 
 .attach-hint { color: var(--accent); font-size: 13px; padding: 4px 0; }
 

@@ -35,7 +35,7 @@ var GameUI = (function () {
     opts = opts || {};
     indexCard(card);
     var cls = 'gcard' + (opts.tapped ? ' tapped' : '') + (opts.small ? ' small' : '') +
-      (opts.attachment ? ' attachment' : '');
+      (opts.attachment ? ' attachment' : '') + (card.token ? ' token' : '');
     if (selected && selected.uid === card.uid && opts.mine) cls += ' selected';
     if (previewUid === card.uid) cls += ' previewed';
     var inner;
@@ -160,6 +160,33 @@ var GameUI = (function () {
       '</div>';
   }
 
+  function peekModalHtml(view) {
+    if (!view.peek) return '';
+    return '<div class="search-inner">' +
+      '<h3>Top of your library (' + view.peek.cards.length + ' shown, top first)</h3>' +
+      '<p class="hint">Only you can see this. "Top" moves a card to the very top; ' +
+      '"Bottom" and card counts are logged, names are not (except to battlefield/graveyard).</p>' +
+      '<div class="search-grid">' +
+      view.peek.cards.map(function (c, i) {
+        indexCard(c);
+        return '<div class="search-item">' +
+          '<div class="peek-pos">#' + (i + 1) + '</div>' +
+          cardHtml(c, { mine: false }) +
+          '<div class="search-item-name">' + escapeHtml(c.name) + '</div>' +
+          '<div class="search-btns">' +
+            '<button class="peek-take" data-uid="' + c.uid + '" data-to="top">Top</button>' +
+            '<button class="peek-take" data-uid="' + c.uid + '" data-to="bottom">Bottom</button>' +
+          '</div><div class="search-btns">' +
+            '<button class="peek-take" data-uid="' + c.uid + '" data-to="hand">Hand</button>' +
+            '<button class="peek-take" data-uid="' + c.uid + '" data-to="battlefield">Field</button>' +
+            '<button class="peek-take" data-uid="' + c.uid + '" data-to="graveyard">Yard</button>' +
+          '</div></div>';
+      }).join('') +
+      '</div>' +
+      '<div class="search-footer"><button id="btn-end-peek" class="primary">Done</button></div>' +
+    '</div>';
+  }
+
   function searchModalHtml(view) {
     if (!view.searching || !view.library) return '';
     return '<div class="search-inner">' +
@@ -249,6 +276,8 @@ var GameUI = (function () {
           '<button class="gact" data-act="untapAll">Untap all</button>' +
           '<button class="gact" data-act="shuffle">Shuffle</button>' +
           '<button class="gact" data-act="mulligan">Mulligan</button>' +
+          '<button class="gact" data-act="scry">👁 Scry</button>' +
+          '<button class="gact" data-act="token">➕ Token</button>' +
           '<button class="gact" data-act="d6">🎲 d6</button>' +
           '<button class="gact" data-act="d20">🎲 d20</button>' +
           '<button class="gact" data-act="coin">🪙 Flip</button>' +
@@ -266,6 +295,10 @@ var GameUI = (function () {
     var modal = $('#search-modal');
     modal.innerHTML = searchModalHtml(view);
     modal.hidden = !(view.searching && view.library);
+
+    var peekModal = $('#peek-modal');
+    peekModal.innerHTML = peekModalHtml(view);
+    peekModal.hidden = !view.peek;
 
     wire();
   }
@@ -342,6 +375,21 @@ var GameUI = (function () {
     board.querySelectorAll('button.gact').forEach(function (btn) {
       btn.addEventListener('click', function (ev) {
         ev.stopPropagation();
+        var kind = btn.getAttribute('data-act');
+        if (kind === 'token') {
+          var input = window.prompt('Token to create — a name, or a count + name (e.g. "Goblin" or "3 Treasure"):', '');
+          if (!input || !input.trim()) return;
+          var tm = input.trim().match(/^(\d+)\s*x?\s+(.+)$/i);
+          if (tm) act({ a: 'token', name: tm[2], count: parseInt(tm[1], 10) });
+          else act({ a: 'token', name: input.trim(), count: 1 });
+          return;
+        }
+        if (kind === 'scry') {
+          var sn = parseInt(window.prompt('Look at how many cards from the top of your library?', '3'), 10);
+          if (!sn || sn < 1) return;
+          act({ a: 'peek', n: Math.min(sn, 20) });
+          return;
+        }
         var map = {
           'draw': { a: 'draw' },
           'search': { a: 'searchLibrary' },
@@ -373,11 +421,24 @@ var GameUI = (function () {
     });
     var endBtn = modal.querySelector('#btn-end-search');
     if (endBtn) endBtn.addEventListener('click', function () { act({ a: 'endSearch' }); });
-    modal.querySelectorAll('.gcard').forEach(function (el) {
-      el.addEventListener('click', function (ev) {
-        ev.stopPropagation();
-        previewUid = el.getAttribute('data-uid');
-        $('#card-preview').innerHTML = previewHtml();
+
+    var peekModal = $('#peek-modal');
+    peekModal.querySelectorAll('button.peek-take').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        act({ a: 'peekMove', uid: btn.getAttribute('data-uid'), to: btn.getAttribute('data-to') });
+      });
+    });
+    var endPeek = peekModal.querySelector('#btn-end-peek');
+    if (endPeek) endPeek.addEventListener('click', function () { act({ a: 'endPeek' }); });
+
+    // Clicking a card inside either modal previews it.
+    [modal, peekModal].forEach(function (m) {
+      m.querySelectorAll('.gcard').forEach(function (el) {
+        el.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          previewUid = el.getAttribute('data-uid');
+          $('#card-preview').innerHTML = previewHtml();
+        });
       });
     });
   }

@@ -82,6 +82,13 @@ draw 7, and you go:
 - **Library search** (Demonic Tutor, Cultivate, fetches): hit *🔍 Search* —
   only you see your library; take cards to hand (logged without naming the
   card), battlefield, or graveyard, then it shuffles.
+- **Scry / look at top X** (*👁 Scry*): see the top X of your library —
+  owner-only, in order. Send cards to top (reorder), bottom, hand,
+  battlefield, or graveyard; the library is NOT shuffled after. Counts are
+  logged; names only when a card goes somewhere public.
+- **Tokens** (*➕ Token*): type a name or "3 Treasure" to create up to 10 at
+  once. Tokens render with a dashed border and cease to exist when they
+  leave the battlefield, like the real thing.
 - Bottom bar: **Draw**, **🔍 Search**, **Untap all**, **Shuffle**,
   **Mulligan**, life **±**, **🎲 d6 / d20**, **🪙 coin flip** (rolled by the
   host's engine and publicly logged, so nobody can fudge them), **Pass turn**.
