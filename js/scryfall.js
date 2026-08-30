@@ -13,7 +13,7 @@ var Scryfall = (function () {
   'use strict';
 
   var API = 'https://api.scryfall.com/cards/collection';
-  var LS_KEY = 'mtgdraft.cardcache.v2'; // v2: added oracle text + p/t
+  var LS_KEY = 'mtgdraft.cardcache.v3'; // v3: added back faces for transform cards
   var mem = Object.create(null);
 
   function loadCache() {
@@ -35,12 +35,35 @@ var Scryfall = (function () {
     } catch (e) { /* quota exceeded — fine, cache is an optimization */ }
   }
 
+  function faceData(f) {
+    return {
+      name: f.name || '',
+      img: f.image_uris ? (f.image_uris.normal || f.image_uris.large) : null,
+      cost: f.mana_cost || '',
+      type: f.type_line || '',
+      text: f.oracle_text || '',
+      pt: (f.power !== undefined && f.toughness !== undefined) ? f.power + '/' + f.toughness : ''
+    };
+  }
+
   function slim(card) {
-    var img = null;
-    if (card.image_uris) img = card.image_uris.normal || card.image_uris.large;
-    else if (card.card_faces && card.card_faces[0].image_uris) {
-      img = card.card_faces[0].image_uris.normal || card.card_faces[0].image_uris.large;
+    // True double-faced cards (transform/MDFC) have a separate image per
+    // face; the front face becomes the card, the back rides along as .back.
+    if (card.card_faces && card.card_faces.length > 1 && card.card_faces[0].image_uris) {
+      var front = faceData(card.card_faces[0]);
+      return {
+        name: card.name, // full "Front // Back" name, importable everywhere
+        img: front.img,
+        cost: front.cost,
+        type: front.type,
+        text: front.text,
+        pt: front.pt,
+        colors: card.color_identity || [],
+        back: faceData(card.card_faces[1])
+      };
     }
+    // Single-faced cards, plus split/adventure cards that share one image.
+    var img = card.image_uris ? (card.image_uris.normal || card.image_uris.large) : null;
     var text = card.oracle_text ||
       (card.card_faces
         ? card.card_faces.map(function (f) { return f.oracle_text || ''; }).filter(Boolean).join('\n//\n')

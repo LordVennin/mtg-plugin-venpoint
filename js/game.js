@@ -36,6 +36,10 @@
  *   {a:'endSearch'}                  stop searching; library is shuffled
  *   {a:'token', name, count}         create token permanent(s); tokens cease to
  *                                    exist when they leave the battlefield
+ *   {a:'playFaceDown', uid}          play a hand card face down (morph/manifest);
+ *                                    the opponent's view never receives its identity
+ *   {a:'faceDown', uid}              turn a battlefield card face down / face up
+ *   {a:'transform', uid}             flip a double-faced card to its other face
  *   {a:'peek', n}                    scry-style look at the top n cards (owner only)
  *   {a:'peekMove', uid, to}          while peeking: -> 'top'|'bottom'|'hand'|
  *                                    'battlefield'|'graveyard'
@@ -64,7 +68,11 @@ var MTGGame = (function () {
   }
 
   function permanent(card) {
-    return { card: card, tapped: false, counters: 0, row: isLand(card) ? 'land' : 'main', attachedTo: null };
+    return {
+      card: card, tapped: false, counters: 0,
+      row: isLand(card) ? 'land' : 'main',
+      attachedTo: null, faceDown: false, flipped: false
+    };
   }
 
   /**
@@ -321,6 +329,39 @@ var MTGGame = (function () {
         this._log(pid, me + ' unattaches ' + dperm.card.name + '.');
         break;
       }
+      case 'playFaceDown': {
+        var fdc = takeByUid(z.hand, action.uid, function (c) { return c.uid; });
+        if (!fdc) throw new Error('Card not in your hand');
+        var fdp = permanent(fdc);
+        fdp.faceDown = true;
+        fdp.row = 'main'; // a face-down card gives away nothing, lands included
+        z.battlefield.push(fdp);
+        this._log(pid, me + ' plays a card face down.');
+        break;
+      }
+      case 'faceDown': {
+        var fperm = this._findPerm(pid, action.uid);
+        if (!fperm) throw new Error('Card not on your battlefield');
+        fperm.faceDown = !fperm.faceDown;
+        if (fperm.faceDown) {
+          fperm.flipped = false;
+          this._log(pid, me + ' turns ' + fperm.card.name + ' face down.');
+        } else {
+          this._log(pid, me + ' turns a face-down card face up: it is ' + fperm.card.name + '.');
+        }
+        break;
+      }
+      case 'transform': {
+        var tperm = this._findPerm(pid, action.uid);
+        if (!tperm) throw new Error('Card not on your battlefield');
+        if (!tperm.card.back) throw new Error('This card has no other face');
+        if (tperm.faceDown) throw new Error('Turn it face up first');
+        tperm.flipped = !tperm.flipped;
+        this._log(pid, tperm.flipped
+          ? me + ' transforms ' + tperm.card.name + ' into ' + tperm.card.back.name + '.'
+          : me + ' transforms ' + tperm.card.back.name + ' back into ' + tperm.card.name + '.');
+        break;
+      }
       case 'searchLibrary': {
         this.searching[pid] = true;
         this._log(pid, me + ' is searching their library…');
@@ -469,7 +510,15 @@ var MTGGame = (function () {
         handCount: z.hand.length,
         libraryCount: z.library.length,
         battlefield: z.battlefield.map(function (e) {
-          return { card: e.card, tapped: e.tapped, counters: e.counters, row: e.row, attachedTo: e.attachedTo };
+          // A face-down card's identity never leaves the host except to its
+          // owner — other players get a stub with only the uid.
+          var card = (e.faceDown && id !== pid)
+            ? { uid: e.card.uid, name: 'Face-down card', facedown: true }
+            : e.card;
+          return {
+            card: card, tapped: e.tapped, counters: e.counters, row: e.row,
+            attachedTo: e.attachedTo, faceDown: e.faceDown, flipped: e.flipped
+          };
         }),
         graveyard: z.graveyard.slice(),
         exile: z.exile.slice()

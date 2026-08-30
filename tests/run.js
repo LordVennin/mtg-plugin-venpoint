@@ -473,5 +473,101 @@ section('London mulligan + zone moves');
     'missing card rejected');
 }
 
-console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
-process.exit(failures ? 1 : 0);
+section('Face-down cards + transform');
+{
+  const delver = {
+    name: 'Delver of Secrets // Insectile Aberration',
+    img: 'front.jpg', cost: '{U}', type: 'Creature — Human Wizard',
+    text: 'At the beginning of your upkeep...', pt: '1/1',
+    back: { name: 'Insectile Aberration', img: 'back.jpg', cost: '', type: 'Creature — Human Insect', text: 'Flying', pt: '3/2' }
+  };
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i, type: 'Sorcery' }));
+  const deckA = [Object.assign({}, delver)].concat(mkDeck('A', 14));
+  const g = new Game.Game(['a', 'b'], { a: deckA, b: mkDeck('B', 15) },
+    { a: 'Alice', b: 'Bob' }, { rng: seededRng(31) });
+
+  // Draw everything so we definitely hold the Delver.
+  while (g.viewFor('a').zones.a.libraryCount) g.apply('a', { a: 'draw' });
+
+  // Play a normal card face down; opponent must learn nothing.
+  const secret = g.viewFor('a').hand.find(c => !c.back);
+  g.apply('a', { a: 'playFaceDown', uid: secret.uid });
+  const ownEntry = g.viewFor('a').zones.a.battlefield[0];
+  assert(ownEntry.faceDown && ownEntry.card.name === secret.name, 'owner still sees the real card');
+  assert(ownEntry.row === 'main', 'face-down cards go to the main row even if lands');
+  const oppSees = g.viewFor('b').zones.a.battlefield[0];
+  assert(oppSees.faceDown && oppSees.card.facedown && oppSees.card.name === 'Face-down card',
+    'opponent gets a stub');
+  assert(JSON.stringify(g.viewFor('b')).indexOf(secret.name) === -1,
+    "the card's name appears NOWHERE in the opponent's entire view");
+  assert(!/plays a card face down\./.test(g.viewFor('b').log.map(l => l.text).join(' ')) === false,
+    'face-down play is logged namelessly');
+
+  // Turn it face up: revealed and logged by name.
+  g.apply('a', { a: 'faceDown', uid: secret.uid });
+  assert(g.viewFor('b').zones.a.battlefield[0].card.name === secret.name, 'face up: opponent now sees it');
+  assert(new RegExp('face up: it is ' + secret.name).test(g.viewFor('b').log.map(l => l.text).join(' ')),
+    'reveal is logged with the name');
+
+  // Transform.
+  const dv = g.viewFor('a').hand.find(c => c.back);
+  g.apply('a', { a: 'play', uid: dv.uid });
+  assert((() => { try { g.apply('a', { a: 'transform', uid: secret.uid }); return false; } catch (e) { return /no other face/.test(e.message); } })(),
+    'single-faced cards cannot transform');
+  g.apply('a', { a: 'transform', uid: dv.uid });
+  const flippedEntry = g.viewFor('b').zones.a.battlefield.find(e => e.card.uid === dv.uid);
+  assert(flippedEntry.flipped === true && flippedEntry.card.back.name === 'Insectile Aberration',
+    'transform is visible to the opponent');
+  assert(/transforms .+ into Insectile Aberration/.test(g.viewFor('b').log.map(l => l.text).join(' ')),
+    'transform is logged');
+  g.apply('a', { a: 'transform', uid: dv.uid });
+  assert(g.viewFor('a').zones.a.battlefield.find(e => e.card.uid === dv.uid).flipped === false,
+    'transform back works');
+
+  // Face down forbids transform; turning face down un-flips.
+  g.apply('a', { a: 'transform', uid: dv.uid });
+  g.apply('a', { a: 'faceDown', uid: dv.uid });
+  const fdDv = g.viewFor('a').zones.a.battlefield.find(e => e.card.uid === dv.uid);
+  assert(fdDv.faceDown && fdDv.flipped === false, 'turning face down resets the flip');
+  assert((() => { try { g.apply('a', { a: 'transform', uid: dv.uid }); return false; } catch (e) { return /face up first/.test(e.message); } })(),
+    'cannot transform while face down');
+}
+
+section('Scryfall slim() back faces');
+{
+  const fixture = {
+    object: 'list', not_found: [],
+    data: [{
+      object: 'card', name: 'Delver of Secrets // Insectile Aberration',
+      color_identity: ['U'],
+      card_faces: [
+        { name: 'Delver of Secrets', mana_cost: '{U}', type_line: 'Creature — Human Wizard',
+          oracle_text: 'At the beginning of your upkeep, look at the top card...', power: '1', toughness: '1',
+          image_uris: { normal: 'https://x/front.jpg' } },
+        { name: 'Insectile Aberration', mana_cost: '', type_line: 'Creature — Human Insect',
+          oracle_text: 'Flying', power: '3', toughness: '2',
+          image_uris: { normal: 'https://x/back.jpg' } }
+      ]
+    }, {
+      object: 'card', name: 'Fire // Ice', type_line: 'Instant // Instant', color_identity: ['U', 'R'],
+      image_uris: { normal: 'https://x/fireice.jpg' }, mana_cost: '',
+      card_faces: [
+        { name: 'Fire', mana_cost: '{1}{R}', oracle_text: 'Fire deals 2 damage...' },
+        { name: 'Ice', mana_cost: '{1}{U}', oracle_text: 'Tap target permanent...' }
+      ]
+    }]
+  };
+  global.fetch = async () => ({ ok: true, json: async () => fixture });
+  const Scryfall = require('../js/scryfall.js');
+  Scryfall.resolve(['Delver of Secrets // Insectile Aberration', 'Fire // Ice']).then(r => {
+    const dv = r.cards['delver of secrets // insectile aberration'];
+    assert(dv.img === 'https://x/front.jpg' && dv.pt === '1/1', 'DFC front face is the card');
+    assert(dv.back && dv.back.name === 'Insectile Aberration' && dv.back.img === 'https://x/back.jpg' &&
+      dv.back.pt === '3/2' && dv.back.text === 'Flying', 'DFC back face captured');
+    const fi = r.cards['fire // ice'];
+    assert(!fi.back && fi.img === 'https://x/fireice.jpg' && /Fire deals[\s\S]*Tap target/.test(fi.text),
+      'split cards stay single-faced with joined text');
+    console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
+    process.exit(failures ? 1 : 0);
+  });
+}

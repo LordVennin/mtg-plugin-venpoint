@@ -31,28 +31,52 @@ var GameUI = (function () {
 
   function indexCard(card) { cardIndex[card.uid] = card; }
 
+  /** What a battlefield entry should look like right now (face-down / flipped). */
+  function displayFor(e) {
+    var c = e.card;
+    if (e.faceDown) {
+      if (c.facedown) return c; // opponent's stub — identity truly absent
+      // Own face-down card: rendered as a back, but we know what it is.
+      return { uid: c.uid, name: c.name, facedown: true, peek: true, real: c };
+    }
+    if (e.flipped && c.back) {
+      var b = c.back;
+      return {
+        uid: c.uid, name: b.name, img: b.img, cost: b.cost, type: b.type,
+        text: b.text, pt: b.pt, token: c.token,
+        other: { name: c.name, type: c.type, text: c.text, pt: c.pt }
+      };
+    }
+    return c;
+  }
+
   function cardHtml(card, opts) {
     opts = opts || {};
     indexCard(card);
     var cls = 'gcard' + (opts.tapped ? ' tapped' : '') + (opts.small ? ' small' : '') +
-      (opts.attachment ? ' attachment' : '') + (card.token ? ' token' : '');
+      (opts.attachment ? ' attachment' : '') + (card.token ? ' token' : '') +
+      (card.facedown ? ' facedown' : '');
     if (selected && selected.uid === card.uid && opts.mine) cls += ' selected';
     if (previewUid === card.uid) cls += ' previewed';
     var inner;
-    if (card.img) {
+    if (card.facedown) {
+      inner = '<div class="fd-back">🂠</div>' +
+        (card.peek ? '<span class="fd-peek">' + escapeHtml(card.name) + '</span>' : '');
+    } else if (card.img) {
       inner = '<img loading="lazy" src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) + '">';
     } else {
       inner = '<span class="gcard-name">' + escapeHtml(card.name) + '</span>';
     }
     var badge = opts.counters ? '<span class="counter-badge">' + opts.counters + '</span>' : '';
+    var title = card.facedown && !card.peek ? 'Face-down card' : card.name;
     return '<div class="' + cls + '" data-zone="' + (opts.zone || '') + '" data-uid="' + card.uid +
-      '" data-mine="' + (opts.mine ? '1' : '0') + '" title="' + escapeHtml(card.name) + '"' +
+      '" data-mine="' + (opts.mine ? '1' : '0') + '" title="' + escapeHtml(title) + '"' +
       (opts.style ? ' style="' + opts.style + '"' : '') + '>' + inner + badge + '</div>';
   }
 
   /** A permanent plus everything attached to it, as one visual stack. */
   function stackHtml(entry, attachments, mine) {
-    var main = cardHtml(entry.card, {
+    var main = cardHtml(displayFor(entry), {
       zone: mine ? 'battlefield' : null, mine: mine,
       tapped: entry.tapped, counters: entry.counters
     });
@@ -62,7 +86,7 @@ var GameUI = (function () {
     var html = '<div class="perm-stack" style="width:' + w + 'px;height:' + h + 'px">';
     attachments.forEach(function (a, i) {
       html += '<div class="stack-slot" style="left:' + ((i + 1) * 20) + 'px;top:' + ((i + 1) * 16) + 'px;z-index:' + (5 - i) + '">' +
-        cardHtml(a.entry.card, {
+        cardHtml(displayFor(a.entry), {
           zone: a.mine ? 'battlefield' : null, mine: a.mine,
           tapped: a.entry.tapped, counters: a.entry.counters, attachment: true
         }) + '</div>';
@@ -128,7 +152,7 @@ var GameUI = (function () {
       return '<button class="ctx" data-act="' + act + '">' + label + '</button>';
     };
     if (selected.zone === 'hand') {
-      return b('play', '▶ Play') + b('discard', 'Discard') +
+      return b('play', '▶ Play') + b('playfd', '🂠 Play face down') + b('discard', 'Discard') +
         (view.bottoming > 0 ? b('bottom', '⤓ Bottom of library') : '');
     }
     if (selected.zone === 'battlefield') {
@@ -136,7 +160,11 @@ var GameUI = (function () {
       view.zones[view.you].battlefield.forEach(function (e) {
         if (e.card.uid === selected.uid) entry = e;
       });
-      return b('tap', 'Tap / Untap') +
+      var fdBtn = entry && entry.faceDown ? b('facedown', '⤴ Turn face up') : b('facedown', '🂠 Face down');
+      var trBtn = (entry && entry.card.back && !entry.faceDown)
+        ? b('transform', entry.flipped ? '⟳ Transform back' : '⟳ Transform')
+        : '';
+      return b('tap', 'Tap / Untap') + trBtn + fdBtn +
         (entry && entry.attachedTo ? b('detach', 'Detach') : b('attach', '🔗 Attach to…')) +
         b('counter+', '+ Counter') + b('counter-', '− Counter') +
         b('row', '⇅ Row') +
@@ -154,21 +182,42 @@ var GameUI = (function () {
     return '';
   }
 
+  function faceSection(label, f) {
+    return '<div class="preview-otherface"><div class="preview-name">' + label +
+      ': ' + escapeHtml(f.name) +
+      (f.pt ? ' <span class="preview-pt">' + escapeHtml(f.pt) + '</span>' : '') + '</div>' +
+      (f.type ? '<div class="preview-type">' + escapeHtml(f.type) + '</div>' : '') +
+      (f.text ? '<div class="preview-oracle">' + escapeHtml(f.text).replace(/\n/g, '<br>') + '</div>' : '') +
+      '</div>';
+  }
+
   function previewHtml() {
     var card = previewUid && cardIndex[previewUid];
     if (!card) {
       return '<div class="preview-empty">Click any card to read it here</div>';
     }
+    if (card.facedown && !card.real) {
+      return '<div class="preview-text preview-fd">🂠</div>' +
+        '<div class="preview-meta"><div class="preview-name">Face-down card</div>' +
+        '<div class="preview-type">Only its owner knows what this is.</div></div>';
+    }
+    var note = '';
+    if (card.facedown && card.real) {
+      note = '<div class="preview-fdnote">Face down — only you can see this.</div>';
+      card = card.real;
+    }
     var body = card.img
       ? '<img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) + '">'
       : '<div class="preview-text"><strong>' + escapeHtml(card.name) + '</strong></div>';
-    return body +
+    return body + note +
       '<div class="preview-meta">' +
         '<div class="preview-name">' + escapeHtml(card.name) +
           (card.pt ? ' <span class="preview-pt">' + escapeHtml(card.pt) + '</span>' : '') + '</div>' +
         (card.cost ? '<div class="preview-cost">' + escapeHtml(card.cost) + '</div>' : '') +
         (card.type ? '<div class="preview-type">' + escapeHtml(card.type) + '</div>' : '') +
         (card.text ? '<div class="preview-oracle">' + escapeHtml(card.text).replace(/\n/g, '<br>') + '</div>' : '') +
+        (card.back ? faceSection('Back face', card.back) : '') +
+        (card.other ? faceSection('Front face', card.other) : '') +
       '</div>';
   }
 
@@ -384,6 +433,9 @@ var GameUI = (function () {
           'to-exile': { a: 'move', uid: uid, to: 'exile' },
           'to-hand': { a: 'move', uid: uid, to: 'hand' },
           'to-library': { a: 'move', uid: uid, to: 'library' },
+          'playfd': { a: 'playFaceDown', uid: uid },
+          'facedown': { a: 'faceDown', uid: uid },
+          'transform': { a: 'transform', uid: uid },
           'bottom': { a: 'bottomCard', uid: uid },
           'gy-hand': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'hand' },
           'gy-field': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'battlefield' },

@@ -304,6 +304,30 @@ button.ctx {
 .stack-slot { position: absolute; }
 .gcard.attachment { filter: brightness(0.9); }
 .gcard.token { border-style: dashed; border-color: #4a5063; }
+.gcard.facedown {
+  background: repeating-linear-gradient(135deg, #3a2d1e, #3a2d1e 6px, #2e2418 6px, #2e2418 12px);
+  border-color: #5a4a32;
+}
+.fd-back {
+  display: flex; align-items: center; justify-content: center;
+  height: 100%; font-size: 34px; color: #8a7452; user-select: none;
+}
+.fd-peek {
+  position: absolute; bottom: 3px; left: 3px; right: 3px;
+  font-size: 9px; text-align: center; color: #cbb68a;
+  background: rgba(20, 15, 8, 0.8); border-radius: 3px; padding: 1px 2px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.preview-fd {
+  font-size: 80px; color: #8a7452;
+  background: repeating-linear-gradient(135deg, #3a2d1e, #3a2d1e 8px, #2e2418 8px, #2e2418 16px);
+}
+.preview-fdnote {
+  margin-top: 6px; color: var(--warn); font-size: 12px; font-weight: 600;
+}
+.preview-otherface {
+  margin-top: 8px; padding-top: 8px; border-top: 1px dashed #3b4257;
+}
 .gcard.token.selected { border-color: var(--accent); }
 .peek-pos { font-size: 10px; color: var(--muted); text-align: left; margin-bottom: 2px; }
 

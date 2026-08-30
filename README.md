@@ -96,6 +96,13 @@ draw 7, and you go:
 - **Tokens** (*➕ Token*): type a name or "3 Treasure" to create up to 10 at
   once. Tokens render with a dashed border and cease to exist when they
   leave the battlefield, like the real thing.
+- **Face-down cards** (morph/manifest): *🂠 Play face down* from hand, or
+  turn any permanent face down. Opponents see only a card back — the
+  identity never even reaches their browser — while you see a small peek
+  label. Turning it face up reveals it in the log.
+- **Transform / double-faced cards** (Delver, werewolves, MDFCs): a
+  *⟳ Transform* button appears on any DFC; both players see the new face,
+  and the preview pane shows the current face plus the other face's text.
 - Bottom bar: **Draw**, **🔍 Search**, **Untap all**, **Shuffle**,
   **Mulligan**, life **±**, **🎲 d6 / d20**, **🪙 coin flip** (rolled by the
   host's engine and publicly logged, so nobody can fudge them), **Pass turn**.
