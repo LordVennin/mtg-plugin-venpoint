@@ -464,6 +464,75 @@ section('Battlefield drag-reorder');
     catch (e) { return /battlefield/.test(e.message); } })(), 'unknown card rejected');
 }
 
+section('Notes, clones, counter kinds, hand order, player counters, manifest');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i, type: 'Sorcery', pt: '' }));
+  const g = new Game.Game(['a', 'b'], { a: mkDeck('A', 20), b: mkDeck('B', 20) },
+    { a: 'Alice', b: 'Bob' }, { rng: seededRng(66) });
+  const bf = () => g.viewFor('a').zones.a.battlefield;
+
+  g.apply('a', { a: 'play', uid: g.viewFor('a').hand[0].uid });
+  const uid = bf()[0].card.uid;
+
+  // Notes
+  g.apply('a', { a: 'note', uid, text: 'blocked by 2/2' });
+  assert(bf()[0].note === 'blocked by 2/2', 'note set');
+  assert(g.viewFor('b').zones.a.battlefield[0].note === 'blocked by 2/2', 'note is public');
+  g.apply('a', { a: 'note', uid, text: '' });
+  assert(bf()[0].note === '', 'empty note clears');
+
+  // Three counter kinds
+  g.apply('a', { a: 'counter', uid, d: 2, kind: 1 });
+  g.apply('a', { a: 'counter', uid, d: 3, kind: 2 });
+  g.apply('a', { a: 'counter', uid, d: 1, kind: 3 });
+  let e = bf()[0];
+  assert(e.counters === 2 && e.counters2 === 3 && e.counters3 === 1, 'three independent counter pools');
+  g.apply('a', { a: 'counter', uid, d: -5, kind: 2 });
+  assert(bf()[0].counters2 === 0 && bf()[0].counters === 2, 'kinds clamp independently');
+  assert(/red counter/.test(g.viewFor('b').log.map(l => l.text).join(' ')), 'kind label logged');
+
+  // Clone
+  g.apply('a', { a: 'clone', uid });
+  assert(bf().length === 2, 'copy created');
+  const copy = bf().find(en => en.card.uid !== uid);
+  assert(copy.card.name === bf()[0].card.name && copy.card.token === true && copy.counters === 0,
+    'copy shares the name, is a token, and starts clean');
+  g.apply('a', { a: 'move', uid: copy.card.uid, to: 'graveyard' });
+  assert(bf().length === 1 && g.viewFor('a').zones.a.graveyard.length === 0, 'copy ceases to exist');
+
+  // Hand reorder (silent, private)
+  const handBefore = g.viewFor('a').hand.map(c => c.uid);
+  const logLen = g.viewFor('a').log.length;
+  g.apply('a', { a: 'handOrder', uid: handBefore[2], before: handBefore[0] });
+  const handAfter = g.viewFor('a').hand.map(c => c.uid);
+  assert(handAfter.join() === [handBefore[2], handBefore[0], handBefore[1]].concat(handBefore.slice(3)).join(),
+    'hand card moved before target');
+  assert(g.viewFor('a').log.length === logLen, 'hand reorder is silent');
+
+  // Player counters
+  g.apply('a', { a: 'pcounter', name: 'Poison', d: 1 });
+  g.apply('a', { a: 'pcounter', name: 'poison', d: 2 });
+  assert(g.viewFor('b').pcounters.a.poison === 3, 'poison accumulates (case-insensitive) and is public');
+  assert(/3 poison counter/.test(g.viewFor('b').log.map(l => l.text).join(' ')), 'player counter logged');
+  g.apply('a', { a: 'pcounter', name: 'poison', d: -5 });
+  assert(g.viewFor('a').pcounters.a.poison === undefined, 'zeroed counters disappear');
+
+  // Manifest from the scry window
+  g.apply('a', { a: 'peek', n: 2 });
+  const topUid = g.viewFor('a').peek.cards[0].uid;
+  const topName = g.viewFor('a').peek.cards[0].name;
+  g.apply('a', { a: 'peekMove', uid: topUid, to: 'manifest' });
+  const man = bf().find(en => en.card.uid === topUid);
+  assert(man && man.faceDown === true, 'manifested card is face down on the battlefield');
+  assert(g.viewFor('a').peek.cards.length === 1, 'peek window shrank');
+  const blog = g.viewFor('b').log.map(l => l.text).join(' ');
+  assert(/manifests a card from the top of their library face down/.test(blog) && blog.indexOf(topName) === -1,
+    'manifest is logged without the card name');
+  assert(JSON.stringify(g.viewFor('b')).indexOf('"' + topName + '"') === -1,
+    "manifested card's identity absent from opponent's view");
+  g.apply('a', { a: 'endPeek' });
+}
+
 section('Game tokens + peek (scry)');
 {
   const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i, type: 'Sorcery' }));

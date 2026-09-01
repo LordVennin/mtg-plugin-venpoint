@@ -22,7 +22,11 @@
  *   {a:'discard', uid}               hand -> graveyard
  *   {a:'tap', uid}                   toggle tapped on own battlefield card
  *   {a:'untapAll'}                   untap all own battlefield cards
- *   {a:'counter', uid, d:+1|-1}      adjust counters on own battlefield card
+ *   {a:'counter', uid, d:+1|-1, kind:1|2|3}  adjust one of three counter types
+ *   {a:'note', uid, text}            annotate own battlefield card ('' clears)
+ *   {a:'clone', uid}                 copy own battlefield card (copies are tokens)
+ *   {a:'handOrder', uid, before}     rearrange own hand (cosmetic, silent)
+ *   {a:'pcounter', name, d}          adjust own named player counter (poison, energy...)
  *   {a:'move', uid, to}              own battlefield card -> 'graveyard'|'exile'|'hand'|'library'
  *   {a:'recover', uid}               own graveyard card -> hand
  *   {a:'passTurn'}                   pass the turn marker (no auto-untap/draw)
@@ -72,11 +76,13 @@ var MTGGame = (function () {
 
   function permanent(card) {
     return {
-      card: card, tapped: false, counters: 0,
+      card: card, tapped: false, counters: 0, counters2: 0, counters3: 0,
       row: isLand(card) ? 'land' : 'main',
-      attachedTo: null, faceDown: false, flipped: false
+      attachedTo: null, faceDown: false, flipped: false, note: ''
     };
   }
+
+  var COUNTER_LABEL = { 1: '', 2: 'red ', 3: 'blue ' };
 
   /**
    * playerIds: [id, ...] (2-8)  decks: {id: [card,...]}  names: {id: displayName}
@@ -103,6 +109,7 @@ var MTGGame = (function () {
     this.mulligans = {}; // pid -> mulligans taken
     this.bottoming = {}; // pid -> cards still owed to the bottom after a mulligan
     this.commanderCasts = {}; // card uid -> times cast from the command zone
+    this.pcounters = {}; // pid -> {counterName: count} (poison, energy, ...)
 
     var startLife = opts.startLife || (this.commander ? 40 : 20);
     this.players.forEach(function (id) {
@@ -260,13 +267,59 @@ var MTGGame = (function () {
         break;
       }
       case 'counter': {
-        var cperm = null;
-        for (var ci = 0; ci < z.battlefield.length; ci++) {
-          if (z.battlefield[ci].card.uid === action.uid) { cperm = z.battlefield[ci]; break; }
-        }
+        var cperm = this._findPerm(pid, action.uid);
         if (!cperm) throw new Error('Card not on your battlefield');
-        cperm.counters = Math.max(0, cperm.counters + (action.d | 0));
-        this._log(pid, me + ' sets ' + cperm.card.name + ' to ' + cperm.counters + ' counter(s).');
+        var kind = action.kind === 2 ? 2 : action.kind === 3 ? 3 : 1;
+        var field = kind === 1 ? 'counters' : 'counters' + kind;
+        cperm[field] = Math.max(0, cperm[field] + (action.d | 0));
+        this._log(pid, me + ' sets ' + cperm.card.name + ' to ' + cperm[field] + ' ' +
+          COUNTER_LABEL[kind] + 'counter(s).');
+        break;
+      }
+      case 'note': {
+        var nperm = this._findPerm(pid, action.uid);
+        if (!nperm) throw new Error('Card not on your battlefield');
+        nperm.note = String(action.text || '').slice(0, 40);
+        break; // visible on the card itself — not logged
+      }
+      case 'clone': {
+        var operm = this._findPerm(pid, action.uid);
+        if (!operm) throw new Error('Card not on your battlefield');
+        if (operm.faceDown) throw new Error('Turn it face up first');
+        var copyCard = Object.assign({}, operm.card, {
+          uid: 'g' + (++uidCounter),
+          token: true // copies vanish when they leave the battlefield
+        });
+        var copyEntry = permanent(copyCard);
+        copyEntry.row = operm.row;
+        z.battlefield.push(copyEntry);
+        this._log(pid, me + ' creates a copy of ' + operm.card.name + '.');
+        break;
+      }
+      case 'handOrder': {
+        var hIdx = -1;
+        for (var hi = 0; hi < z.hand.length; hi++) {
+          if (z.hand[hi].uid === action.uid) { hIdx = hi; break; }
+        }
+        if (hIdx === -1) throw new Error('Card not in your hand');
+        var hCard = z.hand.splice(hIdx, 1)[0];
+        var hAt = z.hand.length;
+        if (action.before) {
+          for (var hj = 0; hj < z.hand.length; hj++) {
+            if (z.hand[hj].uid === action.before) { hAt = hj; break; }
+          }
+        }
+        z.hand.splice(hAt, 0, hCard);
+        break; // private arrangement — silent
+      }
+      case 'pcounter': {
+        var pname = String(action.name || '').trim().toLowerCase().slice(0, 20);
+        if (!pname) throw new Error('Counter needs a name');
+        var mine = (this.pcounters[pid] = this.pcounters[pid] || {});
+        var next = Math.max(0, (mine[pname] | 0) + (action.d | 0));
+        if (next === 0) delete mine[pname];
+        else mine[pname] = next;
+        this._log(pid, me + ' now has ' + next + ' ' + pname + ' counter(s).');
         break;
       }
       case 'move': {
@@ -512,6 +565,16 @@ var MTGGame = (function () {
             this.peeking[pid] = win - 1;
             this._log(pid, me + ' puts ' + pc.name + ' onto the battlefield from the top of their library.');
             break;
+          case 'manifest': {
+            // Face down from the top of the library — the name stays hidden.
+            var mperm = permanent(pc);
+            mperm.faceDown = true;
+            mperm.row = 'main';
+            z.battlefield.push(mperm);
+            this.peeking[pid] = win - 1;
+            this._log(pid, me + ' manifests a card from the top of their library face down.');
+            break;
+          }
           case 'graveyard':
             z.graveyard.push(pc);
             this.peeking[pid] = win - 1;
@@ -573,8 +636,12 @@ var MTGGame = (function () {
         ? { n: this.peeking[pid], cards: self.library.slice(0, this.peeking[pid]) }
         : null,
       zones: {},
+      pcounters: {},
       log: this.log.slice(-40)
     };
+    this.players.forEach(function (id) {
+      view.pcounters[id] = Object.assign({}, this.pcounters[id] || {});
+    }, this);
     this.players.forEach(function (id) {
       var z = this.zones[id];
       view.zones[id] = {
@@ -587,7 +654,9 @@ var MTGGame = (function () {
             ? { uid: e.card.uid, name: 'Face-down card', facedown: true }
             : e.card;
           return {
-            card: card, tapped: e.tapped, counters: e.counters, row: e.row,
+            card: card, tapped: e.tapped, row: e.row,
+            counters: e.counters, counters2: e.counters2 | 0, counters3: e.counters3 | 0,
+            note: e.note || '',
             attachedTo: e.attachedTo, faceDown: e.faceDown, flipped: e.flipped
           };
         }),

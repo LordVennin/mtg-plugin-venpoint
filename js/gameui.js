@@ -19,6 +19,7 @@ var GameUI = (function () {
   var selected = null;    // {zone:'hand'|'battlefield'|'graveyard', uid}
   var attachMode = null;  // {uid, name} while choosing an attach target
   var previewUid = null;
+  var lastClick = { uid: null, t: 0 }; // manual double-click detection
   var searchFilter = ''; // library-search filter text, kept across re-renders
   var wasSearching = false;
   var cardIndex = {};     // uid -> {card, tapped?, counters?} for preview lookups
@@ -70,6 +71,12 @@ var GameUI = (function () {
       inner = '<span class="gcard-name">' + escapeHtml(card.name) + '</span>';
     }
     var badge = opts.counters ? '<span class="counter-badge">' + opts.counters + '</span>' : '';
+    if (opts.counters2) badge += '<span class="counter-badge c2">' + opts.counters2 + '</span>';
+    if (opts.counters3) badge += '<span class="counter-badge c3">' + opts.counters3 + '</span>';
+    if (card.pt && !card.facedown) badge += '<span class="pt-badge">' + escapeHtml(card.pt) + '</span>';
+    if (opts.note) {
+      badge += '<span class="card-note" title="' + escapeHtml(opts.note) + '">' + escapeHtml(opts.note) + '</span>';
+    }
     var title = card.facedown && !card.peek ? 'Face-down card' : card.name;
     return '<div class="' + cls + '" data-zone="' + (opts.zone || '') + '" data-uid="' + card.uid +
       '" data-mine="' + (opts.mine ? '1' : '0') + '" title="' + escapeHtml(title) + '"' +
@@ -81,7 +88,8 @@ var GameUI = (function () {
   function stackHtml(entry, attachments, mine) {
     var main = cardHtml(displayFor(entry), {
       zone: mine ? 'battlefield' : null, mine: mine, drag: mine,
-      tapped: entry.tapped, counters: entry.counters
+      tapped: entry.tapped, counters: entry.counters,
+      counters2: entry.counters2, counters3: entry.counters3, note: entry.note
     });
     if (!attachments.length) return main;
     var w = 82 + attachments.length * 20;
@@ -91,7 +99,9 @@ var GameUI = (function () {
       html += '<div class="stack-slot" style="left:' + ((i + 1) * 20) + 'px;top:' + ((i + 1) * 16) + 'px;z-index:' + (5 - i) + '">' +
         cardHtml(displayFor(a.entry), {
           zone: a.mine ? 'battlefield' : null, mine: a.mine,
-          tapped: a.entry.tapped, counters: a.entry.counters, attachment: true
+          tapped: a.entry.tapped, counters: a.entry.counters,
+          counters2: a.entry.counters2, counters3: a.entry.counters3,
+          note: a.entry.note, attachment: true
         }) + '</div>';
     });
     html += '<div class="stack-slot" style="left:0;top:0;z-index:9">' + main + '</div></div>';
@@ -146,7 +156,7 @@ var GameUI = (function () {
       '<div class="zone-cards">' + inner + '</div></div>';
   }
 
-  function contextButtons(view) {
+  function contextButtons(view, full) {
     if (attachMode) {
       return '<span class="attach-hint">Attaching <strong>' + escapeHtml(attachMode.name) +
         '</strong> — click a card on the battlefield (or empty space to cancel)</span>';
@@ -161,6 +171,9 @@ var GameUI = (function () {
         (isCommanderCard(view, 'hand', selected.uid) ? b('hand-cmd', '→ Command zone') : '');
     }
     if (selected.zone === 'battlefield') {
+      if (!full) {
+        return '<span class="ctx-hint">Right-click the card for actions · double-click taps</span>';
+      }
       var entry = null;
       view.zones[view.you].battlefield.forEach(function (e) {
         if (e.card.uid === selected.uid) entry = e;
@@ -171,7 +184,10 @@ var GameUI = (function () {
         : '';
       return b('tap', 'Tap / Untap') + trBtn + fdBtn +
         (entry && entry.attachedTo ? b('detach', 'Detach') : b('attach', '🔗 Attach to…')) +
-        b('counter+', '+ Counter') + b('counter-', '− Counter') +
+        b('note', '📝 Note') + b('clone', '⧉ Copy') +
+        b('counter+', '+ ⬤') + b('counter-', '− ⬤') +
+        b('counter2+', '+ 🔴') + b('counter2-', '− 🔴') +
+        b('counter3+', '+ 🔵') + b('counter3-', '− 🔵') +
         b('row', '⇅ Row') +
         b('to-graveyard', '→ Graveyard') + b('to-exile', '→ Exile') + b('to-hand', '→ Hand') +
         b('to-library', '→ Shuffle in') +
@@ -263,6 +279,7 @@ var GameUI = (function () {
             '<button class="peek-take" data-uid="' + c.uid + '" data-to="hand">Hand</button>' +
             '<button class="peek-take" data-uid="' + c.uid + '" data-to="battlefield">Field</button>' +
             '<button class="peek-take" data-uid="' + c.uid + '" data-to="graveyard">Yard</button>' +
+            '<button class="peek-take" data-uid="' + c.uid + '" data-to="manifest" title="battlefield, face down">Manifest</button>' +
           '</div></div>';
       }).join('') +
       '</div>' +
@@ -294,6 +311,19 @@ var GameUI = (function () {
     '</div>';
   }
 
+  /** Chips showing a player's named counters (poison, energy, ...). */
+  function pcounterChips(view, pid, mine) {
+    var pcs = (view.pcounters && view.pcounters[pid]) || {};
+    return Object.keys(pcs).map(function (n) {
+      return '<span class="pchip">☠ ' + escapeHtml(n) + ' ' + pcs[n] +
+        (mine
+          ? ' <button class="pchip-btn" data-pc="' + escapeHtml(n) + '" data-d="-1">−</button>' +
+            '<button class="pchip-btn" data-pc="' + escapeHtml(n) + '" data-d="1">+</button>'
+          : '') +
+        '</span>';
+    }).join('');
+  }
+
   /** One non-me player's area (also used for every player when spectating). */
   function otherAreaHtml(view, pid, compact) {
     var z = view.zones[pid];
@@ -306,6 +336,7 @@ var GameUI = (function () {
         '<span class="stat">♥ ' + view.life[pid] + '</span>' +
         '<span class="stat">✋ ' + z.handCount + '</span>' +
         '<span class="stat">📚 ' + z.libraryCount + '</span>' +
+        pcounterChips(view, pid, false) +
       '</div>' +
       battlefieldHtml(view, pid, false, true) +
       '<div class="side-zones">' +
@@ -320,6 +351,8 @@ var GameUI = (function () {
     lastView = view;
     lastSend = sendAction;
     cardIndex = {};
+    closeCardMenu();
+    installHotkeys();
     var me = view.you; // null when spectating
     var others = view.players.filter(function (id) { return id !== me; });
     var mz = me ? view.zones[me] : null;
@@ -366,7 +399,7 @@ var GameUI = (function () {
             (view.bottoming === 1 ? '' : 's') + ' on the bottom — select a hand card, then "⤓ Bottom of library".</div>'
           : '') +
         '<div class="hand">' +
-          view.hand.map(function (c) { return cardHtml(c, { zone: 'hand', mine: true }); }).join('') +
+          view.hand.map(function (c) { return cardHtml(c, { zone: 'hand', mine: true, drag: true }); }).join('') +
           (view.hand.length ? '' : '<span class="zone-empty">hand empty</span>') +
         '</div>' +
         '<div class="player-bar">' +
@@ -375,13 +408,15 @@ var GameUI = (function () {
           '<button class="gact" data-act="life-">−</button>' +
           '<span class="stat">♥ ' + view.life[me] + '</span>' +
           '<button class="gact" data-act="life+">+</button>' +
-          '<button class="gact" data-act="draw">Draw</button>' +
-          '<button class="gact" data-act="search">🔍 Search</button>' +
-          '<button class="gact" data-act="untapAll">Untap all</button>' +
+          pcounterChips(view, me, true) +
+          '<button class="gact" data-act="draw" title="hotkey: d">Draw</button>' +
+          '<button class="gact" data-act="search" title="hotkey: s">🔍 Search</button>' +
+          '<button class="gact" data-act="untapAll" title="hotkey: u">Untap all</button>' +
           '<button class="gact" data-act="shuffle">Shuffle</button>' +
           '<button class="gact" data-act="mulligan">Mulligan</button>' +
-          '<button class="gact" data-act="scry">👁 Scry</button>' +
-          '<button class="gact" data-act="token">➕ Token</button>' +
+          '<button class="gact" data-act="scry" title="hotkey: e">👁 Scry</button>' +
+          '<button class="gact" data-act="token" title="hotkey: k">➕ Token</button>' +
+          '<button class="gact" data-act="pcounter" title="poison, energy, …">☠ Counter</button>' +
           '<button class="gact" data-act="d6">🎲 d6</button>' +
           '<button class="gact" data-act="d20">🎲 d20</button>' +
           '<button class="gact" data-act="coin">🪙 Flip</button>' +
@@ -393,7 +428,8 @@ var GameUI = (function () {
             '<div class="player-bar"><span class="pname">' + escapeHtml(view.names[me] || 'You') + '</span>' +
               turnBadge(me) +
               '<span class="stat">♥ ' + view.life[me] + '</span>' +
-              '<span class="stat">📚 ' + mz.libraryCount + '</span></div>' +
+              '<span class="stat">📚 ' + mz.libraryCount + '</span>' +
+              pcounterChips(view, me, true) + '</div>' +
             battlefieldHtml(view, me, true, false) +
             zonesHtml +
           '</div>';
@@ -440,6 +476,151 @@ var GameUI = (function () {
 
   function rerender() { render(lastView, lastSend); }
 
+  /* -------- shared card-action dispatch (inline bar + right-click menu) -------- */
+
+  function performCtxAction(kind) {
+    if (!selected) return;
+    var uid = selected.uid;
+    if (kind === 'attach') {
+      var card = cardIndex[uid];
+      attachMode = { uid: uid, name: card ? card.name : 'card' };
+      selected = null;
+      rerender();
+      return;
+    }
+    if (kind === 'note') {
+      var entry = null;
+      if (lastView && lastView.you) {
+        lastView.zones[lastView.you].battlefield.forEach(function (e) {
+          if (e.card.uid === uid) entry = e;
+        });
+      }
+      var text = window.prompt('Note for this card (empty clears it):', entry ? entry.note || '' : '');
+      if (text === null) return;
+      act({ a: 'note', uid: uid, text: text });
+      return;
+    }
+    var map = {
+      'play': { a: 'play', uid: uid },
+      'discard': { a: 'discard', uid: uid },
+      'tap': { a: 'tap', uid: uid },
+      'detach': { a: 'detach', uid: uid },
+      'row': { a: 'row', uid: uid },
+      'clone': { a: 'clone', uid: uid },
+      'counter+': { a: 'counter', uid: uid, d: 1, kind: 1 },
+      'counter-': { a: 'counter', uid: uid, d: -1, kind: 1 },
+      'counter2+': { a: 'counter', uid: uid, d: 1, kind: 2 },
+      'counter2-': { a: 'counter', uid: uid, d: -1, kind: 2 },
+      'counter3+': { a: 'counter', uid: uid, d: 1, kind: 3 },
+      'counter3-': { a: 'counter', uid: uid, d: -1, kind: 3 },
+      'to-graveyard': { a: 'move', uid: uid, to: 'graveyard' },
+      'to-exile': { a: 'move', uid: uid, to: 'exile' },
+      'to-hand': { a: 'move', uid: uid, to: 'hand' },
+      'to-library': { a: 'move', uid: uid, to: 'library' },
+      'playfd': { a: 'playFaceDown', uid: uid },
+      'facedown': { a: 'faceDown', uid: uid },
+      'transform': { a: 'transform', uid: uid },
+      'bottom': { a: 'bottomCard', uid: uid },
+      'gy-hand': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'hand' },
+      'gy-field': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'battlefield' },
+      'gy-exile': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'exile' },
+      'gy-lib': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'library' },
+      'ex-hand': { a: 'zoneMove', from: 'exile', uid: uid, to: 'hand' },
+      'ex-field': { a: 'zoneMove', from: 'exile', uid: uid, to: 'battlefield' },
+      'ex-gy': { a: 'zoneMove', from: 'exile', uid: uid, to: 'graveyard' },
+      'ex-lib': { a: 'zoneMove', from: 'exile', uid: uid, to: 'library' },
+      'cast-cmd': { a: 'castCommander', uid: uid },
+      'bf-cmd': { a: 'toCommand', uid: uid, from: 'battlefield' },
+      'hand-cmd': { a: 'toCommand', uid: uid, from: 'hand' },
+      'gy-cmd': { a: 'toCommand', uid: uid, from: 'graveyard' },
+      'ex-cmd': { a: 'toCommand', uid: uid, from: 'exile' }
+    };
+    if (map[kind]) act(map[kind]);
+  }
+
+  /* -------- floating right-click menu -------- */
+
+  var menuEl = null;
+  function closeCardMenu() {
+    if (menuEl) { menuEl.remove(); menuEl = null; }
+  }
+
+  function openCardMenu(x, y) {
+    closeCardMenu();
+    if (!lastView || !selected) return;
+    menuEl = document.createElement('div');
+    menuEl.className = 'card-menu';
+    menuEl.innerHTML = contextButtons(lastView, true);
+    document.body.appendChild(menuEl);
+    var mw = menuEl.offsetWidth, mh = menuEl.offsetHeight;
+    menuEl.style.left = Math.max(4, Math.min(x, window.innerWidth - mw - 8)) + 'px';
+    menuEl.style.top = Math.max(4, Math.min(y, window.innerHeight - mh - 8)) + 'px';
+    menuEl.addEventListener('click', function (ev) { ev.stopPropagation(); });
+    menuEl.querySelectorAll('button.ctx').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var kind = btn.getAttribute('data-act');
+        closeCardMenu();
+        performCtxAction(kind);
+      });
+    });
+  }
+  document.addEventListener('click', closeCardMenu);
+
+  /* -------- shared prompt flows + hotkeys -------- */
+
+  function promptScry() {
+    var sn = parseInt(window.prompt('Look at how many cards from the top of your library?', '3'), 10);
+    if (!sn || sn < 1) return;
+    act({ a: 'peek', n: Math.min(sn, 20) });
+  }
+
+  function promptToken() {
+    var input = window.prompt('Token to create — a name, or a count + name (e.g. "Goblin" or "3 Treasure"):', '');
+    if (!input || !input.trim()) return;
+    var tm = input.trim().match(/^(\d+)\s*x?\s+(.+)$/i);
+    if (tm) act({ a: 'token', name: tm[2], count: parseInt(tm[1], 10) });
+    else act({ a: 'token', name: input.trim(), count: 1 });
+  }
+
+  function promptPlayerCounter() {
+    var name = window.prompt('Player counter to add (poison, energy, experience…):', 'poison');
+    if (!name || !name.trim()) return;
+    act({ a: 'pcounter', name: name.trim(), d: 1 });
+  }
+
+  var hotkeysInstalled = false;
+  function installHotkeys() {
+    if (hotkeysInstalled) return;
+    hotkeysInstalled = true;
+    document.addEventListener('keydown', function (ev) {
+      if (ev.ctrlKey || ev.metaKey || ev.altKey) return;
+      var t = ev.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      var screen = document.getElementById('screen-game');
+      if (!screen || screen.hidden) return;
+      if (!lastView || !lastView.you) return; // spectators have no hotkeys
+      var k = ev.key.toLowerCase();
+      if (k === 'escape') {
+        selected = null; attachMode = null; closeCardMenu(); rerender();
+        return;
+      }
+      if (k === 't' && selected && selected.zone === 'battlefield') {
+        act({ a: 'tap', uid: selected.uid });
+        return;
+      }
+      var simple = {
+        u: { a: 'untapAll' },
+        d: { a: 'draw' },
+        s: { a: 'searchLibrary' },
+        c: { a: 'coin' },
+        r: { a: 'roll', sides: 20 }
+      };
+      if (simple[k]) { act(simple[k]); return; }
+      if (k === 'e') promptScry();
+      else if (k === 'k') promptToken();
+    });
+  }
+
   function wire() {
     var board = $('#game-board');
 
@@ -450,12 +631,20 @@ var GameUI = (function () {
 
       el.addEventListener('click', function (ev) {
         ev.stopPropagation();
+        closeCardMenu();
         if (attachMode) {
           if (uid !== attachMode.uid) act({ a: 'attach', uid: attachMode.uid, target: uid });
           attachMode = null;
           rerender();
           return;
         }
+        // Manual double-click detection: native dblclick is unreliable on
+        // draggable elements in Firefox (the drag machinery eats it).
+        var now = Date.now();
+        var isDouble = lastClick.uid === uid && (now - lastClick.t) < 400;
+        lastClick = { uid: uid, t: now };
+        if (isDouble && mine && zone === 'hand') { act({ a: 'play', uid: uid }); return; }
+        if (isDouble && mine && zone === 'battlefield') { act({ a: 'tap', uid: uid }); return; }
         previewUid = uid;
         if (mine && zone) {
           if (selected && selected.uid === uid && selected.zone === zone) selected = null;
@@ -464,10 +653,14 @@ var GameUI = (function () {
         rerender();
       });
       if (mine && zone) {
-        el.addEventListener('dblclick', function (ev) {
+        el.addEventListener('contextmenu', function (ev) {
+          ev.preventDefault();
           ev.stopPropagation();
-          if (zone === 'hand') act({ a: 'play', uid: uid });
-          else if (zone === 'battlefield') act({ a: 'tap', uid: uid });
+          attachMode = null;
+          selected = { zone: zone, uid: uid };
+          previewUid = uid;
+          rerender();
+          openCardMenu(ev.clientX, ev.clientY);
         });
       }
     });
@@ -475,47 +668,7 @@ var GameUI = (function () {
     board.querySelectorAll('button.ctx').forEach(function (btn) {
       btn.addEventListener('click', function (ev) {
         ev.stopPropagation();
-        if (!selected) return;
-        var uid = selected.uid;
-        var kind = btn.getAttribute('data-act');
-        if (kind === 'attach') {
-          var card = cardIndex[uid];
-          attachMode = { uid: uid, name: card ? card.name : 'card' };
-          selected = null;
-          rerender();
-          return;
-        }
-        var map = {
-          'play': { a: 'play', uid: uid },
-          'discard': { a: 'discard', uid: uid },
-          'tap': { a: 'tap', uid: uid },
-          'detach': { a: 'detach', uid: uid },
-          'row': { a: 'row', uid: uid },
-          'counter+': { a: 'counter', uid: uid, d: 1 },
-          'counter-': { a: 'counter', uid: uid, d: -1 },
-          'to-graveyard': { a: 'move', uid: uid, to: 'graveyard' },
-          'to-exile': { a: 'move', uid: uid, to: 'exile' },
-          'to-hand': { a: 'move', uid: uid, to: 'hand' },
-          'to-library': { a: 'move', uid: uid, to: 'library' },
-          'playfd': { a: 'playFaceDown', uid: uid },
-          'facedown': { a: 'faceDown', uid: uid },
-          'transform': { a: 'transform', uid: uid },
-          'bottom': { a: 'bottomCard', uid: uid },
-          'gy-hand': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'hand' },
-          'gy-field': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'battlefield' },
-          'gy-exile': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'exile' },
-          'gy-lib': { a: 'zoneMove', from: 'graveyard', uid: uid, to: 'library' },
-          'ex-hand': { a: 'zoneMove', from: 'exile', uid: uid, to: 'hand' },
-          'ex-field': { a: 'zoneMove', from: 'exile', uid: uid, to: 'battlefield' },
-          'ex-gy': { a: 'zoneMove', from: 'exile', uid: uid, to: 'graveyard' },
-          'ex-lib': { a: 'zoneMove', from: 'exile', uid: uid, to: 'library' },
-          'cast-cmd': { a: 'castCommander', uid: uid },
-          'bf-cmd': { a: 'toCommand', uid: uid, from: 'battlefield' },
-          'hand-cmd': { a: 'toCommand', uid: uid, from: 'hand' },
-          'gy-cmd': { a: 'toCommand', uid: uid, from: 'graveyard' },
-          'ex-cmd': { a: 'toCommand', uid: uid, from: 'exile' }
-        };
-        if (map[kind]) act(map[kind]);
+        performCtxAction(btn.getAttribute('data-act'));
       });
     });
 
@@ -523,20 +676,9 @@ var GameUI = (function () {
       btn.addEventListener('click', function (ev) {
         ev.stopPropagation();
         var kind = btn.getAttribute('data-act');
-        if (kind === 'token') {
-          var input = window.prompt('Token to create — a name, or a count + name (e.g. "Goblin" or "3 Treasure"):', '');
-          if (!input || !input.trim()) return;
-          var tm = input.trim().match(/^(\d+)\s*x?\s+(.+)$/i);
-          if (tm) act({ a: 'token', name: tm[2], count: parseInt(tm[1], 10) });
-          else act({ a: 'token', name: input.trim(), count: 1 });
-          return;
-        }
-        if (kind === 'scry') {
-          var sn = parseInt(window.prompt('Look at how many cards from the top of your library?', '3'), 10);
-          if (!sn || sn < 1) return;
-          act({ a: 'peek', n: Math.min(sn, 20) });
-          return;
-        }
+        if (kind === 'token') { promptToken(); return; }
+        if (kind === 'scry') { promptScry(); return; }
+        if (kind === 'pcounter') { promptPlayerCounter(); return; }
         var map = {
           'draw': { a: 'draw' },
           'search': { a: 'searchLibrary' },
@@ -556,17 +698,26 @@ var GameUI = (function () {
     });
 
     // Drag to rearrange your own battlefield (reorder within a row, or move
-    // between the spells/lands rows). Drops before the card you land on.
+    // between the spells/lands rows) and your hand. Drops before the card
+    // you land on.
     var dragUid = null;
-    board.querySelectorAll('.player-area.mine .gcard[draggable="true"]').forEach(function (el) {
+    var dragZone = null;
+    board.querySelectorAll('.gcard[data-mine="1"][draggable="true"]').forEach(function (el) {
       el.addEventListener('dragstart', function (ev) {
         dragUid = el.getAttribute('data-uid');
+        dragZone = el.getAttribute('data-zone');
         try {
           ev.dataTransfer.setData('text/plain', dragUid);
           ev.dataTransfer.effectAllowed = 'move';
         } catch (e) { /* some browsers are picky mid-testing */ }
       });
     });
+    function dropTargetBefore(ev, uid) {
+      var targetCard = ev.target && ev.target.closest ? ev.target.closest('.gcard') : null;
+      return (targetCard && targetCard.getAttribute('data-uid') !== uid)
+        ? targetCard.getAttribute('data-uid')
+        : null;
+    }
     board.querySelectorAll('.player-area.mine .bf-row[data-row]').forEach(function (row) {
       row.addEventListener('dragover', function (ev) {
         ev.preventDefault();
@@ -576,13 +727,32 @@ var GameUI = (function () {
         ev.preventDefault();
         ev.stopPropagation();
         var uid = dragUid || (ev.dataTransfer && ev.dataTransfer.getData('text/plain'));
+        if (!uid || dragZone !== 'battlefield') { dragUid = null; return; }
         dragUid = null;
-        if (!uid) return;
-        var targetCard = ev.target && ev.target.closest ? ev.target.closest('.gcard') : null;
-        var before = (targetCard && targetCard.getAttribute('data-uid') !== uid)
-          ? targetCard.getAttribute('data-uid')
-          : null;
-        act({ a: 'reorder', uid: uid, row: row.getAttribute('data-row'), before: before });
+        act({ a: 'reorder', uid: uid, row: row.getAttribute('data-row'), before: dropTargetBefore(ev, uid) });
+      });
+    });
+    var handEl = board.querySelector('.hand');
+    if (handEl) {
+      handEl.addEventListener('dragover', function (ev) {
+        ev.preventDefault();
+        if (ev.dataTransfer) ev.dataTransfer.dropEffect = 'move';
+      });
+      handEl.addEventListener('drop', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var uid = dragUid || (ev.dataTransfer && ev.dataTransfer.getData('text/plain'));
+        if (!uid || dragZone !== 'hand') { dragUid = null; return; }
+        dragUid = null;
+        act({ a: 'handOrder', uid: uid, before: dropTargetBefore(ev, uid) });
+      });
+    }
+
+    // Player-counter chips (own bar has ± buttons)
+    board.querySelectorAll('button.pchip-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        act({ a: 'pcounter', name: btn.getAttribute('data-pc'), d: parseInt(btn.getAttribute('data-d'), 10) });
       });
     });
 

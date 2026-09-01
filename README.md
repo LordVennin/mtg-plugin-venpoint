@@ -106,7 +106,24 @@ draw 7, and you go:
 - **London mulligan**: each mulligan draws a fresh 7, then the board tells
   you to put N cards on the bottom (N = mulligans taken) — select a hand
   card and hit *⤓ Bottom of library* until the debt is paid.
-- **Double-click** shortcuts: hand card = play it, battlefield card = tap it.
+- **Right-click your own cards** for the full action menu (tap, attach,
+  notes, copy, counters, zone moves…); the inline bar keeps quick actions
+  for hand/graveyard/exile cards.
+- **Double-click** shortcuts: hand card = play it, battlefield card = tap it
+  (implemented as two rapid clicks, so it works in Firefox too).
+- **Hotkeys**: `u` untap all · `d` draw · `s` search · `e` scry · `k` token ·
+  `c` coin · `r` d20 · `t` tap selected · `Esc` clear selection.
+- **Drag your hand** to organize it (private, silent), and drag battlefield
+  cards to arrange your board.
+- **Annotate cards** (📝 Note in the right-click menu) — a short label shown
+  in the middle of the card, visible to everyone. Creatures show their
+  **power/toughness** in the bottom-right corner.
+- **Three counter types per card** (purple ⬤ top-right, red top-left, blue
+  bottom-left) plus **player counters** (☠ Counter: poison, energy,
+  experience…) shown as chips by each player's name with ± on your own.
+- **⧉ Copy** duplicates any face-up permanent — copies are tokens and
+  vanish when they leave the battlefield. **Manifest** in the scry window
+  puts a top-of-library card onto the battlefield face down, namelessly.
 - **Two battlefield rows**: lands go to the row nearest their owner, spells
   to the row nearest the middle (auto-sorted by card type; *⇅ Row* overrides).
 - **Attachments**: select an equipment/aura, hit *Attach to…*, click the
