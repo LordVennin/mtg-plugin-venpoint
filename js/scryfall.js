@@ -16,6 +16,17 @@ var Scryfall = (function () {
   var LS_KEY = 'mtgdraft.cardcache.v3'; // v3: added back faces for transform cards
   var mem = Object.create(null);
 
+  /**
+   * The name to send to the API. Scryfall's collection endpoint matches
+   * multi-face cards ONLY by a face name — the full "A // B" fails, and so
+   * does Moxfield's single-slash "A / B" export. So for any slashed name we
+   * request the front face and map the result back to the requested name.
+   */
+  function apiName(n) {
+    var front = String(n).split(/\s*\/\/?\s*/)[0].trim();
+    return front || n;
+  }
+
   function loadCache() {
     try {
       var raw = localStorage.getItem(LS_KEY);
@@ -107,7 +118,7 @@ var Scryfall = (function () {
       return fetch(API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identifiers: chunk.map(function (n) { return { name: n }; }) })
+        body: JSON.stringify({ identifiers: chunk.map(function (n) { return { name: apiName(n) }; }) })
       }).then(function (res) {
         if (!res.ok) throw new Error('Scryfall error ' + res.status);
         return res.json();
@@ -119,14 +130,17 @@ var Scryfall = (function () {
         (json.not_found || []).forEach(function (ident) {
           if (ident.name) notFound.push(ident.name);
         });
-        // Requested names can differ from canonical names (e.g. split cards,
-        // "Fire // Ice" asked as "Fire"). Map request name -> card too.
+        // Requested names can differ from canonical names: Moxfield's
+        // "A / B", the full "A // B", or just a face name — map each
+        // requested spelling to the card its front face resolved to.
         chunk.forEach(function (n) {
           var k = n.toLowerCase();
           if (mem[k]) return;
+          var fk = apiName(n).toLowerCase();
           var hit = (json.data || []).find(function (c) {
-            return c.name.toLowerCase().indexOf(k) === 0 ||
-              (c.card_faces || []).some(function (f) { return f.name.toLowerCase() === k; });
+            var cn = c.name.toLowerCase();
+            return cn === fk || cn.indexOf(fk + ' //') === 0 ||
+              (c.card_faces || []).some(function (f) { return (f.name || '').toLowerCase() === fk; });
           });
           if (hit) mem[k] = slim(hit);
         });

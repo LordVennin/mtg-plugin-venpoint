@@ -37,6 +37,9 @@ section('parseLine');
   assert(p('// a comment') === null, 'comment line');
   assert(p('Sideboard') === null, 'section header');
   assert(p('1 Fire // Ice').name === 'Fire // Ice', 'split card name survives');
+  const mox = p('1 Funeral Room / Awakening Hall (PDSK) 100p');
+  assert(mox.name === 'Funeral Room / Awakening Hall' && mox.set === 'PDSK' && mox.collectorNumber === '100p',
+    'Moxfield single-slash + promo collector number parses');
   assert(p('1 Borrowing 100,000 Arrows').name === 'Borrowing 100,000 Arrows', 'commas in name');
 }
 
@@ -645,7 +648,51 @@ section('Scryfall slim() back faces');
     const fi = r.cards['fire // ice'];
     assert(!fi.back && fi.img === 'https://x/fireice.jpg' && /Fire deals[\s\S]*Tap target/.test(fi.text),
       'split cards stay single-faced with joined text');
-    console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
-    process.exit(failures ? 1 : 0);
+
+    // ---- Moxfield single-slash names resolve without manual edits ----
+    section('Scryfall slash-name resolution');
+    let requestedIdentifiers = null;
+    const roomFixture = {
+      object: 'list', not_found: [],
+      data: [{
+        object: 'card', name: 'Funeral Room // Awakening Hall',
+        type_line: 'Enchantment — Room // Enchantment — Room', color_identity: ['B'],
+        image_uris: { normal: 'https://x/room.jpg' }, mana_cost: '',
+        card_faces: [
+          { name: 'Funeral Room', mana_cost: '{1}{B}', oracle_text: 'Whenever a creature dies...' },
+          { name: 'Awakening Hall', mana_cost: '{5}{B}{B}', oracle_text: 'When you unlock this door...' }
+        ]
+      }, {
+        object: 'card', name: 'Delver of Secrets // Insectile Aberration', color_identity: ['U'],
+        card_faces: [
+          { name: 'Delver of Secrets', mana_cost: '{U}', type_line: 'Creature — Human Wizard',
+            oracle_text: 'At the beginning...', power: '1', toughness: '1',
+            image_uris: { normal: 'https://x/front.jpg' } },
+          { name: 'Insectile Aberration', type_line: 'Creature — Human Insect',
+            oracle_text: 'Flying', power: '3', toughness: '2',
+            image_uris: { normal: 'https://x/back.jpg' } }
+        ]
+      }]
+    };
+    global.fetch = async (url, opts) => {
+      requestedIdentifiers = JSON.parse(opts.body).identifiers.map(i => i.name);
+      return { ok: true, json: async () => roomFixture };
+    };
+    return Scryfall.resolve([
+      'Funeral Room / Awakening Hall',   // Moxfield single slash
+      'Delver of Secrets / Insectile Aberration'
+    ]).then(r2 => {
+      assert(requestedIdentifiers.every(n => !n.includes('/')),
+        'API is queried by front-face name (no slashes sent): ' + JSON.stringify(requestedIdentifiers));
+      const room = r2.cards['funeral room / awakening hall'];
+      assert(!!room && room.name === 'Funeral Room // Awakening Hall' && room.img === 'https://x/room.jpg',
+        'single-slash room card resolves to the canonical card');
+      const dv = r2.cards['delver of secrets / insectile aberration'];
+      assert(!!dv && dv.back && dv.back.name === 'Insectile Aberration',
+        'single-slash DFC resolves with its back face');
+      assert(r2.notFound.length === 0, 'nothing reported missing');
+      console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
+      process.exit(failures ? 1 : 0);
+    });
   });
 }
