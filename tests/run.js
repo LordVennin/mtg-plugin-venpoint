@@ -533,6 +533,55 @@ section('Notes, clones, counter kinds, hand order, player counters, manifest');
   g.apply('a', { a: 'endPeek' });
 }
 
+section('toLib (library top/bottom) + tokenFrom');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i, type: 'Sorcery' }));
+  const g = new Game.Game(['a', 'b'], { a: mkDeck('A', 20), b: mkDeck('B', 20) },
+    { a: 'Alice', b: 'Bob' }, { rng: seededRng(88) });
+  const lib = () => g.zones.a.library;
+
+  // Hand -> top (nameless log)
+  const handCard = g.viewFor('a').hand[0];
+  g.apply('a', { a: 'toLib', from: 'hand', uid: handCard.uid, pos: 'top' });
+  assert(lib()[0].uid === handCard.uid, 'hand card went to the top of the library');
+  const log1 = g.viewFor('b').log.map(l => l.text).join(' | ');
+  assert(/puts a card from their hand on top of their library/.test(log1) && log1.indexOf(handCard.name) === -1,
+    'hand-to-library is logged without the name');
+
+  // Hand -> bottom
+  const handCard2 = g.viewFor('a').hand[0];
+  g.apply('a', { a: 'toLib', from: 'hand', uid: handCard2.uid, pos: 'bottom' });
+  assert(lib()[lib().length - 1].uid === handCard2.uid, 'hand card went to the bottom');
+
+  // Battlefield -> top (named), token ceases
+  g.apply('a', { a: 'play', uid: g.viewFor('a').hand[0].uid });
+  const perm = g.viewFor('a').zones.a.battlefield[0];
+  g.apply('a', { a: 'toLib', from: 'battlefield', uid: perm.card.uid, pos: 'top' });
+  assert(lib()[0].uid === perm.card.uid, 'battlefield card went to the top');
+  assert(new RegExp('puts ' + perm.card.name + ' on top').test(g.viewFor('b').log.map(l => l.text).join(' ')),
+    'battlefield-to-library is logged by name');
+  g.apply('a', { a: 'token', name: 'Treasure', count: 1 });
+  const tok = g.viewFor('a').zones.a.battlefield.find(e => e.card.token);
+  const libLen = lib().length;
+  g.apply('a', { a: 'toLib', from: 'battlefield', uid: tok.card.uid, pos: 'top' });
+  assert(lib().length === libLen, 'a token sent to the library ceases to exist instead');
+
+  // Graveyard -> bottom
+  g.apply('a', { a: 'discard', uid: g.viewFor('a').hand[0].uid });
+  const gyCard = g.viewFor('a').zones.a.graveyard[0];
+  g.apply('a', { a: 'toLib', from: 'graveyard', uid: gyCard.uid, pos: 'bottom' });
+  assert(lib()[lib().length - 1].uid === gyCard.uid, 'graveyard card went to the bottom');
+
+  // tokenFrom with resolved data
+  g.apply('a', { a: 'tokenFrom', card: { name: 'Goblin', img: 'https://x/goblin.jpg', type: 'Token Creature — Goblin', text: 'Haste?', pt: '1/1' } });
+  const gob = g.viewFor('b').zones.a.battlefield.find(e => e.card.name === 'Goblin');
+  assert(gob && gob.card.token === true && gob.card.img === 'https://x/goblin.jpg' && gob.card.pt === '1/1',
+    'tokenFrom creates a token with art and p/t, visible to the opponent');
+  assert(/creates a Goblin token/.test(g.viewFor('b').log.map(l => l.text).join(' ')), 'tokenFrom logged');
+  assert((() => { try { g.apply('a', { a: 'tokenFrom', card: {} }); return false; } catch (e) { return true; } })(),
+    'nameless tokenFrom rejected');
+}
+
 section('Game tokens + peek (scry)');
 {
   const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i, type: 'Sorcery' }));
@@ -823,8 +872,39 @@ section('Scryfall slim() back faces');
           'standalone card resolves to ITSELF, not the DFC back face');
         assert(fetchLog.some(u => String(u).includes('named?exact=Sign%20in%20Blood')),
           'ambiguous name was rescued via named?exact');
-        console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
-        process.exit(failures ? 1 : 0);
+
+        // ---- token parts from all_parts ----
+        section('Scryfall token parts');
+        const krenko = {
+          object: 'card', name: 'Krenko, Mob Boss', type_line: 'Legendary Creature — Goblin Warrior',
+          mana_cost: '{2}{R}{R}', oracle_text: '{T}: Create X 1/1 red Goblin creature tokens...',
+          power: '3', toughness: '3', color_identity: ['R'],
+          image_uris: { normal: 'https://x/krenko.jpg' },
+          all_parts: [
+            { component: 'combo_piece', id: 'self', name: 'Krenko, Mob Boss' },
+            { component: 'token', id: 'tok-goblin', name: 'Goblin' }
+          ]
+        };
+        const goblinToken = {
+          object: 'card', name: 'Goblin', type_line: 'Token Creature — Goblin', layout: 'token',
+          power: '1', toughness: '1', oracle_text: '', color_identity: ['R'],
+          image_uris: { normal: 'https://x/goblin-token.jpg' }
+        };
+        global.fetch = async (url) => {
+          if (String(url).includes('/cards/tok-goblin')) return { ok: true, json: async () => goblinToken };
+          return { ok: true, json: async () => ({ object: 'list', not_found: [], data: [krenko] }) };
+        };
+        return Scryfall.resolve(['Krenko, Mob Boss']).then(r4 => {
+          const k = r4.cards['krenko, mob boss'];
+          assert(k.tokens && k.tokens.length === 1 && k.tokens[0].name === 'Goblin' && k.tokens[0].id === 'tok-goblin',
+            'token parts extracted from all_parts (combo pieces excluded)');
+          return Scryfall.fetchToken('tok-goblin');
+        }).then(tok => {
+          assert(tok.name === 'Goblin' && tok.img === 'https://x/goblin-token.jpg' && tok.pt === '1/1',
+            'fetchToken returns the slim token with art and p/t');
+          console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
+          process.exit(failures ? 1 : 0);
+        });
       });
     });
   });

@@ -148,6 +148,57 @@ var GameUI = (function () {
     return '<div class="battlefield">' + (mirror ? lands + main : main + lands) + '</div>';
   }
 
+  var openPile = null; // {pid, zone} while a graveyard/exile browser is open
+
+  /** Collapsed graveyard/exile: the top card + a count; click to browse. */
+  function pileStrip(view, pid, zone) {
+    var cards = view.zones[pid][zone];
+    var top = cards.length ? cards[cards.length - 1] : null;
+    var label = zone === 'graveyard' ? 'Graveyard' : 'Exile';
+    var inner = top
+      ? cardHtml(top, { small: true, mine: false })
+      : '<span class="zone-empty">—</span>';
+    return '<div class="zone-strip pile" data-pile="' + pid + ':' + zone +
+      '" title="Click to browse the ' + label.toLowerCase() + '">' +
+      '<span class="zone-label">' + label + ' (' + cards.length + ')</span>' +
+      '<div class="zone-cards">' + inner + '</div></div>';
+  }
+
+  function pileModalHtml(view) {
+    if (!openPile) return '';
+    var pid = openPile.pid, zone = openPile.zone;
+    if (!view.zones[pid]) { openPile = null; return ''; }
+    var cards = view.zones[pid][zone];
+    var mine = pid === view.you;
+    var who = mine ? 'Your' : escapeHtml(view.names[pid] || pid) + '’s';
+    return '<div class="search-inner">' +
+      '<h3>' + who + ' ' + zone + ' (' + cards.length + ')</h3>' +
+      '<p class="hint">Newest on top' + (mine ? '' : ' — public information') + '. Click a card to read it.</p>' +
+      '<div class="search-grid">' +
+      cards.slice().reverse().map(function (c) {
+        indexCard(c);
+        var btns = '';
+        if (mine) {
+          btns = '<div class="search-btns">' +
+            '<button class="pile-act" data-uid="' + c.uid + '" data-op="hand">Hand</button>' +
+            '<button class="pile-act" data-uid="' + c.uid + '" data-op="field">Field</button>' +
+            '<button class="pile-act" data-uid="' + c.uid + '" data-op="cross">' +
+              (zone === 'graveyard' ? 'Exile' : 'Yard') + '</button>' +
+          '</div><div class="search-btns">' +
+            '<button class="pile-act" data-uid="' + c.uid + '" data-op="top">Top</button>' +
+            '<button class="pile-act" data-uid="' + c.uid + '" data-op="bottom">Bottom</button>' +
+            '<button class="pile-act" data-uid="' + c.uid + '" data-op="shuffle">Shuffle</button>' +
+            (c.commander ? '<button class="pile-act" data-uid="' + c.uid + '" data-op="cmd">Command</button>' : '') +
+          '</div>';
+        }
+        return '<div class="search-item">' + cardHtml(c, { mine: false }) +
+          '<div class="search-item-name">' + escapeHtml(c.name) + '</div>' + btns + '</div>';
+      }).join('') +
+      '</div>' +
+      '<div class="search-footer"><button id="btn-close-pile" class="primary">Close</button></div>' +
+    '</div>';
+  }
+
   function zoneStrip(label, cards, zone, mine) {
     var inner = cards.length
       ? cards.map(function (c) { return cardHtml(c, { zone: mine ? zone : null, small: true, mine: mine }); }).join('')
@@ -167,7 +218,8 @@ var GameUI = (function () {
     };
     if (selected.zone === 'hand') {
       return b('play', '▶ Play') + b('playfd', '🂠 Play face down') + b('discard', 'Discard') +
-        (view.bottoming > 0 ? b('bottom', '⤓ Bottom of library') : '') +
+        b('hand-top', '⤒ Library top') + b('hand-bot', '⤓ Library bottom') +
+        (view.bottoming > 0 ? b('bottom', '⤓ Bottom (mulligan)') : '') +
         (isCommanderCard(view, 'hand', selected.uid) ? b('hand-cmd', '→ Command zone') : '');
     }
     if (selected.zone === 'battlefield') {
@@ -189,8 +241,10 @@ var GameUI = (function () {
         b('counter2+', '+ 🔴') + b('counter2-', '− 🔴') +
         b('counter3+', '+ 🔵') + b('counter3-', '− 🔵') +
         b('row', '⇅ Row') +
+        (entry && entry.card.tokens && entry.card.tokens.length ? b('make-token', '✨ Create its token') : '') +
         b('to-graveyard', '→ Graveyard') + b('to-exile', '→ Exile') + b('to-hand', '→ Hand') +
         b('to-library', '→ Shuffle in') +
+        b('bf-top', '⤒ Library top') + b('bf-bot', '⤓ Library bottom') +
         (entry && entry.card.commander ? b('bf-cmd', '→ Command zone') : '');
     }
     if (selected.zone === 'graveyard') {
@@ -341,8 +395,8 @@ var GameUI = (function () {
       battlefieldHtml(view, pid, false, true) +
       '<div class="side-zones">' +
         (showCmd ? zoneStrip('Command', z.command, null, false) : '') +
-        zoneStrip('Graveyard', z.graveyard, null, false) +
-        zoneStrip('Exile', z.exile, null, false) +
+        pileStrip(view, pid, 'graveyard') +
+        pileStrip(view, pid, 'exile') +
       '</div>' +
     '</div>';
   }
@@ -389,8 +443,8 @@ var GameUI = (function () {
       var zonesHtml =
         '<div class="side-zones">' +
           (showCmd ? zoneStrip('Command', mz.command, 'command', true) : '') +
-          zoneStrip('Graveyard', mz.graveyard, 'graveyard', true) +
-          zoneStrip('Exile', mz.exile, 'exile', true) +
+          pileStrip(view, me, 'graveyard') +
+          pileStrip(view, me, 'exile') +
         '</div>';
       var benchInner =
         '<div id="ctx-bar" class="ctx-bar">' + contextButtons(view) + '</div>' +
@@ -467,6 +521,10 @@ var GameUI = (function () {
     peekModal.innerHTML = peekModalHtml(view);
     peekModal.hidden = !view.peek;
 
+    var zoneModal = $('#zone-modal');
+    zoneModal.innerHTML = pileModalHtml(view);
+    zoneModal.hidden = !openPile;
+
     wire();
   }
 
@@ -500,9 +558,34 @@ var GameUI = (function () {
       act({ a: 'note', uid: uid, text: text });
       return;
     }
+    if (kind === 'make-token') {
+      var tEntry = null;
+      if (lastView && lastView.you) {
+        lastView.zones[lastView.you].battlefield.forEach(function (e) {
+          if (e.card.uid === uid) tEntry = e;
+        });
+      }
+      var toks = (tEntry && tEntry.card.tokens) || [];
+      if (!toks.length) return;
+      var chosen = toks[0];
+      if (toks.length > 1) {
+        var listing = toks.map(function (t, i) { return (i + 1) + ': ' + t.name; }).join('\n');
+        var pick = parseInt(window.prompt('Which token?\n' + listing, '1'), 10);
+        if (!pick || pick < 1 || pick > toks.length) return;
+        chosen = toks[pick - 1];
+      }
+      Scryfall.fetchToken(chosen.id)
+        .then(function (tok) { act({ a: 'tokenFrom', card: tok }); })
+        .catch(function () { act({ a: 'tokenFrom', card: { name: chosen.name } }); });
+      return;
+    }
     var map = {
       'play': { a: 'play', uid: uid },
       'discard': { a: 'discard', uid: uid },
+      'hand-top': { a: 'toLib', from: 'hand', uid: uid, pos: 'top' },
+      'hand-bot': { a: 'toLib', from: 'hand', uid: uid, pos: 'bottom' },
+      'bf-top': { a: 'toLib', from: 'battlefield', uid: uid, pos: 'top' },
+      'bf-bot': { a: 'toLib', from: 'battlefield', uid: uid, pos: 'bottom' },
       'tap': { a: 'tap', uid: uid },
       'detach': { a: 'detach', uid: uid },
       'row': { a: 'row', uid: uid },
@@ -601,7 +684,7 @@ var GameUI = (function () {
       if (!lastView || !lastView.you) return; // spectators have no hotkeys
       var k = ev.key.toLowerCase();
       if (k === 'escape') {
-        selected = null; attachMode = null; closeCardMenu(); rerender();
+        selected = null; attachMode = null; openPile = null; closeCardMenu(); rerender();
         return;
       }
       if (k === 't' && selected && selected.zone === 'battlefield') {
@@ -748,6 +831,16 @@ var GameUI = (function () {
       });
     }
 
+    // Graveyard/exile piles: click opens the zone browser.
+    board.querySelectorAll('.zone-strip.pile').forEach(function (strip) {
+      strip.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        var parts = strip.getAttribute('data-pile').split(':');
+        openPile = { pid: parts[0], zone: parts[1] };
+        rerender();
+      });
+    });
+
     // Player-counter chips (own bar has ± buttons)
     board.querySelectorAll('button.pchip-btn').forEach(function (btn) {
       btn.addEventListener('click', function (ev) {
@@ -799,8 +892,32 @@ var GameUI = (function () {
     var endPeek = peekModal.querySelector('#btn-end-peek');
     if (endPeek) endPeek.addEventListener('click', function () { act({ a: 'endPeek' }); });
 
-    // Clicking a card inside either modal previews it.
-    [modal, peekModal].forEach(function (m) {
+    var zoneModal = $('#zone-modal');
+    zoneModal.querySelectorAll('button.pile-act').forEach(function (btn) {
+      btn.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (!openPile) return;
+        var uid = btn.getAttribute('data-uid');
+        var zone = openPile.zone;
+        var other = zone === 'graveyard' ? 'exile' : 'graveyard';
+        var ops = {
+          hand: { a: 'zoneMove', from: zone, uid: uid, to: 'hand' },
+          field: { a: 'zoneMove', from: zone, uid: uid, to: 'battlefield' },
+          cross: { a: 'zoneMove', from: zone, uid: uid, to: other },
+          shuffle: { a: 'zoneMove', from: zone, uid: uid, to: 'library' },
+          top: { a: 'toLib', from: zone, uid: uid, pos: 'top' },
+          bottom: { a: 'toLib', from: zone, uid: uid, pos: 'bottom' },
+          cmd: { a: 'toCommand', uid: uid, from: zone }
+        };
+        var op = ops[btn.getAttribute('data-op')];
+        if (op) act(op);
+      });
+    });
+    var closePile = zoneModal.querySelector('#btn-close-pile');
+    if (closePile) closePile.addEventListener('click', function () { openPile = null; rerender(); });
+
+    // Clicking a card inside any modal previews it.
+    [modal, peekModal, zoneModal].forEach(function (m) {
       m.querySelectorAll('.gcard').forEach(function (el) {
         el.addEventListener('click', function (ev) {
           ev.stopPropagation();

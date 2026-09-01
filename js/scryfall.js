@@ -13,7 +13,7 @@ var Scryfall = (function () {
   'use strict';
 
   var API = 'https://api.scryfall.com/cards/collection';
-  var LS_KEY = 'mtgdraft.cardcache.v4'; // v4: flush entries poisoned by back-face collisions
+  var LS_KEY = 'mtgdraft.cardcache.v5'; // v5: added related-token parts
   var mem = Object.create(null);
 
   /**
@@ -57,6 +57,16 @@ var Scryfall = (function () {
     };
   }
 
+  /** Token cards this card creates, from Scryfall's all_parts relations. */
+  function tokenParts(card) {
+    if (!card.all_parts) return undefined;
+    var parts = card.all_parts
+      .filter(function (p) { return p.component === 'token'; })
+      .slice(0, 4)
+      .map(function (p) { return { name: p.name, id: p.id }; });
+    return parts.length ? parts : undefined;
+  }
+
   function slim(card) {
     // True double-faced cards (transform/MDFC) have a separate image per
     // face; the front face becomes the card, the back rides along as .back.
@@ -70,6 +80,7 @@ var Scryfall = (function () {
         text: front.text,
         pt: front.pt,
         colors: card.color_identity || [],
+        tokens: tokenParts(card),
         back: faceData(card.card_faces[1])
       };
     }
@@ -91,8 +102,25 @@ var Scryfall = (function () {
       type: card.type_line || '',
       text: text,
       pt: pt,
-      colors: card.color_identity || []
+      colors: card.color_identity || [],
+      tokens: tokenParts(card)
     };
+  }
+
+  /** Fetch one token card by Scryfall id (for "create its token"). */
+  var tokenCache = Object.create(null);
+  function fetchToken(id) {
+    if (tokenCache[id]) return Promise.resolve(tokenCache[id]);
+    return fetch('https://api.scryfall.com/cards/' + encodeURIComponent(id))
+      .then(function (res) {
+        if (!res.ok) throw new Error('Scryfall error ' + res.status);
+        return res.json();
+      })
+      .then(function (card) {
+        var s = slim(card);
+        tokenCache[id] = s;
+        return s;
+      });
   }
 
   /**
@@ -217,7 +245,7 @@ var Scryfall = (function () {
     });
   }
 
-  return { resolve: resolve, toCardObjects: toCardObjects };
+  return { resolve: resolve, toCardObjects: toCardObjects, fetchToken: fetchToken };
 })();
 
 if (typeof module !== 'undefined' && module.exports) module.exports = Scryfall;

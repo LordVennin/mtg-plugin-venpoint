@@ -106,14 +106,24 @@
         if (p) {
           p.connected = false;
           p.conn = null;
-          if (!App.engine) {
-            // Lobby: drop them entirely so seats stay clean.
-            App.players = App.players.filter(function (pl) { return pl !== p; });
+          if (!App.engine && !App.game) {
+            // Lobby: keep the empty seat for a grace period so flaky
+            // connections can reclaim it by name; drop it if they stay gone.
+            var pid = p.id;
+            setTimeout(function () {
+              var still = App.players.find(function (pl) { return pl.id === pid; });
+              if (still && !still.connected && !App.engine && !App.game) {
+                App.players = App.players.filter(function (pl) { return pl.id !== pid; });
+                delete App.decks[pid];
+                broadcastLobby();
+                renderLobby();
+              }
+            }, 90000);
           }
           broadcastLobby();
           renderLobby();
           renderTableStatus();
-          toast(p.name + ' disconnected.');
+          toast(p.name + ' disconnected — their seat is saved.');
         }
       },
       onError: function (err) {
@@ -128,23 +138,25 @@
     switch (msg.t) {
       case 'hello': {
         var name = String(msg.name || 'Player').slice(0, 24);
-        if (App.engine) {
-          // Draft in progress: only allow reclaiming a disconnected seat by name.
-          var ghost = App.players.find(function (p) {
-            return !p.connected && p.name.toLowerCase() === name.toLowerCase();
-          });
-          if (!ghost) {
-            App.net.send(conn, { t: 'err', msg: 'Draft already in progress.' });
-            return;
-          }
+        // Anyone with a disconnected seat of the same name reclaims it —
+        // in the lobby, mid-draft, or mid-game.
+        var ghost = App.players.find(function (p) {
+          return !p.connected && p.name.toLowerCase() === name.toLowerCase();
+        });
+        if (ghost) {
           ghost.conn = conn;
           ghost.connected = true;
           App.net.send(conn, { t: 'welcome', id: ghost.id });
           broadcastLobby();
           if (App.game) sendGameViewTo(ghost);
-          else sendViewTo(ghost);
+          else if (App.engine) sendViewTo(ghost);
+          else renderLobby();
           toast(ghost.name + ' reconnected.');
           renderTableStatus();
+          return;
+        }
+        if (App.engine || App.game) {
+          App.net.send(conn, { t: 'err', msg: 'A game is already in progress.' });
           return;
         }
         // Avoid duplicate display names in the lobby.
@@ -417,8 +429,9 @@
     var view = App.engine.viewFor(player.id);
     var payload = { t: 'view', view: view };
     if (view.finished) payload.deck = MTGDraft.deckFor(App.engine, player.id);
-    if (player.conn) App.net.send(player.conn, payload);
-    else applyView(payload); // the host player
+    if (player.id === App.myId) applyView(payload); // the host player
+    else if (player.conn) App.net.send(player.conn, payload);
+    // else: disconnected — never render someone else's private view locally
   }
 
   function broadcastViews() {
@@ -774,8 +787,9 @@
     // Participants get their own view; everyone else spectates (public info).
     var isParticipant = App.game.players.indexOf(player.id) !== -1;
     var payload = { t: 'game', view: App.game.viewFor(isParticipant ? player.id : null) };
-    if (player.conn) App.net.send(player.conn, payload);
-    else applyGameView(payload); // the host player
+    if (player.id === App.myId) applyGameView(payload); // the host player
+    else if (player.conn) App.net.send(player.conn, payload);
+    // else: disconnected — never render someone else's private view locally
   }
 
   function broadcastGameViews() {
@@ -799,6 +813,7 @@
   function startJoining(name, code) {
     App.role = 'guest';
     App.myName = name;
+    App.joinInfo = { name: name, code: code };
     $('#btn-join').disabled = true;
 
     App.conn = Net.join(code, {
@@ -806,16 +821,40 @@
         App.conn.send({ t: 'hello', name: name });
       },
       onMessage: function (msg) { guestHandleMessage(msg); },
-      onClose: function () {
-        toast('Lost connection to the host.', true);
-        $('#btn-join').disabled = false;
-        show('home');
-      },
+      onClose: function () { guestConnectionLost(); },
       onError: function (err) {
+        if (App.reconnectTries > 0) { guestConnectionLost(); return; }
         $('#btn-join').disabled = false;
         toast(err.message || 'Connection failed', true);
       }
     });
+  }
+
+  /**
+   * Flaky-internet tolerance: once a guest has ever joined, a dropped
+   * connection quietly retries every few seconds (~2 minutes total). The
+   * host keeps the seat, so a successful retry lands right back in place.
+   */
+  function guestConnectionLost() {
+    if (!App.joinInfo || !App.myId) {
+      $('#btn-join').disabled = false;
+      toast('Connection failed.', true);
+      show('home');
+      return;
+    }
+    App.reconnectTries = (App.reconnectTries || 0) + 1;
+    if (App.reconnectTries === 1) toast('Connection lost — reconnecting…', true);
+    if (App.reconnectTries > 45) {
+      App.reconnectTries = 0;
+      toast('Could not reconnect. Rejoin with the same name to get your seat back.', true);
+      $('#btn-join').disabled = false;
+      show('home');
+      return;
+    }
+    try { App.conn.close(); } catch (e) { /* already gone */ }
+    setTimeout(function () {
+      startJoining(App.joinInfo.name, App.joinInfo.code);
+    }, 2500);
   }
 
   function guestHandleMessage(msg) {
@@ -823,6 +862,8 @@
     switch (msg.t) {
       case 'welcome':
         App.myId = msg.id;
+        if (App.reconnectTries) toast('Reconnected!');
+        App.reconnectTries = 0;
         $('#btn-join').disabled = false;
         $('#room-code').textContent = Net.normalizeCode($('#code-input').value);
         $('#host-panel').hidden = true;

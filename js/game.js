@@ -27,6 +27,9 @@
  *   {a:'clone', uid}                 copy own battlefield card (copies are tokens)
  *   {a:'handOrder', uid, before}     rearrange own hand (cosmetic, silent)
  *   {a:'pcounter', name, d}          adjust own named player counter (poison, energy...)
+ *   {a:'toLib', from, uid, pos}      put a card on 'top'|'bottom' of the library from
+ *                                    'hand' (nameless) | 'battlefield'|'graveyard'|'exile'
+ *   {a:'tokenFrom', card}            create a token from resolved card data (art, p/t)
  *   {a:'move', uid, to}              own battlefield card -> 'graveyard'|'exile'|'hand'|'library'
  *   {a:'recover', uid}               own graveyard card -> hand
  *   {a:'passTurn'}                   pass the turn marker (no auto-untap/draw)
@@ -311,6 +314,56 @@ var MTGGame = (function () {
         }
         z.hand.splice(hAt, 0, hCard);
         break; // private arrangement — silent
+      }
+      case 'toLib': {
+        var lpos = action.pos === 'top' ? 'top' : 'bottom';
+        var lsrc = action.from;
+        var lcard = null;
+        if (lsrc === 'hand') {
+          lcard = takeByUid(z.hand, action.uid, function (c) { return c.uid; });
+          if (!lcard) throw new Error('Card not in your hand');
+          this._log(pid, me + ' puts a card from their hand on ' +
+            (lpos === 'top' ? 'top' : 'the bottom') + ' of their library.');
+        } else if (lsrc === 'battlefield') {
+          var lentry = takeByUid(z.battlefield, action.uid, function (e) { return e.card.uid; });
+          if (!lentry) throw new Error('Card not on your battlefield');
+          this._detachDependents(action.uid);
+          if (lentry.card.token) {
+            this._log(pid, me + "'s " + lentry.card.name + ' token ceases to exist.');
+            break;
+          }
+          lcard = lentry.card;
+          this._log(pid, me + ' puts ' + lcard.name + ' on ' +
+            (lpos === 'top' ? 'top' : 'the bottom') + ' of their library.');
+        } else if (lsrc === 'graveyard' || lsrc === 'exile') {
+          lcard = takeByUid(z[lsrc], action.uid, function (c) { return c.uid; });
+          if (!lcard) throw new Error('Card not in your ' + lsrc);
+          this._log(pid, me + ' puts ' + lcard.name + ' from their ' + lsrc + ' on ' +
+            (lpos === 'top' ? 'top' : 'the bottom') + ' of their library.');
+        } else {
+          throw new Error('Bad source zone');
+        }
+        if (lpos === 'top') z.library.unshift(lcard);
+        else z.library.push(lcard);
+        break;
+      }
+      case 'tokenFrom': {
+        var tf = action.card || {};
+        var tfName = String(tf.name || '').trim().slice(0, 60);
+        if (!tfName) throw new Error('Token needs a name');
+        z.battlefield.push(permanent({
+          uid: 'g' + (++uidCounter),
+          name: tfName,
+          token: true,
+          img: typeof tf.img === 'string' ? tf.img.slice(0, 300) : null,
+          cost: '',
+          type: String(tf.type || 'Token').slice(0, 80),
+          text: String(tf.text || '').slice(0, 500),
+          pt: String(tf.pt || '').slice(0, 10),
+          colors: []
+        }));
+        this._log(pid, me + ' creates a ' + tfName + ' token.');
+        break;
       }
       case 'pcounter': {
         var pname = String(action.name || '').trim().toLowerCase().slice(0, 20);

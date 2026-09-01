@@ -455,6 +455,9 @@ button.ctx {
 .zone-label { color: var(--muted); font-size: 11px; white-space: nowrap; }
 .zone-cards { display: flex; gap: 4px; flex-wrap: wrap; }
 .zone-empty { color: #4a5063; font-size: 12px; font-style: italic; padding: 4px; }
+.zone-strip.pile { cursor: pointer; border-radius: 6px; padding: 2px 4px; }
+.zone-strip.pile:hover { background: rgba(200, 169, 92, 0.08); }
+.zone-strip.pile .gcard { pointer-events: none; }
 
 @media (max-width: 900px) {
   .game-layout { flex-direction: column; }
