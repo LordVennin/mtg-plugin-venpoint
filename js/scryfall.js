@@ -13,7 +13,7 @@ var Scryfall = (function () {
   'use strict';
 
   var API = 'https://api.scryfall.com/cards/collection';
-  var LS_KEY = 'mtgdraft.cardcache.v3'; // v3: added back faces for transform cards
+  var LS_KEY = 'mtgdraft.cardcache.v4'; // v4: flush entries poisoned by back-face collisions
   var mem = Object.create(null);
 
   /**
@@ -131,16 +131,20 @@ var Scryfall = (function () {
           if (ident.name) notFound.push(ident.name);
         });
         // Requested names can differ from canonical names: Moxfield's
-        // "A / B", the full "A // B", or just a face name — map each
+        // "A / B", the full "A // B", or a front-face name — map each
         // requested spelling to the card its front face resolved to.
+        // NEVER match by back face here: Scryfall's collection endpoint
+        // returns a DFC even for an identifier that exactly names a real
+        // standalone card ("Sign in Blood" -> the Scheming Silvertongue
+        // DFC), so back-face candidates go to the named?exact rescue pass,
+        // where exact full names win.
         chunk.forEach(function (n) {
           var k = n.toLowerCase();
           if (mem[k]) return;
           var fk = apiName(n).toLowerCase();
           var hit = (json.data || []).find(function (c) {
             var cn = c.name.toLowerCase();
-            return cn === fk || cn.indexOf(fk + ' //') === 0 ||
-              (c.card_faces || []).some(function (f) { return (f.name || '').toLowerCase() === fk; });
+            return cn === fk || cn.indexOf(fk + ' //') === 0;
           });
           if (hit) mem[k] = slim(hit);
         });
@@ -152,6 +156,25 @@ var Scryfall = (function () {
     var chunks = [];
     for (var i = 0; i < toFetch.length; i += 75) chunks.push(toFetch.slice(i, i + 75));
 
+    // Rescue pass for names the batch could not place unambiguously (e.g. a
+    // standalone card that shares its name with some DFC's back face).
+    // named?exact prioritizes exact full names; fuzzy is the last resort.
+    function rescue(name) {
+      var enc = encodeURIComponent(name);
+      return fetch('https://api.scryfall.com/cards/named?exact=' + enc)
+        .then(function (res) { return res.ok ? res.json() : Promise.reject(); })
+        .catch(function () {
+          return fetch('https://api.scryfall.com/cards/named?fuzzy=' + enc)
+            .then(function (res) { return res.ok ? res.json() : Promise.reject(); });
+        })
+        .then(function (card) {
+          var s = slim(card);
+          mem[s.name.toLowerCase()] = s;
+          mem[name.toLowerCase()] = s;
+        })
+        .catch(function () { /* genuinely unknown — stays a text card */ });
+    }
+
     // Sequential batches with a polite delay (Scryfall asks for 50-100ms).
     var p = Promise.resolve();
     chunks.forEach(function (chunk, idx) {
@@ -160,6 +183,16 @@ var Scryfall = (function () {
           return new Promise(function (r) { setTimeout(r, 120); });
         }
       });
+    });
+
+    p = p.then(function () {
+      var missing = unique.filter(function (n) { return !mem[n.toLowerCase()]; }).slice(0, 30);
+      var q = Promise.resolve();
+      missing.forEach(function (n) {
+        q = q.then(function () { return rescue(n); })
+          .then(function () { return new Promise(function (r) { setTimeout(r, 120); }); });
+      });
+      return q;
     });
 
     return p.then(function () {

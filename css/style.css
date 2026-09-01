@@ -194,7 +194,7 @@ legend { color: var(--muted); font-size: 13px; padding: 0 6px; }
 
 /* ---------- play surface ---------- */
 
-#screen-game { max-width: 1500px; padding: 10px 16px; }
+#screen-game { max-width: none; padding: 10px 16px; }
 .game-layout { display: flex; gap: 12px; align-items: stretch; }
 #game-board { flex: 1 1 auto; min-width: 0; }
 .game-log {
@@ -224,11 +224,21 @@ legend { color: var(--muted); font-size: 13px; padding: 0 6px; }
   box-shadow: 0 0 14px rgba(63, 174, 106, 0.25), inset 0 0 30px rgba(63, 174, 106, 0.05);
 }
 .player-area.active-turn .turn-badge { background: #3fae6a; }
-.player-area.compact .gcard { width: 62px; }
-.player-area.compact .bf-row { min-height: 96px; }
+.player-area.compact .gcard { width: 72px; }
+.player-area.compact .bf-row { min-height: 106px; }
 .player-area.compact .player-bar { font-size: 13px; }
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  align-items: stretch;
+}
+.board-grid .player-area { margin-bottom: 0; }
+.board-grid .player-area.mine .gcard { width: 72px; }
+.my-bench { margin-top: 10px; }
+.bf-row[data-row] { min-height: 110px; } /* real drop target even when empty */
 .game-topbar {
-  max-width: 1500px; margin: 0 auto; padding: 6px 16px 0;
+  margin: 0 auto; padding: 6px 16px 0;
   display: flex; justify-content: flex-end; align-items: center; gap: 12px;
 }
 .spectate-note { color: var(--accent-2); font-weight: 700; font-size: 13px; }
@@ -387,6 +397,11 @@ button.ctx {
   display: flex; flex-direction: column;
 }
 .search-inner h3 { margin: 0 0 4px; color: var(--accent); }
+.search-filter {
+  width: 100%; margin: 8px 0 2px;
+  background: var(--panel-2); color: var(--text);
+  border: 1px solid #363c4e; border-radius: 6px; padding: 7px 10px; font: inherit;
+}
 .search-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 10px; overflow-y: auto; padding: 10px 2px; flex: 1 1 auto;

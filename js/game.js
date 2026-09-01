@@ -29,6 +29,9 @@
  *   {a:'roll', sides}                roll a die (host RNG, publicly logged)
  *   {a:'coin'}                       flip a coin (host RNG, publicly logged)
  *   {a:'row', uid}                   toggle a permanent between the land/main rows
+ *   {a:'reorder', uid, row, before}  drag-arrange: move a permanent to `row`
+ *                                    ('main'|'land'), before card `before`
+ *                                    (or to the end when before is null)
  *   {a:'attach', uid, target}        attach own permanent to any unattached permanent
  *   {a:'detach', uid}                detach own permanent
  *   {a:'searchLibrary'}              start searching (library revealed to owner only)
@@ -348,6 +351,25 @@ var MTGGame = (function () {
         var rperm = this._findPerm(pid, action.uid);
         if (!rperm) throw new Error('Card not on your battlefield');
         rperm.row = rperm.row === 'land' ? 'main' : 'land';
+        break;
+      }
+      case 'reorder': {
+        // Cosmetic arrangement of one's own battlefield — synced, not logged.
+        var bf2 = z.battlefield;
+        var rIdx = -1;
+        for (var qi = 0; qi < bf2.length; qi++) {
+          if (bf2[qi].card.uid === action.uid) { rIdx = qi; break; }
+        }
+        if (rIdx === -1) throw new Error('Card not on your battlefield');
+        var rEntry = bf2.splice(rIdx, 1)[0];
+        if (action.row === 'land' || action.row === 'main') rEntry.row = action.row;
+        var insertAt = bf2.length;
+        if (action.before) {
+          for (var qj = 0; qj < bf2.length; qj++) {
+            if (bf2[qj].card.uid === action.before) { insertAt = qj; break; }
+          }
+        }
+        bf2.splice(insertAt, 0, rEntry);
         break;
       }
       case 'attach': {

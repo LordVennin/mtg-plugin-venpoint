@@ -437,6 +437,33 @@ section('Game rows, dice, attach, search');
   assert(g.viewFor('a').library === null && g.viewFor('a').searching === false, 'endSearch hides the library again');
 }
 
+section('Battlefield drag-reorder');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i, type: 'Sorcery' }));
+  const g = new Game.Game(['a', 'b'], { a: mkDeck('A', 20), b: mkDeck('B', 20) },
+    { a: 'Alice', b: 'Bob' }, { rng: seededRng(55) });
+  // Play three cards: order A?, A?, A? in the main row.
+  for (let i = 0; i < 3; i++) g.apply('a', { a: 'play', uid: g.viewFor('a').hand[0].uid });
+  const bf = () => g.viewFor('a').zones.a.battlefield;
+  const [c1, c2, c3] = bf().map(e => e.card.uid);
+
+  g.apply('a', { a: 'reorder', uid: c3, row: 'main', before: c1 });
+  assert(bf().map(e => e.card.uid).join() === [c3, c1, c2].join(), 'reorder before a target card');
+
+  g.apply('a', { a: 'reorder', uid: c1, row: 'main', before: null });
+  assert(bf().map(e => e.card.uid).join() === [c3, c2, c1].join(), 'reorder to the end');
+
+  g.apply('a', { a: 'reorder', uid: c2, row: 'land', before: null });
+  assert(bf().find(e => e.card.uid === c2).row === 'land', 'drag between rows changes the row');
+
+  const logLen = g.viewFor('a').log.length;
+  g.apply('a', { a: 'reorder', uid: c2, row: 'main', before: c3 });
+  assert(g.viewFor('a').log.length === logLen, 'reordering is not logged (cosmetic)');
+
+  assert((() => { try { g.apply('a', { a: 'reorder', uid: 'nope', row: 'main', before: null }); return false; }
+    catch (e) { return /battlefield/.test(e.message); } })(), 'unknown card rejected');
+}
+
 section('Game tokens + peek (scry)');
 {
   const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i, type: 'Sorcery' }));
@@ -691,8 +718,45 @@ section('Scryfall slim() back faces');
       assert(!!dv && dv.back && dv.back.name === 'Insectile Aberration',
         'single-slash DFC resolves with its back face');
       assert(r2.notFound.length === 0, 'nothing reported missing');
-      console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
-      process.exit(failures ? 1 : 0);
+
+      // ---- back-face name collisions: standalone card must win ----
+      section('Scryfall back-face collision (Sign in Blood)');
+      const dfcCard = {
+        object: 'card', name: 'Scheming Silvertongue // Sign in Blood', layout: 'prepare',
+        color_identity: ['B'], image_uris: { normal: 'https://x/dfc.jpg' }, mana_cost: '',
+        card_faces: [
+          { name: 'Scheming Silvertongue', mana_cost: '{1}{B}', oracle_text: 'Prepare...' },
+          { name: 'Sign in Blood', mana_cost: '{B}{B}', oracle_text: 'Target player draws two cards...' }
+        ]
+      };
+      const standalone = {
+        object: 'card', name: 'Sign in Blood', layout: 'normal', color_identity: ['B'],
+        mana_cost: '{B}{B}', type_line: 'Sorcery', power: undefined,
+        oracle_text: 'Target player draws two cards and loses 2 life.',
+        image_uris: { normal: 'https://x/standalone.jpg' }
+      };
+      // The collection endpoint (as observed live) returns the DFC for BOTH
+      // identifiers; only named?exact serves the standalone card.
+      const fetchLog = [];
+      global.fetch = async (url, opts) => {
+        fetchLog.push(url);
+        if (String(url).includes('/cards/named')) {
+          return { ok: true, json: async () => standalone };
+        }
+        return { ok: true, json: async () => ({ object: 'list', not_found: [], data: [dfcCard, dfcCard] }) };
+      };
+      return Scryfall.resolve(['Scheming Silvertongue / Sign in Blood', 'Sign in Blood']).then(r3 => {
+        const dfc = r3.cards['scheming silvertongue / sign in blood'];
+        assert(!!dfc && dfc.name === 'Scheming Silvertongue // Sign in Blood',
+          'slashed request still resolves to the DFC');
+        const solo = r3.cards['sign in blood'];
+        assert(!!solo && solo.name === 'Sign in Blood' && solo.img === 'https://x/standalone.jpg',
+          'standalone card resolves to ITSELF, not the DFC back face');
+        assert(fetchLog.some(u => String(u).includes('named?exact=Sign%20in%20Blood')),
+          'ambiguous name was rescued via named?exact');
+        console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
+        process.exit(failures ? 1 : 0);
+      });
     });
   });
 }

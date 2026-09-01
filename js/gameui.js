@@ -19,6 +19,8 @@ var GameUI = (function () {
   var selected = null;    // {zone:'hand'|'battlefield'|'graveyard', uid}
   var attachMode = null;  // {uid, name} while choosing an attach target
   var previewUid = null;
+  var searchFilter = ''; // library-search filter text, kept across re-renders
+  var wasSearching = false;
   var cardIndex = {};     // uid -> {card, tapped?, counters?} for preview lookups
   var lastView = null;
   var lastSend = null;
@@ -71,13 +73,14 @@ var GameUI = (function () {
     var title = card.facedown && !card.peek ? 'Face-down card' : card.name;
     return '<div class="' + cls + '" data-zone="' + (opts.zone || '') + '" data-uid="' + card.uid +
       '" data-mine="' + (opts.mine ? '1' : '0') + '" title="' + escapeHtml(title) + '"' +
+      (opts.drag ? ' draggable="true"' : '') +
       (opts.style ? ' style="' + opts.style + '"' : '') + '>' + inner + badge + '</div>';
   }
 
   /** A permanent plus everything attached to it, as one visual stack. */
   function stackHtml(entry, attachments, mine) {
     var main = cardHtml(displayFor(entry), {
-      zone: mine ? 'battlefield' : null, mine: mine,
+      zone: mine ? 'battlefield' : null, mine: mine, drag: mine,
       tapped: entry.tapped, counters: entry.counters
     });
     if (!attachments.length) return main;
@@ -123,12 +126,13 @@ var GameUI = (function () {
       rows[e.row === 'land' ? 'land' : 'main'].push(stackHtml(e, att[e.card.uid] || [], mine));
     });
 
-    var rowDiv = function (label, cells) {
-      return '<div class="bf-row"><span class="row-label">' + label + '</span>' +
+    var rowDiv = function (label, cells, rowKey) {
+      return '<div class="bf-row"' + (mine ? ' data-row="' + rowKey + '"' : '') + '>' +
+        '<span class="row-label">' + label + '</span>' +
         (cells.length ? cells.join('') : '<span class="zone-empty">—</span>') + '</div>';
     };
-    var main = rowDiv('spells', rows.main);
-    var lands = rowDiv('lands', rows.land);
+    var main = rowDiv('spells', rows.main, 'main');
+    var lands = rowDiv('lands', rows.land, 'land');
     // Own side: spells on top, lands at the bottom (nearest your hand).
     // Opponent: mirrored, so the two spell rows face each other.
     return '<div class="battlefield">' + (mirror ? lands + main : main + lands) + '</div>';
@@ -271,10 +275,12 @@ var GameUI = (function () {
     return '<div class="search-inner">' +
       '<h3>Searching your library (' + view.library.length + ' cards)</h3>' +
       '<p class="hint">Only you can see this. Taking a card to hand is logged without its name.</p>' +
+      '<input id="search-filter" class="search-filter" placeholder="🔍 Filter by name, type, or text…" autocomplete="off">' +
       '<div class="search-grid">' +
       view.library.map(function (c) {
         indexCard(c);
-        return '<div class="search-item">' +
+        var hay = (c.name + ' ' + (c.type || '') + ' ' + (c.text || '')).toLowerCase();
+        return '<div class="search-item" data-hay="' + escapeHtml(hay) + '">' +
           cardHtml(c, { mine: false, small: false }) +
           '<div class="search-item-name">' + escapeHtml(c.name) + '</div>' +
           '<div class="search-btns">' +
@@ -339,49 +345,74 @@ var GameUI = (function () {
       return view.active === pid ? '<span class="turn-badge">turn</span>' : '';
     };
     var activeCls = function (pid) { return view.active === pid ? ' active-turn' : ''; };
-    var compact = others.length > 1;
+    // 3+ people on screen -> 2-column table grid (2 top / rest below,
+    // your own board bottom-right); 1v1 keeps the classic stacked layout.
+    var gridMode = others.length >= (me ? 2 : 3);
 
-    var html = others.map(function (pid) { return otherAreaHtml(view, pid, compact); }).join('') +
-      '<div class="board-divider">Turn ' + view.turn + '</div>';
-
+    var myCell = '';
+    var myBench = '';
     if (me) {
       var showCmd = view.commander || mz.command.length > 0;
-      html +=
-        '<div class="player-area mine' + activeCls(me) + '">' +
-          '<div class="side-zones">' +
-            (showCmd ? zoneStrip('Command', mz.command, 'command', true) : '') +
-            zoneStrip('Graveyard', mz.graveyard, 'graveyard', true) +
-            zoneStrip('Exile', mz.exile, 'exile', true) +
-          '</div>' +
-          battlefieldHtml(view, me, true, false) +
-          '<div id="ctx-bar" class="ctx-bar">' + contextButtons(view) + '</div>' +
-          (view.bottoming > 0
-            ? '<div class="bottoming-banner">Mulligan: put ' + view.bottoming + ' card' +
-              (view.bottoming === 1 ? '' : 's') + ' on the bottom — select a hand card, then "⤓ Bottom of library".</div>'
-            : '') +
-          '<div class="hand">' +
-            view.hand.map(function (c) { return cardHtml(c, { zone: 'hand', mine: true }); }).join('') +
-            (view.hand.length ? '' : '<span class="zone-empty">hand empty</span>') +
-          '</div>' +
-          '<div class="player-bar">' +
-            '<span class="pname">' + escapeHtml(view.names[me] || 'You') + '</span>' + turnBadge(me) +
-            '<span class="stat">📚 ' + mz.libraryCount + '</span>' +
-            '<button class="gact" data-act="life-">−</button>' +
-            '<span class="stat">♥ ' + view.life[me] + '</span>' +
-            '<button class="gact" data-act="life+">+</button>' +
-            '<button class="gact" data-act="draw">Draw</button>' +
-            '<button class="gact" data-act="search">🔍 Search</button>' +
-            '<button class="gact" data-act="untapAll">Untap all</button>' +
-            '<button class="gact" data-act="shuffle">Shuffle</button>' +
-            '<button class="gact" data-act="mulligan">Mulligan</button>' +
-            '<button class="gact" data-act="scry">👁 Scry</button>' +
-            '<button class="gact" data-act="token">➕ Token</button>' +
-            '<button class="gact" data-act="d6">🎲 d6</button>' +
-            '<button class="gact" data-act="d20">🎲 d20</button>' +
-            '<button class="gact" data-act="coin">🪙 Flip</button>' +
-            '<button class="gact primary" data-act="passTurn">Pass turn</button>' +
-          '</div>' +
+      var zonesHtml =
+        '<div class="side-zones">' +
+          (showCmd ? zoneStrip('Command', mz.command, 'command', true) : '') +
+          zoneStrip('Graveyard', mz.graveyard, 'graveyard', true) +
+          zoneStrip('Exile', mz.exile, 'exile', true) +
         '</div>';
+      var benchInner =
+        '<div id="ctx-bar" class="ctx-bar">' + contextButtons(view) + '</div>' +
+        (view.bottoming > 0
+          ? '<div class="bottoming-banner">Mulligan: put ' + view.bottoming + ' card' +
+            (view.bottoming === 1 ? '' : 's') + ' on the bottom — select a hand card, then "⤓ Bottom of library".</div>'
+          : '') +
+        '<div class="hand">' +
+          view.hand.map(function (c) { return cardHtml(c, { zone: 'hand', mine: true }); }).join('') +
+          (view.hand.length ? '' : '<span class="zone-empty">hand empty</span>') +
+        '</div>' +
+        '<div class="player-bar">' +
+          '<span class="pname">' + escapeHtml(view.names[me] || 'You') + '</span>' + turnBadge(me) +
+          '<span class="stat">📚 ' + mz.libraryCount + '</span>' +
+          '<button class="gact" data-act="life-">−</button>' +
+          '<span class="stat">♥ ' + view.life[me] + '</span>' +
+          '<button class="gact" data-act="life+">+</button>' +
+          '<button class="gact" data-act="draw">Draw</button>' +
+          '<button class="gact" data-act="search">🔍 Search</button>' +
+          '<button class="gact" data-act="untapAll">Untap all</button>' +
+          '<button class="gact" data-act="shuffle">Shuffle</button>' +
+          '<button class="gact" data-act="mulligan">Mulligan</button>' +
+          '<button class="gact" data-act="scry">👁 Scry</button>' +
+          '<button class="gact" data-act="token">➕ Token</button>' +
+          '<button class="gact" data-act="d6">🎲 d6</button>' +
+          '<button class="gact" data-act="d20">🎲 d20</button>' +
+          '<button class="gact" data-act="coin">🪙 Flip</button>' +
+          '<button class="gact primary" data-act="passTurn">Pass turn</button>' +
+        '</div>';
+      if (gridMode) {
+        myCell =
+          '<div class="player-area mine' + activeCls(me) + '">' +
+            '<div class="player-bar"><span class="pname">' + escapeHtml(view.names[me] || 'You') + '</span>' +
+              turnBadge(me) +
+              '<span class="stat">♥ ' + view.life[me] + '</span>' +
+              '<span class="stat">📚 ' + mz.libraryCount + '</span></div>' +
+            battlefieldHtml(view, me, true, false) +
+            zonesHtml +
+          '</div>';
+        myBench = '<div class="my-bench">' + benchInner + '</div>';
+      } else {
+        myCell =
+          '<div class="player-area mine' + activeCls(me) + '">' +
+            zonesHtml + battlefieldHtml(view, me, true, false) + benchInner +
+          '</div>';
+      }
+    }
+
+    var othersHtml = others.map(function (pid) { return otherAreaHtml(view, pid, gridMode); }).join('');
+    var html;
+    if (gridMode) {
+      html = '<div class="board-divider">Turn ' + view.turn + '</div>' +
+        '<div class="board-grid">' + othersHtml + myCell + '</div>' + myBench;
+    } else {
+      html = othersHtml + '<div class="board-divider">Turn ' + view.turn + '</div>' + myCell;
     }
     $('#game-board').innerHTML = html;
 
@@ -524,6 +555,37 @@ var GameUI = (function () {
       });
     });
 
+    // Drag to rearrange your own battlefield (reorder within a row, or move
+    // between the spells/lands rows). Drops before the card you land on.
+    var dragUid = null;
+    board.querySelectorAll('.player-area.mine .gcard[draggable="true"]').forEach(function (el) {
+      el.addEventListener('dragstart', function (ev) {
+        dragUid = el.getAttribute('data-uid');
+        try {
+          ev.dataTransfer.setData('text/plain', dragUid);
+          ev.dataTransfer.effectAllowed = 'move';
+        } catch (e) { /* some browsers are picky mid-testing */ }
+      });
+    });
+    board.querySelectorAll('.player-area.mine .bf-row[data-row]').forEach(function (row) {
+      row.addEventListener('dragover', function (ev) {
+        ev.preventDefault();
+        if (ev.dataTransfer) ev.dataTransfer.dropEffect = 'move';
+      });
+      row.addEventListener('drop', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var uid = dragUid || (ev.dataTransfer && ev.dataTransfer.getData('text/plain'));
+        dragUid = null;
+        if (!uid) return;
+        var targetCard = ev.target && ev.target.closest ? ev.target.closest('.gcard') : null;
+        var before = (targetCard && targetCard.getAttribute('data-uid') !== uid)
+          ? targetCard.getAttribute('data-uid')
+          : null;
+        act({ a: 'reorder', uid: uid, row: row.getAttribute('data-row'), before: before });
+      });
+    });
+
     // Click empty board space: cancel attach mode / clear selection.
     board.addEventListener('click', function () {
       if (attachMode || selected) { attachMode = null; selected = null; rerender(); }
@@ -537,6 +599,26 @@ var GameUI = (function () {
     });
     var endBtn = modal.querySelector('#btn-end-search');
     if (endBtn) endBtn.addEventListener('click', function () { act({ a: 'endSearch' }); });
+    var filter = modal.querySelector('#search-filter');
+    if (filter) {
+      var applyFilter = function () {
+        var q = searchFilter.trim().toLowerCase();
+        modal.querySelectorAll('.search-item').forEach(function (item) {
+          item.style.display = (!q || item.getAttribute('data-hay').indexOf(q) !== -1) ? '' : 'none';
+        });
+      };
+      filter.value = searchFilter;
+      applyFilter();
+      filter.addEventListener('input', function () {
+        searchFilter = filter.value;
+        applyFilter();
+      });
+      if (!wasSearching) { searchFilter = ''; filter.value = ''; filter.focus(); }
+      wasSearching = true;
+    } else {
+      wasSearching = false;
+      searchFilter = '';
+    }
 
     var peekModal = $('#peek-modal');
     peekModal.querySelectorAll('button.peek-take').forEach(function (btn) {
