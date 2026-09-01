@@ -154,6 +154,47 @@ var MTGParser = (function () {
   }
 
   /**
+   * Parse a decklist, also extracting commander designations. Commanders are
+   * recognized two ways:
+   *   - a "Commander" / "Commander:" section header — card lines that follow
+   *     it (until the next section header) are commanders;
+   *   - a "*CMDR*" marker on the line (Archidekt/TappedOut style).
+   * Returns {entries, commanders: [names], errors}. Commander cards also
+   * appear in entries (they are part of the deck).
+   */
+  function parseDeckListWithCommanders(text) {
+    var entries = [];
+    var byName = Object.create(null);
+    var commanders = [];
+    var errors = [];
+    var inCommanderSection = false;
+    var lines = String(text || '').split(/\r?\n/);
+    for (var i = 0; i < lines.length; i++) {
+      var raw = lines[i];
+      var t = raw.trim();
+      if (!t) continue;
+      if (SECTION_HEADERS.test(t)) {
+        inCommanderSection = /^commander/i.test(t);
+        continue;
+      }
+      if (t.startsWith('//') || t.startsWith('#')) continue;
+      var isCmdr = /\*CMDR\*/i.test(t);
+      var e = parseLine(t.replace(/\*CMDR\*/ig, '').trim());
+      if (e === null) {
+        errors.push('Line ' + (i + 1) + ': could not parse "' + t + '"');
+        continue;
+      }
+      var key = e.name.toLowerCase();
+      if (byName[key]) byName[key].count += e.count;
+      else { byName[key] = e; entries.push(e); }
+      if ((isCmdr || inCommanderSection) && commanders.indexOf(e.name) === -1) {
+        commanders.push(e.name);
+      }
+    }
+    return { entries: entries, commanders: commanders, errors: errors };
+  }
+
+  /**
    * Format a list of card names back into a Moxfield-importable decklist.
    */
   function formatDeckList(cardNames) {
@@ -170,6 +211,7 @@ var MTGParser = (function () {
   return {
     parseLine: parseLine,
     parseDeckList: parseDeckList,
+    parseDeckListWithCommanders: parseDeckListWithCommanders,
     parseJumpstartPacks: parseJumpstartPacks,
     expandEntries: expandEntries,
     formatDeckList: formatDeckList

@@ -28,8 +28,9 @@
     players: [],         // [{id, name, conn|null, connected}]  (host is players[0], conn=null)
     engine: null,
     game: null,          // MTGGame.Game once a post-draft game starts (host only)
-    decks: {},           // host only: playerId -> submitted built deck (cube 1v1)
+    decks: {},           // host only: playerId -> submitted deck (built or uploaded)
     builder: null,       // this client's deck-building state
+    postGame: 'lobby',   // which screen a finished match returns to: lobby|build|done
     setup: { mode: 'cube', cubeCards: null, jsPacks: null,
              packSize: 15, packsPerPlayer: 3, jsChoices: 3, jsPacksPerPlayer: 2 },
     // guest
@@ -175,8 +176,13 @@
         var builderP = App.players.find(function (p) { return p.conn === conn; });
         if (builderP && Array.isArray(msg.cards) && !App.game) {
           App.decks[builderP.id] = msg.cards.slice(0, 500);
-          hostBroadcastReady();
-          hostMaybeStartCubeGame();
+          if (isDeckMode(App.setup.mode)) {
+            broadcastLobby();
+            renderLobby();
+          } else {
+            hostBroadcastReady();
+            hostMaybeStartCubeGame();
+          }
         }
         break;
       }
@@ -184,7 +190,8 @@
         var unreadyP = App.players.find(function (p) { return p.conn === conn; });
         if (unreadyP && !App.game) {
           delete App.decks[unreadyP.id];
-          hostBroadcastReady();
+          if (isDeckMode(App.setup.mode)) { broadcastLobby(); renderLobby(); }
+          else hostBroadcastReady();
         }
         break;
       }
@@ -196,7 +203,8 @@
       players: App.players.map(function (p) { return { id: p.id, name: p.name, connected: p.connected }; }),
       mode: App.setup.mode,
       poolInfo: poolInfoText(),
-      started: !!App.engine
+      deckReady: Object.keys(App.decks),
+      started: !!App.engine || !!App.game
     };
   }
 
@@ -214,9 +222,13 @@
         ? 'Cube: ' + s.cubeCards.length + ' cards · ' + s.packsPerPlayer + ' packs of ' + s.packSize
         : 'Cube: not loaded yet';
     }
-    return s.jsPacks
-      ? 'Jumpstart: ' + s.jsPacks.length + ' packs · everyone picks ' + s.jsPacksPerPlayer
-      : 'Jumpstart: no packs loaded yet';
+    if (s.mode === 'jumpstart') {
+      return s.jsPacks
+        ? 'Jumpstart: ' + s.jsPacks.length + ' packs · everyone picks ' + s.jsPacksPerPlayer
+        : 'Jumpstart: no packs loaded yet';
+    }
+    var label = s.mode === 'commander' ? 'Commander' : 'Constructed';
+    return label + ': ' + Object.keys(App.decks).length + '/' + App.players.length + ' decks submitted';
   }
 
   /* ---------------- host setup panel ---------------- */
@@ -249,18 +261,30 @@
     } catch (e) { /* storage full — non-fatal */ }
   }
 
+  function currentMode() {
+    if (App.role === 'host') return App.setup.mode;
+    return App.lobby ? App.lobby.mode : 'cube';
+  }
+
+  function isDeckMode(mode) { return mode === 'constructed' || mode === 'commander'; }
+
   function onModeChange() {
-    var mode = $('#mode-cube').checked ? 'cube' : 'jumpstart';
+    var mode = $('#mode-cube').checked ? 'cube'
+      : $('#mode-jumpstart').checked ? 'jumpstart'
+      : $('#mode-constructed').checked ? 'constructed'
+      : 'commander';
     App.setup.mode = mode;
     $('#cube-setup').hidden = (mode !== 'cube');
     $('#js-setup').hidden = (mode !== 'jumpstart');
+    $('#btn-load-pool').hidden = isDeckMode(mode);
     broadcastLobby();
     renderLobby();
   }
 
   function initHostPanel() {
-    $('#mode-cube').addEventListener('change', onModeChange);
-    $('#mode-jumpstart').addEventListener('change', onModeChange);
+    ['cube', 'jumpstart', 'constructed', 'commander'].forEach(function (m) {
+      $('#mode-' + m).addEventListener('change', onModeChange);
+    });
 
     $('#btn-load-pool').addEventListener('click', function () {
       saveSetup();
@@ -340,6 +364,25 @@
   function hostStartDraft() {
     var s = App.setup;
     var ids = App.players.map(function (p) { return p.id; });
+    if (isDeckMode(s.mode)) {
+      // Constructed / Commander: no draft — straight into a game with
+      // everyone's uploaded deck (2-8 players, all of them in the game).
+      var missing = App.players.filter(function (p) { return !App.decks[p.id]; });
+      if (missing.length) {
+        return toast('Waiting for decks from: ' + missing.map(function (p) { return p.name; }).join(', '), true);
+      }
+      var names = {};
+      App.players.forEach(function (p) { names[p.id] = p.name; });
+      try {
+        App.game = new MTGGame.Game(ids, App.decks, names, { commander: s.mode === 'commander' });
+      } catch (err) {
+        return toast(err.message, true);
+      }
+      App.postGame = 'lobby';
+      broadcastLobby();
+      broadcastGameViews();
+      return;
+    }
     try {
       if (s.mode === 'cube') {
         if (!s.cubeCards) return toast('Load & validate the cube first.', true);
@@ -380,6 +423,119 @@
 
   function broadcastViews() {
     App.players.forEach(sendViewTo);
+  }
+
+  /* ---------------- own-deck upload (constructed / commander) ---------------- */
+
+  function initDeckSubmit() {
+    $('#ds-load').addEventListener('click', function () {
+      var mode = currentMode();
+      var btn = $('#ds-load');
+      var parsed = MTGParser.parseDeckListWithCommanders($('#ds-text').value);
+      var names = MTGParser.expandEntries(parsed.entries);
+      if (!names.length) return toast('Deck list is empty or unparseable.', true);
+      if (mode === 'commander' && !parsed.commanders.length) {
+        return toast('Mark your commander: put it under a "Commander" header or add *CMDR* to its line.', true);
+      }
+      btn.disabled = true;
+      btn.textContent = 'Loading cards…';
+      var finish = function () { btn.disabled = false; btn.textContent = 'Load & submit deck'; };
+      var submit = function (resolved) {
+        var cards = Scryfall.toCardObjects(names, resolved);
+        var cmdrSet = {};
+        parsed.commanders.forEach(function (n) { cmdrSet[n.toLowerCase()] = true; });
+        cards.forEach(function (c) { if (cmdrSet[c.name.toLowerCase()]) c.commander = true; });
+        if (App.role === 'host') {
+          App.decks[App.myId] = cards;
+          broadcastLobby();
+          renderLobby();
+        } else {
+          App.conn.send({ t: 'deck', cards: cards });
+        }
+        $('#ds-status').textContent = '✓ ' + cards.length + ' cards submitted' +
+          (parsed.commanders.length ? ' · commander: ' + parsed.commanders.join(', ') : '');
+        $('#ds-status').className = 'pool-report ok';
+        finish();
+      };
+      Scryfall.resolve(names, function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; })
+        .then(function (res) { submit(res.cards); })
+        .catch(function () {
+          toast('Scryfall unreachable — submitting without card images.', true);
+          submit({});
+        });
+    });
+  }
+
+  /* ---------------- match panel (host picks who plays; rest spectate) ---------------- */
+
+  function renderMatchPanel(containerId, eligibleIds) {
+    var el = $('#' + containerId);
+    if (App.role !== 'host' || App.game || App.players.length < 3 || eligibleIds.length < 2) {
+      el.innerHTML = App.role === 'host' && App.players.length >= 3 && !App.game
+        ? '<p class="hint">Start a match once at least 2 players are ready (' + eligibleIds.length + ' ready).</p>'
+        : '';
+      return;
+    }
+    el.innerHTML =
+      '<h3>Start a match</h3>' +
+      '<p class="hint">Pick who plays — everyone else spectates live. End the match to set up the next one.</p>' +
+      eligibleIds.map(function (id) {
+        var p = App.players.find(function (x) { return x.id === id; });
+        return '<label class="radio"><input type="checkbox" class="match-p" value="' + id + '"> ' +
+          escapeHtml(p ? p.name : id) + '</label>';
+      }).join('') +
+      '<div class="actions"><button id="btn-start-match" class="primary">⚔ Start match</button></div>';
+    $('#btn-start-match').addEventListener('click', function () {
+      var sel = [];
+      el.querySelectorAll('.match-p:checked').forEach(function (cb) { sel.push(cb.value); });
+      if (sel.length < 2) return toast('Pick at least 2 players.', true);
+      hostStartMatch(sel);
+    });
+  }
+
+  function hostStartMatch(ids) {
+    var decks = {};
+    var names = {};
+    var mode = App.setup.mode;
+    for (var i = 0; i < ids.length; i++) {
+      var p = App.players.find(function (x) { return x.id === ids[i]; });
+      names[ids[i]] = p ? p.name : ids[i];
+      decks[ids[i]] = mode === 'jumpstart' ? MTGDraft.deckFor(App.engine, ids[i]) : App.decks[ids[i]];
+      if (!decks[ids[i]] || !decks[ids[i]].length) {
+        return toast((names[ids[i]]) + ' has no deck ready.', true);
+      }
+    }
+    try {
+      App.game = new MTGGame.Game(ids, decks, names, {});
+    } catch (err) {
+      return toast(err.message, true);
+    }
+    App.postGame = mode === 'cube' ? 'build' : 'done';
+    broadcastGameViews();
+  }
+
+  function hostEndMatch() {
+    if (!App.game) return;
+    App.game = null;
+    var back = App.postGame || 'lobby';
+    App.players.forEach(function (p) {
+      if (p.conn) App.net.send(p.conn, { t: 'gameEnd', back: back });
+    });
+    returnFromGame(back);
+    broadcastLobby();
+  }
+
+  function returnFromGame(back) {
+    if (back === 'build' && App.builder) {
+      show('build');
+      renderBuilder();
+    } else if (back === 'done') {
+      renderDone();
+      show('done');
+    } else {
+      show('lobby');
+      renderLobby();
+    }
   }
 
   /* ---------------- deck builder (after cube drafts) ---------------- */
@@ -465,17 +621,24 @@
       b.pool.map(function (c) { return builderCardTile(c, 'pool'); }).join('') ||
       '<span class="zone-empty">empty</span>';
 
-    var twoPlayer = playerCount() === 2;
+    var count = playerCount();
     var readyBtn = $('#btn-build-ready');
-    readyBtn.hidden = !twoPlayer;
+    readyBtn.hidden = count < 2;
     readyBtn.textContent = b.ready ? '↺ Unready (edit deck)' : '✓ Ready — submit deck';
-    if (twoPlayer) {
-      var otherReady = b.readyList.filter(function (id) { return id !== App.myId; }).length > 0;
+    var othersReady = b.readyList.filter(function (id) { return id !== App.myId; }).length;
+    if (count === 2) {
       $('#build-status').textContent = b.ready
-        ? (otherReady ? 'Starting…' : 'Waiting for your opponent to finish their deck…')
-        : (otherReady ? 'Your opponent is ready.' : '');
+        ? (othersReady ? 'Starting…' : 'Waiting for your opponent to finish their deck…')
+        : (othersReady ? 'Your opponent is ready.' : '');
+    } else if (count > 2) {
+      $('#build-status').textContent = b.ready
+        ? 'Deck in — the host picks the next match (' + b.readyList.length + ' ready).'
+        : b.readyList.length + ' player(s) ready.';
     } else {
       $('#build-status').textContent = 'Copy your deck list when done.';
+    }
+    if (App.role === 'host') {
+      renderMatchPanel('match-panel-build', Object.keys(App.decks));
     }
 
     wireBuilder();
@@ -572,13 +735,14 @@
     } catch (err) {
       return toast(err.message, true);
     }
+    App.postGame = 'build';
     broadcastGameViews();
   }
 
   /* ---------------- post-draft 1v1 game (host authority) ---------------- */
 
   function hostStartGame() {
-    if (App.players.length !== 2) return toast('The play surface is 1v1 — need exactly 2 players.', true);
+    if (App.players.length !== 2) return toast('Use the match panel to pick who plays.', true);
     var decks = {};
     var names = {};
     App.players.forEach(function (p) {
@@ -590,6 +754,7 @@
     } catch (err) {
       return toast(err.message, true);
     }
+    App.postGame = 'done';
     broadcastGameViews();
   }
 
@@ -606,7 +771,9 @@
   }
 
   function sendGameViewTo(player) {
-    var payload = { t: 'game', view: App.game.viewFor(player.id) };
+    // Participants get their own view; everyone else spectates (public info).
+    var isParticipant = App.game.players.indexOf(player.id) !== -1;
+    var payload = { t: 'game', view: App.game.viewFor(isParticipant ? player.id : null) };
     if (player.conn) App.net.send(player.conn, payload);
     else applyGameView(payload); // the host player
   }
@@ -622,6 +789,8 @@
 
   function applyGameView(payload) {
     show('game');
+    $('#spectate-note').hidden = !!payload.view.you;
+    $('#btn-end-match').hidden = App.role !== 'host';
     GameUI.render(payload.view, gameSend);
   }
 
@@ -676,6 +845,10 @@
           renderBuilder();
         }
         break;
+      case 'gameEnd':
+        returnFromGame(msg.back || 'lobby');
+        toast('The match has ended.');
+        break;
       case 'err':
         toast(msg.msg, true);
         break;
@@ -689,24 +862,42 @@
   /* ---------------- lobby rendering ---------------- */
 
   function renderLobby() {
-    var players, info;
+    var players, info, mode, deckReady;
     if (App.role === 'host') {
-      players = App.players.map(function (p) { return { name: p.name, connected: p.connected, isHost: p.id === 'p0' }; });
+      mode = App.setup.mode;
+      deckReady = Object.keys(App.decks);
+      players = App.players.map(function (p) {
+        return { id: p.id, name: p.name, connected: p.connected, isHost: p.id === 'p0' };
+      });
       info = poolInfoText();
-      var ready = (App.setup.mode === 'cube' && App.setup.cubeCards) ||
-                  (App.setup.mode === 'jumpstart' && App.setup.jsPacks);
+      var ready;
+      if (isDeckMode(mode)) {
+        ready = App.players.length >= 2 &&
+          App.players.every(function (p) { return App.decks[p.id]; });
+        $('#btn-start').textContent = 'Start game';
+      } else {
+        ready = (mode === 'cube' && App.setup.cubeCards) ||
+                (mode === 'jumpstart' && App.setup.jsPacks);
+        $('#btn-start').textContent = 'Start draft';
+      }
       $('#btn-start').disabled = !ready;
     } else {
       if (!App.lobby) return;
-      players = App.lobby.players.map(function (p) { return { name: p.name, connected: p.connected, isHost: p.id === 'p0' }; });
+      mode = App.lobby.mode;
+      deckReady = App.lobby.deckReady || [];
+      players = App.lobby.players.map(function (p) {
+        return { id: p.id, name: p.name, connected: p.connected, isHost: p.id === 'p0' };
+      });
       info = App.lobby.poolInfo;
     }
     $('#lobby-players').innerHTML = players.map(function (p) {
       return '<li class="' + (p.connected ? '' : 'gone') + '">' +
         escapeHtml(p.name) + (p.isHost ? ' <span class="tag">host</span>' : '') +
+        (isDeckMode(mode) && deckReady.indexOf(p.id) !== -1 ? ' <span class="tag ok-tag">deck ✓</span>' : '') +
         (p.connected ? '' : ' (disconnected)') + '</li>';
     }).join('');
     $('#lobby-info').textContent = info || '';
+    $('#deck-submit-panel').hidden = !isDeckMode(mode);
   }
 
   /* ---------------- draft rendering (both roles) ---------------- */
@@ -889,11 +1080,15 @@
       return '<div class="card small" title="' + escapeHtml(c.name) + '">' + cardFace(c) + '</div>';
     }).join('');
 
-    // After a 1v1 jumpstart draft, offer the play surface.
+    // After a jumpstart draft: 2 players go straight to the board; with more,
+    // the host gets the match panel (winners stay, spectators watch, etc.).
     var isJs = App.lastView && App.lastView.mode === 'jumpstart';
     var count = App.role === 'host' ? App.players.length : (App.lobby ? App.lobby.players.length : 0);
     $('#btn-start-game').hidden = !(isJs && count === 2 && App.role === 'host');
-    $('#game-hint').hidden = !(isJs && count === 2 && App.role !== 'host');
+    $('#game-hint').hidden = !(isJs && count >= 2 && App.role !== 'host');
+    if (isJs && App.role === 'host') {
+      renderMatchPanel('match-panel-done', App.players.map(function (p) { return p.id; }));
+    }
   }
 
   function initDone() {
@@ -942,6 +1137,10 @@
     initHostPanel();
     initDone();
     initBuilder();
+    initDeckSubmit();
+    $('#btn-end-match').addEventListener('click', function () {
+      if (App.role === 'host') hostEndMatch();
+    });
     $('#btn-copy-code').addEventListener('click', function () {
       var code = $('#room-code').textContent;
       if (navigator.clipboard && navigator.clipboard.writeText) {

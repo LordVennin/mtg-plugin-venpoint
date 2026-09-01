@@ -44,6 +44,27 @@ draft traffic is direct browser-to-browser. To use your own
 `index.html?peerhost=your.server&peerport=9000` (add `&peerinsecure=1` for
 plain `ws://` during local testing).
 
+## Game modes
+
+- **Cube draft** and **Jumpstart** — draft from a shared pool (below).
+- **Constructed** — no draft: everyone pastes their own deck in the lobby
+  (each client resolves its own list from Scryfall and submits it), then the
+  host starts a game with **all** players in it, 2-8.
+- **Commander** — constructed with a command zone and 40 life. Mark your
+  commander with a `Commander` section header or a `*CMDR*` marker; it
+  starts in your command zone, casts from it (recasts log the commander
+  tax), and can return there from anywhere. Full pods of 3-6 work.
+
+## Matches and spectating (3+ players)
+
+After a draft with three or more players, the host gets a **match panel**:
+tick any 2+ players and start the match — everyone else spectates live
+(battlefields, graveyards, life, and the log; never anyone's hand — hidden
+information stays on the host and is never sent to spectators). The host's
+**⏹ End match** button returns everyone to the deck screen to set up the
+next pairing — round-robin, winner-stays, whatever the table wants. With
+exactly two players everything still flows automatically like before.
+
 ## How a draft works
 
 1. Everyone enters a name. One player clicks **Create room** and shares the

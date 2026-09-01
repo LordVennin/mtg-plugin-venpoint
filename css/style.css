@@ -224,6 +224,17 @@ legend { color: var(--muted); font-size: 13px; padding: 0 6px; }
   box-shadow: 0 0 14px rgba(63, 174, 106, 0.25), inset 0 0 30px rgba(63, 174, 106, 0.05);
 }
 .player-area.active-turn .turn-badge { background: #3fae6a; }
+.player-area.compact .gcard { width: 62px; }
+.player-area.compact .bf-row { min-height: 96px; }
+.player-area.compact .player-bar { font-size: 13px; }
+.game-topbar {
+  max-width: 1500px; margin: 0 auto; padding: 6px 16px 0;
+  display: flex; justify-content: flex-end; align-items: center; gap: 12px;
+}
+.spectate-note { color: var(--accent-2); font-weight: 700; font-size: 13px; }
+.match-panel { margin-top: 14px; }
+.match-panel h3 { color: var(--accent); margin: 0 0 4px; }
+.ok-tag { background: var(--ok); }
 .board-divider {
   text-align: center; color: var(--muted); font-size: 12px;
   letter-spacing: 2px; text-transform: uppercase; margin: 6px 0;

@@ -62,6 +62,18 @@ section('parseJumpstartPacks');
   assert(headerless.packs.length === 1 && headerless.packs[0].name === 'Pack 1', 'headerless text becomes Pack 1');
 }
 
+section('parseDeckListWithCommanders');
+{
+  const r = Parser.parseDeckListWithCommanders('1 Sol Ring\n\nCommander\n1 Krenko, Mob Boss\n\nDeck\n2 Shock');
+  assert(r.commanders.length === 1 && r.commanders[0] === 'Krenko, Mob Boss', 'Commander section header recognized');
+  assert(r.entries.length === 3, 'commander card is still part of the deck entries');
+  const r2 = Parser.parseDeckListWithCommanders("1 Atraxa, Praetors' Voice *CMDR*\n30 Forest");
+  assert(r2.commanders[0] === "Atraxa, Praetors' Voice", '*CMDR* marker recognized');
+  assert(r2.entries[0].name === "Atraxa, Praetors' Voice", 'marker stripped from the name');
+  const r3 = Parser.parseDeckListWithCommanders('2 Island\n1 Shock');
+  assert(r3.commanders.length === 0 && r3.entries.length === 2, 'plain lists have no commanders');
+}
+
 section('formatDeckList');
 {
   const out = Parser.formatDeckList(['Island', 'Forest', 'Island']);
@@ -208,8 +220,74 @@ section('Game setup');
   assert(g.viewFor('b').hand.every(c => c.name.startsWith('B')), "b's view shows b's own hand");
 
   let threw = false;
-  try { new Game.Game(['a', 'b', 'c'], {}, {}); } catch (e) { threw = /1v1/.test(e.message); }
-  assert(threw, 'three players rejected');
+  try { new Game.Game(['a'], {}, {}); } catch (e) { threw = /2-8/.test(e.message); }
+  assert(threw, 'one player rejected');
+  threw = false;
+  try { new Game.Game('abcdefghi'.split(''), {}, {}); } catch (e) { threw = /2-8/.test(e.message); }
+  assert(threw, 'nine players rejected');
+}
+
+section('Multiplayer, commander zone, spectators');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i, type: 'Sorcery' }));
+  const deckA = mkDeck('A', 20);
+  deckA.push({ name: 'Krenko, Mob Boss', type: 'Legendary Creature — Goblin Warrior', commander: true });
+  const g = new Game.Game(['a', 'b', 'c', 'd'],
+    { a: deckA, b: mkDeck('B', 20), c: mkDeck('C', 20), d: mkDeck('D', 20) },
+    { a: 'Alice', b: 'Bob', c: 'Cleo', d: 'Dan' },
+    { rng: seededRng(77), commander: true });
+
+  // 4-player commander basics
+  assert(g.players.length === 4, 'four-player game constructed');
+  assert(g.viewFor('a').life.a === 40 && g.viewFor('a').life.d === 40, 'commander games start at 40 life');
+  const va = g.viewFor('a');
+  assert(va.zones.a.command.length === 1 && va.zones.a.command[0].name === 'Krenko, Mob Boss',
+    'commander starts in the command zone, not the library');
+  assert(va.zones.a.libraryCount === 13, 'commander is not shuffled into the 20-card library (20 - 7 drawn)');
+  assert(g.viewFor('c').zones.a.command[0].name === 'Krenko, Mob Boss', 'command zone is public');
+
+  // Turn order cycles through all four players
+  g.apply('a', { a: 'passTurn' });
+  assert(g.active === 'b', 'turn passes a -> b');
+  g.apply('b', { a: 'passTurn' });
+  g.apply('c', { a: 'passTurn' });
+  g.apply('d', { a: 'passTurn' });
+  assert(g.active === 'a' && g.turn === 5, 'turn order wraps around the table');
+
+  // Cast commander, kill it, return it, recast with tax logged
+  const kUid = va.zones.a.command[0].uid;
+  g.apply('a', { a: 'castCommander', uid: kUid });
+  assert(g.viewFor('b').zones.a.battlefield.some(e => e.card.uid === kUid), 'commander cast to battlefield');
+  g.apply('a', { a: 'move', uid: kUid, to: 'graveyard' });
+  g.apply('a', { a: 'zoneMove', from: 'graveyard', uid: kUid, to: 'battlefield' });
+  g.apply('a', { a: 'move', uid: kUid, to: 'graveyard' });
+  g.apply('a', { a: 'toCommand', uid: kUid, from: 'graveyard' });
+  assert(g.viewFor('a').zones.a.command.length === 1, 'commander returned to the command zone from the graveyard');
+  g.apply('a', { a: 'castCommander', uid: kUid });
+  assert(/cast #2 — commander tax \{2\}/.test(g.viewFor('b').log.map(l => l.text).join(' ')),
+    'recast logs the commander tax');
+
+  // Non-commanders cannot enter the command zone
+  g.apply('b', { a: 'play', uid: g.viewFor('b').hand[0].uid });
+  const bPerm = g.viewFor('b').zones.b.battlefield[0];
+  let threw = false;
+  try { g.apply('b', { a: 'toCommand', uid: bPerm.card.uid, from: 'battlefield' }); }
+  catch (e) { threw = /Only a commander/.test(e.message); }
+  assert(threw, 'non-commander rejected from the command zone');
+  assert(g.viewFor('b').zones.b.battlefield.length === 1, 'rejected card stays on the battlefield');
+
+  // Spectator view: public info only
+  const spec = g.viewFor(null);
+  assert(spec.you === null, 'spectator has no seat');
+  assert(spec.hand.length === 0 && spec.library === null && spec.peek === null, 'spectator sees no hidden zones');
+  assert(spec.zones.a.battlefield !== undefined && spec.zones.a.handCount === g.viewFor('a').hand.length,
+    'spectator sees battlefields and hand counts');
+  // a's hand cards (A0..A19 minus public-zone cards) exist ONLY in the hand,
+  // so none of their names may appear anywhere in the spectator's JSON.
+  const specJson = JSON.stringify(spec);
+  const aHandNames = g.viewFor('a').hand.map(c => c.name);
+  assert(aHandNames.length > 0 && aHandNames.every(n => !specJson.includes('"' + n + '"')),
+    "spectator JSON contains none of a player's hand cards");
 }
 
 section('Game actions');

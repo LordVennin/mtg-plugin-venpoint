@@ -47,14 +47,26 @@
     <p id="lobby-info" class="hint"></p>
 
     <div id="guest-panel" hidden>
-      <p class="hint">Waiting for the host to start the draft…</p>
+      <p class="hint">Waiting for the host to start…</p>
+    </div>
+
+    <div id="deck-submit-panel" hidden>
+      <label for="ds-text">Your deck — paste a Moxfield/Archidekt list. In Commander mode, mark your
+        commander with a <code>Commander</code> section header or a <code>*CMDR*</code> marker.</label>
+      <textarea id="ds-text" rows="8" placeholder="1 Sol Ring&#10;1 Arcane Signet&#10;…&#10;&#10;Commander&#10;1 Krenko, Mob Boss"></textarea>
+      <div class="actions">
+        <button id="ds-load">Load &amp; submit deck</button>
+        <span id="ds-status" class="pool-report"></span>
+      </div>
     </div>
 
     <div id="host-panel" hidden>
       <fieldset>
-        <legend>Draft mode</legend>
+        <legend>Game mode</legend>
         <label class="radio"><input type="radio" name="mode" id="mode-cube" checked> Cube draft (booster packs from a cube)</label>
         <label class="radio"><input type="radio" name="mode" id="mode-jumpstart"> Jumpstart (pick 20-card packs)</label>
+        <label class="radio"><input type="radio" name="mode" id="mode-constructed"> Constructed (everyone brings their own deck)</label>
+        <label class="radio"><input type="radio" name="mode" id="mode-commander"> Commander (own decks, command zone, 40 life)</label>
       </fieldset>
 
       <div id="cube-setup">
@@ -111,6 +123,7 @@
       <button id="btn-back-home">Back to start</button>
     </div>
     <p id="game-hint" class="hint" hidden>The host can start a 1v1 game right here — hang tight, the board will open automatically.</p>
+    <div id="match-panel-done" class="match-panel"></div>
     <textarea id="deck-text" rows="10" readonly></textarea>
     <div id="deck-grid" class="card-grid"></div>
   </div>
@@ -128,6 +141,7 @@
         <button id="btn-build-ready" class="primary" hidden>✓ Ready — submit deck</button>
         <span id="build-status" class="hint"></span>
       </div>
+      <div id="match-panel-build" class="match-panel"></div>
       <p class="hint">Click a card to move it between your pool and your main deck. A typical draft
         deck is 40 cards including ~17 lands.</p>
       <div id="build-lands" class="build-lands"></div>
@@ -141,6 +155,10 @@
 
 <!-- ============ GAME (post-draft 1v1 play surface) ============ -->
 <section id="screen-game" hidden>
+  <div class="game-topbar">
+    <span id="spectate-note" class="spectate-note" hidden>👁 Spectating</span>
+    <button id="btn-end-match" class="mini" hidden>⏹ End match</button>
+  </div>
   <div class="game-layout">
     <aside id="card-preview" class="card-preview"></aside>
     <div id="game-board"></div>

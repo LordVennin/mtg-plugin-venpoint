@@ -76,14 +76,19 @@ var MTGGame = (function () {
   }
 
   /**
-   * playerIds: [id, id]  decks: {id: [card,...]}  names: {id: displayName}
+   * playerIds: [id, ...] (2-8)  decks: {id: [card,...]}  names: {id: displayName}
+   * opts.commander: command zone + 40 life; cards flagged {commander:true}
+   * start in their owner's command zone instead of the library.
    */
   function Game(playerIds, decks, names, opts) {
     opts = opts || {};
-    if (playerIds.length !== 2) throw new Error('The play surface is 1v1 — need exactly 2 players');
+    if (playerIds.length < 2 || playerIds.length > 8) {
+      throw new Error('The play surface needs 2-8 players');
+    }
     this.players = playerIds.slice();
     this.names = names || {};
     this.rng = opts.rng || Math.random;
+    this.commander = !!opts.commander;
 
     this.life = {};
     this.zones = {};
@@ -94,25 +99,32 @@ var MTGGame = (function () {
     this.peeking = {}; // pid -> how many top-of-library cards are revealed to them
     this.mulligans = {}; // pid -> mulligans taken
     this.bottoming = {}; // pid -> cards still owed to the bottom after a mulligan
+    this.commanderCasts = {}; // card uid -> times cast from the command zone
 
+    var startLife = opts.startLife || (this.commander ? 40 : 20);
     this.players.forEach(function (id) {
-      var deck = (decks[id] || []).map(function (c) {
+      var command = [];
+      var deck = [];
+      ((decks[id]) || []).forEach(function (c) {
         var card = Object.assign({}, c);
         if (!card.uid) card.uid = 'g' + (++uidCounter);
-        return card;
+        if (card.commander) command.push(card);
+        else deck.push(card);
       });
-      this.life[id] = 20;
+      this.life[id] = startLife;
       this.zones[id] = {
         library: shuffle(deck, this.rng),
         hand: [],
-        battlefield: [], // entries: {card, tapped, counters}
+        battlefield: [], // entries: {card, tapped, counters, row, attachedTo, faceDown, flipped}
         graveyard: [],
-        exile: []
+        exile: [],
+        command: command
       };
     }, this);
 
     this.players.forEach(function (id) { this._draw(id, 7); }, this);
-    this._log(null, 'Game started — both players draw 7. ' + this.name(this.active) + ' goes first.');
+    this._log(null, 'Game started at ' + startLife + ' life — everyone draws 7. ' +
+      this.name(this.active) + ' goes first.');
   }
 
   Game.prototype.name = function (id) { return this.names[id] || id; };
@@ -285,9 +297,40 @@ var MTGGame = (function () {
       }
       case 'passTurn': {
         var idx = this.players.indexOf(pid);
-        this.active = this.players[(idx + 1) % 2];
+        this.active = this.players[(idx + 1) % this.players.length];
         this.turn++;
         this._log(pid, me + ' passes the turn. Turn ' + this.turn + ' — ' + this.name(this.active) + '.');
+        break;
+      }
+      case 'castCommander': {
+        var cc = takeByUid(z.command, action.uid, function (c) { return c.uid; });
+        if (!cc) throw new Error('Card not in your command zone');
+        z.battlefield.push(permanent(cc));
+        var casts = (this.commanderCasts[cc.uid] = (this.commanderCasts[cc.uid] | 0) + 1);
+        this._log(pid, me + ' casts ' + cc.name + ' from the command zone' +
+          (casts > 1 ? ' (cast #' + casts + ' — commander tax {' + (2 * (casts - 1)) + '})' : '') + '.');
+        break;
+      }
+      case 'toCommand': {
+        var src = action.from;
+        var moved = null;
+        if (src === 'battlefield') {
+          var bentry = takeByUid(z.battlefield, action.uid, function (e) { return e.card.uid; });
+          if (bentry) { this._detachDependents(action.uid); moved = bentry.card; }
+        } else if (src === 'graveyard' || src === 'exile' || src === 'hand') {
+          moved = takeByUid(z[src], action.uid, function (c) { return c.uid; });
+        } else {
+          throw new Error('Bad source zone');
+        }
+        if (!moved) throw new Error('Card not in your ' + src);
+        if (!moved.commander) {
+          // Put it back where it came from — only commanders live there.
+          if (src === 'battlefield') z.battlefield.push(permanent(moved));
+          else z[src].push(moved);
+          throw new Error('Only a commander can go to the command zone');
+        }
+        z.command.push(moved);
+        this._log(pid, me + ' returns ' + moved.name + ' to the command zone.');
         break;
       }
       case 'roll': {
@@ -483,23 +526,29 @@ var MTGGame = (function () {
     }, this);
   };
 
-  /** Everything one player may know. Own hand in full; opponent hand as a count. */
+  /**
+   * Everything one player may know. Own hand in full; other hands as counts.
+   * Pass pid = null for a SPECTATOR view: public zones only, no hand, no
+   * hidden windows, no actions expected.
+   */
   Game.prototype.viewFor = function (pid) {
+    var self = pid ? this._zonesOf(pid) : null;
     var view = {
-      you: pid,
+      you: pid || null,
+      commander: this.commander,
       names: this.names,
       players: this.players.slice(),
       turn: this.turn,
       active: this.active,
       life: Object.assign({}, this.life),
-      hand: this._zonesOf(pid).hand.slice(),
-      searching: !!this.searching[pid],
-      bottoming: this.bottoming[pid] | 0,
+      hand: self ? self.hand.slice() : [],
+      searching: !!(pid && this.searching[pid]),
+      bottoming: pid ? (this.bottoming[pid] | 0) : 0,
       // Library contents are revealed only to their owner, only mid-search.
-      library: this.searching[pid] ? this._zonesOf(pid).library.slice() : null,
+      library: (pid && this.searching[pid]) ? self.library.slice() : null,
       // Scry window: top n cards, owner only, in order (index 0 = top).
-      peek: (this.peeking[pid] | 0) > 0
-        ? { n: this.peeking[pid], cards: this._zonesOf(pid).library.slice(0, this.peeking[pid]) }
+      peek: (pid && (this.peeking[pid] | 0) > 0)
+        ? { n: this.peeking[pid], cards: self.library.slice(0, this.peeking[pid]) }
         : null,
       zones: {},
       log: this.log.slice(-40)
@@ -521,7 +570,8 @@ var MTGGame = (function () {
           };
         }),
         graveyard: z.graveyard.slice(),
-        exile: z.exile.slice()
+        exile: z.exile.slice(),
+        command: z.command.slice() // command zone is public
       };
     }, this);
     return view;
