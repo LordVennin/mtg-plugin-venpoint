@@ -105,7 +105,9 @@ draw 7, and you go:
   highlighted on both screens.
 - **London mulligan**: each mulligan draws a fresh 7, then the board tells
   you to put N cards on the bottom (N = mulligans taken) — select a hand
-  card and hit *⤓ Bottom of library* until the debt is paid.
+  card and hit *⤓ Bottom of library* until the debt is paid. In games with
+  3+ players the **first mulligan is free**, and the Mulligan button only
+  exists on turn 1.
 - **Right-click your own cards** for the full action menu (tap, attach,
   notes, copy, counters, zone moves…); the inline bar keeps quick actions
   for hand/graveyard/exile cards.
@@ -114,16 +116,34 @@ draw 7, and you go:
 - **Hotkeys**: `u` untap all · `d` draw · `s` search · `e` scry · `k` token ·
   `c` coin · `r` d20 · `t` tap selected · `Esc` clear selection.
 - **Drag your hand** to organize it (private, silent), and drag battlefield
-  cards to arrange your board.
+  cards to arrange your board. Drags also move cards **between zones**:
+  hand → battlefield plays a card, battlefield → hand returns it,
+  battlefield → the graveyard/exile pile sends it there, hand → graveyard
+  discards, and the top card of your graveyard or exile drags straight onto
+  the battlefield.
 - **Annotate cards** (📝 Note in the right-click menu) — a short label shown
-  in the middle of the card, visible to everyone. Creatures show their
+  in the middle of the card, visible to everyone, and shown in full under
+  the big image in the preview pane. Creatures show their
   **power/toughness** in the bottom-right corner.
 - **Three counter types per card** (purple ⬤ top-right, red top-left, blue
   bottom-left) plus **player counters** (☠ Counter: poison, energy,
   experience…) shown as chips by each player's name with ± on your own.
-- **⧉ Copy** duplicates any face-up permanent — copies are tokens and
-  vanish when they leave the battlefield. **Manifest** in the scry window
-  puts a top-of-library card onto the battlefield face down, namelessly.
+  *# Counters…* adds X at once (`5`, `-3`, or `r4`/`b2` for the red/blue
+  kind), and **right-clicking the life ±** buttons prompts for a bigger
+  life swing.
+- **⧉ Copy…** duplicates any face-up permanent X times — copies are tokens
+  and vanish when they leave the battlefield. **Manifest** in the scry
+  window puts a top-of-library card onto the battlefield face down,
+  namelessly.
+- **🤝 Give control…** hands one of your permanents to another player — it
+  moves to their battlefield (Ragavan steals, trades, "you gain control"
+  effects). **✂ Unattach all** clears everything stuck to one of your
+  permanents, including other players' auras.
+- **👁 Reveal** shows the top X cards of your library to the whole table,
+  live — as you draw, the window slides down. Reveal 0 (or *Stop
+  revealing*) ends it.
+- **🏳 Resign** clears your battlefield and turns your seat into a
+  spectator; the turn order skips you from then on.
 - **Two battlefield rows**: lands go to the row nearest their owner, spells
   to the row nearest the middle (auto-sorted by card type; *⇅ Row* overrides).
 - **Attachments**: select an equipment/aura, hit *Attach to…*, click the
@@ -147,8 +167,11 @@ draw 7, and you go:
   *⟳ Transform* button appears on any DFC; both players see the new face,
   and the preview pane shows the current face plus the other face's text.
 - Bottom bar: **Draw**, **🔍 Search**, **Untap all**, **Shuffle**,
-  **Mulligan**, life **±**, **🎲 d6 / d20**, **🪙 coin flip** (rolled by the
-  host's engine and publicly logged, so nobody can fudge them), **Pass turn**.
+  **Mulligan** (turn 1 only), life **±**, **🎲 d6 / d20**, **🪙 coin flip**
+  (rolled by the host's engine and publicly logged, so nobody can fudge
+  them), **👁 Reveal**, **🏳 Resign**, **Pass turn** — the turn marker
+  always advances in seat order from the active player, no matter who
+  presses Pass.
 - Your hand is yours alone; the opponent sees a count. Battlefields,
   graveyards, exile, life, and the action log are public — every action is
   logged so nothing happens silently.

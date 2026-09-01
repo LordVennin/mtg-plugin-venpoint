@@ -293,6 +293,90 @@ section('Multiplayer, commander zone, spectators');
     "spectator JSON contains none of a player's hand cards");
 }
 
+section('Free multiplayer mulligan, control, reveal, resign');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i }));
+  const g = new Game.Game(['a', 'b', 'c'],
+    { a: mkDeck('A', 20), b: mkDeck('B', 20), c: mkDeck('C', 20) },
+    { a: 'Alice', b: 'Bob', c: 'Cleo' }, { rng: seededRng(42) });
+
+  // First mulligan is free with 3+ players; the second one bottoms 1.
+  g.apply('a', { a: 'mulligan' });
+  let v = g.viewFor('a');
+  assert(v.hand.length === 7 && v.bottoming === 0, 'first mulligan in multiplayer is free (no bottoming)');
+  g.apply('a', { a: 'mulligan' });
+  v = g.viewFor('a');
+  assert(v.bottoming === 1, 'second multiplayer mulligan owes 1 card to the bottom');
+  g.apply('a', { a: 'bottomCard', uid: v.hand[0].uid });
+  assert(g.viewFor('a').hand.length === 6, 'after bottoming, hand is 6');
+
+  // Mulligans are turn-1 only.
+  g.apply('a', { a: 'passTurn' });
+  assert(g.active === 'b' && g.turn === 2, 'pass follows turn order from the active player');
+  let threw = false;
+  try { g.apply('b', { a: 'mulligan' }); } catch (e) { threw = /first turn/.test(e.message); }
+  assert(threw, 'mulligan after turn 1 is rejected');
+
+  // Give control: a's permanent lands on b's battlefield.
+  const pUid = g.viewFor('a').hand[0].uid;
+  g.apply('a', { a: 'play', uid: pUid });
+  threw = false;
+  try { g.apply('a', { a: 'giveControl', uid: pUid, to: 'a' }); } catch (e) { threw = true; }
+  assert(threw, 'giving a card to yourself is rejected');
+  g.apply('a', { a: 'giveControl', uid: pUid, to: 'b' });
+  v = g.viewFor('c');
+  assert(v.zones.a.battlefield.length === 0 && v.zones.b.battlefield.some(e => e.card.uid === pUid),
+    'giveControl moves the permanent to the target battlefield, visibly to everyone');
+  assert(/gives control of/.test(v.log.map(l => l.text).join(' ')), 'giveControl is logged');
+
+  // detachAll frees another player's aura stuck on your permanent.
+  const auraUid = g.viewFor('a').hand[0].uid;
+  g.apply('a', { a: 'play', uid: auraUid });
+  g.apply('a', { a: 'attach', uid: auraUid, target: pUid }); // a's card onto b's permanent
+  assert(g.viewFor('a').zones.a.battlefield.find(e => e.card.uid === auraUid).attachedTo === pUid,
+    'attach across players works');
+  g.apply('b', { a: 'detachAll', uid: pUid }); // b clears their own permanent
+  assert(g.viewFor('a').zones.a.battlefield.find(e => e.card.uid === auraUid).attachedTo === null,
+    "detachAll frees other players' cards from your permanent");
+
+  // Reveal top X: public in every view, live as the library changes.
+  g.apply('b', { a: 'reveal', n: 2 });
+  const topTwo = g.zones.b.library.slice(0, 2).map(c => c.name);
+  v = g.viewFor('a');
+  assert(v.reveals.b && v.reveals.b.length === 2 && v.reveals.b[0].name === topTwo[0],
+    'revealed top cards are visible to opponents');
+  g.apply('b', { a: 'draw' });
+  assert(g.viewFor('a').reveals.b[0].name === topTwo[1], 'the reveal window slides as cards leave the top');
+  g.apply('b', { a: 'endReveal' });
+  assert(!g.viewFor('a').reveals.b, 'endReveal hides the library top again');
+
+  // Resign: battlefield cleared, seat becomes a spectator, turn skips them.
+  g.apply('b', { a: 'resign' });
+  v = g.viewFor('c');
+  assert(v.zones.b.battlefield.length === 0, "resigner's permanents leave the battlefield");
+  assert(v.resigned.indexOf('b') !== -1, 'view lists the resigned player');
+  assert(g.active === 'c', 'active seat moved off the resigner');
+  const rv = g.viewFor('b');
+  assert(rv.you === null && rv.hand.length === 0, 'resigned player gets the spectator view');
+  threw = false;
+  try { g.apply('b', { a: 'draw' }); } catch (e) { threw = /resigned/.test(e.message); }
+  assert(threw, 'resigned players cannot act');
+  g.apply('c', { a: 'passTurn' });
+  assert(g.active === 'a', 'turn order skips resigned players');
+  threw = false;
+  try { g.apply('a', { a: 'giveControl', uid: 'whatever', to: 'b' }); } catch (e) { threw = true; }
+  assert(threw, 'cannot give control to a resigned player');
+
+  // clone / tokenFrom respect a count.
+  const cUid = g.viewFor('c').hand[0].uid;
+  g.apply('c', { a: 'play', uid: cUid });
+  g.apply('c', { a: 'clone', uid: cUid, count: 3 });
+  assert(g.viewFor('c').zones.c.battlefield.length === 4, 'clone with count 3 makes three copies');
+  g.apply('c', { a: 'tokenFrom', card: { name: 'Goblin', pt: '1/1' }, count: 4 });
+  assert(g.viewFor('c').zones.c.battlefield.filter(e => e.card.name === 'Goblin').length === 4,
+    'tokenFrom with count 4 makes four tokens');
+}
+
 section('Game actions');
 {
   const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i }));
@@ -333,7 +417,8 @@ section('Game actions');
 
   assert(g.active === 'a', 'a starts active');
   g.apply('b', { a: 'passTurn' });
-  assert(g.active === 'a' && g.turn === 2, 'passTurn flips active player and bumps turn');
+  assert(g.active === 'b' && g.turn === 2,
+    'passTurn advances from the ACTIVE player in turn order, no matter who pressed it');
 
   let threw = false;
   try { g.apply('b', { a: 'play', uid: 'not-a-card' }); } catch (e) { threw = /hand/.test(e.message); }

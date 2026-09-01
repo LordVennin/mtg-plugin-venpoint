@@ -113,6 +113,8 @@ var MTGGame = (function () {
     this.bottoming = {}; // pid -> cards still owed to the bottom after a mulligan
     this.commanderCasts = {}; // card uid -> times cast from the command zone
     this.pcounters = {}; // pid -> {counterName: count} (poison, energy, ...)
+    this.revealing = {}; // pid -> how many top-of-library cards are PUBLICLY revealed
+    this.resigned = {}; // pid -> true once they leave the game (they spectate)
 
     var startLife = opts.startLife || (this.commander ? 40 : 20);
     this.players.forEach(function (id) {
@@ -171,6 +173,7 @@ var MTGGame = (function () {
   }
 
   Game.prototype.apply = function (pid, action) {
+    if (this.resigned[pid]) throw new Error('You have resigned — spectating only');
     var z = this._zonesOf(pid);
     var me = this.name(pid);
     switch (action && action.a) {
@@ -185,15 +188,19 @@ var MTGGame = (function () {
         break;
       }
       case 'mulligan': {
+        if (this.turn > 1) throw new Error('Mulligans only happen on the first turn');
         // London mulligan: always draw 7, then bottom as many cards as
-        // mulligans taken. Any bottoming still owed carries over.
+        // mulligans taken. In multiplayer (3+) the first mulligan is free.
         var mullCount = (this.mulligans[pid] = (this.mulligans[pid] | 0) + 1);
+        var owed = this.players.length > 2 ? mullCount - 1 : mullCount;
         z.library = shuffle(z.library.concat(z.hand), this.rng);
         z.hand = [];
         this._draw(pid, 7);
-        this.bottoming[pid] = Math.min(mullCount, z.hand.length);
-        this._log(pid, me + ' takes mulligan #' + mullCount + ' — draws 7 and must put ' +
-          this.bottoming[pid] + ' card' + (this.bottoming[pid] === 1 ? '' : 's') + ' on the bottom.');
+        this.bottoming[pid] = Math.max(0, Math.min(owed, z.hand.length));
+        this._log(pid, me + ' takes mulligan #' + mullCount + ' — draws 7' +
+          (this.bottoming[pid]
+            ? ' and must put ' + this.bottoming[pid] + ' card' + (this.bottoming[pid] === 1 ? '' : 's') + ' on the bottom.'
+            : (this.players.length > 2 && mullCount === 1 ? ' (first mulligan is free in multiplayer).' : '.')));
         break;
       }
       case 'bottomCard': {
@@ -289,14 +296,17 @@ var MTGGame = (function () {
         var operm = this._findPerm(pid, action.uid);
         if (!operm) throw new Error('Card not on your battlefield');
         if (operm.faceDown) throw new Error('Turn it face up first');
-        var copyCard = Object.assign({}, operm.card, {
-          uid: 'g' + (++uidCounter),
-          token: true // copies vanish when they leave the battlefield
-        });
-        var copyEntry = permanent(copyCard);
-        copyEntry.row = operm.row;
-        z.battlefield.push(copyEntry);
-        this._log(pid, me + ' creates a copy of ' + operm.card.name + '.');
+        var cloneCount = Math.max(1, Math.min(10, (action.count | 0) || 1));
+        for (var cci = 0; cci < cloneCount; cci++) {
+          var copyEntry = permanent(Object.assign({}, operm.card, {
+            uid: 'g' + (++uidCounter),
+            token: true // copies vanish when they leave the battlefield
+          }));
+          copyEntry.row = operm.row;
+          z.battlefield.push(copyEntry);
+        }
+        this._log(pid, me + ' creates ' + (cloneCount > 1 ? cloneCount + ' copies' : 'a copy') +
+          ' of ' + operm.card.name + '.');
         break;
       }
       case 'handOrder': {
@@ -351,18 +361,22 @@ var MTGGame = (function () {
         var tf = action.card || {};
         var tfName = String(tf.name || '').trim().slice(0, 60);
         if (!tfName) throw new Error('Token needs a name');
-        z.battlefield.push(permanent({
-          uid: 'g' + (++uidCounter),
-          name: tfName,
-          token: true,
-          img: typeof tf.img === 'string' ? tf.img.slice(0, 300) : null,
-          cost: '',
-          type: String(tf.type || 'Token').slice(0, 80),
-          text: String(tf.text || '').slice(0, 500),
-          pt: String(tf.pt || '').slice(0, 10),
-          colors: []
-        }));
-        this._log(pid, me + ' creates a ' + tfName + ' token.');
+        var tfCount = Math.max(1, Math.min(10, (action.count | 0) || 1));
+        for (var tfi = 0; tfi < tfCount; tfi++) {
+          z.battlefield.push(permanent({
+            uid: 'g' + (++uidCounter),
+            name: tfName,
+            token: true,
+            img: typeof tf.img === 'string' ? tf.img.slice(0, 300) : null,
+            cost: '',
+            type: String(tf.type || 'Token').slice(0, 80),
+            text: String(tf.text || '').slice(0, 500),
+            pt: String(tf.pt || '').slice(0, 10),
+            colors: []
+          }));
+        }
+        this._log(pid, me + ' creates ' + (tfCount > 1 ? tfCount + ' ' : 'a ') + tfName +
+          ' token' + (tfCount > 1 ? 's' : '') + '.');
         break;
       }
       case 'pcounter': {
@@ -405,10 +419,67 @@ var MTGGame = (function () {
         break;
       }
       case 'passTurn': {
-        var idx = this.players.indexOf(pid);
-        this.active = this.players[(idx + 1) % this.players.length];
+        // The turn marker follows TURN ORDER from the currently active
+        // player, no matter who pressed the button; resigned players skip.
+        this._advanceActive();
         this.turn++;
         this._log(pid, me + ' passes the turn. Turn ' + this.turn + ' — ' + this.name(this.active) + '.');
+        break;
+      }
+      case 'giveControl': {
+        var gcEntry = null, gcIdx = -1;
+        for (var gi = 0; gi < z.battlefield.length; gi++) {
+          if (z.battlefield[gi].card.uid === action.uid) { gcEntry = z.battlefield[gi]; gcIdx = gi; break; }
+        }
+        if (!gcEntry) throw new Error('Card not on your battlefield');
+        if (gcEntry.faceDown) throw new Error('Turn it face up first');
+        var target2 = action.to;
+        if (this.players.indexOf(target2) === -1 || target2 === pid || this.resigned[target2]) {
+          throw new Error('Bad target player');
+        }
+        z.battlefield.splice(gcIdx, 1);
+        this.zones[target2].battlefield.push(gcEntry);
+        this._log(pid, me + ' gives control of ' + gcEntry.card.name + ' to ' + this.name(target2) + '.');
+        break;
+      }
+      case 'detachAll': {
+        // Unhook EVERYTHING attached to one of your permanents — including
+        // other players' auras stuck on it.
+        var host = this._findPerm(pid, action.uid);
+        if (!host) throw new Error('Card not on your battlefield');
+        var freed = 0;
+        this.players.forEach(function (id) {
+          this.zones[id].battlefield.forEach(function (e) {
+            if (e.attachedTo === action.uid) { e.attachedTo = null; freed++; }
+          });
+        }, this);
+        this._log(pid, me + ' unattaches ' + freed + ' card(s) from ' + host.card.name + '.');
+        break;
+      }
+      case 'reveal': {
+        var rn = action.n | 0;
+        if (rn < 0 || rn > 20) throw new Error('Bad count');
+        this.revealing[pid] = Math.min(rn, z.library.length);
+        if (this.revealing[pid]) {
+          var names = z.library.slice(0, this.revealing[pid]).map(function (c) { return c.name; });
+          this._log(pid, me + ' reveals the top ' + names.length + ' card(s) of their library: ' + names.join(', ') + '.');
+        }
+        break;
+      }
+      case 'endReveal': {
+        this.revealing[pid] = 0;
+        this._log(pid, me + ' stops revealing their library.');
+        break;
+      }
+      case 'resign': {
+        if (this.resigned[pid]) throw new Error('Already resigned');
+        // Their permanents leave the table; anything attached to them frees up.
+        z.battlefield.forEach(function (e) { this._detachDependents(e.card.uid); }, this);
+        z.battlefield = [];
+        this.revealing[pid] = 0;
+        this.resigned[pid] = true;
+        if (this.active === pid) this._advanceActive();
+        this._log(pid, me + ' resigns and is now spectating.');
         break;
       }
       case 'castCommander': {
@@ -649,6 +720,15 @@ var MTGGame = (function () {
     }
   };
 
+  /** Move the turn marker to the next non-resigned player after the active one. */
+  Game.prototype._advanceActive = function () {
+    var idx = this.players.indexOf(this.active);
+    for (var step = 1; step <= this.players.length; step++) {
+      var next = this.players[(idx + step) % this.players.length];
+      if (!this.resigned[next]) { this.active = next; return; }
+    }
+  };
+
   Game.prototype._findPerm = function (pid, uid) {
     var bf = this._zonesOf(pid).battlefield;
     for (var i = 0; i < bf.length; i++) if (bf[i].card.uid === uid) return bf[i];
@@ -670,6 +750,7 @@ var MTGGame = (function () {
    * hidden windows, no actions expected.
    */
   Game.prototype.viewFor = function (pid) {
+    if (pid && this.resigned[pid]) pid = null; // resigned players spectate
     var self = pid ? this._zonesOf(pid) : null;
     var view = {
       you: pid || null,
@@ -690,10 +771,17 @@ var MTGGame = (function () {
         : null,
       zones: {},
       pcounters: {},
+      // Publicly revealed top-of-library cards (live: follows draws/shuffles).
+      reveals: {},
+      resigned: this.players.filter(function (id) { return this.resigned[id]; }, this),
       log: this.log.slice(-40)
     };
     this.players.forEach(function (id) {
       view.pcounters[id] = Object.assign({}, this.pcounters[id] || {});
+      var rn = this.revealing[id] | 0;
+      if (rn > 0 && !this.resigned[id]) {
+        view.reveals[id] = this.zones[id].library.slice(0, rn);
+      }
     }, this);
     this.players.forEach(function (id) {
       var z = this.zones[id];

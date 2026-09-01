@@ -19,6 +19,7 @@ var GameUI = (function () {
   var selected = null;    // {zone:'hand'|'battlefield'|'graveyard', uid}
   var attachMode = null;  // {uid, name} while choosing an attach target
   var previewUid = null;
+  var noteByUid = {}; // uid -> note text, for the preview pane
   var lastClick = { uid: null, t: 0 }; // manual double-click detection
   var searchFilter = ''; // library-search filter text, kept across re-renders
   var wasSearching = false;
@@ -75,6 +76,7 @@ var GameUI = (function () {
     if (opts.counters3) badge += '<span class="counter-badge c3">' + opts.counters3 + '</span>';
     if (card.pt && !card.facedown) badge += '<span class="pt-badge">' + escapeHtml(card.pt) + '</span>';
     if (opts.note) {
+      noteByUid[card.uid] = opts.note;
       badge += '<span class="card-note" title="' + escapeHtml(opts.note) + '">' + escapeHtml(opts.note) + '</span>';
     }
     var title = card.facedown && !card.peek ? 'Face-down card' : card.name;
@@ -150,18 +152,35 @@ var GameUI = (function () {
 
   var openPile = null; // {pid, zone} while a graveyard/exile browser is open
 
-  /** Collapsed graveyard/exile: the top card + a count; click to browse. */
+  /**
+   * Collapsed graveyard/exile: the top card + a count; click to browse.
+   * Your own top card is draggable to the battlefield, and the strip is a
+   * drop target for your battlefield cards.
+   */
   function pileStrip(view, pid, zone) {
     var cards = view.zones[pid][zone];
+    var mine = pid === view.you;
     var top = cards.length ? cards[cards.length - 1] : null;
     var label = zone === 'graveyard' ? 'Graveyard' : 'Exile';
     var inner = top
-      ? cardHtml(top, { small: true, mine: false })
+      ? cardHtml(top, { small: true, mine: mine, zone: mine ? zone : null, drag: mine })
       : '<span class="zone-empty">—</span>';
-    return '<div class="zone-strip pile" data-pile="' + pid + ':' + zone +
+    return '<div class="zone-strip pile' + (mine ? ' mine-pile' : '') + '" data-pile="' + pid + ':' + zone +
       '" title="Click to browse the ' + label.toLowerCase() + '">' +
       '<span class="zone-label">' + label + ' (' + cards.length + ')</span>' +
       '<div class="zone-cards">' + inner + '</div></div>';
+  }
+
+  /** Publicly revealed top-of-library cards (Reveal button / Courser style). */
+  function revealStrip(view, pid, mine) {
+    var cards = view.reveals && view.reveals[pid];
+    if (!cards || !cards.length) return '';
+    return '<div class="reveal-strip"><span class="zone-label">👁 Revealed top of library</span>' +
+      '<div class="zone-cards">' +
+      cards.map(function (c) { return cardHtml(c, { small: true, mine: false }); }).join('') +
+      '</div>' +
+      (mine ? '<button class="gact mini" data-act="endReveal">Stop revealing</button>' : '') +
+      '</div>';
   }
 
   function pileModalHtml(view) {
@@ -234,12 +253,24 @@ var GameUI = (function () {
       var trBtn = (entry && entry.card.back && !entry.faceDown)
         ? b('transform', entry.flipped ? '⟳ Transform back' : '⟳ Transform')
         : '';
+      var others = view.players.filter(function (id) {
+        return id !== view.you && (view.resigned || []).indexOf(id) === -1;
+      });
+      var hasAttached = false;
+      view.players.forEach(function (id) {
+        view.zones[id].battlefield.forEach(function (e) {
+          if (e.attachedTo === selected.uid) hasAttached = true;
+        });
+      });
       return b('tap', 'Tap / Untap') + trBtn + fdBtn +
         (entry && entry.attachedTo ? b('detach', 'Detach') : b('attach', '🔗 Attach to…')) +
-        b('note', '📝 Note') + b('clone', '⧉ Copy') +
+        (hasAttached ? b('detach-all', '✂ Unattach all') : '') +
+        (others.length && entry && !entry.faceDown ? b('give', '🤝 Give control…') : '') +
+        b('note', '📝 Note') + b('clone', '⧉ Copy…') +
         b('counter+', '+ ⬤') + b('counter-', '− ⬤') +
         b('counter2+', '+ 🔴') + b('counter2-', '− 🔴') +
         b('counter3+', '+ 🔵') + b('counter3-', '− 🔵') +
+        b('counterX', '# Counters…') +
         b('row', '⇅ Row') +
         (entry && entry.card.tokens && entry.card.tokens.length ? b('make-token', '✨ Create its token') : '') +
         b('to-graveyard', '→ Graveyard') + b('to-exile', '→ Exile') + b('to-hand', '→ Hand') +
@@ -301,7 +332,10 @@ var GameUI = (function () {
     var body = card.img
       ? '<img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) + '">'
       : '<div class="preview-text"><strong>' + escapeHtml(card.name) + '</strong></div>';
-    return body + note +
+    var cardNote = noteByUid[previewUid]
+      ? '<div class="preview-cardnote">📝 ' + escapeHtml(noteByUid[previewUid]) + '</div>'
+      : '';
+    return body + cardNote + note +
       '<div class="preview-meta">' +
         '<div class="preview-name">' + escapeHtml(card.name) +
           (card.pt ? ' <span class="preview-pt">' + escapeHtml(card.pt) + '</span>' : '') + '</div>' +
@@ -392,6 +426,7 @@ var GameUI = (function () {
         '<span class="stat">📚 ' + z.libraryCount + '</span>' +
         pcounterChips(view, pid, false) +
       '</div>' +
+      revealStrip(view, pid, false) +
       battlefieldHtml(view, pid, false, true) +
       '<div class="side-zones">' +
         (showCmd ? zoneStrip('Command', z.command, null, false) : '') +
@@ -405,10 +440,14 @@ var GameUI = (function () {
     lastView = view;
     lastSend = sendAction;
     cardIndex = {};
-    closeCardMenu();
+    noteByUid = {};
+    var hadMenu = !!menuEl; // reopen after re-render instead of closing
     installHotkeys();
     var me = view.you; // null when spectating
-    var others = view.players.filter(function (id) { return id !== me; });
+    var resigned = view.resigned || [];
+    var others = view.players.filter(function (id) {
+      return id !== me && resigned.indexOf(id) === -1;
+    });
     var mz = me ? view.zones[me] : null;
 
     // Drop stale selection / attach mode (card may have changed zones).
@@ -447,6 +486,7 @@ var GameUI = (function () {
           pileStrip(view, me, 'exile') +
         '</div>';
       var benchInner =
+        revealStrip(view, me, true) +
         '<div id="ctx-bar" class="ctx-bar">' + contextButtons(view) + '</div>' +
         (view.bottoming > 0
           ? '<div class="bottoming-banner">Mulligan: put ' + view.bottoming + ' card' +
@@ -467,13 +507,15 @@ var GameUI = (function () {
           '<button class="gact" data-act="search" title="hotkey: s">🔍 Search</button>' +
           '<button class="gact" data-act="untapAll" title="hotkey: u">Untap all</button>' +
           '<button class="gact" data-act="shuffle">Shuffle</button>' +
-          '<button class="gact" data-act="mulligan">Mulligan</button>' +
+          (view.turn === 1 ? '<button class="gact" data-act="mulligan">Mulligan</button>' : '') +
           '<button class="gact" data-act="scry" title="hotkey: e">👁 Scry</button>' +
+          '<button class="gact" data-act="reveal" title="show the top X publicly">👁‍🗨 Reveal</button>' +
           '<button class="gact" data-act="token" title="hotkey: k">➕ Token</button>' +
           '<button class="gact" data-act="pcounter" title="poison, energy, …">☠ Counter</button>' +
           '<button class="gact" data-act="d6">🎲 d6</button>' +
           '<button class="gact" data-act="d20">🎲 d20</button>' +
           '<button class="gact" data-act="coin">🪙 Flip</button>' +
+          '<button class="gact" data-act="resign" title="leave the game, keep watching">🏳 Resign</button>' +
           '<button class="gact primary" data-act="passTurn">Pass turn</button>' +
         '</div>';
       if (gridMode) {
@@ -526,6 +568,12 @@ var GameUI = (function () {
     zoneModal.hidden = !openPile;
 
     wire();
+
+    // A remote player's action re-rendered the board — keep the open
+    // right-click menu alive (rebuilt against the fresh view) instead of
+    // yanking it away mid-decision.
+    if (hadMenu && selected) openCardMenu(menuPos.x, menuPos.y);
+    else closeCardMenu();
   }
 
   function act(action) {
@@ -558,6 +606,40 @@ var GameUI = (function () {
       act({ a: 'note', uid: uid, text: text });
       return;
     }
+    if (kind === 'give') {
+      var targets = ((lastView && lastView.players) || []).filter(function (id) {
+        return id !== lastView.you && (lastView.resigned || []).indexOf(id) === -1;
+      });
+      if (!targets.length) return;
+      var to = targets[0];
+      if (targets.length > 1) {
+        var tlist = targets.map(function (id, i) {
+          return (i + 1) + ': ' + (lastView.names[id] || id);
+        }).join('\n');
+        var tpick = parseInt(window.prompt('Give control of this card to whom?\n' + tlist, '1'), 10);
+        if (!tpick || tpick < 1 || tpick > targets.length) return;
+        to = targets[tpick - 1];
+      }
+      act({ a: 'giveControl', uid: uid, to: to });
+      return;
+    }
+    if (kind === 'counterX') {
+      var cin = window.prompt(
+        'Counters to add — a number, or prefix r/b for the red/blue kind\n(e.g. "5", "-3", "r4", "b2"):', '');
+      if (!cin) return;
+      var cm = cin.trim().match(/^([rb]?)\s*(-?\d+)$/i);
+      var cd = cm && parseInt(cm[2], 10);
+      if (!cd) return;
+      var ck = !cm[1] ? 1 : cm[1].toLowerCase() === 'r' ? 2 : 3;
+      act({ a: 'counter', uid: uid, d: cd, kind: ck });
+      return;
+    }
+    if (kind === 'clone') {
+      var cc = parseInt(window.prompt('How many copies?', '1'), 10);
+      if (!cc || cc < 1) return;
+      act({ a: 'clone', uid: uid, count: Math.min(cc, 10) });
+      return;
+    }
     if (kind === 'make-token') {
       var tEntry = null;
       if (lastView && lastView.you) {
@@ -574,9 +656,12 @@ var GameUI = (function () {
         if (!pick || pick < 1 || pick > toks.length) return;
         chosen = toks[pick - 1];
       }
+      var tc = parseInt(window.prompt('How many?', '1'), 10);
+      if (!tc || tc < 1) return;
+      tc = Math.min(tc, 10);
       Scryfall.fetchToken(chosen.id)
-        .then(function (tok) { act({ a: 'tokenFrom', card: tok }); })
-        .catch(function () { act({ a: 'tokenFrom', card: { name: chosen.name } }); });
+        .then(function (tok) { act({ a: 'tokenFrom', card: tok, count: tc }); })
+        .catch(function () { act({ a: 'tokenFrom', card: { name: chosen.name }, count: tc }); });
       return;
     }
     var map = {
@@ -588,8 +673,8 @@ var GameUI = (function () {
       'bf-bot': { a: 'toLib', from: 'battlefield', uid: uid, pos: 'bottom' },
       'tap': { a: 'tap', uid: uid },
       'detach': { a: 'detach', uid: uid },
+      'detach-all': { a: 'detachAll', uid: uid },
       'row': { a: 'row', uid: uid },
-      'clone': { a: 'clone', uid: uid },
       'counter+': { a: 'counter', uid: uid, d: 1, kind: 1 },
       'counter-': { a: 'counter', uid: uid, d: -1, kind: 1 },
       'counter2+': { a: 'counter', uid: uid, d: 1, kind: 2 },
@@ -624,11 +709,13 @@ var GameUI = (function () {
   /* -------- floating right-click menu -------- */
 
   var menuEl = null;
+  var menuPos = { x: 0, y: 0 };
   function closeCardMenu() {
     if (menuEl) { menuEl.remove(); menuEl = null; }
   }
 
   function openCardMenu(x, y) {
+    menuPos = { x: x, y: y };
     closeCardMenu();
     if (!lastView || !selected) return;
     menuEl = document.createElement('div');
@@ -762,7 +849,20 @@ var GameUI = (function () {
         if (kind === 'token') { promptToken(); return; }
         if (kind === 'scry') { promptScry(); return; }
         if (kind === 'pcounter') { promptPlayerCounter(); return; }
+        if (kind === 'reveal') {
+          var rv = parseInt(window.prompt('Reveal how many cards from the top of your library? (0 stops revealing)', '1'), 10);
+          if (isNaN(rv) || rv < 0) return;
+          act(rv === 0 ? { a: 'endReveal' } : { a: 'reveal', n: Math.min(rv, 20) });
+          return;
+        }
+        if (kind === 'resign') {
+          if (window.confirm('Resign this game? Your permanents leave the battlefield and you keep watching as a spectator.')) {
+            act({ a: 'resign' });
+          }
+          return;
+        }
         var map = {
+          'endReveal': { a: 'endReveal' },
           'draw': { a: 'draw' },
           'search': { a: 'searchLibrary' },
           'untapAll': { a: 'untapAll' },
@@ -778,6 +878,17 @@ var GameUI = (function () {
         var action = map[btn.getAttribute('data-act')];
         if (action) act(action);
       });
+      // Right-click the life buttons for larger adjustments.
+      var la = btn.getAttribute('data-act');
+      if (la === 'life-' || la === 'life+') {
+        btn.addEventListener('contextmenu', function (ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          var amt = parseInt(window.prompt('Change life by how much?', '5'), 10);
+          if (!amt || amt < 1) return;
+          act({ a: 'life', d: la === 'life-' ? -amt : amt });
+        });
+      }
     });
 
     // Drag to rearrange your own battlefield (reorder within a row, or move
@@ -810,9 +921,16 @@ var GameUI = (function () {
         ev.preventDefault();
         ev.stopPropagation();
         var uid = dragUid || (ev.dataTransfer && ev.dataTransfer.getData('text/plain'));
-        if (!uid || dragZone !== 'battlefield') { dragUid = null; return; }
+        var from = dragZone;
         dragUid = null;
-        act({ a: 'reorder', uid: uid, row: row.getAttribute('data-row'), before: dropTargetBefore(ev, uid) });
+        if (!uid) return;
+        if (from === 'battlefield') {
+          act({ a: 'reorder', uid: uid, row: row.getAttribute('data-row'), before: dropTargetBefore(ev, uid) });
+        } else if (from === 'hand') {
+          act({ a: 'play', uid: uid });
+        } else if (from === 'graveyard' || from === 'exile') {
+          act({ a: 'zoneMove', from: from, uid: uid, to: 'battlefield' });
+        }
       });
     });
     var handEl = board.querySelector('.hand');
@@ -825,19 +943,41 @@ var GameUI = (function () {
         ev.preventDefault();
         ev.stopPropagation();
         var uid = dragUid || (ev.dataTransfer && ev.dataTransfer.getData('text/plain'));
-        if (!uid || dragZone !== 'hand') { dragUid = null; return; }
+        var from = dragZone;
         dragUid = null;
-        act({ a: 'handOrder', uid: uid, before: dropTargetBefore(ev, uid) });
+        if (!uid) return;
+        if (from === 'hand') act({ a: 'handOrder', uid: uid, before: dropTargetBefore(ev, uid) });
+        else if (from === 'battlefield') act({ a: 'move', uid: uid, to: 'hand' });
       });
     }
 
-    // Graveyard/exile piles: click opens the zone browser.
+    // Graveyard/exile piles: click opens the zone browser; your own piles
+    // also take drops from the battlefield (and hand → graveyard = discard).
     board.querySelectorAll('.zone-strip.pile').forEach(function (strip) {
       strip.addEventListener('click', function (ev) {
         ev.stopPropagation();
         var parts = strip.getAttribute('data-pile').split(':');
         openPile = { pid: parts[0], zone: parts[1] };
         rerender();
+      });
+      if (!strip.classList.contains('mine-pile')) return;
+      strip.addEventListener('dragover', function (ev) {
+        ev.preventDefault();
+        if (ev.dataTransfer) ev.dataTransfer.dropEffect = 'move';
+      });
+      strip.addEventListener('drop', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var uid = dragUid || (ev.dataTransfer && ev.dataTransfer.getData('text/plain'));
+        var from = dragZone;
+        dragUid = null;
+        if (!uid) return;
+        var zone = strip.getAttribute('data-pile').split(':')[1];
+        if (from === 'battlefield') act({ a: 'move', uid: uid, to: zone });
+        else if (from === 'hand' && zone === 'graveyard') act({ a: 'discard', uid: uid });
+        else if ((from === 'graveyard' || from === 'exile') && from !== zone) {
+          act({ a: 'zoneMove', from: from, uid: uid, to: zone });
+        }
       });
     });
 
