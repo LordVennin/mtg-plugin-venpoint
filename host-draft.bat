@@ -94,18 +94,24 @@ echo [draft] Relay server up.
 
 rem ---------- tunnel ----------
 if exist .cache\tunnel.log del .cache\tunnel.log
-if exist .cache\weburl.tmp del .cache\weburl.tmp
 echo [draft] Opening Cloudflare quick tunnel - takes ~15s...
 start "mtgdraft-tunnel" /min cmd /c ""%CLOUDFLARED%" tunnel --no-autoupdate --url http://127.0.0.1:%PORT% > .cache\tunnel.log 2>&1"
 
+rem The URL sits in a log line like "... INF | https://xxx.trycloudflare.com |".
+rem Parsed with cmd built-ins only - no PowerShell, debloated installs included.
 set WEB_URL=
 set TUNNEL_TRIES=0
 :wait_tunnel
 set /a TUNNEL_TRIES+=1
 if not exist .cache\tunnel.log goto :tunnel_sleep
-powershell -NoProfile -Command "$t=[IO.File]::ReadAllText('.cache/tunnel.log'); $m=[regex]::Match($t,'https://[a-z0-9-]+\.trycloudflare\.com'); if($m.Success){[IO.File]::WriteAllText('.cache/weburl.tmp',$m.Value)}" >nul 2>nul
-if exist .cache\weburl.tmp set /p WEB_URL=<.cache\weburl.tmp
-if defined WEB_URL goto :have_url
+set "TLINE="
+for /f "usebackq delims=" %%L in (`findstr /c:".trycloudflare.com" .cache\tunnel.log`) do set "TLINE=%%L"
+if not defined TLINE goto :tunnel_sleep
+set "TURL=%TLINE:*https://=%"
+if "%TURL%"=="%TLINE%" goto :tunnel_sleep
+for /f "delims=| " %%u in ("%TURL%") do set "TURL=%%u"
+set "WEB_URL=https://%TURL%"
+goto :have_url
 :tunnel_sleep
 if %TUNNEL_TRIES% geq 60 goto :tunnel_dead
 ping -n 2 127.0.0.1 >nul

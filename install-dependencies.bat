@@ -46,7 +46,8 @@ if errorlevel 1 (
   goto :faildone
 )
 echo [setup] Unpacking...
-powershell -NoProfile -Command "Expand-Archive -LiteralPath $env:USERPROFILE\.mtgdraft\node.zip -DestinationPath $env:USERPROFILE\.mtgdraft -Force"
+rem tar.exe ships with Windows 10+ and extracts ZIPs - no PowerShell needed.
+tar -xf "%USERPROFILE%\.mtgdraft\node.zip" -C "%USERPROFILE%\.mtgdraft"
 if errorlevel 1 (
   echo [setup] Could not unpack the Node.js ZIP.
   goto :faildone
