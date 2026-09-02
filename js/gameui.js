@@ -183,6 +183,18 @@ var GameUI = (function () {
       '</div>';
   }
 
+  /** A player's publicly revealed hand (the "Reveal hand" toggle, live). */
+  function openHandStrip(view, pid) {
+    var cards = view.openHands && view.openHands[pid];
+    if (!cards) return '';
+    return '<div class="reveal-strip open-hand"><span class="zone-label">🖐 Revealed hand</span>' +
+      '<div class="zone-cards">' +
+      (cards.length
+        ? cards.map(function (c) { return cardHtml(c, { small: true, mine: false }); }).join('')
+        : '<span class="zone-empty">empty</span>') +
+      '</div></div>';
+  }
+
   function pileModalHtml(view) {
     if (!openPile) return '';
     var pid = openPile.pid, zone = openPile.zone;
@@ -341,6 +353,7 @@ var GameUI = (function () {
           (card.pt ? ' <span class="preview-pt">' + escapeHtml(card.pt) + '</span>' : '') + '</div>' +
         (card.cost ? '<div class="preview-cost">' + escapeHtml(card.cost) + '</div>' : '') +
         (card.type ? '<div class="preview-type">' + escapeHtml(card.type) + '</div>' : '') +
+        '<div class="preview-price">TCG: ' + (card.price ? '$' + escapeHtml(card.price) : '??') + '</div>' +
         (card.text ? '<div class="preview-oracle">' + escapeHtml(card.text).replace(/\n/g, '<br>') + '</div>' : '') +
         (card.back ? faceSection('Back face', card.back) : '') +
         (card.other ? faceSection('Front face', card.other) : '') +
@@ -427,6 +440,7 @@ var GameUI = (function () {
         pcounterChips(view, pid, false) +
       '</div>' +
       revealStrip(view, pid, false) +
+      openHandStrip(view, pid) +
       battlefieldHtml(view, pid, false, true) +
       '<div class="side-zones">' +
         (showCmd ? zoneStrip('Command', z.command, null, false) : '') +
@@ -510,6 +524,9 @@ var GameUI = (function () {
           (view.turn === 1 ? '<button class="gact" data-act="mulligan">Mulligan</button>' : '') +
           '<button class="gact" data-act="scry" title="hotkey: e">👁 Scry</button>' +
           '<button class="gact" data-act="reveal" title="show the top X publicly">👁‍🗨 Reveal</button>' +
+          '<button class="gact" data-act="revealHand" title="show your whole hand publicly (toggles)">' +
+            (view.openHands && view.openHands[me] ? '🖐 Hide hand' : '🖐 Reveal hand') + '</button>' +
+          '<button class="gact" data-act="discardRandom" title="discard a random card">🎲🗑 Discard random</button>' +
           '<button class="gact" data-act="token" title="hotkey: k">➕ Token</button>' +
           '<button class="gact" data-act="pcounter" title="poison, energy, …">☠ Counter</button>' +
           '<button class="gact" data-act="d6">🎲 d6</button>' +
@@ -863,6 +880,8 @@ var GameUI = (function () {
         }
         var map = {
           'endReveal': { a: 'endReveal' },
+          'revealHand': { a: 'revealHand' },
+          'discardRandom': { a: 'discardRandom' },
           'draw': { a: 'draw' },
           'search': { a: 'searchLibrary' },
           'untapAll': { a: 'untapAll' },

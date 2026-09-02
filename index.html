@@ -53,6 +53,7 @@
     <div id="deck-submit-panel" hidden>
       <label for="ds-text">Your deck — paste a Moxfield/Archidekt list. In Commander mode, mark your
         commander with a <code>Commander</code> section header or a <code>*CMDR*</code> marker.</label>
+      <div class="preset-row" data-preset-for="deck" data-target="ds-text" hidden></div>
       <textarea id="ds-text" rows="8" placeholder="1 Sol Ring&#10;1 Arcane Signet&#10;…&#10;&#10;Commander&#10;1 Krenko, Mob Boss"></textarea>
       <div class="actions">
         <button id="ds-load">Load &amp; submit deck</button>
@@ -70,16 +71,32 @@
       </fieldset>
 
       <div id="cube-setup">
+        <fieldset class="sub-modes">
+          <legend>Cube draft type</legend>
+          <label class="radio"><input type="radio" name="cubevariant" id="cv-standard" checked> Standard (draft, build a 40-card deck)</label>
+          <label class="radio"><input type="radio" name="cubevariant" id="cv-commander"> Commander (same draft + a commander slot, 40 life)</label>
+          <label class="radio"><input type="radio" name="cubevariant" id="cv-vanguard"> Vanguard (random cards from a side pool first, optional commander slot)</label>
+        </fieldset>
         <label for="cube-text">Cube list — paste from Moxfield / CubeCobra (one card per line, e.g. <code>1 Lightning Bolt</code>)</label>
+        <div class="preset-row" data-preset-for="cube" data-target="cube-text" hidden></div>
         <textarea id="cube-text" rows="10" placeholder="1 Lightning Bolt&#10;1 Counterspell&#10;1 Llanowar Elves&#10;…"></textarea>
         <div class="opts">
           <label>Cards per pack <input id="opt-packsize" type="number" min="5" max="30" value="15"></label>
           <label>Packs per player <input id="opt-packs" type="number" min="1" max="6" value="3"></label>
         </div>
+        <div id="vanguard-setup" hidden>
+          <label for="vg-text">Vanguard pool — a separate list; before the draft each player is dealt cards from it at random</label>
+          <div class="preset-row" data-preset-for="vanguard" data-target="vg-text" hidden></div>
+          <textarea id="vg-text" rows="6" placeholder="1 Squee, Goblin Nabob&#10;1 Karn, Silver Golem&#10;…"></textarea>
+          <div class="opts">
+            <label>Vanguard cards dealt per player <input id="opt-vgdeal" type="number" min="1" max="10" value="1"></label>
+          </div>
+        </div>
       </div>
 
       <div id="js-setup" hidden>
         <label for="js-text">Jumpstart packs — start each pack with a <code># Pack Name</code> header, then its 20 cards</label>
+        <div class="preset-row" data-preset-for="jumpstart" data-target="js-text" hidden></div>
         <textarea id="js-text" rows="10" placeholder="# Goblins&#10;2 Goblin Guide&#10;1 Krenko, Mob Boss&#10;7 Mountain&#10;…&#10;&#10;# Angels&#10;1 Serra Angel&#10;…"></textarea>
         <div class="opts">
           <label>Packs offered per turn <input id="opt-choices" type="number" min="1" max="6" value="3"></label>
@@ -145,6 +162,10 @@
       <p class="hint">Click a card to move it between your pool and your main deck. A typical draft
         deck is 40 cards including ~17 lands.</p>
       <div id="build-lands" class="build-lands"></div>
+      <div id="build-commander" hidden>
+        <h3>Commander</h3>
+        <div id="build-cmd-slot" class="card-grid build-grid"></div>
+      </div>
       <h3>Main deck (<span id="main-count">0</span>)</h3>
       <div id="build-main-grid" class="card-grid build-grid"></div>
       <h3>Pool / sideboard (<span id="pool-count">0</span>)</h3>

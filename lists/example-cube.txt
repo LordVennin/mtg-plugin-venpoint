@@ -1,0 +1,47 @@
+@name Example Starter Cube
+@format cube
+1 Lightning Bolt
+1 Counterspell
+1 Llanowar Elves
+1 Doom Blade
+1 Serra Angel
+1 Giant Growth
+1 Shock
+1 Divination
+1 Grizzly Bears
+1 Krenko, Mob Boss
+1 Goblin Guide
+1 Swords to Plowshares
+1 Dark Ritual
+1 Rampant Growth
+1 Mana Leak
+1 Shivan Dragon
+1 Wrath of God
+1 Duress
+1 Opt
+1 Pacifism
+1 Terror
+1 Cancel
+1 Act of Treason
+1 Elvish Mystic
+1 Prodigal Sorcerer
+1 Air Elemental
+1 Fireball
+1 Naturalize
+1 Gravedigger
+1 Disenchant
+1 Sign in Blood
+1 Lava Spike
+1 Ponder
+1 Nature's Lore
+1 Raise Dead
+1 Angel of Mercy
+1 Boggart Brute
+1 Cloudkin Seer
+1 Bladebrand
+1 Titanic Growth
+1 Murder
+1 Negate
+1 Flame Sweep
+1 Bond of Flourishing
+1 Inspired Charge

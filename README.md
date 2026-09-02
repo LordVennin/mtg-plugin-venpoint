@@ -46,7 +46,17 @@ plain `ws://` during local testing).
 
 ## Game modes
 
-- **Cube draft** and **Jumpstart** — draft from a shared pool (below).
+- **Cube draft** and **Jumpstart** — draft from a shared pool (below). Cube
+  drafting comes in three flavors, picked in the host panel:
+  - **Standard** — classic booster draft, then build a 40-card deck.
+  - **Commander cube** — the same draft, but the deck builder gains a
+    **commander slot** (★ a card to claim it, required to submit) and the
+    game starts commander-style at 40 life with a command zone.
+  - **Vanguard cube** — before the draft, each player is dealt X random
+    cards from a **separate side pool** (the vanguard list); they land in
+    your build pool alongside your picks. The builder has an *optional*
+    commander slot and **any card may sit in it** — vanguard cards, legends,
+    whatever the table agrees on; it starts in your command zone at 20 life.
 - **Constructed** — no draft: everyone pastes their own deck in the lobby
   (each client resolves its own list from Scryfall and submits it), then the
   host starts a game with **all** players in it, 2-8.
@@ -54,6 +64,28 @@ plain `ws://` during local testing).
   commander with a `Commander` section header or a `*CMDR*` marker; it
   starts in your command zone, casts from it (recasts log the commander
   tax), and can return there from anywhere. Full pods of 3-6 work.
+
+All cube variants require **at least 40 cards** (spells + basics +
+commander) before a deck can be submitted.
+
+## Preset lists (`lists/` directory)
+
+The site owner can drop `.txt` files into `lists/` and they appear in-app
+as **📚 Preset lists…** dropdowns — next to the cube, vanguard-pool,
+jumpstart, and deck-upload boxes — so nobody has to paste anything. Each
+file is the normal paste format plus a couple of `@` metadata lines:
+
+```
+@name Ven's 360 Cube
+@format cube
+1 Lightning Bolt
+...
+```
+
+`@format` is one of `cube`, `vanguard`, `jumpstart`, `deck`, `commander`
+and decides which box offers the preset. The relay server indexes the
+directory automatically (`/api/lists`); on plain static hosting list the
+filenames in `lists/manifest.json` instead. See `lists/README.md`.
 
 ## Matches and spectating (3+ players)
 
@@ -95,8 +127,9 @@ information, not the rules of the game. Decks are shuffled, both players
 draw 7, and you go:
 
 - **Click any card** — yours or the opponent's — to read it full-size in the
-  preview pane on the left, with its oracle text, mana cost, type line, and
-  power/toughness below the image. Your own cards also get action buttons:
+  preview pane on the left, with its oracle text, mana cost, type line,
+  power/toughness, and **TCGplayer price** (`TCG: $x.xx`, shown as `??` when
+  no price is available) below the image. Your own cards also get action buttons:
   Hand: *Play* / *Discard*. Battlefield: *Tap*, *Attach to…* / *Detach*,
   *± Counter*, *⇅ Row*, *→ Graveyard*, *→ Exile*, *→ Hand*, *→ Shuffle in*.
   Graveyard and exile: *→ Hand*, *→ Battlefield*, *→ Exile*/*→ Graveyard*,
@@ -141,7 +174,10 @@ draw 7, and you go:
   permanents, including other players' auras.
 - **👁 Reveal** shows the top X cards of your library to the whole table,
   live — as you draw, the window slides down. Reveal 0 (or *Stop
-  revealing*) ends it.
+  revealing*) ends it. **🖐 Reveal hand** is a toggle that shows your whole
+  hand to the table the same way (cards drawn while it's on are visible
+  too); hit it again to hide. **🎲🗑 Discard random** discards a card chosen
+  by the host's engine, publicly logged.
 - **🏳 Resign** clears your battlefield and turns your seat into a
   spectator; the turn order skips you from then on.
 - **Two battlefield rows**: lands go to the row nearest their owner, spells

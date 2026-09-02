@@ -208,11 +208,40 @@ var MTGParser = (function () {
     return order.map(function (k) { return counts[k].count + ' ' + counts[k].name; }).join('\n');
   }
 
+  /**
+   * Preset list files (the site owner drops these in lists/): a few
+   * "@key value" metadata lines up top, then a normal list body in whatever
+   * syntax the format uses (deck list, jumpstart packs, ...).
+   *
+   *   @name Ven's 360 Cube
+   *   @format cube          (cube | jumpstart | deck | commander | vanguard)
+   *   1 Lightning Bolt
+   *   ...
+   */
+  function parsePresetFile(text) {
+    var meta = {};
+    var body = [];
+    var inHead = true;
+    String(text || '').split(/\r?\n/).forEach(function (line) {
+      var m = inHead && line.match(/^@(\w+)\s+(.+)$/);
+      if (m) { meta[m[1].toLowerCase()] = m[2].trim(); return; }
+      if (line.trim()) inHead = false; // first non-meta content line ends the header
+      body.push(line);
+    });
+    return {
+      name: meta.name || '',
+      format: (meta.format || '').toLowerCase(),
+      meta: meta,
+      body: body.join('\n').replace(/^\n+/, '')
+    };
+  }
+
   return {
     parseLine: parseLine,
     parseDeckList: parseDeckList,
     parseDeckListWithCommanders: parseDeckListWithCommanders,
     parseJumpstartPacks: parseJumpstartPacks,
+    parsePresetFile: parsePresetFile,
     expandEntries: expandEntries,
     formatDeckList: formatDeckList
   };

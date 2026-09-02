@@ -114,6 +114,7 @@ var MTGGame = (function () {
     this.commanderCasts = {}; // card uid -> times cast from the command zone
     this.pcounters = {}; // pid -> {counterName: count} (poison, energy, ...)
     this.revealing = {}; // pid -> how many top-of-library cards are PUBLICLY revealed
+    this.handOpen = {}; // pid -> true while their whole hand is publicly revealed
     this.resigned = {}; // pid -> true once they leave the game (they spectate)
 
     var startLife = opts.startLife || (this.commander ? 40 : 20);
@@ -471,12 +472,35 @@ var MTGGame = (function () {
         this._log(pid, me + ' stops revealing their library.');
         break;
       }
+      case 'revealHand': {
+        // A live toggle: while on, everyone sees the actual cards — including
+        // ones drawn later — until it is switched off.
+        if (this.handOpen[pid]) {
+          this.handOpen[pid] = false;
+          this._log(pid, me + ' stops revealing their hand.');
+        } else {
+          this.handOpen[pid] = true;
+          var hnames = z.hand.map(function (c) { return c.name; });
+          this._log(pid, me + ' reveals their hand' +
+            (hnames.length ? ': ' + hnames.join(', ') : ' (empty)') + '.');
+        }
+        break;
+      }
+      case 'discardRandom': {
+        if (!z.hand.length) throw new Error('Your hand is empty');
+        var dri = Math.floor(this.rng() * z.hand.length);
+        var drc = z.hand.splice(dri, 1)[0];
+        z.graveyard.push(drc);
+        this._log(pid, me + ' discards ' + drc.name + ' at random.');
+        break;
+      }
       case 'resign': {
         if (this.resigned[pid]) throw new Error('Already resigned');
         // Their permanents leave the table; anything attached to them frees up.
         z.battlefield.forEach(function (e) { this._detachDependents(e.card.uid); }, this);
         z.battlefield = [];
         this.revealing[pid] = 0;
+        this.handOpen[pid] = false;
         this.resigned[pid] = true;
         if (this.active === pid) this._advanceActive();
         this._log(pid, me + ' resigns and is now spectating.');
@@ -773,6 +797,8 @@ var MTGGame = (function () {
       pcounters: {},
       // Publicly revealed top-of-library cards (live: follows draws/shuffles).
       reveals: {},
+      // Publicly revealed whole hands (live while the toggle is on).
+      openHands: {},
       resigned: this.players.filter(function (id) { return this.resigned[id]; }, this),
       log: this.log.slice(-40)
     };
@@ -781,6 +807,9 @@ var MTGGame = (function () {
       var rn = this.revealing[id] | 0;
       if (rn > 0 && !this.resigned[id]) {
         view.reveals[id] = this.zones[id].library.slice(0, rn);
+      }
+      if (this.handOpen[id] && !this.resigned[id]) {
+        view.openHands[id] = this.zones[id].hand.slice();
       }
     }, this);
     this.players.forEach(function (id) {

@@ -30,8 +30,12 @@
     game: null,          // MTGGame.Game once a post-draft game starts (host only)
     decks: {},           // host only: playerId -> submitted deck (built or uploaded)
     builder: null,       // this client's deck-building state
+    buildVariant: 'standard', // cube variant the builder is building for
+    vanguardDeals: {},   // host only: playerId -> vanguard cards dealt pre-draft
+    presets: null,       // site-owner preset lists (lists/ directory), once loaded
     postGame: 'lobby',   // which screen a finished match returns to: lobby|build|done
-    setup: { mode: 'cube', cubeCards: null, jsPacks: null,
+    setup: { mode: 'cube', cubeVariant: 'standard', cubeCards: null, jsPacks: null,
+             vanguardCards: null, vgDeal: 1,
              packSize: 15, packsPerPlayer: 3, jsChoices: 3, jsPacksPerPlayer: 2 },
     // guest
     conn: null,
@@ -230,9 +234,17 @@
   function poolInfoText() {
     var s = App.setup;
     if (s.mode === 'cube') {
-      return s.cubeCards
-        ? 'Cube: ' + s.cubeCards.length + ' cards · ' + s.packsPerPlayer + ' packs of ' + s.packSize
-        : 'Cube: not loaded yet';
+      var vLabel = s.cubeVariant === 'commander' ? 'Commander cube'
+        : s.cubeVariant === 'vanguard' ? 'Vanguard cube'
+        : 'Cube';
+      if (!s.cubeCards) return vLabel + ': not loaded yet';
+      var extra = s.cubeVariant === 'vanguard'
+        ? (s.vanguardCards
+            ? ' · vanguard pool ' + s.vanguardCards.length + ' (deal ' + s.vgDeal + ')'
+            : ' · vanguard pool NOT loaded')
+        : '';
+      return vLabel + ': ' + s.cubeCards.length + ' cards · ' + s.packsPerPlayer +
+        ' packs of ' + s.packSize + extra;
     }
     if (s.mode === 'jumpstart') {
       return s.jsPacks
@@ -251,8 +263,11 @@
       if (!raw) return;
       var s = JSON.parse(raw);
       if (s.mode) $('#mode-' + s.mode).checked = true;
+      if (s.cubeVariant) $('#cv-' + s.cubeVariant).checked = true;
       if (s.cubeText) $('#cube-text').value = s.cubeText;
       if (s.jsText) $('#js-text').value = s.jsText;
+      if (s.vgText) $('#vg-text').value = s.vgText;
+      if (s.vgDeal) $('#opt-vgdeal').value = s.vgDeal;
       if (s.packSize) $('#opt-packsize').value = s.packSize;
       if (s.packsPerPlayer) $('#opt-packs').value = s.packsPerPlayer;
       if (s.jsChoices) $('#opt-choices').value = s.jsChoices;
@@ -264,8 +279,11 @@
     try {
       localStorage.setItem(LS_SETUP, JSON.stringify({
         mode: App.setup.mode,
+        cubeVariant: App.setup.cubeVariant,
         cubeText: $('#cube-text').value,
         jsText: $('#js-text').value,
+        vgText: $('#vg-text').value,
+        vgDeal: $('#opt-vgdeal').value,
         packSize: $('#opt-packsize').value,
         packsPerPlayer: $('#opt-packs').value,
         jsChoices: $('#opt-choices').value
@@ -286,8 +304,12 @@
       : $('#mode-constructed').checked ? 'constructed'
       : 'commander';
     App.setup.mode = mode;
+    App.setup.cubeVariant = $('#cv-commander').checked ? 'commander'
+      : $('#cv-vanguard').checked ? 'vanguard'
+      : 'standard';
     $('#cube-setup').hidden = (mode !== 'cube');
     $('#js-setup').hidden = (mode !== 'jumpstart');
+    $('#vanguard-setup').hidden = (App.setup.cubeVariant !== 'vanguard');
     $('#btn-load-pool').hidden = isDeckMode(mode);
     broadcastLobby();
     renderLobby();
@@ -296,6 +318,9 @@
   function initHostPanel() {
     ['cube', 'jumpstart', 'constructed', 'commander'].forEach(function (m) {
       $('#mode-' + m).addEventListener('change', onModeChange);
+    });
+    ['standard', 'commander', 'vanguard'].forEach(function (v) {
+      $('#cv-' + v).addEventListener('change', onModeChange);
     });
 
     $('#btn-load-pool').addEventListener('click', function () {
@@ -308,24 +333,34 @@
       App.setup.packSize = clampInt($('#opt-packsize').value, 5, 30, 15);
       App.setup.packsPerPlayer = clampInt($('#opt-packs').value, 1, 6, 3);
       App.setup.jsChoices = clampInt($('#opt-choices').value, 1, 6, 3);
+      App.setup.vgDeal = clampInt($('#opt-vgdeal').value, 1, 10, 1);
 
       if (App.setup.mode === 'cube') {
         var parsed = MTGParser.parseDeckList($('#cube-text').value);
         var names = MTGParser.expandEntries(parsed.entries);
         if (!names.length) { done(); return toast('Cube list is empty or unparseable.', true); }
-        Scryfall.resolve(names, function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; })
+        var isVanguard = App.setup.cubeVariant === 'vanguard';
+        var vgParsed = isVanguard ? MTGParser.parseDeckList($('#vg-text').value) : { entries: [], errors: [] };
+        var vgNames = MTGParser.expandEntries(vgParsed.entries);
+        if (isVanguard && !vgNames.length) {
+          done();
+          return toast('Vanguard needs a side pool — fill in the vanguard list.', true);
+        }
+        Scryfall.resolve(names.concat(vgNames), function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; })
           .then(function (res) {
             App.setup.cubeCards = Scryfall.toCardObjects(names, res.cards);
+            App.setup.vanguardCards = isVanguard ? Scryfall.toCardObjects(vgNames, res.cards) : null;
             App.setup.jsPacks = null;
             done();
-            reportPool(parsed.errors, res.notFound);
+            reportPool(parsed.errors.concat(vgParsed.errors), res.notFound);
           })
           .catch(function (err) {
             // Scryfall unreachable — draft with text-only cards rather than block.
             App.setup.cubeCards = Scryfall.toCardObjects(names, {});
+            App.setup.vanguardCards = isVanguard ? Scryfall.toCardObjects(vgNames, {}) : null;
             done();
             toast('Scryfall unreachable (' + err.message + ') — drafting without card images.', true);
-            reportPool(parsed.errors, []);
+            reportPool(parsed.errors.concat(vgParsed.errors), []);
           });
       } else {
         var jp = MTGParser.parseJumpstartPacks($('#js-text').value);
@@ -398,6 +433,22 @@
     try {
       if (s.mode === 'cube') {
         if (!s.cubeCards) return toast('Load & validate the cube first.', true);
+        App.vanguardDeals = {};
+        if (s.cubeVariant === 'vanguard') {
+          if (!s.vanguardCards) return toast('Load & validate the vanguard pool first.', true);
+          if (s.vanguardCards.length < ids.length * s.vgDeal) {
+            return toast('The vanguard pool has ' + s.vanguardCards.length + ' cards but ' +
+              (ids.length * s.vgDeal) + ' are needed (' + ids.length + ' players × ' + s.vgDeal + ').', true);
+          }
+          // Deal everyone their random vanguard cards before the draft.
+          var vgShuffled = MTGGame.shuffle(s.vanguardCards.slice(), Math.random);
+          var vgN = 0;
+          ids.forEach(function (pid) {
+            App.vanguardDeals[pid] = vgShuffled.splice(0, s.vgDeal).map(function (c) {
+              return Object.assign({}, c, { uid: 'vg' + (++vgN) });
+            });
+          });
+        }
         App.engine = new MTGDraft.CubeDraft(ids, s.cubeCards,
           { packSize: s.packSize, packsPerPlayer: s.packsPerPlayer });
       } else {
@@ -425,10 +476,18 @@
     broadcastViews();
   }
 
+  /** A cube player's full pool: vanguard cards dealt pre-draft + their picks. */
+  function hostDeckFor(pid) {
+    return (App.vanguardDeals[pid] || []).concat(MTGDraft.deckFor(App.engine, pid));
+  }
+
   function sendViewTo(player) {
     var view = App.engine.viewFor(player.id);
     var payload = { t: 'view', view: view };
-    if (view.finished) payload.deck = MTGDraft.deckFor(App.engine, player.id);
+    if (view.finished) {
+      payload.deck = hostDeckFor(player.id);
+      if (view.mode === 'cube') payload.variant = App.setup.cubeVariant;
+    }
     if (player.id === App.myId) applyView(payload); // the host player
     else if (player.conn) App.net.send(player.conn, payload);
     // else: disconnected — never render someone else's private view locally
@@ -479,6 +538,74 @@
     });
   }
 
+  /* ---------------- preset lists (site owner drops files in lists/) ---------------- */
+
+  // Which preset formats each picker offers.
+  var PRESET_FORMATS = {
+    cube: ['cube'],
+    vanguard: ['vanguard', 'cube'],
+    jumpstart: ['jumpstart'],
+    deck: ['deck', 'commander']
+  };
+
+  function loadPresets() {
+    var apply = function (list) {
+      App.presets = Array.isArray(list) ? list : [];
+      renderPresetRows();
+    };
+    // The relay server indexes lists/ itself; static hosting falls back to
+    // a hand-maintained lists/manifest.json. No presets is not an error.
+    fetch('api/lists')
+      .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+      .then(apply)
+      .catch(function () {
+        fetch('lists/manifest.json')
+          .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+          .then(function (files) {
+            return Promise.all((files || []).map(function (f) {
+              return fetch('lists/' + f)
+                .then(function (r) { if (!r.ok) throw new Error(); return r.text(); })
+                .then(function (text) {
+                  var p = MTGParser.parsePresetFile(text);
+                  return { file: 'lists/' + f, name: p.name || f, format: p.format || 'deck' };
+                })
+                .catch(function () { return null; });
+            }));
+          })
+          .then(function (rows) { apply(rows.filter(Boolean)); })
+          .catch(function () { apply([]); });
+      });
+  }
+
+  function renderPresetRows() {
+    document.querySelectorAll('.preset-row').forEach(function (row) {
+      var formats = PRESET_FORMATS[row.getAttribute('data-preset-for')] || [];
+      var matches = (App.presets || []).filter(function (p) {
+        return formats.indexOf(p.format) !== -1;
+      });
+      if (!matches.length) { row.hidden = true; row.innerHTML = ''; return; }
+      row.hidden = false;
+      row.innerHTML = '<select class="preset-select"><option value="">📚 Preset lists…</option>' +
+        matches.map(function (p) {
+          return '<option value="' + escapeHtml(p.file) + '">' + escapeHtml(p.name) + '</option>';
+        }).join('') + '</select>';
+      var sel = row.querySelector('select');
+      sel.addEventListener('change', function () {
+        var file = sel.value;
+        if (!file) return;
+        fetch(file)
+          .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+          .then(function (text) {
+            var p = MTGParser.parsePresetFile(text);
+            $('#' + row.getAttribute('data-target')).value = p.body;
+            toast('Loaded preset: ' + (p.name || file));
+            sel.value = '';
+          })
+          .catch(function () { toast('Could not load that preset.', true); });
+      });
+    });
+  }
+
   /* ---------------- match panel (host picks who plays; rest spectate) ---------------- */
 
   function renderMatchPanel(containerId, eligibleIds) {
@@ -506,6 +633,11 @@
     });
   }
 
+  /** Game options for a post-draft cube match (commander cube = 40 life). */
+  function cubeGameOpts() {
+    return App.setup.cubeVariant === 'commander' ? { commander: true } : {};
+  }
+
   function hostStartMatch(ids) {
     var decks = {};
     var names = {};
@@ -519,7 +651,7 @@
       }
     }
     try {
-      App.game = new MTGGame.Game(ids, decks, names, {});
+      App.game = new MTGGame.Game(ids, decks, names, mode === 'cube' ? cubeGameOpts() : {});
     } catch (err) {
       return toast(err.message, true);
     }
@@ -565,6 +697,7 @@
     App.builder = {
       pool: deck.slice(),
       main: [],
+      commander: null, // one card (commander cube / vanguard variants)
       lands: { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 },
       landCards: null,
       ready: false,
@@ -591,10 +724,16 @@
     return App.lobby ? App.lobby.players.length : 0;
   }
 
-  /** The full built deck as fresh card objects (main + basics). */
+  /** Does this build variant use the commander slot? */
+  function builderUsesCommander() {
+    return App.buildVariant === 'commander' || App.buildVariant === 'vanguard';
+  }
+
+  /** The full built deck as fresh card objects (commander + main + basics). */
   function builderDeck() {
     var b = App.builder;
     var cards = b.main.map(function (c) { return Object.assign({}, c); });
+    if (b.commander) cards.push(Object.assign({}, b.commander, { commander: true }));
     BASICS.forEach(function (basic) {
       var proto = (b.landCards && b.landCards[basic.name]) || basic;
       for (var i = 0; i < b.lands[basic.name]; i++) {
@@ -607,18 +746,33 @@
   }
 
   function builderCardTile(c, from) {
+    var cmdBtn = (builderUsesCommander() && from !== 'cmd' && !App.builder.ready)
+      ? '<button class="cmd-btn" data-uid="' + c.uid + '" title="Make this your commander">★</button>'
+      : '';
     return '<div class="card bcard" data-from="' + from + '" data-uid="' + c.uid +
-      '" title="' + escapeHtml(c.name) + '">' + cardFace(c) + '</div>';
+      '" title="' + escapeHtml(c.name) + '">' + cardFace(c) + cmdBtn + '</div>';
   }
 
   function renderBuilder() {
     var b = App.builder;
     if (!b) return;
     var landTotal = BASICS.reduce(function (s, x) { return s + b.lands[x.name]; }, 0);
-    var total = b.main.length + landTotal;
-    $('#build-count').textContent = total + ' cards (' + b.main.length + ' spells + ' + landTotal + ' lands)';
+    var total = b.main.length + landTotal + (b.commander ? 1 : 0);
+    $('#build-count').textContent = total + ' cards (' + b.main.length + ' spells + ' + landTotal + ' lands' +
+      (b.commander ? ' + commander' : '') + ')' + (total < 40 ? ' — need 40+' : '');
     $('#main-count').textContent = b.main.length + (landTotal ? ' + ' + landTotal + ' lands' : '');
     $('#pool-count').textContent = b.pool.length;
+
+    $('#build-commander').hidden = !builderUsesCommander();
+    if (builderUsesCommander()) {
+      $('#build-cmd-slot').innerHTML = b.commander
+        ? builderCardTile(b.commander, 'cmd')
+        : '<span class="zone-empty">' +
+          (App.buildVariant === 'commander'
+            ? 'required — hit ★ on a card below'
+            : 'optional — hit ★ on a card below (any card works)') +
+          '</span>';
+    }
 
     $('#build-lands').innerHTML = BASICS.map(function (basic) {
       return '<div class="land-ctl"><span class="land-name">' + basic.name + '</span>' +
@@ -676,8 +830,41 @@
       el.addEventListener('mouseenter', function () {
         var uid = el.getAttribute('data-uid');
         var b = App.builder;
-        var card = b.main.concat(b.pool).find(function (c) { return c.uid === uid; });
+        var card = b.main.concat(b.pool).concat(b.commander ? [b.commander] : [])
+          .find(function (c) { return c.uid === uid; });
         if (card) $('#build-preview').innerHTML = buildPreviewHtml(card);
+      });
+    });
+    // ★ on any card claims the commander slot (any card is allowed — vanguard
+    // cards, legends, whatever the table agrees on).
+    document.querySelectorAll('.cmd-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (App.builder.ready) return;
+        var uid = btn.getAttribute('data-uid');
+        var b = App.builder;
+        ['main', 'pool'].forEach(function (zone) {
+          for (var i = 0; i < b[zone].length; i++) {
+            if (b[zone][i].uid === uid) {
+              if (b.commander) b.pool.push(b.commander);
+              b.commander = b[zone].splice(i, 1)[0];
+              break;
+            }
+          }
+        });
+        renderBuilder();
+      });
+    });
+    // Clicking the commander tile sends it back to the pool.
+    document.querySelectorAll('#build-cmd-slot .bcard').forEach(function (el) {
+      el.addEventListener('click', function () {
+        if (App.builder.ready || !App.builder.commander) return;
+        App.builder.pool.push(App.builder.commander);
+        App.builder.commander = null;
+        renderBuilder();
+      });
+      el.addEventListener('mouseenter', function () {
+        if (App.builder.commander) $('#build-preview').innerHTML = buildPreviewHtml(App.builder.commander);
       });
     });
     document.querySelectorAll('#build-lands .land-btn').forEach(function (btn) {
@@ -700,6 +887,7 @@
         (card.pt ? ' <span class="preview-pt">' + escapeHtml(card.pt) + '</span>' : '') + '</div>' +
       (card.cost ? '<div class="preview-cost">' + escapeHtml(card.cost) + '</div>' : '') +
       (card.type ? '<div class="preview-type">' + escapeHtml(card.type) + '</div>' : '') +
+      '<div class="preview-price">TCG: ' + (card.price ? '$' + escapeHtml(card.price) : '??') + '</div>' +
       (card.text ? '<div class="preview-oracle">' + escapeHtml(card.text).replace(/\n/g, '<br>') + '</div>' : '') +
       '</div>';
   }
@@ -713,7 +901,17 @@
     });
     $('#btn-build-ready').addEventListener('click', function () {
       var b = App.builder;
-      if (!b.ready && b.main.length === 0) return toast('Your main deck is empty.', true);
+      if (!b.ready) {
+        var landTotal = BASICS.reduce(function (s, x) { return s + b.lands[x.name]; }, 0);
+        var total = b.main.length + landTotal + (b.commander ? 1 : 0);
+        if (total < 40) {
+          return toast('Your deck needs at least 40 cards — it has ' + total +
+            '. Add cards or basic lands.', true);
+        }
+        if (App.buildVariant === 'commander' && !b.commander) {
+          return toast('Commander cube needs a commander — hit ★ on a card.', true);
+        }
+      }
       b.ready = !b.ready;
       if (App.role === 'host') {
         if (b.ready) App.decks[App.myId] = builderDeck();
@@ -744,7 +942,8 @@
     var names = {};
     App.players.forEach(function (p) { names[p.id] = p.name; });
     try {
-      App.game = new MTGGame.Game(App.players.map(function (p) { return p.id; }), App.decks, names);
+      App.game = new MTGGame.Game(App.players.map(function (p) { return p.id; }),
+        App.decks, names, cubeGameOpts());
     } catch (err) {
       return toast(err.message, true);
     }
@@ -917,7 +1116,8 @@
           App.players.every(function (p) { return App.decks[p.id]; });
         $('#btn-start').textContent = 'Start game';
       } else {
-        ready = (mode === 'cube' && App.setup.cubeCards) ||
+        ready = (mode === 'cube' && App.setup.cubeCards &&
+                  (App.setup.cubeVariant !== 'vanguard' || App.setup.vanguardCards)) ||
                 (mode === 'jumpstart' && App.setup.jsPacks);
         $('#btn-start').textContent = 'Start draft';
       }
@@ -947,8 +1147,10 @@
     App.lastView = payload.view;
     if (payload.view.finished) {
       App.lastDeck = payload.deck ||
-        (App.role === 'host' ? MTGDraft.deckFor(App.engine, 'p0') : App.lastDeck);
+        (App.role === 'host' ? hostDeckFor('p0') : App.lastDeck);
       if (payload.view.mode === 'cube') {
+        App.buildVariant = payload.variant ||
+          (App.role === 'host' ? App.setup.cubeVariant : App.buildVariant) || 'standard';
         openBuilder(App.lastDeck || []);
         return;
       }
@@ -1176,6 +1378,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     initHome();
     initHostPanel();
+    loadPresets();
     initDone();
     initBuilder();
     initDeckSubmit();

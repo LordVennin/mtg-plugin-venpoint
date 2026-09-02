@@ -26,7 +26,7 @@
  */
 
 import http from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { extname, join, normalize, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WebSocketServer } from 'ws';
@@ -51,13 +51,48 @@ const MIME = {
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
   '.ico': 'image/x-icon',
-  '.md': 'text/plain; charset=utf-8'
+  '.md': 'text/plain; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8'
 };
+
+/**
+ * Preset lists the site owner drops into lists/ as .txt files. Each file
+ * starts with "@name ..." / "@format ..." metadata lines (see lists/README).
+ * The app fetches this index to offer them as one-click defaults.
+ */
+async function presetIndex() {
+  const out = [];
+  let files = [];
+  try { files = await readdir(join(ROOT, 'lists')); } catch { return out; }
+  for (const f of files.sort()) {
+    if (!f.endsWith('.txt')) continue;
+    try {
+      const head = (await readFile(join(ROOT, 'lists', f), 'utf8')).slice(0, 2000);
+      const meta = {};
+      for (const line of head.split(/\r?\n/)) {
+        const m = line.match(/^@(\w+)\s+(.+)$/);
+        if (m) meta[m[1].toLowerCase()] = m[2].trim();
+        else if (line.trim()) break;
+      }
+      out.push({
+        file: 'lists/' + f,
+        name: meta.name || f.replace(/\.txt$/, ''),
+        format: (meta.format || 'deck').toLowerCase()
+      });
+    } catch { /* unreadable file — skip it */ }
+  }
+  return out;
+}
 
 const server = http.createServer(async (req, res) => {
   try {
     let path = decodeURIComponent((req.url || '/').split('?')[0]);
     if (path === '/') path = '/index.html';
+    if (path === '/api/lists') {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(await presetIndex()));
+      return;
+    }
     const clean = normalize(path).replace(/^(\.\.[/\\])+/, '');
     if (clean.includes('..')) { res.writeHead(400); res.end(); return; }
     const file = join(ROOT, clean);

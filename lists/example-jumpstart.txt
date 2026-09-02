@@ -1,0 +1,25 @@
+@name Example Jumpstart Packs
+@format jumpstart
+# Goblins
+1 Krenko, Mob Boss
+2 Goblin Guide
+1 Boggart Brute
+2 Shock
+1 Lightning Bolt
+1 Act of Treason
+1 Lava Spike
+1 Fireball
+2 Flame Sweep
+8 Mountain
+
+# Angels
+1 Serra Angel
+1 Angel of Mercy
+1 Pacifism
+1 Swords to Plowshares
+2 Inspired Charge
+1 Wrath of God
+1 Disenchant
+2 Opt
+1 Divination
+8 Plains

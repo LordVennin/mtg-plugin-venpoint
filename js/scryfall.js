@@ -13,7 +13,7 @@ var Scryfall = (function () {
   'use strict';
 
   var API = 'https://api.scryfall.com/cards/collection';
-  var LS_KEY = 'mtgdraft.cardcache.v5'; // v5: added related-token parts
+  var LS_KEY = 'mtgdraft.cardcache.v6'; // v6: added TCGplayer (usd) price
   var mem = Object.create(null);
 
   /**
@@ -67,6 +67,12 @@ var Scryfall = (function () {
     return parts.length ? parts : undefined;
   }
 
+  /** TCGplayer market price (Scryfall relays it as prices.usd). */
+  function priceOf(card) {
+    var p = card.prices || {};
+    return p.usd || p.usd_foil || p.usd_etched || null;
+  }
+
   function slim(card) {
     // True double-faced cards (transform/MDFC) have a separate image per
     // face; the front face becomes the card, the back rides along as .back.
@@ -80,6 +86,7 @@ var Scryfall = (function () {
         text: front.text,
         pt: front.pt,
         colors: card.color_identity || [],
+        price: priceOf(card),
         tokens: tokenParts(card),
         back: faceData(card.card_faces[1])
       };
@@ -103,6 +110,7 @@ var Scryfall = (function () {
       text: text,
       pt: pt,
       colors: card.color_identity || [],
+      price: priceOf(card),
       tokens: tokenParts(card)
     };
   }

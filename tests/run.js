@@ -83,6 +83,22 @@ section('formatDeckList');
   assert(out === '2 Island\n1 Forest', 'round-trips counts');
 }
 
+section('parsePresetFile (lists/ directory format)');
+{
+  const p = Parser.parsePresetFile(
+    '@name My Cube\n@format Cube\n\n1 Lightning Bolt\n1 Counterspell\n');
+  assert(p.name === 'My Cube' && p.format === 'cube', 'metadata parsed (format lowercased)');
+  assert(p.body === '1 Lightning Bolt\n1 Counterspell\n', 'body excludes metadata and leading blanks');
+
+  const js = Parser.parsePresetFile('@format jumpstart\n# Goblins\n2 Goblin Guide\n@not-meta x');
+  assert(js.format === 'jumpstart' && js.name === '', 'name optional');
+  assert(/# Goblins/.test(js.body) && /@not-meta x/.test(js.body),
+    '@-lines after content stay in the body (only the header is metadata)');
+
+  const bare = Parser.parsePresetFile('1 Island\n1 Forest');
+  assert(bare.format === '' && bare.body === '1 Island\n1 Forest', 'plain lists work without a header');
+}
+
 /* ---------------- cube draft ---------------- */
 section('CubeDraft');
 {
@@ -375,6 +391,48 @@ section('Free multiplayer mulligan, control, reveal, resign');
   g.apply('c', { a: 'tokenFrom', card: { name: 'Goblin', pt: '1/1' }, count: 4 });
   assert(g.viewFor('c').zones.c.battlefield.filter(e => e.card.name === 'Goblin').length === 4,
     'tokenFrom with count 4 makes four tokens');
+}
+
+section('Reveal hand + discard at random');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i }));
+  const g = new Game.Game(['a', 'b'], { a: mkDeck('A', 20), b: mkDeck('B', 20) },
+    { a: 'Alice', b: 'Bob' }, { rng: seededRng(11) });
+
+  // Hidden by default: b's view has no openHands entry for a.
+  assert(!g.viewFor('b').openHands.a, 'hands start hidden');
+  g.apply('a', { a: 'revealHand' });
+  let v = g.viewFor('b');
+  assert(v.openHands.a && v.openHands.a.length === 7, "revealHand shows a's 7 cards to the opponent");
+  assert(v.openHands.a[0].name === g.viewFor('a').hand[0].name, 'revealed cards are the real hand');
+  assert(/reveals their hand: /.test(v.log.map(l => l.text).join(' ')), 'reveal is logged with names');
+  const spec = g.viewFor(null);
+  assert(spec.openHands.a && spec.openHands.a.length === 7, 'spectators see the revealed hand too');
+
+  // Live: a draw while revealed shows up.
+  g.apply('a', { a: 'draw' });
+  assert(g.viewFor('b').openHands.a.length === 8, 'the revealed hand follows draws live');
+
+  // Toggle off hides it again.
+  g.apply('a', { a: 'revealHand' });
+  v = g.viewFor('b');
+  assert(!v.openHands.a && v.zones.a.handCount === 8, 'toggling again hides the hand (count only)');
+  assert(/stops revealing their hand/.test(v.log.map(l => l.text).join(' ')), 'un-reveal is logged');
+
+  // Discard at random: hand shrinks, graveyard grows, choice is engine-side.
+  g.apply('b', { a: 'discardRandom' });
+  v = g.viewFor('a');
+  assert(v.zones.b.handCount === 6 && v.zones.b.graveyard.length === 1, 'discardRandom hand -> graveyard');
+  assert(/discards B\d+ at random/.test(v.log.map(l => l.text).join(' ')), 'random discard logs the card');
+  for (let i = 0; i < 6; i++) g.apply('b', { a: 'discardRandom' });
+  let threw = false;
+  try { g.apply('b', { a: 'discardRandom' }); } catch (e) { threw = /empty/.test(e.message); }
+  assert(threw, 'random discard from an empty hand is rejected');
+
+  // Resigning while revealing stops the reveal.
+  g.apply('a', { a: 'revealHand' });
+  g.apply('a', { a: 'resign' });
+  assert(!g.viewFor('b').openHands.a, 'resigning clears an open hand reveal');
 }
 
 section('Game actions');
@@ -861,6 +919,7 @@ section('Scryfall slim() back faces');
       ]
     }, {
       object: 'card', name: 'Fire // Ice', type_line: 'Instant // Instant', color_identity: ['U', 'R'],
+      prices: { usd: '12.34' },
       image_uris: { normal: 'https://x/fireice.jpg' }, mana_cost: '',
       card_faces: [
         { name: 'Fire', mana_cost: '{1}{R}', oracle_text: 'Fire deals 2 damage...' },
@@ -878,6 +937,8 @@ section('Scryfall slim() back faces');
     const fi = r.cards['fire // ice'];
     assert(!fi.back && fi.img === 'https://x/fireice.jpg' && /Fire deals[\s\S]*Tap target/.test(fi.text),
       'split cards stay single-faced with joined text');
+    assert(fi.price === '12.34', 'TCGplayer (usd) price rides along on the slim card');
+    assert(dv.price === null, 'no price data -> null (the UI shows ??)');
 
     // ---- Moxfield single-slash names resolve without manual edits ----
     section('Scryfall slash-name resolution');
