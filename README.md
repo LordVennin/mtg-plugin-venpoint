@@ -245,7 +245,7 @@ draw 7, and you go:
   *⟳ Transform* button appears on any DFC; both players see the new face,
   and the preview pane shows the current face plus the other face's text.
 - Bottom bar: **Draw**, **🔍 Search**, **Untap all**, **Shuffle**,
-  **Mulligan** (turn 1 only), life **±**, **🎲 d6 / d20**, **🪙 coin flip**
+  **Mulligan** (turn 1 only), life **±**, **🎲 d6 / d20 / dX** (any sides, or several dice at once like `3d8`), **🪙 coin flip**
   (rolled by the host's engine and publicly logged, so nobody can fudge
   them), **👁 Reveal**, **🏳 Resign**, **Pass turn** — the turn marker
   always advances in seat order from the active player, no matter who

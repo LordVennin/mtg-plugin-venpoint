@@ -540,8 +540,17 @@ var MTGGame = (function () {
       case 'roll': {
         var sides = action.sides | 0;
         if (sides < 2 || sides > 1000) throw new Error('Bad die');
-        var roll = 1 + Math.floor(this.rng() * sides);
-        this._log(pid, me + ' rolls a d' + sides + ': ' + roll + '.');
+        var dice = Math.max(1, Math.min(20, (action.count | 0) || 1));
+        var rolls = [];
+        var sum = 0;
+        for (var ri = 0; ri < dice; ri++) {
+          var roll = 1 + Math.floor(this.rng() * sides);
+          rolls.push(roll);
+          sum += roll;
+        }
+        this._log(pid, dice === 1
+          ? me + ' rolls a d' + sides + ': ' + rolls[0] + '.'
+          : me + ' rolls ' + dice + 'd' + sides + ': ' + rolls.join(', ') + ' (total ' + sum + ').');
         break;
       }
       case 'coin': {

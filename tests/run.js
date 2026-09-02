@@ -555,6 +555,19 @@ section('Game rows, dice, attach, search');
   try { g.apply('a', { a: 'roll', sides: 1 }); } catch (e) { threw = true; }
   assert(threw, 'nonsense die rejected');
 
+  // Arbitrary dice: dX with any side count, optionally several at once.
+  g.apply('a', { a: 'roll', sides: 100 });
+  g.apply('a', { a: 'roll', sides: 8, count: 3 });
+  const log2 = g.viewFor('b').log.map(l => l.text).join(' | ');
+  const d100 = log2.match(/rolls a d100: (\d+)\./);
+  assert(d100 && +d100[1] >= 1 && +d100[1] <= 100, 'dX rolls any side count in range');
+  const multi = log2.match(/rolls 3d8: (\d+), (\d+), (\d+) \(total (\d+)\)\./);
+  assert(multi && +multi[1] + +multi[2] + +multi[3] === +multi[4] &&
+    [1, 2, 3].every(i => +multi[i] >= 1 && +multi[i] <= 8),
+    'multi-dice rolls log each die and a correct total');
+  g.apply('a', { a: 'roll', sides: 6, count: 999 });
+  assert(/rolls 20d6:/.test(g.viewFor('b').log.map(l => l.text).join(' ')), 'dice count clamps at 20');
+
   // Attach: equipment onto a creature; aura onto opponent's creature.
   const eq = bf().find(e => e.card.name === 'Bonesplitter');
   const bear = bf().find(e => e.card.name === 'Grizzly Bears');

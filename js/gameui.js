@@ -537,6 +537,7 @@ var GameUI = (function () {
           '<button class="gact" data-act="pcounter" title="poison, energy, …">☠ Counter</button>' +
           '<button class="gact" data-act="d6">🎲 d6</button>' +
           '<button class="gact" data-act="d20">🎲 d20</button>' +
+          '<button class="gact" data-act="dx" title="any die, e.g. 100 or 3d8">🎲 dX</button>' +
           '<button class="gact" data-act="coin">🪙 Flip</button>' +
           '<button class="gact" data-act="resign" title="leave the game, keep watching">🏳 Resign</button>' +
           '<button class="gact primary" data-act="passTurn">Pass turn</button>' +
@@ -876,6 +877,14 @@ var GameUI = (function () {
           var rv = parseInt(window.prompt('Reveal how many cards from the top of your library? (0 stops revealing)', '1'), 10);
           if (isNaN(rv) || rv < 0) return;
           act(rv === 0 ? { a: 'endReveal' } : { a: 'reveal', n: Math.min(rv, 20) });
+          return;
+        }
+        if (kind === 'dx') {
+          var din = window.prompt('Roll what? A number of sides ("100") or dice-count d sides ("3d8"):', '');
+          if (!din || !din.trim()) return;
+          var dm = din.trim().match(/^(?:(\d+)\s*[dD])?\s*(\d+)$/);
+          if (!dm) return;
+          act({ a: 'roll', sides: parseInt(dm[2], 10), count: dm[1] ? parseInt(dm[1], 10) : 1 });
           return;
         }
         if (kind === 'resign') {
