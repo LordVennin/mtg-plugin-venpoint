@@ -902,6 +902,64 @@ section('Face-down cards + transform');
     'cannot transform while face down');
 }
 
+section('Card mirror (relay-side Scryfall fallback)');
+{
+  const M = require('../cardmirror.mjs');
+
+  // slimSource keeps exactly what the client's slim() reads.
+  const full = {
+    object: 'card', name: 'Krenko, Mob Boss', mana_cost: '{2}{R}{R}',
+    type_line: 'Legendary Creature — Goblin Warrior', oracle_text: '{T}: Create tokens.',
+    power: '3', toughness: '3', color_identity: ['R'],
+    prices: { usd: '2.50', usd_foil: '9.99', eur: '1.00' },
+    image_uris: { normal: 'https://x/krenko.jpg', png: 'https://x/huge.png' },
+    all_parts: [
+      { component: 'combo_piece', id: 'self', name: 'Krenko, Mob Boss', uri: 'x' },
+      { component: 'token', id: 'tok1', name: 'Goblin', uri: 'x' }
+    ],
+    legalities: { modern: 'legal' }, set_name: 'M13', artist: 'someone'
+  };
+  const s = M.slimSource(full);
+  assert(s.name === 'Krenko, Mob Boss' && s.prices.usd === '2.50' &&
+    s.image_uris.normal === 'https://x/krenko.jpg' && s.power === '3',
+    'slimSource keeps the fields slim() needs');
+  assert(s.legalities === undefined && s.set_name === undefined && s.artist === undefined &&
+    s.image_uris.png === undefined && s.prices.eur === undefined,
+    'slimSource drops the bulk (legalities, extra images, extra prices)');
+  assert(s.all_parts.length === 1 && s.all_parts[0].id === 'tok1', 'only token parts survive');
+
+  // Index + lookup: full names, face names, and the standalone-beats-back-face rule.
+  const dfc = M.slimSource({
+    object: 'card', name: 'Scheming Silvertongue // Sign in Blood', color_identity: ['B'],
+    card_faces: [
+      { name: 'Scheming Silvertongue', type_line: 'Creature', oracle_text: '', image_uris: { normal: 'https://x/f.jpg' } },
+      { name: 'Sign in Blood', type_line: 'Sorcery', oracle_text: '', image_uris: { normal: 'https://x/b.jpg' } }
+    ]
+  });
+  const standalone = M.slimSource({ object: 'card', name: 'Sign in Blood', type_line: 'Sorcery', oracle_text: 'Draw 2.' });
+  const idx = M.indexCards([dfc, standalone]);
+  assert(M.lookupNamed(idx, 'krenko') === null, 'unknown names miss');
+  assert(M.lookupNamed(idx, 'Scheming Silvertongue').name.indexOf('//') !== -1, 'front-face name finds the DFC');
+  assert(M.lookupNamed(idx, 'sign in blood').oracle_text === 'Draw 2.',
+    'an exact standalone name beats a DFC back-face alias');
+
+  const coll = M.lookupCollection(idx, [
+    { name: 'Scheming Silvertongue' }, { name: 'Sign in Blood' }, { name: 'Nope' }
+  ]);
+  assert(coll.data.length === 2 && coll.not_found.length === 1 && coll.not_found[0].name === 'Nope',
+    'collection lookup mirrors the Scryfall response shape');
+
+  // Stream extractor: objects survive any formatting, braces/quotes in strings included.
+  const got = [];
+  const ex = M.createStreamExtractor(c => got.push(c));
+  const json = '[\n  {"object":"card","name":"A {B} card","oracle_text":"Weird \\"text\\" with } brace"},\n' +
+    '{"object":"card","name":"Two",\n  "nested":{"deep":{"x":1}}}\n]';
+  for (let i = 0; i < json.length; i += 7) ex.push(json.slice(i, i + 7)); // awkward chunk boundaries
+  ex.end();
+  assert(got.length === 2 && got[0].name === 'A {B} card' && got[1].nested.deep.x === 1,
+    'stream extractor handles chunk splits, nesting, and braces inside strings');
+}
+
 section('Scryfall slim() back faces');
 {
   const fixture = {
@@ -1048,8 +1106,37 @@ section('Scryfall slim() back faces');
         }).then(tok => {
           assert(tok.name === 'Goblin' && tok.img === 'https://x/goblin-token.jpg' && tok.pt === '1/1',
             'fetchToken returns the slim token with art and p/t');
-          console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
-          process.exit(failures ? 1 : 0);
+
+          // ---- Scryfall down -> the relay mirror answers instead ----
+          section('Scryfall outage falls back to the relay mirror');
+          const urls = [];
+          global.fetch = async (url, opts) => {
+            urls.push(String(url));
+            if (String(url).indexOf('api.scryfall.com') !== -1) throw new Error('ECONNREFUSED');
+            if (String(url) === 'api/cards/collection') {
+              const ids = JSON.parse(opts.body).identifiers;
+              return {
+                ok: true,
+                json: async () => ({
+                  object: 'list', not_found: [],
+                  data: ids.map(i => ({
+                    object: 'card', name: i.name, type_line: 'Sorcery',
+                    oracle_text: 'From the mirror.', prices: { usd: '0.10' }
+                  }))
+                })
+              };
+            }
+            return { ok: false, status: 404, json: async () => ({}) };
+          };
+          return Scryfall.resolve(['Mirror Only Card']).then(r5 => {
+            const m = r5.cards['mirror only card'];
+            assert(m && m.text === 'From the mirror.' && m.price === '0.10',
+              'collection lookups fall back to api/cards/collection when Scryfall is down');
+            assert(urls.some(u => u.indexOf('api.scryfall.com') !== -1),
+              'Scryfall was tried first');
+            console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
+            process.exit(failures ? 1 : 0);
+          });
         });
       });
     });

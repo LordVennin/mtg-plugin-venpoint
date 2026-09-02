@@ -26,10 +26,11 @@
  */
 
 import http from 'node:http';
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile, readdir, writeFile, mkdir } from 'node:fs/promises';
 import { extname, join, normalize, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WebSocketServer } from 'ws';
+import { slimSource, indexCards, lookupCollection, lookupNamed, createStreamExtractor } from './cardmirror.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 
@@ -39,6 +40,8 @@ function arg(name, dflt) {
 }
 const PORT = parseInt(arg('port', process.env.PORT || '8000'), 10);
 const HOST = arg('host', '127.0.0.1');
+const NO_MIRROR = process.argv.includes('--no-mirror');
+const MIRROR_FILE = arg('mirror-file', null); // local bulk JSON instead of downloading (tests/airgap)
 
 /* ------------------------- static file serving ------------------------- */
 
@@ -84,6 +87,95 @@ async function presetIndex() {
   return out;
 }
 
+/* --------------------------- local card mirror --------------------------- */
+/*
+ * A slimmed copy of Scryfall's "Oracle Cards" bulk data (~20MB on disk in
+ * data/card-mirror.json, refreshed weekly). The app resolves card lists
+ * against Scryfall first and falls back to these endpoints, so game night
+ * survives a Scryfall outage. Disable with --no-mirror; feed a local bulk
+ * file with --mirror-file <path> (used by the tests).
+ */
+const MIRROR_DIR = join(ROOT, 'data');
+const MIRROR_PATH = join(MIRROR_DIR, 'card-mirror.json');
+const MIRROR_META = join(MIRROR_DIR, 'card-mirror-meta.json');
+const MIRROR_MAX_AGE = 7 * 24 * 3600 * 1000;
+const SCRYFALL_HEADERS = { 'User-Agent': 'mtg-draft-companion/1.0', 'Accept': 'application/json' };
+
+let mirror = null; // {byName, byFace} once an index is loaded
+
+async function loadMirrorFromDisk() {
+  try {
+    const cards = JSON.parse(await readFile(MIRROR_PATH, 'utf8'));
+    mirror = indexCards(cards);
+    console.log(`[mirror] loaded ${cards.length} cards from ${MIRROR_PATH}`);
+    return true;
+  } catch { return false; }
+}
+
+/** Stream any readable of JSON text into a slimmed card array. */
+async function slimStream(stream) {
+  const cards = [];
+  const extractor = createStreamExtractor(card => {
+    if (card && card.object === 'card' && card.name) cards.push(slimSource(card));
+  });
+  const decoder = new TextDecoder();
+  for await (const chunk of stream) {
+    extractor.push(typeof chunk === 'string' ? chunk : decoder.decode(chunk, { stream: true }));
+  }
+  extractor.end();
+  return cards;
+}
+
+async function refreshMirror() {
+  try {
+    let cards;
+    if (MIRROR_FILE) {
+      cards = await slimStream((await import('node:fs')).createReadStream(MIRROR_FILE, 'utf8'));
+    } else {
+      // Skip the download while the last one is still fresh.
+      try {
+        const meta = JSON.parse(await readFile(MIRROR_META, 'utf8'));
+        if (Date.now() - meta.fetchedAt < MIRROR_MAX_AGE && mirror) return;
+      } catch { /* no meta yet */ }
+      const list = await fetch('https://api.scryfall.com/bulk-data', { headers: SCRYFALL_HEADERS });
+      if (!list.ok) throw new Error('bulk-data HTTP ' + list.status);
+      const entry = (await list.json()).data.find(d => d.type === 'oracle_cards');
+      if (!entry) throw new Error('no oracle_cards bulk entry');
+      console.log(`[mirror] downloading ${entry.download_uri} (~${Math.round(entry.size / 1e6)}MB)…`);
+      const dl = await fetch(entry.download_uri, { headers: SCRYFALL_HEADERS });
+      if (!dl.ok || !dl.body) throw new Error('bulk download HTTP ' + dl.status);
+      cards = await slimStream(dl.body);
+    }
+    await mkdir(MIRROR_DIR, { recursive: true });
+    await writeFile(MIRROR_PATH, JSON.stringify(cards));
+    await writeFile(MIRROR_META, JSON.stringify({ fetchedAt: Date.now(), cards: cards.length }));
+    mirror = indexCards(cards);
+    console.log(`[mirror] refreshed: ${cards.length} cards`);
+  } catch (err) {
+    // Non-fatal: the app still talks to Scryfall directly.
+    console.log('[mirror] refresh failed (will retry): ' + err.message);
+  }
+}
+
+if (!NO_MIRROR) {
+  loadMirrorFromDisk().then(() => refreshMirror());
+  setInterval(refreshMirror, 24 * 3600 * 1000);
+}
+
+function readBody(req, limit) {
+  return new Promise((resolve, reject) => {
+    let size = 0;
+    const parts = [];
+    req.on('data', c => {
+      size += c.length;
+      if (size > limit) { reject(new Error('body too large')); req.destroy(); return; }
+      parts.push(c);
+    });
+    req.on('end', () => resolve(Buffer.concat(parts).toString('utf8')));
+    req.on('error', reject);
+  });
+}
+
 const server = http.createServer(async (req, res) => {
   try {
     let path = decodeURIComponent((req.url || '/').split('?')[0]);
@@ -91,6 +183,22 @@ const server = http.createServer(async (req, res) => {
     if (path === '/api/lists') {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(await presetIndex()));
+      return;
+    }
+    if (path === '/api/cards/collection' && req.method === 'POST') {
+      if (!mirror) { res.writeHead(503, { 'Content-Type': 'application/json' }); res.end('{"error":"mirror not ready"}'); return; }
+      let body;
+      try { body = JSON.parse(await readBody(req, 256 * 1024)); } catch { body = {}; }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(lookupCollection(mirror, Array.isArray(body.identifiers) ? body.identifiers : [])));
+      return;
+    }
+    if (path === '/api/cards/named') {
+      if (!mirror) { res.writeHead(503, { 'Content-Type': 'application/json' }); res.end('{"error":"mirror not ready"}'); return; }
+      const params = new URLSearchParams((req.url || '').split('?')[1] || '');
+      const card = lookupNamed(mirror, params.get('exact') || params.get('fuzzy') || '');
+      if (card) { res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(card)); }
+      else { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"object":"error"}'); }
       return;
     }
     const clean = normalize(path).replace(/^(\.\.[/\\])+/, '');

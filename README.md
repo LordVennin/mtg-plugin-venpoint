@@ -92,6 +92,25 @@ block, basics excluded): Alpha/Beta/Revised, Mirage, Tempest, Urza's,
 Invasion, Onslaught, Mirrodin, Kamigawa, Ravnica, Lorwyn, Shadowmoor,
 Zendikar, Scars of Mirrodin, Innistrad, Return to Ravnica, and Theros.
 
+## Card mirror (works when Scryfall is down)
+
+The relay server keeps a **local mirror of Scryfall's card database**: on
+first start it downloads the "Oracle Cards" bulk file (~150MB, streamed —
+never held in memory), slims it to just the fields the app uses (~20MB in
+`data/card-mirror.json`), and refreshes it weekly. The app always asks
+Scryfall first (freshest prices); if Scryfall is unreachable it falls back
+to the relay's `/api/cards/collection` + `/api/cards/named` endpoints, so
+card lists still resolve with full oracle text, faces, and prices during
+an outage. Card *images* keep hotlinking Scryfall's separate CDN.
+
+- `--no-mirror` disables it (the app then degrades to text-only cards when
+  Scryfall is down, as before).
+- `--mirror-file <path>` builds the mirror from a local bulk JSON file
+  instead of downloading (air-gapped setups, tests).
+
+Each browser also caches every card it has ever resolved in
+`localStorage`, so returning players' lists resolve offline either way.
+
 ## Matches and spectating (3+ players)
 
 After a draft with three or more players, the host gets a **match panel**:

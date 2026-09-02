@@ -43,7 +43,15 @@ var Scryfall = (function () {
       // Guard against unbounded growth: keep at most ~4000 cards cached.
       if (keys.length > 4000) return;
       localStorage.setItem(LS_KEY, JSON.stringify(mem));
-    } catch (e) { /* quota exceeded — fine, cache is an optimization */ }
+    } catch (e) {
+      // Quota hit: drop the old cache so future saves work again — losing
+      // the cache only costs a re-fetch, a permanently stuck one costs the
+      // offline resilience.
+      try {
+        localStorage.removeItem(LS_KEY);
+        localStorage.setItem(LS_KEY, JSON.stringify(mem));
+      } catch (e2) { /* storage disabled entirely — memory-only is fine */ }
+    }
   }
 
   function faceData(f) {
@@ -150,15 +158,26 @@ var Scryfall = (function () {
     var total = toFetch.length;
     var done = 0;
 
-    function batch(chunk) {
-      return fetch(API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identifiers: chunk.map(function (n) { return { name: apiName(n) }; }) })
-      }).then(function (res) {
+    // Scryfall first; if it is down (or rate-limiting), fall back to the
+    // relay's local card mirror at the same-origin /api/cards/collection.
+    // On hosts without the mirror the fallback just 404s and the caller's
+    // existing text-only degradation kicks in, same as before.
+    function postCollection(chunk) {
+      var body = JSON.stringify({
+        identifiers: chunk.map(function (n) { return { name: apiName(n) }; })
+      });
+      var opts = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body };
+      var check = function (res) {
         if (!res.ok) throw new Error('Scryfall error ' + res.status);
         return res.json();
-      }).then(function (json) {
+      };
+      return fetch(API, opts).then(check).catch(function (err) {
+        return fetch('api/cards/collection', opts).then(check).catch(function () { throw err; });
+      });
+    }
+
+    function batch(chunk) {
+      return postCollection(chunk).then(function (json) {
         (json.data || []).forEach(function (card) {
           var s = slim(card);
           mem[s.name.toLowerCase()] = s;
@@ -197,11 +216,15 @@ var Scryfall = (function () {
     // named?exact prioritizes exact full names; fuzzy is the last resort.
     function rescue(name) {
       var enc = encodeURIComponent(name);
+      var okJson = function (res) { return res.ok ? res.json() : Promise.reject(); };
       return fetch('https://api.scryfall.com/cards/named?exact=' + enc)
-        .then(function (res) { return res.ok ? res.json() : Promise.reject(); })
+        .then(okJson)
         .catch(function () {
-          return fetch('https://api.scryfall.com/cards/named?fuzzy=' + enc)
-            .then(function (res) { return res.ok ? res.json() : Promise.reject(); });
+          return fetch('https://api.scryfall.com/cards/named?fuzzy=' + enc).then(okJson);
+        })
+        .catch(function () {
+          // Scryfall itself unreachable — the relay's mirror, if present.
+          return fetch('api/cards/named?exact=' + enc).then(okJson);
         })
         .then(function (card) {
           var s = slim(card);
