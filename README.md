@@ -96,6 +96,16 @@ Every line is **pinned to the block's own printing** — `1 Lightning Bolt
 `(SET)` suffix works in anything you paste yourself; the shown TCG price
 is that printing's price.
 
+Also included, built from MTGJSON's official product lists:
+
+- **Jumpstart packs** — all 121 packs each from the original **Jumpstart
+  (JMP)**, **Jumpstart 2022 (J22)**, and **Foundations Jumpstart (J25)**,
+  offered next to the jumpstart box.
+- **Ready constructed decks** — the 15 **Innistrad-block intro packs**
+  (ISD/DKA/AVR) and every **Duel Deck** from Elves vs. Goblins through
+  Merfolk vs. Goblins (50 decks; the Anthology reprints are skipped as
+  duplicates), offered in the lobby's deck-upload box.
+
 ## Card mirror (works when Scryfall is down)
 
 The relay server keeps a **local mirror of Scryfall's card database**: on
