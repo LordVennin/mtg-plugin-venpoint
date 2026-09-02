@@ -147,6 +147,15 @@
         var ghost = App.players.find(function (p) {
           return !p.connected && p.name.toLowerCase() === name.toLowerCase();
         });
+        // Mid-draft/mid-game, the same name reclaims its seat even while it
+        // still LOOKS connected: a silently dropped socket only surfaces on
+        // the relay's ~30s keepalive, and the player's quick reconnect must
+        // not be locked out (or silently ignored) in the meantime.
+        if (!ghost && (App.engine || App.game)) {
+          ghost = App.players.find(function (p) {
+            return p.id !== App.myId && p.name.toLowerCase() === name.toLowerCase();
+          });
+        }
         if (ghost) {
           ghost.conn = conn;
           ghost.connected = true;
@@ -181,11 +190,15 @@
       case 'pickJs': {
         var player = App.players.find(function (p) { return p.conn === conn; });
         if (player) hostApplyPick(player, msg);
+        // A message from a connection that owns no seat (stale socket, race)
+        // must never vanish silently — tell the sender to rejoin.
+        else App.net.send(conn, { t: 'err', msg: 'You are not seated — rejoin with the same name to reclaim your seat.' });
         break;
       }
       case 'act': {
         var actor = App.players.find(function (p) { return p.conn === conn; });
         if (actor) hostApplyAction(actor, msg.action);
+        else App.net.send(conn, { t: 'err', msg: 'You are not seated — rejoin with the same name to reclaim your seat.' });
         break;
       }
       case 'deck': {
