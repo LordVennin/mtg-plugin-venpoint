@@ -73,54 +73,92 @@ var Net = (function () {
   }
 
   function relayHost(url, handlers) {
-    var ws = new WebSocket(url);
-    var conns = Object.create(null); // guest id -> conn handle {id}
+    var conns = Object.create(null); // guest id -> conn handle {id} (survives reconnects)
     var opened = false;
+    var code = null;
+    var token = null; // proves room ownership to the relay when resuming
+    var ws = null;
+    var done = false; // deliberately closed, or given up for good
+    var retries = 0;
 
-    ws.onopen = function () { ws.send(JSON.stringify({ t: 'host' })); };
-    ws.onmessage = function (ev) {
-      var msg;
-      try { msg = JSON.parse(ev.data); } catch (e) { return; }
-      switch (msg.t) {
-        case 'hosted':
-          opened = true;
-          handlers.onOpen(msg.code);
-          break;
-        case 'peer-open':
-          conns[msg.id] = { id: msg.id, open: true };
-          handlers.onConnection(conns[msg.id]);
-          break;
-        case 'from':
-          if (conns[msg.id]) handlers.onMessage(conns[msg.id], msg.data);
-          break;
-        case 'peer-close':
-          if (conns[msg.id]) {
-            conns[msg.id].open = false;
-            handlers.onDisconnect(conns[msg.id]);
-            delete conns[msg.id];
-          }
-          break;
-        case 'error':
-          handlers.onError(new Error(msg.msg || 'Relay error'));
-          break;
-      }
-    };
-    ws.onerror = function () {
-      if (!opened) handlers.onError(new Error('Could not reach the relay server.'));
-    };
-    ws.onclose = function () {
-      if (opened) handlers.onError(new Error('Lost connection to the relay server.'));
-      else handlers.onError(new Error('Could not reach the relay server.'));
-    };
+    function connect(resume) {
+      ws = new WebSocket(url);
+      ws.onopen = function () {
+        ws.send(JSON.stringify(resume ? { t: 'host', resume: code, token: token } : { t: 'host' }));
+      };
+      ws.onmessage = function (ev) {
+        var msg;
+        try { msg = JSON.parse(ev.data); } catch (e) { return; }
+        switch (msg.t) {
+          case 'hosted':
+            retries = 0;
+            if (msg.token) token = msg.token;
+            if (!opened) {
+              opened = true;
+              code = msg.code;
+              handlers.onOpen(msg.code);
+            } else if (handlers.onStatus) {
+              handlers.onStatus('Reconnected to the relay — the room is back.');
+            }
+            break;
+          case 'peer-open':
+            // On a resume the relay replays every connected guest; the conn
+            // objects must stay identical so seats keep matching.
+            if (conns[msg.id]) { conns[msg.id].open = true; break; }
+            conns[msg.id] = { id: msg.id, open: true };
+            handlers.onConnection(conns[msg.id]);
+            break;
+          case 'from':
+            if (conns[msg.id]) handlers.onMessage(conns[msg.id], msg.data);
+            break;
+          case 'peer-close':
+            if (conns[msg.id]) {
+              conns[msg.id].open = false;
+              handlers.onDisconnect(conns[msg.id]);
+              delete conns[msg.id];
+            }
+            break;
+          case 'error':
+            done = true;
+            handlers.onError(new Error(msg.msg || 'Relay error'));
+            try { ws.close(); } catch (e) { /* already closing */ }
+            break;
+        }
+      };
+      ws.onerror = function () {
+        if (!opened && retries === 0) handlers.onError(new Error('Could not reach the relay server.'));
+      };
+      ws.onclose = function () {
+        if (done) return;
+        if (!opened) { handlers.onError(new Error('Could not reach the relay server.')); return; }
+        // The host's relay socket dropped (tunnel blip, wifi hiccup): keep
+        // the room alive by resuming — the relay holds it for 5 minutes.
+        retries++;
+        if (retries > 90) {
+          done = true;
+          handlers.onError(new Error('Lost the relay connection and could not get it back.'));
+          return;
+        }
+        if (retries === 1 && handlers.onStatus) {
+          handlers.onStatus('Relay connection lost — reconnecting…');
+        }
+        setTimeout(function () { connect(true); }, Math.min(5000, 1000 * retries));
+      };
+    }
+    connect(false);
+    if (typeof window !== 'undefined') {
+      // Test hook: simulate the host's socket dropping mid-game.
+      window.__relayHostDropTest = function () { try { ws.close(); } catch (e) {} };
+    }
 
     return {
       code: null,
       send: function (conn, msg) {
-        if (ws.readyState === WebSocket.OPEN) {
+        if (ws && ws.readyState === WebSocket.OPEN) {
           ws.send(JSON.stringify({ t: 'to', id: conn.id, data: msg }));
         }
       },
-      close: function () { try { ws.onclose = null; ws.close(); } catch (e) {} }
+      close: function () { done = true; try { ws.onclose = null; ws.close(); } catch (e) {} }
     };
   }
 
@@ -136,6 +174,11 @@ var Net = (function () {
       switch (msg.t) {
         case 'joined':
           joined = true;
+          handlers.onOpen(conn);
+          break;
+        case 'rehello':
+          // The host resumed after a dropped socket — introduce ourselves
+          // again so it re-associates this connection with our seat.
           handlers.onOpen(conn);
           break;
         case 'msg':

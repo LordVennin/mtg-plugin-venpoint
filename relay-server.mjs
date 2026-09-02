@@ -216,7 +216,11 @@ const server = http.createServer(async (req, res) => {
 /* ------------------------------ relaying ------------------------------ */
 
 const CODE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
-const rooms = new Map(); // code -> {host: ws, guests: Map<id, ws>}
+// code -> {host: ws|null, token, guests: Map<id, ws>, graceTimer}
+// host===null means the host's socket dropped and the room is waiting for
+// it to resume (the token proves it's the same host coming back).
+const rooms = new Map();
+const HOST_GRACE_MS = 5 * 60 * 1000;
 let guestSeq = 0;
 
 function genCode() {
@@ -227,8 +231,14 @@ function genCode() {
   }
 }
 
+function genToken() {
+  let t = '';
+  for (let i = 0; i < 32; i++) t += CODE_ALPHABET[Math.floor(Math.random() * CODE_ALPHABET.length)];
+  return t;
+}
+
 function send(ws, obj) {
-  if (ws.readyState === ws.OPEN) ws.send(JSON.stringify(obj));
+  if (ws && ws.readyState === ws.OPEN) ws.send(JSON.stringify(obj));
 }
 
 const wss = new WebSocketServer({ server, path: '/ws', maxPayload: 4 * 1024 * 1024 });
@@ -251,11 +261,34 @@ wss.on('connection', (ws) => {
     switch (msg.t) {
       case 'host': {
         if (role) return;
+        // Resume: the host's old socket died (tunnel blip, wifi hiccup) and
+        // it is coming back for its room; the token proves it's the same host.
+        if (msg.resume) {
+          const rcode = String(msg.resume).toUpperCase();
+          const r = rooms.get(rcode);
+          if (!r || !msg.token || r.token !== msg.token) {
+            send(ws, { t: 'error', msg: 'Room "' + rcode + '" is gone — start a new room.' });
+            break;
+          }
+          role = 'host';
+          code = rcode;
+          room = r;
+          if (r.host && r.host !== ws) { try { r.host.terminate(); } catch { /* already dead */ } }
+          r.host = ws;
+          if (r.graceTimer) { clearTimeout(r.graceTimer); r.graceTimer = null; }
+          send(ws, { t: 'hosted', code: rcode, token: r.token, resumed: true });
+          for (const [gid, gws] of r.guests) {
+            send(ws, { t: 'peer-open', id: gid });
+            send(gws, { t: 'rehello' }); // ask each guest to re-introduce itself
+          }
+          console.log(`[relay] room ${rcode} resumed by its host (${r.guests.size} guests waiting)`);
+          break;
+        }
         role = 'host';
         code = genCode();
-        room = { host: ws, guests: new Map() };
+        room = { host: ws, token: genToken(), guests: new Map(), graceTimer: null };
         rooms.set(code, room);
-        send(ws, { t: 'hosted', code });
+        send(ws, { t: 'hosted', code, token: room.token });
         console.log(`[relay] room ${code} opened (${rooms.size} active)`);
         break;
       }
@@ -279,7 +312,7 @@ wss.on('connection', (ws) => {
         if (guest) send(guest, { t: 'msg', data: msg.data });
         break;
       }
-      case 'msg': { // guest -> host
+      case 'msg': { // guest -> host (dropped while the host is resuming)
         if (role !== 'guest' || !room) return;
         send(room.host, { t: 'from', id: guestId, data: msg.data });
         break;
@@ -289,12 +322,25 @@ wss.on('connection', (ws) => {
 
   ws.on('close', () => {
     if (role === 'host' && room) {
-      for (const guest of room.guests.values()) {
-        send(guest, { t: 'error', msg: 'The host disconnected.' });
-        guest.close();
+      if (room.host !== ws) return; // an already-replaced socket dying late
+      // Don't kill the room: give the host a grace window to resume — a
+      // dropped host socket (tunnel re-handshake, wifi blip) used to
+      // destroy the room and end everyone's game permanently.
+      room.host = null;
+      if (room.guests.size === 0) {
+        rooms.delete(code);
+        console.log(`[relay] room ${code} closed — empty (${rooms.size} active)`);
+        return;
       }
-      rooms.delete(code);
-      console.log(`[relay] room ${code} closed (${rooms.size} active)`);
+      console.log(`[relay] room ${code} host dropped — holding for resume (${room.guests.size} guests)`);
+      room.graceTimer = setTimeout(() => {
+        for (const guest of room.guests.values()) {
+          send(guest, { t: 'error', msg: 'The host disconnected.' });
+          guest.close();
+        }
+        rooms.delete(code);
+        console.log(`[relay] room ${code} closed — host never resumed (${rooms.size} active)`);
+      }, HOST_GRACE_MS);
     } else if (role === 'guest' && room) {
       room.guests.delete(guestId);
       send(room.host, { t: 'peer-close', id: guestId });

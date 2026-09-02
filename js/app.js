@@ -133,7 +133,9 @@
       onError: function (err) {
         $('#btn-host').disabled = false;
         toast(err.message || 'Connection error', true);
-      }
+      },
+      // Transient relay-connection news (lost/reconnected) — informational.
+      onStatus: function (msgText) { toast(msgText); }
     });
   }
 
@@ -1109,15 +1111,41 @@
       onClose: function () { guestConnectionLost(); },
       onError: function (err) {
         if (App.reconnectTries > 0) { guestConnectionLost(); return; }
+        clearRejoin(); // a fresh join failed (bad/expired code) — don't loop on refresh
         $('#btn-join').disabled = false;
         toast(err.message || 'Connection failed', true);
       }
     });
   }
 
+  /* Guests remember their room per-tab so an accidental REFRESH rejoins
+   * automatically (the host reclaims their seat by name). sessionStorage:
+   * survives refresh, dies with the tab, never leaks across tabs. */
+  var SS_REJOIN = 'mtgdraft.rejoin.v1';
+
+  function saveRejoin() {
+    try {
+      if (App.joinInfo) sessionStorage.setItem(SS_REJOIN, JSON.stringify(App.joinInfo));
+    } catch (e) { /* storage disabled — refresh just lands on home */ }
+  }
+
+  function clearRejoin() {
+    try { sessionStorage.removeItem(SS_REJOIN); } catch (e) { /* fine */ }
+  }
+
+  function tryAutoRejoin() {
+    var info = null;
+    try { info = JSON.parse(sessionStorage.getItem(SS_REJOIN)); } catch (e) { /* none */ }
+    if (!info || !info.name || !info.code) return;
+    $('#name-input').value = info.name;
+    $('#code-input').value = info.code;
+    toast('Rejoining room ' + info.code + ' as ' + info.name + '…');
+    startJoining(info.name, info.code);
+  }
+
   /**
    * Flaky-internet tolerance: once a guest has ever joined, a dropped
-   * connection quietly retries every few seconds (~2 minutes total). The
+   * connection quietly retries every few seconds (~5 minutes total). The
    * host keeps the seat, so a successful retry lands right back in place.
    */
   function guestConnectionLost() {
@@ -1129,8 +1157,11 @@
     }
     App.reconnectTries = (App.reconnectTries || 0) + 1;
     if (App.reconnectTries === 1) toast('Connection lost — reconnecting…', true);
-    if (App.reconnectTries > 45) {
+    // ~5 minutes of retries: matches how long the relay holds a room while
+    // a dropped HOST resumes, so guests ride out a host blip too.
+    if (App.reconnectTries > 120) {
       App.reconnectTries = 0;
+      clearRejoin();
       toast('Could not reconnect. Rejoin with the same name to get your seat back.', true);
       $('#btn-join').disabled = false;
       show('home');
@@ -1147,6 +1178,7 @@
     switch (msg.t) {
       case 'welcome':
         App.myId = msg.id;
+        saveRejoin();
         if (App.reconnectTries) toast('Reconnected!');
         App.reconnectTries = 0;
         $('#btn-join').disabled = false;
@@ -1179,6 +1211,7 @@
         toast(msg.msg, true);
         break;
       case 'ended':
+        clearRejoin();
         toast('The host ended the draft.', true);
         show('home');
         break;
@@ -1435,6 +1468,7 @@
       }
     });
     $('#btn-back-home').addEventListener('click', function () {
+      clearRejoin(); // leaving on purpose — don't auto-rejoin after the reload
       window.location.reload();
     });
     $('#btn-start-game').addEventListener('click', function () {
@@ -1483,5 +1517,6 @@
       }
     });
     show('home');
+    tryAutoRejoin();
   });
 })();

@@ -261,7 +261,12 @@ draw 7, and you go:
   graveyards, exile, life, and the action log are public — every action is
   logged so nothing happens silently.
 - Disconnected players can rejoin with the same name mid-game, same as
-  during a draft. (The host's tab is still the server.)
+  during a draft, and an accidental **page refresh rejoins automatically**
+  (the room code is remembered per-tab). Even the **host's relay
+  connection can drop** without ending the game: the relay holds the room
+  for 5 minutes while the host's client reconnects and resumes it, then
+  every guest re-introduces itself automatically. (The host's *tab* is
+  still the server — closing it does end the game.)
 
 Your cube list, packs, and settings are saved in your browser between
 sessions. If a guest disconnects mid-draft, they can rejoin with the same
