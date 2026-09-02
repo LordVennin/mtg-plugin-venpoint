@@ -1,666 +1,666 @@
 @name Mirage Block (MIR/VIS/WTH)
 @format cube
-1 Abduction
-1 Abeyance
-1 Abjure
-1 Aboroth
-1 Abyssal Gatekeeper
-1 Abyssal Hunter
-1 Acidic Dagger
-1 Aether Flash
-1 Afiya Grove
-1 Afterlife
-1 Agility
-1 Agonizing Memories
-1 Aku Djinn
-1 Alabaster Dragon
-1 Alarum
-1 Aleatory
-1 Alms
-1 Amber Prison
-1 Amulet of Unmaking
-1 Ancestral Knowledge
-1 Ancestral Memories
-1 Angelic Renewal
-1 Anvil of Bogardan
-1 Apathy
-1 Archangel
-1 Arctic Wolves
-1 Ardent Militia
-1 Argivian Find
-1 Argivian Restoration
-1 Armorer Guildmage
-1 Armor of Thorns
-1 Army Ants
-1 Ashen Powder
-1 Asmira, Holy Avenger
-1 Aura of Silence
-1 Auspicious Ancestor
-1 Avizoa
-1 Azimaet Drake
-1 Bad River
-1 Barbed-Back Wurm
-1 Barbed Foliage
-1 Barishi
-1 Barreling Attack
-1 Barrow Ghoul
-1 Basalt Golem
-1 Bay Falcon
-1 Bazaar of Wonders
-1 Benalish Infantry
-1 Benalish Knight
-1 Benalish Missionary
-1 Benevolent Unicorn
-1 Benthic Djinn
-1 Betrayal
-1 Betrothed of Fire
-1 Binding Agony
-1 Blanket of Night
-1 Blighted Shaman
-1 Blind Fury
-1 Blinding Light
-1 Blistering Barrier
-1 Bloodrock Cyclops
-1 Blossoming Wreath
-1 Bogardan Firefiend
-1 Bogardan Phoenix
-1 Boiling Blood
-1 Bone Dancer
-1 Bone Harvest
-1 Bone Mask
-1 Boomerang
-1 Bösium Strip
-1 Brass-Talon Chimera
-1 Breathstealer
-1 Breathstealer's Crypt
-1 Breezekeeper
-1 Briar Shield
-1 Brood of Cockroaches
-1 Brushwagg
-1 Bubble Matrix
-1 Builder's Bane
-1 Bull Elephant
-1 Buried Alive
-1 Burning Palm Efreet
-1 Burning Shield Askari
-1 Cadaverous Bloom
-1 Cadaverous Knight
-1 Call of the Wild
-1 Canopy Dragon
-1 Carrion
-1 Catacomb Dragon
-1 Celestial Dawn
-1 Cerulean Wyvern
-1 Chaos Charm
-1 Chaosphere
-1 Charcoal Diamond
-1 Chariot of the Sun
-1 Chimeric Sphere
-1 Choking Sands
-1 Choking Vines
-1 Chronatog
-1 Cinder Cloud
-1 Cinder Giant
-1 Cinder Wall
-1 Circle of Despair
-1 Circling Vultures
-1 City of Solitude
-1 Civic Guildmage
-1 Cloak of Invisibility
-1 Cloud Djinn
-1 Cloud Elemental
-1 Coercion
-1 Coils of the Medusa
-1 Cone of Flame
-1 Consuming Ferocity
-1 Coral Atoll
-1 Coral Fighters
-1 Corrosion
-1 Crash of Rhinos
-1 Creeping Mold
-1 Crimson Hellkite
-1 Crimson Roc
-1 Crypt Cobra
-1 Crypt Rats
-1 Crystal Golem
-1 Crystal Vein
-1 Cursed Totem
-1 Cycle of Life
-1 Daraja Griffin
-1 Daring Apprentice
-1 Dark Banishing
-1 Dark Privilege
-1 Dark Ritual
-1 Dazzling Beauty
-1 Death Watch
-1 Debt of Loyalty
-1 Decomposition
-1 Delirium
-1 Dense Foliage
-1 Desertion
-1 Desolation
-1 Desperate Gambit
-1 Diamond Kaleidoscope
-1 Dingus Staff
-1 Dirtwater Wraith
-1 Discordant Spirit
-1 Disempower
-1 Disenchant
-1 Disrupt
-1 Dissipate
-1 Divine Offering
-1 Divine Retribution
-1 Doomsday
-1 Dormant Volcano
-1 Downdraft
-1 Dragon Mask
-1 Drain Life
-1 Dread Specter
-1 Dream Cache
-1 Dream Fighter
-1 Dream Tides
-1 Duskrider Falcon
-1 Dwarven Berserker
-1 Dwarven Miner
-1 Dwarven Nomad
-1 Dwarven Thaumaturgist
-1 Dwarven Vigilantes
-1 Early Harvest
-1 Ebony Charm
-1 Ekundu Cyclops
-1 Ekundu Griffin
-1 Elephant Grass
-1 Elixir of Vitality
-1 Elkin Lair
-1 Elven Cache
-1 Emberwilde Caliph
-1 Emberwilde Djinn
-1 Emerald Charm
-1 Empyrial Armor
-1 Energy Bolt
-1 Energy Vortex
-1 Enfeeblement
-1 Enlightened Tutor
-1 Equipoise
-1 Ersatz Gnomes
-1 Ertai's Familiar
-1 Ethereal Champion
-1 Ether Well
-1 Everglades
-1 Eye of Singularity
-1 Fallen Askari
-1 Fallow Earth
-1 Fallow Wurm
-1 Familiar Ground
-1 Fatal Blow
-1 Favorable Destiny
-1 Femeref Archers
-1 Femeref Enchantress
-1 Femeref Healer
-1 Femeref Knight
-1 Femeref Scouts
-1 Feral Instinct
-1 Feral Shadow
-1 Fervor
-1 Festering Evil
-1 Fetid Horror
-1 Final Fortune
-1 Fireblast
-1 Firebreathing
-1 Fire Diamond
-1 Firestorm
-1 Firestorm Hellkite
-1 Fire Whip
-1 Fit of Rage
-1 Flame Elemental
-1 Flare
-1 Flash
-1 Fledgling Djinn
-1 Flooded Shoreline
-1 Floodgate
-1 Flood Plain
-1 Flux
-1 Fog
-1 Fog Elemental
-1 Foratog
-1 Forbidden Crypt
-1 Forbidden Ritual
-1 Foreshadow
-1 Foriysian Brigade
-1 Forsaken Wastes
-1 Freewind Falcon
-1 Frenetic Efreet
-1 Funeral Charm
-1 Fungus Elemental
-1 Gaea's Blessing
-1 Gallowbraid
-1 Gemstone Mine
-1 Gerrard's Wisdom
-1 Giant Caterpillar
-1 Giant Mantis
-1 Gibbering Hyenas
-1 Goblin Bomb
-1 Goblin Elite Infantry
-1 Goblin Grenadiers
-1 Goblin Recruiter
-1 Goblin Scouts
-1 Goblin Soothsayer
-1 Goblin Swine-Rider
-1 Goblin Tinkerer
-1 Goblin Vandal
-1 Gossamer Chains
-1 Granger Guildmage
-1 Grasslands
-1 Gravebane Zombie
-1 Grave Servitude
-1 Griffin Canyon
-1 Grim Feast
-1 Grinning Totem
-1 Guided Strike
-1 Guiding Spirit
-1 Hakim, Loreweaver
-1 Hall of Gemstone
-1 Hammer of Bogardan
-1 Harbinger of Night
-1 Harbor Guardian
-1 Harmattan Efreet
-1 Harvest Wurm
-1 Haunting Apparition
-1 Haunting Misery
-1 Hazerider Drake
-1 Healing Salve
-1 Hearth Charm
-1 Heart of Bogardan
-1 Heat Stroke
-1 Heat Wave
-1 Heavy Ballista
-1 Helm of Awakening
-1 Hidden Horror
-1 Hivis of the Scale
-1 Honorable Passage
-1 Hope Charm
-1 Horrible Hordes
-1 Hulking Cyclops
-1 Hurloon Shaman
-1 Igneous Golem
-1 Illicit Auction
-1 Illumination
-1 Impulse
-1 Incinerate
-1 Infantry Veteran
-1 Infernal Contract
-1 Infernal Harvest
-1 Infernal Tribute
-1 Inner Sanctum
-1 Inspiration
-1 Iron-Heart Chimera
-1 Iron Tusk Elephant
-1 Ivory Charm
-1 Jabari's Banner
-1 Jabari's Influence
-1 Jamuraan Lion
-1 Jangling Automaton
-1 Jolrael's Centaur
-1 Jolt
-1 Juju Bubble
-1 Jungle Basin
-1 Jungle Patrol
-1 Jungle Troll
-1 Jungle Wurm
-1 Kaervek's Hex
-1 Kaervek's Purge
-1 Kaervek's Spite
-1 Kaervek's Torch
-1 Karoo
-1 Karoo Meerkat
-1 Katabatic Winds
-1 Keeper of Kookus
-1 King Cheetah
-1 Kithkin Armor
-1 Knight of the Mists
-1 Knight of Valor
-1 Kookus
-1 Kukemssa Pirates
-1 Kukemssa Serpent
-1 Kyscu Drake
-1 Lava Hounds
-1 Lava Storm
-1 Lead-Belly Chimera
-1 Lead Golem
-1 Leering Gargoyle
-1 Lichenthrope
-1 Liege of the Hollows
-1 Lightning Cloud
-1 Lightning Reflexes
-1 Lion's Eye Diamond
-1 Llanowar Behemoth
-1 Llanowar Druid
-1 Llanowar Sentinel
-1 Locust Swarm
-1 Longbow Archer
-1 Lotus Vale
-1 Lure of Prey
-1 Magma Mine
-1 Malignant Growth
-1 Mana Chains
-1 Mana Prism
-1 Mana Web
-1 Mangara's Blessing
-1 Mangara's Equity
-1 Mangara's Tome
-1 Man-o'-War
-1 Manta Ray
-1 Maraxus of Keld
-1 Marble Diamond
-1 Maro
-1 Master of Arms
-1 Matopi Golem
-1 Meddle
-1 Melesse Spirit
-1 Memory Lapse
-1 Merfolk Raiders
-1 Merfolk Seer
-1 Merfolk Traders
-1 Mind Bend
-1 Mindbender Spores
-1 Mind Harness
-1 Mind Stone
-1 Miraculous Recovery
-1 Mire Shade
-1 Mischievous Poltergeist
-1 Misers' Cage
-1 Mist Dragon
-1 Mistmoon Griffin
-1 Mob Mentality
-1 Morinfen
-1 Mortal Wound
-1 Moss Diamond
-1 Mountain Valley
-1 Mtenda Griffin
-1 Mtenda Herder
-1 Mtenda Lion
-1 Mundungu
-1 Mwonvuli Ooze
-1 Mystical Tutor
-1 Mystic Veil
-1 Natural Balance
-1 Natural Order
-1 Nature's Kiss
-1 Nature's Resurgence
-1 Necratog
-1 Necromancy
-1 Necrosavant
-1 Nekrataal
-1 Nettletooth Djinn
-1 Noble Benefactor
-1 Noble Elephant
-1 Nocturnal Raid
-1 Null Chamber
-1 Null Rod
-1 Odylic Wraith
-1 Ogre Enforcer
-1 Ophidian
-1 Orcish Settlers
-1 Ovinomancer
-1 Pacifism
-1 Painful Memories
-1 Panther Warriors
-1 Paradigm Shift
-1 Parapet
-1 Patagia Golem
-1 Paupers' Cage
-1 Peacekeeper
-1 Peace Talks
-1 Pearl Dragon
-1 Pendrell Mists
-1 Phantom Warrior
-1 Phantom Wings
-1 Phyrexian Dreadnought
-1 Phyrexian Furnace
-1 Phyrexian Marauder
-1 Phyrexian Purge
-1 Phyrexian Tribute
-1 Phyrexian Vault
-1 Phyrexian Walker
-1 Pillar Tombs of Aku
-1 Political Trickery
-1 Polymorph
-1 Power Sink
-1 Preferred Selection
-1 Prismatic Boon
-1 Prismatic Circle
-1 Prismatic Lace
-1 Prosperity
-1 Psychic Transfer
-1 Psychic Vortex
-1 Purgatory
-1 Purraj of Urborg
-1 Pygmy Hippo
-1 Pyric Salamander
-1 Python
-1 Quicksand
-1 Quirion Druid
-1 Quirion Elves
-1 Quirion Ranger
-1 Radiant Essence
-1 Raging Gorilla
-1 Raging Spirit
-1 Rainbow Efreet
-1 Rampant Growth
-1 Rashida Scalebane
-1 Ravenous Vampire
-1 Ray of Command
-1 Razor Pendulum
-1 Razortooth Rats
-1 Reality Ripple
-1 Reckless Embermage
-1 Redwood Treefolk
-1 Reflect Damage
-1 Regeneration
-1 Reign of Chaos
-1 Reign of Terror
-1 Relearn
-1 Relentless Assault
-1 Relic Ward
-1 Remedy
-1 Reparations
-1 Resistance Fighter
-1 Restless Dead
-1 Retribution of the Meek
-1 Revered Unicorn
-1 Righteous Aura
-1 Righteous War
-1 Ritual of Steel
-1 River Boa
-1 Roc Hatchling
-1 Rock Basilisk
-1 Rock Slide
-1 Rocky Tar Pit
-1 Rogue Elephant
-1 Roots of Life
-1 Rowen
-1 Sabertooth Cobra
-1 Sacred Mesa
-1 Sage Owl
-1 Sandbar Crocodile
-1 Sand Golem
-1 Sands of Time
-1 Sandstorm
-1 Sapphire Charm
-1 Savage Twister
-1 Sawback Manticore
-1 Sawtooth Ogre
-1 Scalebane's Elite
-1 Scorched Ruins
-1 Sealed Fate
-1 Searing Spear Askari
-1 Sea Scryer
-1 Seedling Charm
-1 Seeds of Innocence
-1 Serene Heart
-1 Serenity
-1 Serra's Blessing
-1 Serrated Biskelion
-1 Sewer Rats
-1 Shadowbane
-1 Shadow Guildmage
-1 Shadow Rider
-1 Shallow Grave
-1 Shaper Guildmage
-1 Shattered Crypt
-1 Shauku, Endbringer
-1 Shauku's Minion
-1 Shimmer
-1 Shimmering Efreet
-1 Shrieking Drake
-1 Sidar Jabari
-1 Simoon
-1 Sirocco
-1 Sisay's Ring
-1 Skulking Ghost
-1 Sky Diamond
-1 Snake Basket
-1 Soar
-1 Solfatara
-1 Song of Blood
-1 Soul Echo
-1 Soul Rend
-1 Soul Shepherd
-1 Soulshriek
-1 Southern Paladin
-1 Spatial Binding
-1 Spectral Guardian
-1 Spider Climb
-1 Spinning Darkness
-1 Spirit of the Night
-1 Spitting Drake
-1 Spitting Earth
-1 Squandered Resources
-1 Stalking Tiger
-1 Stampeding Wildebeests
-1 Steel Golem
-1 Stone Rain
-1 Strands of Night
-1 Straw Golem
-1 Striped Bears
-1 Stupor
-1 Subterranean Spirit
-1 Suleiman's Legacy
-1 Summer Bloom
-1 Sun Clasp
-1 Sunweb
-1 Superior Numbers
-1 Suq'Ata Assassin
-1 Suq'Ata Firewalker
-1 Suq'Ata Lancer
-1 Sylvan Hierophant
-1 Tainted Specter
-1 Talruum Champion
-1 Talruum Minotaur
-1 Talruum Piper
-1 Taniwha
-1 Tariff
-1 Tar Pit Warrior
-1 Teeka's Dragon
-1 Teferi's Curse
-1 Teferi's Drake
-1 Teferi's Honor Guard
-1 Teferi's Imp
-1 Teferi's Isle
-1 Teferi's Puzzle Box
-1 Teferi's Realm
-1 Teferi's Veil
-1 Telim'Tor
-1 Telim'Tor's Darts
-1 Telim'Tor's Edict
-1 Tempest Drake
-1 Tendrils of Despair
-1 Teremko Griffin
-1 Thirst
-1 Thran Forge
-1 Thran Tome
-1 Three Wishes
-1 Thunderbolt
-1 Thundermare
-1 Tidal Wave
-1 Time and Tide
-1 Timid Drake
-1 Tin-Wing Chimera
-1 Tithe
-1 Tolarian Drake
-1 Tolarian Entrancer
-1 Tolarian Serpent
-1 Tombstone Stairwell
-1 Torrent of Lava
-1 Touchstone
-1 Tranquil Domain
-1 Tranquil Grove
-1 Tremor
-1 Triangle of War
-1 Tropical Storm
-1 Uktabi Efreet
-1 Uktabi Faerie
-1 Uktabi Orangutan
-1 Uktabi Wildcats
-1 Undiscovered Paradise
-1 Undo
-1 Unerring Sling
-1 Unfulfilled Desires
-1 Unseen Walker
-1 Unyaro Bee Sting
-1 Unyaro Griffin
-1 Urborg Justice
-1 Urborg Mindsucker
-1 Urborg Panther
-1 Urborg Stalker
-1 Vampiric Tutor
-1 Vampirism
-1 Vanishing
-1 Vaporous Djinn
-1 Ventifact Bottle
-1 Veteran Explorer
-1 Viashino Sandstalker
-1 Viashino Warrior
-1 Viashivan Dragon
-1 Vigilant Martyr
-1 Village Elder
-1 Vision Charm
-1 Vitalize
-1 Vitalizing Cascade
-1 Vodalian Illusionist
-1 Volcanic Dragon
-1 Volcanic Geyser
-1 Volunteer Reserves
-1 Waiting in the Weeds
-1 Wake of Vultures
-1 Wall of Corpses
-1 Wall of Resistance
-1 Wall of Roots
-1 Wand of Denial
-1 Ward of Lights
-1 Warping Wurm
-1 Warrior's Honor
-1 Warthog
-1 Waterspout Djinn
-1 Wave Elemental
-1 Wave of Terror
-1 Well of Knowledge
-1 Wellspring
-1 Wicked Reward
-1 Wild Elephant
-1 Wildfire Emissary
-1 Winding Canyons
-1 Windreaper Falcon
-1 Wind Shear
-1 Withering Boon
-1 Worldly Tutor
-1 Xanthic Statue
-1 Yare
-1 Zebra Unicorn
-1 Zhalfirin Commander
-1 Zhalfirin Crusader
-1 Zhalfirin Knight
-1 Zirilan of the Claw
-1 Zombie Mob
-1 Zombie Scavengers
-1 Zuberi, Golden Feather
+1 Abduction (WTH)
+1 Abeyance (WTH)
+1 Abjure (WTH)
+1 Aboroth (WTH)
+1 Abyssal Gatekeeper (WTH)
+1 Abyssal Hunter (MIR)
+1 Acidic Dagger (MIR)
+1 Aether Flash (WTH)
+1 Afiya Grove (MIR)
+1 Afterlife (MIR)
+1 Agility (MIR)
+1 Agonizing Memories (WTH)
+1 Aku Djinn (VIS)
+1 Alabaster Dragon (WTH)
+1 Alarum (MIR)
+1 Aleatory (MIR)
+1 Alms (WTH)
+1 Amber Prison (MIR)
+1 Amulet of Unmaking (MIR)
+1 Ancestral Knowledge (WTH)
+1 Ancestral Memories (MIR)
+1 Angelic Renewal (WTH)
+1 Anvil of Bogardan (VIS)
+1 Apathy (WTH)
+1 Archangel (VIS)
+1 Arctic Wolves (WTH)
+1 Ardent Militia (WTH)
+1 Argivian Find (WTH)
+1 Argivian Restoration (WTH)
+1 Armor of Thorns (MIR)
+1 Armorer Guildmage (MIR)
+1 Army Ants (VIS)
+1 Ashen Powder (MIR)
+1 Asmira, Holy Avenger (MIR)
+1 Aura of Silence (WTH)
+1 Auspicious Ancestor (MIR)
+1 Avizoa (WTH)
+1 Azimaet Drake (MIR)
+1 Bad River (MIR)
+1 Barbed Foliage (MIR)
+1 Barbed-Back Wurm (MIR)
+1 Barishi (WTH)
+1 Barreling Attack (MIR)
+1 Barrow Ghoul (WTH)
+1 Basalt Golem (MIR)
+1 Bay Falcon (MIR)
+1 Bazaar of Wonders (MIR)
+1 Benalish Infantry (WTH)
+1 Benalish Knight (WTH)
+1 Benalish Missionary (WTH)
+1 Benevolent Unicorn (MIR)
+1 Benthic Djinn (MIR)
+1 Betrayal (VIS)
+1 Betrothed of Fire (WTH)
+1 Binding Agony (MIR)
+1 Blanket of Night (VIS)
+1 Blighted Shaman (MIR)
+1 Blind Fury (MIR)
+1 Blinding Light (MIR)
+1 Blistering Barrier (MIR)
+1 Bloodrock Cyclops (WTH)
+1 Blossoming Wreath (WTH)
+1 Bogardan Firefiend (WTH)
+1 Bogardan Phoenix (VIS)
+1 Boiling Blood (WTH)
+1 Bone Dancer (WTH)
+1 Bone Harvest (MIR)
+1 Bone Mask (MIR)
+1 Boomerang (MIR)
+1 Bösium Strip (WTH)
+1 Brass-Talon Chimera (VIS)
+1 Breathstealer (MIR)
+1 Breathstealer's Crypt (VIS)
+1 Breezekeeper (VIS)
+1 Briar Shield (WTH)
+1 Brood of Cockroaches (VIS)
+1 Brushwagg (MIR)
+1 Bubble Matrix (WTH)
+1 Builder's Bane (MIR)
+1 Bull Elephant (VIS)
+1 Buried Alive (WTH)
+1 Burning Palm Efreet (MIR)
+1 Burning Shield Askari (MIR)
+1 Cadaverous Bloom (MIR)
+1 Cadaverous Knight (MIR)
+1 Call of the Wild (WTH)
+1 Canopy Dragon (MIR)
+1 Carrion (MIR)
+1 Catacomb Dragon (MIR)
+1 Celestial Dawn (MIR)
+1 Cerulean Wyvern (MIR)
+1 Chaos Charm (MIR)
+1 Chaosphere (MIR)
+1 Charcoal Diamond (MIR)
+1 Chariot of the Sun (MIR)
+1 Chimeric Sphere (WTH)
+1 Choking Sands (MIR)
+1 Choking Vines (WTH)
+1 Chronatog (VIS)
+1 Cinder Cloud (MIR)
+1 Cinder Giant (WTH)
+1 Cinder Wall (WTH)
+1 Circle of Despair (MIR)
+1 Circling Vultures (WTH)
+1 City of Solitude (VIS)
+1 Civic Guildmage (MIR)
+1 Cloak of Invisibility (MIR)
+1 Cloud Djinn (WTH)
+1 Cloud Elemental (VIS)
+1 Coercion (VIS)
+1 Coils of the Medusa (WTH)
+1 Cone of Flame (WTH)
+1 Consuming Ferocity (MIR)
+1 Coral Atoll (VIS)
+1 Coral Fighters (MIR)
+1 Corrosion (VIS)
+1 Crash of Rhinos (MIR)
+1 Creeping Mold (VIS)
+1 Crimson Hellkite (MIR)
+1 Crimson Roc (MIR)
+1 Crypt Cobra (MIR)
+1 Crypt Rats (VIS)
+1 Crystal Golem (MIR)
+1 Crystal Vein (MIR)
+1 Cursed Totem (MIR)
+1 Cycle of Life (MIR)
+1 Daraja Griffin (VIS)
+1 Daring Apprentice (MIR)
+1 Dark Banishing (MIR)
+1 Dark Privilege (VIS)
+1 Dark Ritual (MIR)
+1 Dazzling Beauty (MIR)
+1 Death Watch (VIS)
+1 Debt of Loyalty (WTH)
+1 Decomposition (MIR)
+1 Delirium (MIR)
+1 Dense Foliage (WTH)
+1 Desertion (VIS)
+1 Desolation (VIS)
+1 Desperate Gambit (WTH)
+1 Diamond Kaleidoscope (VIS)
+1 Dingus Staff (WTH)
+1 Dirtwater Wraith (MIR)
+1 Discordant Spirit (MIR)
+1 Disempower (MIR)
+1 Disenchant (MIR)
+1 Disrupt (WTH)
+1 Dissipate (MIR)
+1 Divine Offering (MIR)
+1 Divine Retribution (MIR)
+1 Doomsday (WTH)
+1 Dormant Volcano (VIS)
+1 Downdraft (WTH)
+1 Dragon Mask (VIS)
+1 Drain Life (MIR)
+1 Dread Specter (MIR)
+1 Dream Cache (MIR)
+1 Dream Fighter (MIR)
+1 Dream Tides (VIS)
+1 Duskrider Falcon (WTH)
+1 Dwarven Berserker (WTH)
+1 Dwarven Miner (MIR)
+1 Dwarven Nomad (MIR)
+1 Dwarven Thaumaturgist (WTH)
+1 Dwarven Vigilantes (VIS)
+1 Early Harvest (MIR)
+1 Ebony Charm (MIR)
+1 Ekundu Cyclops (MIR)
+1 Ekundu Griffin (MIR)
+1 Elephant Grass (VIS)
+1 Elixir of Vitality (MIR)
+1 Elkin Lair (VIS)
+1 Elven Cache (VIS)
+1 Emberwilde Caliph (MIR)
+1 Emberwilde Djinn (MIR)
+1 Emerald Charm (VIS)
+1 Empyrial Armor (WTH)
+1 Energy Bolt (MIR)
+1 Energy Vortex (MIR)
+1 Enfeeblement (MIR)
+1 Enlightened Tutor (MIR)
+1 Equipoise (VIS)
+1 Ersatz Gnomes (MIR)
+1 Ertai's Familiar (WTH)
+1 Ether Well (MIR)
+1 Ethereal Champion (MIR)
+1 Everglades (VIS)
+1 Eye of Singularity (VIS)
+1 Fallen Askari (VIS)
+1 Fallow Earth (MIR)
+1 Fallow Wurm (WTH)
+1 Familiar Ground (WTH)
+1 Fatal Blow (WTH)
+1 Favorable Destiny (MIR)
+1 Femeref Archers (MIR)
+1 Femeref Enchantress (VIS)
+1 Femeref Healer (MIR)
+1 Femeref Knight (MIR)
+1 Femeref Scouts (MIR)
+1 Feral Instinct (VIS)
+1 Feral Shadow (MIR)
+1 Fervor (WTH)
+1 Festering Evil (WTH)
+1 Fetid Horror (MIR)
+1 Final Fortune (MIR)
+1 Fire Diamond (MIR)
+1 Fire Whip (WTH)
+1 Fireblast (VIS)
+1 Firebreathing (MIR)
+1 Firestorm (WTH)
+1 Firestorm Hellkite (VIS)
+1 Fit of Rage (WTH)
+1 Flame Elemental (MIR)
+1 Flare (MIR)
+1 Flash (MIR)
+1 Fledgling Djinn (WTH)
+1 Flood Plain (MIR)
+1 Flooded Shoreline (VIS)
+1 Floodgate (MIR)
+1 Flux (WTH)
+1 Fog (MIR)
+1 Fog Elemental (WTH)
+1 Foratog (MIR)
+1 Forbidden Crypt (MIR)
+1 Forbidden Ritual (VIS)
+1 Foreshadow (VIS)
+1 Foriysian Brigade (WTH)
+1 Forsaken Wastes (MIR)
+1 Freewind Falcon (VIS)
+1 Frenetic Efreet (MIR)
+1 Funeral Charm (VIS)
+1 Fungus Elemental (WTH)
+1 Gaea's Blessing (WTH)
+1 Gallowbraid (WTH)
+1 Gemstone Mine (WTH)
+1 Gerrard's Wisdom (WTH)
+1 Giant Caterpillar (VIS)
+1 Giant Mantis (MIR)
+1 Gibbering Hyenas (MIR)
+1 Goblin Bomb (WTH)
+1 Goblin Elite Infantry (MIR)
+1 Goblin Grenadiers (WTH)
+1 Goblin Recruiter (VIS)
+1 Goblin Scouts (MIR)
+1 Goblin Soothsayer (MIR)
+1 Goblin Swine-Rider (VIS)
+1 Goblin Tinkerer (MIR)
+1 Goblin Vandal (WTH)
+1 Gossamer Chains (VIS)
+1 Granger Guildmage (MIR)
+1 Grasslands (MIR)
+1 Grave Servitude (MIR)
+1 Gravebane Zombie (MIR)
+1 Griffin Canyon (VIS)
+1 Grim Feast (MIR)
+1 Grinning Totem (MIR)
+1 Guided Strike (WTH)
+1 Guiding Spirit (VIS)
+1 Hakim, Loreweaver (MIR)
+1 Hall of Gemstone (MIR)
+1 Hammer of Bogardan (MIR)
+1 Harbinger of Night (MIR)
+1 Harbor Guardian (MIR)
+1 Harmattan Efreet (MIR)
+1 Harvest Wurm (WTH)
+1 Haunting Apparition (MIR)
+1 Haunting Misery (WTH)
+1 Hazerider Drake (MIR)
+1 Healing Salve (MIR)
+1 Heart of Bogardan (WTH)
+1 Hearth Charm (VIS)
+1 Heat Stroke (WTH)
+1 Heat Wave (VIS)
+1 Heavy Ballista (WTH)
+1 Helm of Awakening (VIS)
+1 Hidden Horror (WTH)
+1 Hivis of the Scale (MIR)
+1 Honorable Passage (VIS)
+1 Hope Charm (VIS)
+1 Horrible Hordes (MIR)
+1 Hulking Cyclops (VIS)
+1 Hurloon Shaman (WTH)
+1 Igneous Golem (MIR)
+1 Illicit Auction (MIR)
+1 Illumination (MIR)
+1 Impulse (VIS)
+1 Incinerate (MIR)
+1 Infantry Veteran (VIS)
+1 Infernal Contract (MIR)
+1 Infernal Harvest (VIS)
+1 Infernal Tribute (WTH)
+1 Inner Sanctum (WTH)
+1 Inspiration (VIS)
+1 Iron Tusk Elephant (MIR)
+1 Iron-Heart Chimera (VIS)
+1 Ivory Charm (MIR)
+1 Jabari's Banner (WTH)
+1 Jabari's Influence (MIR)
+1 Jamuraan Lion (VIS)
+1 Jangling Automaton (WTH)
+1 Jolrael's Centaur (MIR)
+1 Jolt (MIR)
+1 Juju Bubble (VIS)
+1 Jungle Basin (VIS)
+1 Jungle Patrol (MIR)
+1 Jungle Troll (MIR)
+1 Jungle Wurm (MIR)
+1 Kaervek's Hex (MIR)
+1 Kaervek's Purge (MIR)
+1 Kaervek's Spite (VIS)
+1 Kaervek's Torch (MIR)
+1 Karoo (VIS)
+1 Karoo Meerkat (MIR)
+1 Katabatic Winds (VIS)
+1 Keeper of Kookus (VIS)
+1 King Cheetah (VIS)
+1 Kithkin Armor (WTH)
+1 Knight of the Mists (VIS)
+1 Knight of Valor (VIS)
+1 Kookus (VIS)
+1 Kukemssa Pirates (MIR)
+1 Kukemssa Serpent (MIR)
+1 Kyscu Drake (VIS)
+1 Lava Hounds (WTH)
+1 Lava Storm (WTH)
+1 Lead Golem (MIR)
+1 Lead-Belly Chimera (VIS)
+1 Leering Gargoyle (MIR)
+1 Lichenthrope (VIS)
+1 Liege of the Hollows (WTH)
+1 Lightning Cloud (VIS)
+1 Lightning Reflexes (MIR)
+1 Lion's Eye Diamond (MIR)
+1 Llanowar Behemoth (WTH)
+1 Llanowar Druid (WTH)
+1 Llanowar Sentinel (WTH)
+1 Locust Swarm (MIR)
+1 Longbow Archer (VIS)
+1 Lotus Vale (WTH)
+1 Lure of Prey (MIR)
+1 Magma Mine (VIS)
+1 Malignant Growth (MIR)
+1 Man-o'-War (VIS)
+1 Mana Chains (WTH)
+1 Mana Prism (MIR)
+1 Mana Web (WTH)
+1 Mangara's Blessing (MIR)
+1 Mangara's Equity (MIR)
+1 Mangara's Tome (MIR)
+1 Manta Ray (WTH)
+1 Maraxus of Keld (WTH)
+1 Marble Diamond (MIR)
+1 Maro (MIR)
+1 Master of Arms (WTH)
+1 Matopi Golem (VIS)
+1 Meddle (MIR)
+1 Melesse Spirit (MIR)
+1 Memory Lapse (MIR)
+1 Merfolk Raiders (MIR)
+1 Merfolk Seer (MIR)
+1 Merfolk Traders (WTH)
+1 Mind Bend (MIR)
+1 Mind Harness (MIR)
+1 Mind Stone (WTH)
+1 Mindbender Spores (MIR)
+1 Miraculous Recovery (VIS)
+1 Mire Shade (MIR)
+1 Mischievous Poltergeist (WTH)
+1 Misers' Cage (MIR)
+1 Mist Dragon (MIR)
+1 Mistmoon Griffin (WTH)
+1 Mob Mentality (VIS)
+1 Morinfen (WTH)
+1 Mortal Wound (VIS)
+1 Moss Diamond (MIR)
+1 Mountain Valley (MIR)
+1 Mtenda Griffin (MIR)
+1 Mtenda Herder (MIR)
+1 Mtenda Lion (MIR)
+1 Mundungu (VIS)
+1 Mwonvuli Ooze (WTH)
+1 Mystic Veil (VIS)
+1 Mystical Tutor (MIR)
+1 Natural Balance (MIR)
+1 Natural Order (VIS)
+1 Nature's Kiss (WTH)
+1 Nature's Resurgence (WTH)
+1 Necratog (WTH)
+1 Necromancy (VIS)
+1 Necrosavant (VIS)
+1 Nekrataal (VIS)
+1 Nettletooth Djinn (MIR)
+1 Noble Benefactor (WTH)
+1 Noble Elephant (MIR)
+1 Nocturnal Raid (MIR)
+1 Null Chamber (MIR)
+1 Null Rod (WTH)
+1 Odylic Wraith (WTH)
+1 Ogre Enforcer (VIS)
+1 Ophidian (WTH)
+1 Orcish Settlers (WTH)
+1 Ovinomancer (VIS)
+1 Pacifism (MIR)
+1 Painful Memories (MIR)
+1 Panther Warriors (VIS)
+1 Paradigm Shift (WTH)
+1 Parapet (VIS)
+1 Patagia Golem (MIR)
+1 Paupers' Cage (MIR)
+1 Peace Talks (VIS)
+1 Peacekeeper (WTH)
+1 Pearl Dragon (MIR)
+1 Pendrell Mists (WTH)
+1 Phantom Warrior (WTH)
+1 Phantom Wings (WTH)
+1 Phyrexian Dreadnought (MIR)
+1 Phyrexian Furnace (WTH)
+1 Phyrexian Marauder (VIS)
+1 Phyrexian Purge (MIR)
+1 Phyrexian Tribute (MIR)
+1 Phyrexian Vault (MIR)
+1 Phyrexian Walker (VIS)
+1 Pillar Tombs of Aku (VIS)
+1 Political Trickery (MIR)
+1 Polymorph (MIR)
+1 Power Sink (MIR)
+1 Preferred Selection (MIR)
+1 Prismatic Boon (MIR)
+1 Prismatic Circle (MIR)
+1 Prismatic Lace (MIR)
+1 Prosperity (VIS)
+1 Psychic Transfer (MIR)
+1 Psychic Vortex (WTH)
+1 Purgatory (MIR)
+1 Purraj of Urborg (MIR)
+1 Pygmy Hippo (VIS)
+1 Pyric Salamander (MIR)
+1 Python (VIS)
+1 Quicksand (VIS)
+1 Quirion Druid (VIS)
+1 Quirion Elves (MIR)
+1 Quirion Ranger (VIS)
+1 Radiant Essence (MIR)
+1 Raging Gorilla (VIS)
+1 Raging Spirit (MIR)
+1 Rainbow Efreet (VIS)
+1 Rampant Growth (MIR)
+1 Rashida Scalebane (MIR)
+1 Ravenous Vampire (MIR)
+1 Ray of Command (MIR)
+1 Razor Pendulum (MIR)
+1 Razortooth Rats (WTH)
+1 Reality Ripple (MIR)
+1 Reckless Embermage (MIR)
+1 Redwood Treefolk (WTH)
+1 Reflect Damage (MIR)
+1 Regeneration (MIR)
+1 Reign of Chaos (MIR)
+1 Reign of Terror (MIR)
+1 Relearn (WTH)
+1 Relentless Assault (VIS)
+1 Relic Ward (VIS)
+1 Remedy (VIS)
+1 Reparations (MIR)
+1 Resistance Fighter (VIS)
+1 Restless Dead (MIR)
+1 Retribution of the Meek (VIS)
+1 Revered Unicorn (WTH)
+1 Righteous Aura (VIS)
+1 Righteous War (VIS)
+1 Ritual of Steel (MIR)
+1 River Boa (VIS)
+1 Roc Hatchling (WTH)
+1 Rock Basilisk (MIR)
+1 Rock Slide (VIS)
+1 Rocky Tar Pit (MIR)
+1 Rogue Elephant (WTH)
+1 Roots of Life (MIR)
+1 Rowen (VIS)
+1 Sabertooth Cobra (MIR)
+1 Sacred Mesa (MIR)
+1 Sage Owl (WTH)
+1 Sand Golem (MIR)
+1 Sandbar Crocodile (MIR)
+1 Sands of Time (VIS)
+1 Sandstorm (MIR)
+1 Sapphire Charm (MIR)
+1 Savage Twister (MIR)
+1 Sawback Manticore (MIR)
+1 Sawtooth Ogre (WTH)
+1 Scalebane's Elite (VIS)
+1 Scorched Ruins (WTH)
+1 Sea Scryer (MIR)
+1 Sealed Fate (MIR)
+1 Searing Spear Askari (MIR)
+1 Seedling Charm (MIR)
+1 Seeds of Innocence (MIR)
+1 Serene Heart (MIR)
+1 Serenity (WTH)
+1 Serra's Blessing (WTH)
+1 Serrated Biskelion (WTH)
+1 Sewer Rats (MIR)
+1 Shadow Guildmage (MIR)
+1 Shadow Rider (WTH)
+1 Shadowbane (MIR)
+1 Shallow Grave (MIR)
+1 Shaper Guildmage (MIR)
+1 Shattered Crypt (WTH)
+1 Shauku, Endbringer (MIR)
+1 Shauku's Minion (MIR)
+1 Shimmer (MIR)
+1 Shimmering Efreet (VIS)
+1 Shrieking Drake (VIS)
+1 Sidar Jabari (MIR)
+1 Simoon (VIS)
+1 Sirocco (MIR)
+1 Sisay's Ring (VIS)
+1 Skulking Ghost (MIR)
+1 Sky Diamond (MIR)
+1 Snake Basket (VIS)
+1 Soar (MIR)
+1 Solfatara (VIS)
+1 Song of Blood (VIS)
+1 Soul Echo (MIR)
+1 Soul Rend (MIR)
+1 Soul Shepherd (WTH)
+1 Soulshriek (MIR)
+1 Southern Paladin (WTH)
+1 Spatial Binding (MIR)
+1 Spectral Guardian (MIR)
+1 Spider Climb (VIS)
+1 Spinning Darkness (WTH)
+1 Spirit of the Night (MIR)
+1 Spitting Drake (VIS)
+1 Spitting Earth (MIR)
+1 Squandered Resources (VIS)
+1 Stalking Tiger (MIR)
+1 Stampeding Wildebeests (VIS)
+1 Steel Golem (WTH)
+1 Stone Rain (MIR)
+1 Strands of Night (WTH)
+1 Straw Golem (WTH)
+1 Striped Bears (WTH)
+1 Stupor (MIR)
+1 Subterranean Spirit (MIR)
+1 Suleiman's Legacy (VIS)
+1 Summer Bloom (VIS)
+1 Sun Clasp (VIS)
+1 Sunweb (MIR)
+1 Superior Numbers (MIR)
+1 Suq'Ata Assassin (VIS)
+1 Suq'Ata Firewalker (MIR)
+1 Suq'Ata Lancer (VIS)
+1 Sylvan Hierophant (WTH)
+1 Tainted Specter (MIR)
+1 Talruum Champion (VIS)
+1 Talruum Minotaur (MIR)
+1 Talruum Piper (VIS)
+1 Taniwha (MIR)
+1 Tar Pit Warrior (VIS)
+1 Tariff (WTH)
+1 Teeka's Dragon (MIR)
+1 Teferi's Curse (MIR)
+1 Teferi's Drake (MIR)
+1 Teferi's Honor Guard (VIS)
+1 Teferi's Imp (MIR)
+1 Teferi's Isle (MIR)
+1 Teferi's Puzzle Box (VIS)
+1 Teferi's Realm (VIS)
+1 Teferi's Veil (WTH)
+1 Telim'Tor (MIR)
+1 Telim'Tor's Darts (MIR)
+1 Telim'Tor's Edict (MIR)
+1 Tempest Drake (VIS)
+1 Tendrils of Despair (WTH)
+1 Teremko Griffin (MIR)
+1 Thirst (MIR)
+1 Thran Forge (WTH)
+1 Thran Tome (WTH)
+1 Three Wishes (VIS)
+1 Thunderbolt (WTH)
+1 Thundermare (WTH)
+1 Tidal Wave (MIR)
+1 Time and Tide (VIS)
+1 Timid Drake (WTH)
+1 Tin-Wing Chimera (VIS)
+1 Tithe (VIS)
+1 Tolarian Drake (WTH)
+1 Tolarian Entrancer (WTH)
+1 Tolarian Serpent (WTH)
+1 Tombstone Stairwell (MIR)
+1 Torrent of Lava (MIR)
+1 Touchstone (WTH)
+1 Tranquil Domain (MIR)
+1 Tranquil Grove (WTH)
+1 Tremor (VIS)
+1 Triangle of War (VIS)
+1 Tropical Storm (MIR)
+1 Uktabi Efreet (WTH)
+1 Uktabi Faerie (MIR)
+1 Uktabi Orangutan (VIS)
+1 Uktabi Wildcats (MIR)
+1 Undiscovered Paradise (VIS)
+1 Undo (VIS)
+1 Unerring Sling (MIR)
+1 Unfulfilled Desires (MIR)
+1 Unseen Walker (MIR)
+1 Unyaro Bee Sting (MIR)
+1 Unyaro Griffin (MIR)
+1 Urborg Justice (WTH)
+1 Urborg Mindsucker (VIS)
+1 Urborg Panther (MIR)
+1 Urborg Stalker (WTH)
+1 Vampiric Tutor (VIS)
+1 Vampirism (VIS)
+1 Vanishing (VIS)
+1 Vaporous Djinn (MIR)
+1 Ventifact Bottle (MIR)
+1 Veteran Explorer (WTH)
+1 Viashino Sandstalker (VIS)
+1 Viashino Warrior (MIR)
+1 Viashivan Dragon (VIS)
+1 Vigilant Martyr (MIR)
+1 Village Elder (MIR)
+1 Vision Charm (VIS)
+1 Vitalize (WTH)
+1 Vitalizing Cascade (MIR)
+1 Vodalian Illusionist (WTH)
+1 Volcanic Dragon (MIR)
+1 Volcanic Geyser (MIR)
+1 Volunteer Reserves (WTH)
+1 Waiting in the Weeds (MIR)
+1 Wake of Vultures (VIS)
+1 Wall of Corpses (MIR)
+1 Wall of Resistance (MIR)
+1 Wall of Roots (MIR)
+1 Wand of Denial (VIS)
+1 Ward of Lights (MIR)
+1 Warping Wurm (MIR)
+1 Warrior's Honor (VIS)
+1 Warthog (VIS)
+1 Waterspout Djinn (VIS)
+1 Wave Elemental (MIR)
+1 Wave of Terror (WTH)
+1 Well of Knowledge (WTH)
+1 Wellspring (MIR)
+1 Wicked Reward (VIS)
+1 Wild Elephant (MIR)
+1 Wildfire Emissary (MIR)
+1 Wind Shear (VIS)
+1 Winding Canyons (WTH)
+1 Windreaper Falcon (MIR)
+1 Withering Boon (MIR)
+1 Worldly Tutor (MIR)
+1 Xanthic Statue (WTH)
+1 Yare (MIR)
+1 Zebra Unicorn (MIR)
+1 Zhalfirin Commander (MIR)
+1 Zhalfirin Crusader (VIS)
+1 Zhalfirin Knight (MIR)
+1 Zirilan of the Claw (MIR)
+1 Zombie Mob (MIR)
+1 Zombie Scavengers (WTH)
+1 Zuberi, Golden Feather (MIR)

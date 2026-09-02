@@ -1,561 +1,561 @@
 @name Theros Block (THS/BNG/JOU)
 @format cube
-1 Abhorrent Overlord
-1 Acolyte's Reward
-1 Aegis of the Gods
-1 Aerial Formation
-1 Aerie Worshippers
-1 Agent of Erebos
-1 Agent of Horizons
-1 Agent of the Fates
-1 Ajani, Mentor of Heroes
-1 Ajani's Presence
-1 Akroan Conscriptor
-1 Akroan Crusader
-1 Akroan Hoplite
-1 Akroan Horse
-1 Akroan Line Breaker
-1 Akroan Mastiff
-1 Akroan Phalanx
-1 Akroan Skyguard
-1 Anax and Cymede
-1 Anger of the Gods
-1 Annul
-1 Anthousa, Setessan Hero
-1 Anvilwrought Raptor
-1 Aqueous Form
-1 Arbiter of the Ideal
-1 Arbor Colossus
-1 Archetype of Aggression
-1 Archetype of Courage
-1 Archetype of Endurance
-1 Archetype of Finality
-1 Archetype of Imagination
-1 Arena Athlete
-1 Armament of Nyx
-1 Armory of Iroas
-1 Artisan of Forms
-1 Artisan's Sorrow
-1 Ashen Rider
-1 Ashiok, Nightmare Weaver
-1 Ashiok's Adept
-1 Aspect of Gorgon
-1 Aspect of Hydra
-1 Asphodel Wanderer
-1 Asphyxiate
-1 Astral Cornucopia
-1 Athreos, God of Passage
-1 Baleful Eidolon
-1 Banishing Light
-1 Bassara Tower Archer
-1 Battlefield Thaumaturge
-1 Battlewise Hoplite
-1 Battlewise Valor
-1 Bearer of the Heavens
-1 Benthic Giant
-1 Bident of Thassa
-1 Bile Blight
-1 Black Oak of Odunos
-1 Bladetusk Boar
-1 Blinding Flare
-1 Bloodcrazed Hoplite
-1 Blood-Toll Harpy
-1 Bolt of Keranos
-1 Boon of Erebos
-1 Boon Satyr
-1 Borderland Minotaur
-1 Boulderfall
-1 Bow of Nylea
-1 Brain Maggot
-1 Breaching Hippocamp
-1 Brimaz, King of Oreskos
-1 Bronze Sable
-1 Burnished Hart
-1 Cast into Darkness
-1 Cavalry Pegasus
-1 Cavern Lampad
-1 Celestial Archon
-1 Centaur Battlemaster
-1 Chained to the Rocks
-1 Champion of Stray Souls
-1 Charging Badger
-1 Chariot of Victory
-1 Chorus of the Tides
-1 Chosen by Heliod
-1 Chromanticore
-1 Chronicler of Heroes
-1 Claim of Erebos
-1 Cloaked Siren
-1 Coastline Chimera
-1 Colossal Heroics
-1 Colossus of Akros
-1 Commune with the Gods
-1 Consign to Dust
-1 Coordinated Assault
-1 Countermand
-1 Courser of Kruphix
-1 Crackling Triton
-1 Cruel Feeding
-1 Crypsis
-1 Crystalline Nautilus
-1 Culling Mark
-1 Curse of the Swine
-1 Cutthroat Maneuver
-1 Cyclops of Eternal Fury
-1 Cyclops of One-Eyed Pass
-1 Dakra Mystic
-1 Daring Thief
-1 Dark Betrayal
-1 Dauntless Onslaught
-1 Dawnbringer Charioteers
-1 Dawn to Dusk
-1 Daxos of Meletis
-1 Deathbellow Raider
-1 Decorated Griffin
-1 Deepwater Hypnotist
-1 Defend the Hearth
-1 Deicide
-1 Demolish
-1 Desecration Plague
-1 Deserter's Quarters
-1 Desperate Stand
-1 Destructive Revelry
-1 Dictate of Erebos
-1 Dictate of Heliod
-1 Dictate of Karametra
-1 Dictate of Kruphix
-1 Dictate of the Twin Gods
-1 Disciple of Deceit
-1 Disciple of Phenax
-1 Dissolve
-1 Divination
-1 Divine Verdict
-1 Doomwake Giant
-1 Dragon Mantle
-1 Dreadbringer Lampads
-1 Drown in Sorrow
-1 Eagle of the Watch
-1 Eater of Hope
-1 Eidolon of Blossoms
-1 Eidolon of Countless Battles
-1 Eidolon of Rhetoric
-1 Eidolon of the Great Revel
-1 Elite Skirmisher
-1 Elspeth, Sun's Champion
-1 Ember Swallower
-1 Ephara, God of the Polis
-1 Ephara's Enlightenment
-1 Ephara's Radiance
-1 Ephara's Warden
-1 Epiphany Storm
-1 Erebos, God of the Dead
-1 Erebos's Emissary
-1 Eternity Snare
-1 Evanescent Intellect
-1 Evangel of Heliod
-1 Everflame Eidolon
-1 Excoriate
-1 Extinguish All Hope
-1 Eye Gouge
-1 Fabled Hero
-1 Fade into Antiquity
-1 Fall of the Hammer
-1 Fanatic of Mogis
-1 Fanatic of Xenagos
-1 Fated Conflagration
-1 Fated Infatuation
-1 Fated Intervention
-1 Fated Retribution
-1 Fated Return
-1 Fate Foretold
-1 Fate Unraveler
-1 Favored Hoplite
-1 Fearsome Temper
-1 Feast of Dreams
-1 Felhide Brawler
-1 Felhide Minotaur
-1 Felhide Petrifier
-1 Felhide Spiritbinder
-1 Feral Invocation
-1 Firedrinker Satyr
-1 Flamecast Wheel
-1 Flamespeaker Adept
-1 Flamespeaker's Will
-1 Flame-Wreathed Phoenix
-1 Fleecemane Lion
-1 Fleetfeather Cockatrice
-1 Fleetfeather Sandals
-1 Fleshmad Steed
-1 Flitterstep Eidolon
-1 Floodtide Serpent
-1 Flurry of Horns
-1 Font of Fertility
-1 Font of Fortunes
-1 Font of Ire
-1 Font of Return
-1 Font of Vigor
-1 Forgeborn Oreads
-1 Forgestoker Dragon
-1 Forlorn Pseudamma
-1 Forsaken Drifters
-1 Gainsay
-1 Ghostblade Eidolon
-1 Gift of Immortality
-1 Gild
-1 Glare of Heresy
-1 Glimpse the Sun God
-1 Gluttonous Cyclops
-1 Gnarled Scarhide
-1 God-Favored General
-1 Godhunter Octopus
-1 Godsend
-1 Gods Willing
-1 Goldenhide Ox
-1 Golden Hind
-1 Gold-Forged Sentinel
-1 Gorgon's Head
-1 Graverobber Spider
-1 Gray Merchant of Asphodel
-1 Great Hart
-1 Griffin Dreamfinder
-1 Grim Guardian
-1 Griptide
-1 Grisly Transformation
-1 Guardians of Meletis
-1 Hall of Triumph
-1 Hammer of Purphoros
-1 Harness by Force
-1 Harvestguard Alseids
-1 Heliod, God of the Sun
-1 Heliod's Emissary
-1 Herald of Torment
-1 Heroes' Bane
-1 Heroes' Podium
-1 Hero of Iroas
-1 Hero of Leina Tower
-1 Hero's Downfall
-1 Hold at Bay
-1 Hopeful Eidolon
-1 Horizon Chimera
-1 Horizon Scholar
-1 Hour of Need
-1 Hubris
-1 Humbler of Mortals
-1 Hundred-Handed One
-1 Hunter's Prowess
-1 Hunt the Hunter
-1 Hydra Broodmaster
-1 Hypnotic Siren
-1 Hythonia the Cruel
-1 Ill-Tempered Cyclops
-1 Impetuous Sunchaser
-1 Insatiable Harpy
-1 Interpret the Signs
-1 Iroas, God of Victory
-1 Karametra, God of Harvests
-1 Karametra's Acolyte
-1 Karametra's Favor
-1 Keepsake Gorgon
-1 Keranos, God of Storms
-1 King Macar, the Gold-Cursed
-1 Kiora's Dismissal
-1 Kiora's Follower
-1 Kiora, the Crashing Wave
-1 Knowledge and Power
-1 Kragma Butcher
-1 Kragma Warcaller
-1 Kraken of the Straits
-1 Kruphix, God of Horizons
-1 Kruphix's Insight
-1 Labyrinth Champion
-1 Lagonna-Band Elder
-1 Lagonna-Band Trailblazer
-1 Lash of the Whip
-1 Last Breath
-1 Launch the Fleet
-1 Leafcrown Dryad
-1 Leonin Iconoclast
-1 Leonin Snarecaster
-1 Lightning Diadem
-1 Lightning Strike
-1 Lightning Volley
-1 Loathsome Catoblepas
-1 Lost in a Labyrinth
-1 Loyal Pegasus
-1 Magma Jet
-1 Magma Spray
-1 Mana Confluence
-1 March of the Returned
-1 Market Festival
-1 Marshmist Titan
-1 Master of the Feast
-1 Master of Waves
-1 Medomai the Ageless
-1 Meletis Astronomer
-1 Meletis Charlatan
-1 Messenger's Speed
-1 Mindreaver
-1 Minotaur Skullcleaver
-1 Mischief and Mayhem
-1 Mistcutter Hydra
-1 Mnemonic Wall
-1 Mogis, God of Slaughter
-1 Mogis's Marauder
-1 Mogis's Warhound
-1 Mortal Obstinacy
-1 Mortal's Ardor
-1 Mortal's Resolve
-1 Nature's Panoply
-1 Necrobite
-1 Nemesis of Mortals
-1 Nessian Asp
-1 Nessian Courser
-1 Nessian Demolok
-1 Nessian Game Warden
-1 Nessian Wilds Ravager
-1 Nighthowler
-1 Nightmarish End
-1 Nimbus Naiad
-1 Noble Quarry
-1 Nullify
-1 Nykthos, Shrine to Nyx
-1 Nylea, God of the Hunt
-1 Nylea's Disciple
-1 Nylea's Emissary
-1 Nylea's Presence
-1 Nyxborn Eidolon
-1 Nyxborn Rollicker
-1 Nyxborn Shieldmate
-1 Nyxborn Triton
-1 Nyxborn Wolf
-1 Nyx-Fleece Ram
-1 Nyx Infusion
-1 Nyx Weaver
-1 Oakheart Dryads
-1 Observant Alseid
-1 Odunos River Trawler
-1 Omenspeaker
-1 Opaline Unicorn
-1 Oppressive Rays
-1 Oracle of Bones
-1 Oracle's Insight
-1 Ordeal of Erebos
-1 Ordeal of Heliod
-1 Ordeal of Nylea
-1 Ordeal of Purphoros
-1 Ordeal of Thassa
-1 Oreskos Sun Guide
-1 Oreskos Swiftclaw
-1 Ornitharch
-1 Pain Seer
-1 Peak Eruption
-1 Pensive Minotaur
-1 Peregrination
-1 Perplexing Chimera
-1 Phalanx Formation
-1 Phalanx Leader
-1 Pharagax Giant
-1 Pharika, God of Affliction
-1 Pharika's Chosen
-1 Pharika's Cure
-1 Pharika's Mender
-1 Phenax, God of Deception
-1 Pheres-Band Centaurs
-1 Pheres-Band Raiders
-1 Pheres-Band Thunderhoof
-1 Pheres-Band Tromper
-1 Pheres-Band Warchief
-1 Pillar of War
-1 Pinnacle of Rage
-1 Pin to the Earth
-1 Plea for Guidance
-1 Polis Crusher
-1 Polukranos, World Eater
-1 Polymorphous Rush
-1 Portent of Betrayal
-1 Prescient Chimera
-1 Priest of Iroas
-1 Prognostic Sphinx
-1 Prophetic Flamespeaker
-1 Prophet of Kruphix
-1 Prowler's Helm
-1 Psychic Intrusion
-1 Pull from the Deep
-1 Purphoros, God of the Forge
-1 Purphoros's Emissary
-1 Pyxis of Pandemonium
-1 Quarry Colossus
-1 Rageblood Shaman
-1 Ragemonger
-1 Rage of Purphoros
-1 Raised by Wolves
-1 Ravenous Leucrocota
-1 Ray of Dissolution
-1 Read the Bones
-1 Reaper of the Wilds
-1 Reap What Is Sown
-1 Reckless Reveler
-1 Renowned Weaver
-1 Reprisal
-1 Rescue from the Underworld
-1 Retraction Helix
-1 Returned Centaur
-1 Returned Phalanx
-1 Returned Reveler
-1 Revel of the Fallen God
-1 Reverent Hunter
-1 Reviving Melody
-1 Revoke Existence
-1 Riddle of Lightning
-1 Riptide Chimera
-1 Rise of Eagles
-1 Rise to the Challenge
-1 Ritual of the Returned
-1 Rollick of Abandon
-1 Rotted Hulk
-1 Rouse the Mob
-1 Sage of Hours
-1 Sanguimancy
-1 Satyr Firedancer
-1 Satyr Grovedancer
-1 Satyr Hedonist
-1 Satyr Hoplite
-1 Satyr Nyx-Smith
-1 Satyr Piper
-1 Satyr Rambler
-1 Satyr Wayfinder
-1 Savage Surge
-1 Scholar of Athreos
-1 Scourgemark
-1 Scourge of Fleets
-1 Scourge of Skola Vale
-1 Scouring Sands
-1 Sea God's Revenge
-1 Sealock Monster
-1 Searing Blood
-1 Sedge Scorpion
-1 Sentry of the Underworld
-1 Servant of Tymaret
-1 Setessan Battle Priest
-1 Setessan Griffin
-1 Setessan Oathsworn
-1 Setessan Starbreaker
-1 Setessan Tactics
-1 Shipbreaker Kraken
-1 Shipwreck Singer
-1 Shredding Winds
-1 Shrike Harpy
-1 Sightless Brawler
-1 Sigiled Skink
-1 Sigiled Starfish
-1 Silence the Believers
-1 Silent Artisan
-1 Silent Sentinel
-1 Sip of Hemlock
-1 Siren of the Fanged Coast
-1 Siren of the Silent Song
-1 Siren Song Lyre
-1 Skybind
-1 Skyreaping
-1 Skyspear Cavalry
-1 Snake of the Golden Grove
-1 Soldier of the Pantheon
-1 Solidarity of Heroes
-1 Spark Jolt
-1 Spawn of Thraxes
-1 Spear of Heliod
-1 Spearpoint Oread
-1 Spellheart Chimera
-1 Sphinx's Disciple
-1 Spirespine
-1 Spirit of the Labyrinth
-1 Spiteful Blow
-1 Spiteful Returned
-1 Spite of Mogis
-1 Springleaf Drum
-1 Squelching Leeches
-1 Starfall
-1 Staunch-Hearted Warrior
-1 Steam Augury
-1 Stoneshock Giant
-1 Stonewise Fortifier
-1 Stormbreath Dragon
-1 Stormcaller of Keranos
-1 Stormchaser Chimera
-1 Stratus Walk
-1 Strength from the Fallen
-1 Stymied Hopes
-1 Sudden Storm
-1 Sunbond
-1 Supply-Line Cranes
-1 Swan Song
-1 Swarmborn Giant
-1 Swordwise Centaur
-1 Sylvan Caryatid
-1 Temple of Abandon
-1 Temple of Deceit
-1 Temple of Enlightenment
-1 Temple of Epiphany
-1 Temple of Malady
-1 Temple of Malice
-1 Temple of Mystery
-1 Temple of Plenty
-1 Temple of Silence
-1 Temple of Triumph
-1 Tethmos High Priest
-1 Thassa, God of the Sea
-1 Thassa's Bounty
-1 Thassa's Devourer
-1 Thassa's Emissary
-1 Thassa's Ire
-1 Thassa's Rebuff
-1 Thoughtrender Lamia
-1 Thoughtseize
-1 Thunder Brute
-1 Thunderous Might
-1 Time to Feed
-1 Titan of Eternal Fire
-1 Titan's Strength
-1 Tormented Hero
-1 Tormented Thoughts
-1 Traveler's Amulet
-1 Traveling Philosopher
-1 Triad of Fates
-1 Triton Cavalry
-1 Triton Fortune Hunter
-1 Triton Shorestalker
-1 Triton Shorethief
-1 Triton Tactics
-1 Tromokratis
-1 Twinflame
-1 Two-Headed Cerberus
-1 Tymaret, the Murder King
-1 Underworld Cerberus
-1 Underworld Coinsmith
-1 Unknown Shores
-1 Unravel the Aether
-1 Vanguard of Brimaz
-1 Vanquish the Foul
-1 Vaporkin
-1 Viper's Kiss
-1 Vortex Elemental
-1 Voyage's End
-1 Voyaging Satyr
-1 Vulpine Goliath
-1 Warchanter of Mogis
-1 Warriors' Lesson
-1 War-Wing Siren
-1 Wavecrash Triton
-1 Weight of the Underworld
-1 Whelming Wave
-1 Whims of the Fates
-1 Whip of Erebos
-1 Whitewater Naiads
-1 Wild Celebrants
-1 Wildfire Cerberus
-1 Wingsteed Rider
-1 Witches' Eye
-1 Worst Fears
-1 Xenagos, God of Revels
-1 Xenagos, the Reveler
-1 Yoked Ox
+1 Abhorrent Overlord (THS)
+1 Acolyte's Reward (BNG)
+1 Aegis of the Gods (JOU)
+1 Aerial Formation (JOU)
+1 Aerie Worshippers (BNG)
+1 Agent of Erebos (JOU)
+1 Agent of Horizons (THS)
+1 Agent of the Fates (THS)
+1 Ajani, Mentor of Heroes (JOU)
+1 Ajani's Presence (JOU)
+1 Akroan Conscriptor (BNG)
+1 Akroan Crusader (THS)
+1 Akroan Hoplite (THS)
+1 Akroan Horse (THS)
+1 Akroan Line Breaker (JOU)
+1 Akroan Mastiff (JOU)
+1 Akroan Phalanx (BNG)
+1 Akroan Skyguard (BNG)
+1 Anax and Cymede (THS)
+1 Anger of the Gods (THS)
+1 Annul (THS)
+1 Anthousa, Setessan Hero (THS)
+1 Anvilwrought Raptor (THS)
+1 Aqueous Form (THS)
+1 Arbiter of the Ideal (BNG)
+1 Arbor Colossus (THS)
+1 Archetype of Aggression (BNG)
+1 Archetype of Courage (BNG)
+1 Archetype of Endurance (BNG)
+1 Archetype of Finality (BNG)
+1 Archetype of Imagination (BNG)
+1 Arena Athlete (THS)
+1 Armament of Nyx (JOU)
+1 Armory of Iroas (JOU)
+1 Artisan of Forms (THS)
+1 Artisan's Sorrow (THS)
+1 Ashen Rider (THS)
+1 Ashiok, Nightmare Weaver (THS)
+1 Ashiok's Adept (BNG)
+1 Aspect of Gorgon (JOU)
+1 Aspect of Hydra (BNG)
+1 Asphodel Wanderer (THS)
+1 Asphyxiate (BNG)
+1 Astral Cornucopia (BNG)
+1 Athreos, God of Passage (JOU)
+1 Baleful Eidolon (THS)
+1 Banishing Light (JOU)
+1 Bassara Tower Archer (JOU)
+1 Battlefield Thaumaturge (JOU)
+1 Battlewise Hoplite (THS)
+1 Battlewise Valor (THS)
+1 Bearer of the Heavens (JOU)
+1 Benthic Giant (THS)
+1 Bident of Thassa (THS)
+1 Bile Blight (BNG)
+1 Black Oak of Odunos (BNG)
+1 Bladetusk Boar (JOU)
+1 Blinding Flare (JOU)
+1 Blood-Toll Harpy (THS)
+1 Bloodcrazed Hoplite (JOU)
+1 Bolt of Keranos (BNG)
+1 Boon of Erebos (THS)
+1 Boon Satyr (THS)
+1 Borderland Minotaur (THS)
+1 Boulderfall (THS)
+1 Bow of Nylea (THS)
+1 Brain Maggot (JOU)
+1 Breaching Hippocamp (THS)
+1 Brimaz, King of Oreskos (BNG)
+1 Bronze Sable (THS)
+1 Burnished Hart (THS)
+1 Cast into Darkness (JOU)
+1 Cavalry Pegasus (THS)
+1 Cavern Lampad (THS)
+1 Celestial Archon (THS)
+1 Centaur Battlemaster (THS)
+1 Chained to the Rocks (THS)
+1 Champion of Stray Souls (BNG)
+1 Charging Badger (BNG)
+1 Chariot of Victory (JOU)
+1 Chorus of the Tides (BNG)
+1 Chosen by Heliod (THS)
+1 Chromanticore (BNG)
+1 Chronicler of Heroes (THS)
+1 Claim of Erebos (BNG)
+1 Cloaked Siren (JOU)
+1 Coastline Chimera (THS)
+1 Colossal Heroics (JOU)
+1 Colossus of Akros (THS)
+1 Commune with the Gods (THS)
+1 Consign to Dust (JOU)
+1 Coordinated Assault (THS)
+1 Countermand (JOU)
+1 Courser of Kruphix (BNG)
+1 Crackling Triton (THS)
+1 Cruel Feeding (JOU)
+1 Crypsis (BNG)
+1 Crystalline Nautilus (JOU)
+1 Culling Mark (BNG)
+1 Curse of the Swine (THS)
+1 Cutthroat Maneuver (THS)
+1 Cyclops of Eternal Fury (JOU)
+1 Cyclops of One-Eyed Pass (BNG)
+1 Dakra Mystic (JOU)
+1 Daring Thief (JOU)
+1 Dark Betrayal (THS)
+1 Dauntless Onslaught (THS)
+1 Dawn to Dusk (BNG)
+1 Dawnbringer Charioteers (JOU)
+1 Daxos of Meletis (THS)
+1 Deathbellow Raider (THS)
+1 Decorated Griffin (THS)
+1 Deepwater Hypnotist (BNG)
+1 Defend the Hearth (THS)
+1 Deicide (JOU)
+1 Demolish (THS)
+1 Desecration Plague (JOU)
+1 Deserter's Quarters (JOU)
+1 Desperate Stand (JOU)
+1 Destructive Revelry (THS)
+1 Dictate of Erebos (JOU)
+1 Dictate of Heliod (JOU)
+1 Dictate of Karametra (JOU)
+1 Dictate of Kruphix (JOU)
+1 Dictate of the Twin Gods (JOU)
+1 Disciple of Deceit (JOU)
+1 Disciple of Phenax (THS)
+1 Dissolve (THS)
+1 Divination (BNG)
+1 Divine Verdict (THS)
+1 Doomwake Giant (JOU)
+1 Dragon Mantle (THS)
+1 Dreadbringer Lampads (JOU)
+1 Drown in Sorrow (BNG)
+1 Eagle of the Watch (JOU)
+1 Eater of Hope (BNG)
+1 Eidolon of Blossoms (JOU)
+1 Eidolon of Countless Battles (BNG)
+1 Eidolon of Rhetoric (JOU)
+1 Eidolon of the Great Revel (JOU)
+1 Elite Skirmisher (BNG)
+1 Elspeth, Sun's Champion (THS)
+1 Ember Swallower (THS)
+1 Ephara, God of the Polis (BNG)
+1 Ephara's Enlightenment (BNG)
+1 Ephara's Radiance (BNG)
+1 Ephara's Warden (THS)
+1 Epiphany Storm (BNG)
+1 Erebos, God of the Dead (THS)
+1 Erebos's Emissary (THS)
+1 Eternity Snare (BNG)
+1 Evanescent Intellect (BNG)
+1 Evangel of Heliod (THS)
+1 Everflame Eidolon (BNG)
+1 Excoriate (BNG)
+1 Extinguish All Hope (JOU)
+1 Eye Gouge (BNG)
+1 Fabled Hero (THS)
+1 Fade into Antiquity (THS)
+1 Fall of the Hammer (BNG)
+1 Fanatic of Mogis (THS)
+1 Fanatic of Xenagos (BNG)
+1 Fate Foretold (THS)
+1 Fate Unraveler (BNG)
+1 Fated Conflagration (BNG)
+1 Fated Infatuation (BNG)
+1 Fated Intervention (BNG)
+1 Fated Retribution (BNG)
+1 Fated Return (BNG)
+1 Favored Hoplite (THS)
+1 Fearsome Temper (BNG)
+1 Feast of Dreams (JOU)
+1 Felhide Brawler (BNG)
+1 Felhide Minotaur (THS)
+1 Felhide Petrifier (JOU)
+1 Felhide Spiritbinder (BNG)
+1 Feral Invocation (THS)
+1 Firedrinker Satyr (THS)
+1 Flame-Wreathed Phoenix (BNG)
+1 Flamecast Wheel (THS)
+1 Flamespeaker Adept (THS)
+1 Flamespeaker's Will (JOU)
+1 Fleecemane Lion (THS)
+1 Fleetfeather Cockatrice (JOU)
+1 Fleetfeather Sandals (THS)
+1 Fleshmad Steed (THS)
+1 Flitterstep Eidolon (BNG)
+1 Floodtide Serpent (BNG)
+1 Flurry of Horns (JOU)
+1 Font of Fertility (JOU)
+1 Font of Fortunes (JOU)
+1 Font of Ire (JOU)
+1 Font of Return (JOU)
+1 Font of Vigor (JOU)
+1 Forgeborn Oreads (JOU)
+1 Forgestoker Dragon (BNG)
+1 Forlorn Pseudamma (BNG)
+1 Forsaken Drifters (BNG)
+1 Gainsay (THS)
+1 Ghostblade Eidolon (BNG)
+1 Gift of Immortality (THS)
+1 Gild (BNG)
+1 Glare of Heresy (THS)
+1 Glimpse the Sun God (BNG)
+1 Gluttonous Cyclops (JOU)
+1 Gnarled Scarhide (JOU)
+1 God-Favored General (BNG)
+1 Godhunter Octopus (JOU)
+1 Gods Willing (THS)
+1 Godsend (JOU)
+1 Gold-Forged Sentinel (JOU)
+1 Golden Hind (JOU)
+1 Goldenhide Ox (JOU)
+1 Gorgon's Head (BNG)
+1 Graverobber Spider (BNG)
+1 Gray Merchant of Asphodel (THS)
+1 Great Hart (BNG)
+1 Griffin Dreamfinder (BNG)
+1 Grim Guardian (JOU)
+1 Griptide (THS)
+1 Grisly Transformation (BNG)
+1 Guardians of Meletis (THS)
+1 Hall of Triumph (JOU)
+1 Hammer of Purphoros (THS)
+1 Harness by Force (JOU)
+1 Harvestguard Alseids (JOU)
+1 Heliod, God of the Sun (THS)
+1 Heliod's Emissary (THS)
+1 Herald of Torment (BNG)
+1 Hero of Iroas (BNG)
+1 Hero of Leina Tower (BNG)
+1 Hero's Downfall (THS)
+1 Heroes' Bane (JOU)
+1 Heroes' Podium (BNG)
+1 Hold at Bay (BNG)
+1 Hopeful Eidolon (THS)
+1 Horizon Chimera (THS)
+1 Horizon Scholar (THS)
+1 Hour of Need (JOU)
+1 Hubris (JOU)
+1 Humbler of Mortals (JOU)
+1 Hundred-Handed One (THS)
+1 Hunt the Hunter (THS)
+1 Hunter's Prowess (BNG)
+1 Hydra Broodmaster (JOU)
+1 Hypnotic Siren (JOU)
+1 Hythonia the Cruel (THS)
+1 Ill-Tempered Cyclops (THS)
+1 Impetuous Sunchaser (BNG)
+1 Insatiable Harpy (THS)
+1 Interpret the Signs (JOU)
+1 Iroas, God of Victory (JOU)
+1 Karametra, God of Harvests (BNG)
+1 Karametra's Acolyte (THS)
+1 Karametra's Favor (BNG)
+1 Keepsake Gorgon (THS)
+1 Keranos, God of Storms (JOU)
+1 King Macar, the Gold-Cursed (JOU)
+1 Kiora, the Crashing Wave (BNG)
+1 Kiora's Dismissal (JOU)
+1 Kiora's Follower (BNG)
+1 Knowledge and Power (JOU)
+1 Kragma Butcher (BNG)
+1 Kragma Warcaller (THS)
+1 Kraken of the Straits (BNG)
+1 Kruphix, God of Horizons (JOU)
+1 Kruphix's Insight (JOU)
+1 Labyrinth Champion (THS)
+1 Lagonna-Band Elder (THS)
+1 Lagonna-Band Trailblazer (JOU)
+1 Lash of the Whip (THS)
+1 Last Breath (THS)
+1 Launch the Fleet (JOU)
+1 Leafcrown Dryad (THS)
+1 Leonin Iconoclast (JOU)
+1 Leonin Snarecaster (THS)
+1 Lightning Diadem (JOU)
+1 Lightning Strike (THS)
+1 Lightning Volley (BNG)
+1 Loathsome Catoblepas (THS)
+1 Lost in a Labyrinth (THS)
+1 Loyal Pegasus (BNG)
+1 Magma Jet (THS)
+1 Magma Spray (JOU)
+1 Mana Confluence (JOU)
+1 March of the Returned (THS)
+1 Market Festival (JOU)
+1 Marshmist Titan (BNG)
+1 Master of the Feast (JOU)
+1 Master of Waves (THS)
+1 Medomai the Ageless (THS)
+1 Meletis Astronomer (BNG)
+1 Meletis Charlatan (THS)
+1 Messenger's Speed (THS)
+1 Mindreaver (BNG)
+1 Minotaur Skullcleaver (THS)
+1 Mischief and Mayhem (BNG)
+1 Mistcutter Hydra (THS)
+1 Mnemonic Wall (THS)
+1 Mogis, God of Slaughter (BNG)
+1 Mogis's Marauder (THS)
+1 Mogis's Warhound (JOU)
+1 Mortal Obstinacy (JOU)
+1 Mortal's Ardor (BNG)
+1 Mortal's Resolve (BNG)
+1 Nature's Panoply (JOU)
+1 Necrobite (BNG)
+1 Nemesis of Mortals (THS)
+1 Nessian Asp (THS)
+1 Nessian Courser (THS)
+1 Nessian Demolok (BNG)
+1 Nessian Game Warden (JOU)
+1 Nessian Wilds Ravager (BNG)
+1 Nighthowler (THS)
+1 Nightmarish End (JOU)
+1 Nimbus Naiad (THS)
+1 Noble Quarry (BNG)
+1 Nullify (BNG)
+1 Nykthos, Shrine to Nyx (THS)
+1 Nylea, God of the Hunt (THS)
+1 Nylea's Disciple (THS)
+1 Nylea's Emissary (THS)
+1 Nylea's Presence (THS)
+1 Nyx Infusion (JOU)
+1 Nyx Weaver (JOU)
+1 Nyx-Fleece Ram (JOU)
+1 Nyxborn Eidolon (BNG)
+1 Nyxborn Rollicker (BNG)
+1 Nyxborn Shieldmate (BNG)
+1 Nyxborn Triton (BNG)
+1 Nyxborn Wolf (BNG)
+1 Oakheart Dryads (JOU)
+1 Observant Alseid (THS)
+1 Odunos River Trawler (BNG)
+1 Omenspeaker (THS)
+1 Opaline Unicorn (THS)
+1 Oppressive Rays (JOU)
+1 Oracle of Bones (BNG)
+1 Oracle's Insight (BNG)
+1 Ordeal of Erebos (THS)
+1 Ordeal of Heliod (THS)
+1 Ordeal of Nylea (THS)
+1 Ordeal of Purphoros (THS)
+1 Ordeal of Thassa (THS)
+1 Oreskos Sun Guide (BNG)
+1 Oreskos Swiftclaw (JOU)
+1 Ornitharch (BNG)
+1 Pain Seer (BNG)
+1 Peak Eruption (THS)
+1 Pensive Minotaur (JOU)
+1 Peregrination (BNG)
+1 Perplexing Chimera (BNG)
+1 Phalanx Formation (JOU)
+1 Phalanx Leader (THS)
+1 Pharagax Giant (BNG)
+1 Pharika, God of Affliction (JOU)
+1 Pharika's Chosen (JOU)
+1 Pharika's Cure (THS)
+1 Pharika's Mender (THS)
+1 Phenax, God of Deception (BNG)
+1 Pheres-Band Centaurs (THS)
+1 Pheres-Band Raiders (BNG)
+1 Pheres-Band Thunderhoof (JOU)
+1 Pheres-Band Tromper (BNG)
+1 Pheres-Band Warchief (JOU)
+1 Pillar of War (BNG)
+1 Pin to the Earth (JOU)
+1 Pinnacle of Rage (BNG)
+1 Plea for Guidance (BNG)
+1 Polis Crusher (THS)
+1 Polukranos, World Eater (THS)
+1 Polymorphous Rush (JOU)
+1 Portent of Betrayal (THS)
+1 Prescient Chimera (THS)
+1 Priest of Iroas (THS)
+1 Prognostic Sphinx (THS)
+1 Prophet of Kruphix (THS)
+1 Prophetic Flamespeaker (JOU)
+1 Prowler's Helm (THS)
+1 Psychic Intrusion (THS)
+1 Pull from the Deep (JOU)
+1 Purphoros, God of the Forge (THS)
+1 Purphoros's Emissary (THS)
+1 Pyxis of Pandemonium (THS)
+1 Quarry Colossus (JOU)
+1 Rage of Purphoros (THS)
+1 Rageblood Shaman (THS)
+1 Ragemonger (BNG)
+1 Raised by Wolves (BNG)
+1 Ravenous Leucrocota (JOU)
+1 Ray of Dissolution (THS)
+1 Read the Bones (THS)
+1 Reap What Is Sown (BNG)
+1 Reaper of the Wilds (THS)
+1 Reckless Reveler (BNG)
+1 Renowned Weaver (JOU)
+1 Reprisal (JOU)
+1 Rescue from the Underworld (THS)
+1 Retraction Helix (BNG)
+1 Returned Centaur (THS)
+1 Returned Phalanx (THS)
+1 Returned Reveler (JOU)
+1 Revel of the Fallen God (JOU)
+1 Reverent Hunter (THS)
+1 Reviving Melody (JOU)
+1 Revoke Existence (BNG)
+1 Riddle of Lightning (JOU)
+1 Riptide Chimera (JOU)
+1 Rise of Eagles (JOU)
+1 Rise to the Challenge (BNG)
+1 Ritual of the Returned (JOU)
+1 Rollick of Abandon (JOU)
+1 Rotted Hulk (JOU)
+1 Rouse the Mob (JOU)
+1 Sage of Hours (JOU)
+1 Sanguimancy (BNG)
+1 Satyr Firedancer (BNG)
+1 Satyr Grovedancer (JOU)
+1 Satyr Hedonist (THS)
+1 Satyr Hoplite (JOU)
+1 Satyr Nyx-Smith (BNG)
+1 Satyr Piper (THS)
+1 Satyr Rambler (THS)
+1 Satyr Wayfinder (BNG)
+1 Savage Surge (THS)
+1 Scholar of Athreos (THS)
+1 Scourge of Fleets (JOU)
+1 Scourge of Skola Vale (BNG)
+1 Scourgemark (THS)
+1 Scouring Sands (BNG)
+1 Sea God's Revenge (THS)
+1 Sealock Monster (THS)
+1 Searing Blood (BNG)
+1 Sedge Scorpion (THS)
+1 Sentry of the Underworld (THS)
+1 Servant of Tymaret (BNG)
+1 Setessan Battle Priest (THS)
+1 Setessan Griffin (THS)
+1 Setessan Oathsworn (BNG)
+1 Setessan Starbreaker (BNG)
+1 Setessan Tactics (JOU)
+1 Shipbreaker Kraken (THS)
+1 Shipwreck Singer (THS)
+1 Shredding Winds (THS)
+1 Shrike Harpy (BNG)
+1 Sightless Brawler (JOU)
+1 Sigiled Skink (JOU)
+1 Sigiled Starfish (JOU)
+1 Silence the Believers (JOU)
+1 Silent Artisan (THS)
+1 Silent Sentinel (BNG)
+1 Sip of Hemlock (THS)
+1 Siren of the Fanged Coast (BNG)
+1 Siren of the Silent Song (BNG)
+1 Siren Song Lyre (BNG)
+1 Skybind (JOU)
+1 Skyreaping (BNG)
+1 Skyspear Cavalry (JOU)
+1 Snake of the Golden Grove (BNG)
+1 Soldier of the Pantheon (THS)
+1 Solidarity of Heroes (JOU)
+1 Spark Jolt (THS)
+1 Spawn of Thraxes (JOU)
+1 Spear of Heliod (THS)
+1 Spearpoint Oread (THS)
+1 Spellheart Chimera (THS)
+1 Sphinx's Disciple (BNG)
+1 Spirespine (JOU)
+1 Spirit of the Labyrinth (BNG)
+1 Spite of Mogis (JOU)
+1 Spiteful Blow (JOU)
+1 Spiteful Returned (BNG)
+1 Springleaf Drum (BNG)
+1 Squelching Leeches (JOU)
+1 Starfall (JOU)
+1 Staunch-Hearted Warrior (THS)
+1 Steam Augury (THS)
+1 Stoneshock Giant (THS)
+1 Stonewise Fortifier (JOU)
+1 Stormbreath Dragon (THS)
+1 Stormcaller of Keranos (BNG)
+1 Stormchaser Chimera (JOU)
+1 Stratus Walk (BNG)
+1 Strength from the Fallen (JOU)
+1 Stymied Hopes (THS)
+1 Sudden Storm (BNG)
+1 Sunbond (BNG)
+1 Supply-Line Cranes (JOU)
+1 Swan Song (THS)
+1 Swarmborn Giant (JOU)
+1 Swordwise Centaur (BNG)
+1 Sylvan Caryatid (THS)
+1 Temple of Abandon (THS)
+1 Temple of Deceit (THS)
+1 Temple of Enlightenment (BNG)
+1 Temple of Epiphany (JOU)
+1 Temple of Malady (JOU)
+1 Temple of Malice (BNG)
+1 Temple of Mystery (THS)
+1 Temple of Plenty (BNG)
+1 Temple of Silence (THS)
+1 Temple of Triumph (THS)
+1 Tethmos High Priest (JOU)
+1 Thassa, God of the Sea (THS)
+1 Thassa's Bounty (THS)
+1 Thassa's Devourer (JOU)
+1 Thassa's Emissary (THS)
+1 Thassa's Ire (JOU)
+1 Thassa's Rebuff (BNG)
+1 Thoughtrender Lamia (JOU)
+1 Thoughtseize (THS)
+1 Thunder Brute (BNG)
+1 Thunderous Might (BNG)
+1 Time to Feed (THS)
+1 Titan of Eternal Fire (THS)
+1 Titan's Strength (THS)
+1 Tormented Hero (THS)
+1 Tormented Thoughts (JOU)
+1 Traveler's Amulet (THS)
+1 Traveling Philosopher (THS)
+1 Triad of Fates (THS)
+1 Triton Cavalry (JOU)
+1 Triton Fortune Hunter (THS)
+1 Triton Shorestalker (JOU)
+1 Triton Shorethief (THS)
+1 Triton Tactics (THS)
+1 Tromokratis (BNG)
+1 Twinflame (JOU)
+1 Two-Headed Cerberus (THS)
+1 Tymaret, the Murder King (THS)
+1 Underworld Cerberus (THS)
+1 Underworld Coinsmith (JOU)
+1 Unknown Shores (THS)
+1 Unravel the Aether (BNG)
+1 Vanguard of Brimaz (BNG)
+1 Vanquish the Foul (THS)
+1 Vaporkin (THS)
+1 Viper's Kiss (THS)
+1 Vortex Elemental (BNG)
+1 Voyage's End (THS)
+1 Voyaging Satyr (THS)
+1 Vulpine Goliath (THS)
+1 War-Wing Siren (JOU)
+1 Warchanter of Mogis (BNG)
+1 Warriors' Lesson (THS)
+1 Wavecrash Triton (THS)
+1 Weight of the Underworld (BNG)
+1 Whelming Wave (BNG)
+1 Whims of the Fates (BNG)
+1 Whip of Erebos (THS)
+1 Whitewater Naiads (JOU)
+1 Wild Celebrants (THS)
+1 Wildfire Cerberus (JOU)
+1 Wingsteed Rider (THS)
+1 Witches' Eye (THS)
+1 Worst Fears (JOU)
+1 Xenagos, God of Revels (BNG)
+1 Xenagos, the Reveler (THS)
+1 Yoked Ox (THS)

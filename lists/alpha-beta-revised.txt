@@ -1,328 +1,328 @@
 @name Alpha / Beta / Revised
 @format cube
-1 Air Elemental
-1 Aladdin's Lamp
-1 Aladdin's Ring
-1 Ancestral Recall
-1 Animate Artifact
-1 Animate Dead
-1 Animate Wall
-1 Ankh of Mishra
-1 Armageddon
-1 Armageddon Clock
-1 Aspect of Wolf
-1 Atog
-1 Badlands
-1 Bad Moon
-1 Balance
-1 Basalt Monolith
-1 Bayou
-1 Benalish Hero
-1 Berserk
-1 Birds of Paradise
-1 Black Knight
-1 Black Lotus
-1 Black Vise
-1 Black Ward
-1 Blaze of Glory
-1 Blessing
-1 Blue Elemental Blast
-1 Blue Ward
-1 Bog Wraith
-1 Bottle of Suleiman
-1 Braingeyser
-1 Brass Man
-1 Burrowing
-1 Camouflage
-1 Castle
-1 Celestial Prism
-1 Channel
-1 Chaoslace
-1 Chaos Orb
-1 Circle of Protection: Black
-1 Circle of Protection: Blue
-1 Circle of Protection: Green
-1 Circle of Protection: Red
-1 Circle of Protection: White
-1 Clockwork Beast
-1 Clone
-1 Cockatrice
-1 Consecrate Land
-1 Conservator
-1 Contract from Below
-1 Control Magic
-1 Conversion
-1 Copper Tablet
-1 Copy Artifact
-1 Counterspell
-1 Craw Wurm
-1 Creature Bond
-1 Crumble
-1 Crusade
-1 Crystal Rod
-1 Cursed Land
-1 Cyclopean Tomb
-1 Dancing Scimitar
-1 Darkpact
-1 Dark Ritual
-1 Deathgrip
-1 Deathlace
-1 Death Ward
-1 Demonic Attorney
-1 Demonic Hordes
-1 Demonic Tutor
-1 Desert Twister
-1 Dingus Egg
-1 Disenchant
-1 Disintegrate
-1 Disrupting Scepter
-1 Dragon Engine
-1 Dragon Whelp
-1 Drain Life
-1 Drain Power
-1 Drudge Skeletons
-1 Dwarven Demolition Team
-1 Dwarven Warriors
-1 Dwarven Weaponsmith
-1 Earthbind
-1 Earth Elemental
-1 Earthquake
-1 Ebony Horse
-1 El-Hajjâj
-1 Elvish Archers
-1 Energy Flux
-1 Erg Raiders
-1 Evil Presence
-1 Eye for an Eye
-1 False Orders
-1 Farmstead
-1 Fastbond
-1 Fear
-1 Feedback
-1 Fireball
-1 Firebreathing
-1 Fire Elemental
-1 Flashfires
-1 Flight
-1 Flying Carpet
-1 Fog
-1 Forcefield
-1 Force of Nature
-1 Fork
-1 Frozen Shade
-1 Fungusaur
-1 Gaea's Liege
-1 Gauntlet of Might
-1 Giant Growth
-1 Giant Spider
-1 Glasses of Urza
-1 Gloom
-1 Goblin Balloon Brigade
-1 Goblin King
-1 Granite Gargoyle
-1 Gray Ogre
-1 Green Ward
-1 Grizzly Bears
-1 Guardian Angel
-1 Healing Salve
-1 Helm of Chatzuk
-1 Hill Giant
-1 Holy Armor
-1 Holy Strength
-1 Howl from Beyond
-1 Howling Mine
-1 Hurkyl's Recall
-1 Hurloon Minotaur
-1 Hurricane
-1 Hypnotic Specter
-1 Ice Storm
-1 Icy Manipulator
-1 Illusionary Mask
-1 Instill Energy
-1 Invisibility
-1 Ironclaw Orcs
-1 Ironroot Treefolk
-1 Iron Star
-1 Island Fish Jasconius
-1 Island Sanctuary
-1 Ivory Cup
-1 Ivory Tower
-1 Jade Monolith
-1 Jade Statue
-1 Jandor's Ring
-1 Jandor's Saddlebags
-1 Jayemdae Tome
-1 Juggernaut
-1 Jump
-1 Karma
-1 Keldon Warlord
-1 Kird Ape
-1 Kormus Bell
-1 Kudzu
-1 Lance
-1 Ley Druid
-1 Library of Leng
-1 Lich
-1 Lifeforce
-1 Lifelace
-1 Lifetap
-1 Lightning Bolt
-1 Living Artifact
-1 Living Lands
-1 Living Wall
-1 Llanowar Elves
-1 Lord of Atlantis
-1 Lord of the Pit
-1 Lure
-1 Magical Hack
-1 Magnetic Mountain
-1 Mahamoti Djinn
-1 Manabarbs
-1 Mana Flare
-1 Mana Short
-1 Mana Vault
-1 Meekstone
-1 Merfolk of the Pearl Trident
-1 Mesa Pegasus
-1 Mijae Djinn
-1 Millstone
-1 Mind Twist
-1 Mishra's War Machine
-1 Mons's Goblin Raiders
-1 Mox Emerald
-1 Mox Jet
-1 Mox Pearl
-1 Mox Ruby
-1 Mox Sapphire
-1 Natural Selection
-1 Nether Shadow
-1 Nettling Imp
-1 Nevinyrral's Disk
-1 Nightmare
-1 Northern Paladin
-1 Obsianus Golem
-1 Onulet
-1 Orcish Artillery
-1 Orcish Oriflamme
-1 Ornithopter
-1 Paralyze
-1 Pearled Unicorn
-1 Personal Incarnation
-1 Pestilence
-1 Phantasmal Forces
-1 Phantasmal Terrain
-1 Phantom Monster
-1 Pirate Ship
-1 Plague Rats
-1 Plateau
-1 Power Leak
-1 Power Sink
-1 Power Surge
-1 Primal Clay
-1 Prodigal Sorcerer
-1 Psionic Blast
-1 Psychic Venom
-1 Purelace
-1 Raging River
-1 Raise Dead
-1 Reconstruction
-1 Red Elemental Blast
-1 Red Ward
-1 Regeneration
-1 Regrowth
-1 Resurrection
-1 Reverse Damage
-1 Reverse Polarity
-1 Righteousness
-1 Rocket Launcher
-1 Rock Hydra
-1 Roc of Kher Ridges
-1 Rod of Ruin
-1 Royal Assassin
-1 Sacrifice
-1 Samite Healer
-1 Savannah
-1 Savannah Lions
-1 Scathe Zombies
-1 Scavenging Ghoul
-1 Scrubland
-1 Scryb Sprites
-1 Sea Serpent
-1 Sedge Troll
-1 Sengir Vampire
-1 Serendib Efreet
-1 Serra Angel
-1 Shanodin Dryads
-1 Shatter
-1 Shatterstorm
-1 Shivan Dragon
-1 Simulacrum
-1 Sinkhole
-1 Siren's Call
-1 Sleight of Mind
-1 Smoke
-1 Sol Ring
-1 Sorceress Queen
-1 Soul Net
-1 Spell Blast
-1 Stasis
-1 Steal Artifact
-1 Stone Giant
-1 Stone Rain
-1 Stream of Life
-1 Sunglasses of Urza
-1 Swords to Plowshares
-1 Taiga
-1 Terror
-1 The Hive
-1 The Rack
-1 Thicket Basilisk
-1 Thoughtlace
-1 Throne of Bone
-1 Timber Wolves
-1 Timetwister
-1 Time Vault
-1 Time Walk
-1 Titania's Song
-1 Tranquility
-1 Tropical Island
-1 Tsunami
-1 Tundra
-1 Tunnel
-1 Twiddle
-1 Two-Headed Giant of Foriys
-1 Underground Sea
-1 Unholy Strength
-1 Unstable Mutation
-1 Unsummon
-1 Uthden Troll
-1 Verduran Enchantress
-1 Vesuvan Doppelganger
-1 Veteran Bodyguard
-1 Volcanic Eruption
-1 Volcanic Island
-1 Wall of Air
-1 Wall of Bone
-1 Wall of Brambles
-1 Wall of Fire
-1 Wall of Ice
-1 Wall of Stone
-1 Wall of Swords
-1 Wall of Water
-1 Wall of Wood
-1 Wanderlust
-1 War Mammoth
-1 Warp Artifact
-1 Water Elemental
-1 Weakness
-1 Web
-1 Wheel of Fortune
-1 White Knight
-1 White Ward
-1 Wild Growth
-1 Will-o'-the-Wisp
-1 Winter Orb
-1 Wooden Sphere
-1 Word of Command
-1 Wrath of God
-1 Zombie Master
+1 Air Elemental (LEA)
+1 Aladdin's Lamp (3ED)
+1 Aladdin's Ring (3ED)
+1 Ancestral Recall (LEA)
+1 Animate Artifact (LEA)
+1 Animate Dead (LEA)
+1 Animate Wall (LEA)
+1 Ankh of Mishra (LEA)
+1 Armageddon (LEA)
+1 Armageddon Clock (3ED)
+1 Aspect of Wolf (LEA)
+1 Atog (3ED)
+1 Bad Moon (LEA)
+1 Badlands (LEA)
+1 Balance (LEA)
+1 Basalt Monolith (LEA)
+1 Bayou (LEA)
+1 Benalish Hero (LEA)
+1 Berserk (LEA)
+1 Birds of Paradise (LEA)
+1 Black Knight (LEA)
+1 Black Lotus (LEA)
+1 Black Vise (LEA)
+1 Black Ward (LEA)
+1 Blaze of Glory (LEA)
+1 Blessing (LEA)
+1 Blue Elemental Blast (LEA)
+1 Blue Ward (LEA)
+1 Bog Wraith (LEA)
+1 Bottle of Suleiman (3ED)
+1 Braingeyser (LEA)
+1 Brass Man (3ED)
+1 Burrowing (LEA)
+1 Camouflage (LEA)
+1 Castle (LEA)
+1 Celestial Prism (LEA)
+1 Channel (LEA)
+1 Chaos Orb (LEA)
+1 Chaoslace (LEA)
+1 Circle of Protection: Black (LEB)
+1 Circle of Protection: Blue (LEA)
+1 Circle of Protection: Green (LEA)
+1 Circle of Protection: Red (LEA)
+1 Circle of Protection: White (LEA)
+1 Clockwork Beast (LEA)
+1 Clone (LEA)
+1 Cockatrice (LEA)
+1 Consecrate Land (LEA)
+1 Conservator (LEA)
+1 Contract from Below (LEA)
+1 Control Magic (LEA)
+1 Conversion (LEA)
+1 Copper Tablet (LEA)
+1 Copy Artifact (LEA)
+1 Counterspell (LEA)
+1 Craw Wurm (LEA)
+1 Creature Bond (LEA)
+1 Crumble (3ED)
+1 Crusade (LEA)
+1 Crystal Rod (LEA)
+1 Cursed Land (LEA)
+1 Cyclopean Tomb (LEA)
+1 Dancing Scimitar (3ED)
+1 Dark Ritual (LEA)
+1 Darkpact (LEA)
+1 Death Ward (LEA)
+1 Deathgrip (LEA)
+1 Deathlace (LEA)
+1 Demonic Attorney (LEA)
+1 Demonic Hordes (LEA)
+1 Demonic Tutor (LEA)
+1 Desert Twister (3ED)
+1 Dingus Egg (LEA)
+1 Disenchant (LEA)
+1 Disintegrate (LEA)
+1 Disrupting Scepter (LEA)
+1 Dragon Engine (3ED)
+1 Dragon Whelp (LEA)
+1 Drain Life (LEA)
+1 Drain Power (LEA)
+1 Drudge Skeletons (LEA)
+1 Dwarven Demolition Team (LEA)
+1 Dwarven Warriors (LEA)
+1 Dwarven Weaponsmith (3ED)
+1 Earth Elemental (LEA)
+1 Earthbind (LEA)
+1 Earthquake (LEA)
+1 Ebony Horse (3ED)
+1 El-Hajjâj (3ED)
+1 Elvish Archers (LEA)
+1 Energy Flux (3ED)
+1 Erg Raiders (3ED)
+1 Evil Presence (LEA)
+1 Eye for an Eye (3ED)
+1 False Orders (LEA)
+1 Farmstead (LEA)
+1 Fastbond (LEA)
+1 Fear (LEA)
+1 Feedback (LEA)
+1 Fire Elemental (LEA)
+1 Fireball (LEA)
+1 Firebreathing (LEA)
+1 Flashfires (LEA)
+1 Flight (LEA)
+1 Flying Carpet (3ED)
+1 Fog (LEA)
+1 Force of Nature (LEA)
+1 Forcefield (LEA)
+1 Fork (LEA)
+1 Frozen Shade (LEA)
+1 Fungusaur (LEA)
+1 Gaea's Liege (LEA)
+1 Gauntlet of Might (LEA)
+1 Giant Growth (LEA)
+1 Giant Spider (LEA)
+1 Glasses of Urza (LEA)
+1 Gloom (LEA)
+1 Goblin Balloon Brigade (LEA)
+1 Goblin King (LEA)
+1 Granite Gargoyle (LEA)
+1 Gray Ogre (LEA)
+1 Green Ward (LEA)
+1 Grizzly Bears (LEA)
+1 Guardian Angel (LEA)
+1 Healing Salve (LEA)
+1 Helm of Chatzuk (LEA)
+1 Hill Giant (LEA)
+1 Holy Armor (LEA)
+1 Holy Strength (LEA)
+1 Howl from Beyond (LEA)
+1 Howling Mine (LEA)
+1 Hurkyl's Recall (3ED)
+1 Hurloon Minotaur (LEA)
+1 Hurricane (LEA)
+1 Hypnotic Specter (LEA)
+1 Ice Storm (LEA)
+1 Icy Manipulator (LEA)
+1 Illusionary Mask (LEA)
+1 Instill Energy (LEA)
+1 Invisibility (LEA)
+1 Iron Star (LEA)
+1 Ironclaw Orcs (LEA)
+1 Ironroot Treefolk (LEA)
+1 Island Fish Jasconius (3ED)
+1 Island Sanctuary (LEA)
+1 Ivory Cup (LEA)
+1 Ivory Tower (3ED)
+1 Jade Monolith (LEA)
+1 Jade Statue (LEA)
+1 Jandor's Ring (3ED)
+1 Jandor's Saddlebags (3ED)
+1 Jayemdae Tome (LEA)
+1 Juggernaut (LEA)
+1 Jump (LEA)
+1 Karma (LEA)
+1 Keldon Warlord (LEA)
+1 Kird Ape (3ED)
+1 Kormus Bell (LEA)
+1 Kudzu (LEA)
+1 Lance (LEA)
+1 Ley Druid (LEA)
+1 Library of Leng (LEA)
+1 Lich (LEA)
+1 Lifeforce (LEA)
+1 Lifelace (LEA)
+1 Lifetap (LEA)
+1 Lightning Bolt (LEA)
+1 Living Artifact (LEA)
+1 Living Lands (LEA)
+1 Living Wall (LEA)
+1 Llanowar Elves (LEA)
+1 Lord of Atlantis (LEA)
+1 Lord of the Pit (LEA)
+1 Lure (LEA)
+1 Magical Hack (LEA)
+1 Magnetic Mountain (3ED)
+1 Mahamoti Djinn (LEA)
+1 Mana Flare (LEA)
+1 Mana Short (LEA)
+1 Mana Vault (LEA)
+1 Manabarbs (LEA)
+1 Meekstone (LEA)
+1 Merfolk of the Pearl Trident (LEA)
+1 Mesa Pegasus (LEA)
+1 Mijae Djinn (3ED)
+1 Millstone (3ED)
+1 Mind Twist (LEA)
+1 Mishra's War Machine (3ED)
+1 Mons's Goblin Raiders (LEA)
+1 Mox Emerald (LEA)
+1 Mox Jet (LEA)
+1 Mox Pearl (LEA)
+1 Mox Ruby (LEA)
+1 Mox Sapphire (LEA)
+1 Natural Selection (LEA)
+1 Nether Shadow (LEA)
+1 Nettling Imp (LEA)
+1 Nevinyrral's Disk (LEA)
+1 Nightmare (LEA)
+1 Northern Paladin (LEA)
+1 Obsianus Golem (LEA)
+1 Onulet (3ED)
+1 Orcish Artillery (LEA)
+1 Orcish Oriflamme (LEA)
+1 Ornithopter (3ED)
+1 Paralyze (LEA)
+1 Pearled Unicorn (LEA)
+1 Personal Incarnation (LEA)
+1 Pestilence (LEA)
+1 Phantasmal Forces (LEA)
+1 Phantasmal Terrain (LEA)
+1 Phantom Monster (LEA)
+1 Pirate Ship (LEA)
+1 Plague Rats (LEA)
+1 Plateau (LEA)
+1 Power Leak (LEA)
+1 Power Sink (LEA)
+1 Power Surge (LEA)
+1 Primal Clay (3ED)
+1 Prodigal Sorcerer (LEA)
+1 Psionic Blast (LEA)
+1 Psychic Venom (LEA)
+1 Purelace (LEA)
+1 Raging River (LEA)
+1 Raise Dead (LEA)
+1 Reconstruction (3ED)
+1 Red Elemental Blast (LEA)
+1 Red Ward (LEA)
+1 Regeneration (LEA)
+1 Regrowth (LEA)
+1 Resurrection (LEA)
+1 Reverse Damage (LEA)
+1 Reverse Polarity (3ED)
+1 Righteousness (LEA)
+1 Roc of Kher Ridges (LEA)
+1 Rock Hydra (LEA)
+1 Rocket Launcher (3ED)
+1 Rod of Ruin (LEA)
+1 Royal Assassin (LEA)
+1 Sacrifice (LEA)
+1 Samite Healer (LEA)
+1 Savannah (LEA)
+1 Savannah Lions (LEA)
+1 Scathe Zombies (LEA)
+1 Scavenging Ghoul (LEA)
+1 Scrubland (LEA)
+1 Scryb Sprites (LEA)
+1 Sea Serpent (LEA)
+1 Sedge Troll (LEA)
+1 Sengir Vampire (LEA)
+1 Serendib Efreet (3ED)
+1 Serra Angel (LEA)
+1 Shanodin Dryads (LEA)
+1 Shatter (LEA)
+1 Shatterstorm (3ED)
+1 Shivan Dragon (LEA)
+1 Simulacrum (LEA)
+1 Sinkhole (LEA)
+1 Siren's Call (LEA)
+1 Sleight of Mind (LEA)
+1 Smoke (LEA)
+1 Sol Ring (LEA)
+1 Sorceress Queen (3ED)
+1 Soul Net (LEA)
+1 Spell Blast (LEA)
+1 Stasis (LEA)
+1 Steal Artifact (LEA)
+1 Stone Giant (LEA)
+1 Stone Rain (LEA)
+1 Stream of Life (LEA)
+1 Sunglasses of Urza (LEA)
+1 Swords to Plowshares (LEA)
+1 Taiga (LEA)
+1 Terror (LEA)
+1 The Hive (LEA)
+1 The Rack (3ED)
+1 Thicket Basilisk (LEA)
+1 Thoughtlace (LEA)
+1 Throne of Bone (LEA)
+1 Timber Wolves (LEA)
+1 Time Vault (LEA)
+1 Time Walk (LEA)
+1 Timetwister (LEA)
+1 Titania's Song (3ED)
+1 Tranquility (LEA)
+1 Tropical Island (LEA)
+1 Tsunami (LEA)
+1 Tundra (LEA)
+1 Tunnel (LEA)
+1 Twiddle (LEA)
+1 Two-Headed Giant of Foriys (LEA)
+1 Underground Sea (LEA)
+1 Unholy Strength (LEA)
+1 Unstable Mutation (3ED)
+1 Unsummon (LEA)
+1 Uthden Troll (LEA)
+1 Verduran Enchantress (LEA)
+1 Vesuvan Doppelganger (LEA)
+1 Veteran Bodyguard (LEA)
+1 Volcanic Eruption (LEA)
+1 Volcanic Island (LEB)
+1 Wall of Air (LEA)
+1 Wall of Bone (LEA)
+1 Wall of Brambles (LEA)
+1 Wall of Fire (LEA)
+1 Wall of Ice (LEA)
+1 Wall of Stone (LEA)
+1 Wall of Swords (LEA)
+1 Wall of Water (LEA)
+1 Wall of Wood (LEA)
+1 Wanderlust (LEA)
+1 War Mammoth (LEA)
+1 Warp Artifact (LEA)
+1 Water Elemental (LEA)
+1 Weakness (LEA)
+1 Web (LEA)
+1 Wheel of Fortune (LEA)
+1 White Knight (LEA)
+1 White Ward (LEA)
+1 Wild Growth (LEA)
+1 Will-o'-the-Wisp (LEA)
+1 Winter Orb (LEA)
+1 Wooden Sphere (LEA)
+1 Word of Command (LEA)
+1 Wrath of God (LEA)
+1 Zombie Master (LEA)

@@ -346,7 +346,11 @@
           done();
           return toast('Vanguard needs a side pool — fill in the vanguard list.', true);
         }
-        Scryfall.resolve(names.concat(vgNames), function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; })
+        var cubeHints = Object.assign(
+          MTGParser.collectSetHints(parsed.entries),
+          MTGParser.collectSetHints(vgParsed.entries));
+        Scryfall.resolve(names.concat(vgNames),
+          function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; }, cubeHints)
           .then(function (res) {
             App.setup.cubeCards = Scryfall.toCardObjects(names, res.cards);
             App.setup.vanguardCards = isVanguard ? Scryfall.toCardObjects(vgNames, res.cards) : null;
@@ -366,8 +370,12 @@
         var jp = MTGParser.parseJumpstartPacks($('#js-text').value);
         if (!jp.packs.length) { done(); return toast('No packs found. Use "# Pack Name" headers.', true); }
         var allNames = [];
-        jp.packs.forEach(function (p) { allNames = allNames.concat(p.cards); });
-        Scryfall.resolve(allNames, function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; })
+        var jsHints = {};
+        jp.packs.forEach(function (p) {
+          allNames = allNames.concat(p.cards);
+          Object.assign(jsHints, MTGParser.collectSetHints(p.entries));
+        });
+        Scryfall.resolve(allNames, function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; }, jsHints)
           .then(function (res) {
             App.setup.jsPacks = jp.packs.map(function (p) {
               return { name: p.name, cards: Scryfall.toCardObjects(p.cards, res.cards) };
@@ -529,7 +537,8 @@
         $('#ds-status').className = 'pool-report ok';
         finish();
       };
-      Scryfall.resolve(names, function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; })
+      Scryfall.resolve(names, function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; },
+        MTGParser.collectSetHints(parsed.entries))
         .then(function (res) { submit(res.cards); })
         .catch(function () {
           toast('Scryfall unreachable — submitting without card images.', true);
@@ -883,6 +892,20 @@
       ? '<img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) +
         '" onerror="this.style.display=\'none\'">'
       : '<div class="preview-text"><strong>' + escapeHtml(card.name) + '</strong></div>';
+    // Transform / MDFC: show the whole back face (art + text) so drafters
+    // can evaluate both sides of the card.
+    var back = '';
+    if (card.back) {
+      var b = card.back;
+      back = '<div class="preview-otherface">' +
+        '<div class="preview-name">Back face: ' + escapeHtml(b.name) +
+          (b.pt ? ' <span class="preview-pt">' + escapeHtml(b.pt) + '</span>' : '') + '</div>' +
+        (b.img ? '<img class="preview-backimg" src="' + escapeHtml(b.img) + '" alt="' + escapeHtml(b.name) +
+          '" onerror="this.style.display=\'none\'">' : '') +
+        (b.type ? '<div class="preview-type">' + escapeHtml(b.type) + '</div>' : '') +
+        (b.text ? '<div class="preview-oracle">' + escapeHtml(b.text).replace(/\n/g, '<br>') + '</div>' : '') +
+        '</div>';
+    }
     return body + '<div class="preview-meta">' +
       '<div class="preview-name">' + escapeHtml(card.name) +
         (card.pt ? ' <span class="preview-pt">' + escapeHtml(card.pt) + '</span>' : '') + '</div>' +
@@ -890,6 +913,7 @@
       (card.type ? '<div class="preview-type">' + escapeHtml(card.type) + '</div>' : '') +
       '<div class="preview-price">TCG: ' + (card.price ? '$' + escapeHtml(card.price) : '??') + '</div>' +
       (card.text ? '<div class="preview-oracle">' + escapeHtml(card.text).replace(/\n/g, '<br>') + '</div>' : '') +
+      back +
       '</div>';
   }
 

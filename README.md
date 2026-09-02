@@ -91,6 +91,10 @@ The repo ships **16 ready-made block cubes** (every unique card in the
 block, basics excluded): Alpha/Beta/Revised, Mirage, Tempest, Urza's,
 Invasion, Onslaught, Mirrodin, Kamigawa, Ravnica, Lorwyn, Shadowmoor,
 Zendikar, Scars of Mirrodin, Innistrad, Return to Ravnica, and Theros.
+Every line is **pinned to the block's own printing** — `1 Lightning Bolt
+(LEA)` — so you draft with the era's art, not modern reprints. The same
+`(SET)` suffix works in anything you paste yourself; the shown TCG price
+is that printing's price.
 
 ## Card mirror (works when Scryfall is down)
 

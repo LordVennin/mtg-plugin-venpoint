@@ -1,633 +1,633 @@
 @name Ravnica Block (RAV/GPT/DIS)
 @format cube
-1 Absolver Thrull
-1 Abyssal Nocturnus
-1 Aethermage's Touch
-1 Aetherplasm
-1 Agent of Masks
-1 Agrus Kos, Wojek Veteran
-1 Angel of Despair
-1 Anthem of Rakdos
-1 Aquastrand Spider
-1 Assault Zeppelid
-1 Auratouched Mage
-1 Aurora Eidolon
-1 Autochthon Wurm
-1 Avatar of Discord
-1 Azorius Aethermage
-1 Azorius Chancery
-1 Azorius First-Wing
-1 Azorius Guildmage
-1 Azorius Herald
-1 Azorius Ploy
-1 Azorius Signet
-1 Barbarian Riftcutter
-1 Bathe in Light
-1 Battering Wurm
-1 Beacon Hawk
-1 Beastmaster's Magemark
-1 Belfry Spirit
-1 Belltower Sphinx
-1 Benediction of Moons
-1 Benevolent Ancestor
-1 Biomantic Mastery
-1 Bioplasm
-1 Birds of Paradise
-1 Blazing Archon
-1 Blessing of the Nephilim
-1 Blind Hunter
-1 Blockbuster
-1 Bloodbond March
-1 Blood Crypt
-1 Blood Funnel
-1 Bloodletter Quill
-1 Bloodscale Prowler
-1 Bond of Agony
-1 Borborygmos
-1 Boros Fury-Shield
-1 Boros Garrison
-1 Boros Guildmage
-1 Boros Recruit
-1 Boros Signet
-1 Boros Swiftblade
-1 Bottled Cloister
-1 Bound // Determined
-1 Brace for Impact
-1 Brain Pry
-1 Brainspoil
-1 Bramble Elemental
-1 Breath of Fury
-1 Breeding Pool
-1 Brightflame
-1 Bronze Bombshell
-1 Burning-Tree Bloodscale
-1 Burning-Tree Shaman
-1 Cackling Flames
-1 Caregiver
-1 Carom
-1 Carrion Howler
-1 Carven Caryatid
-1 Castigate
-1 Caustic Rain
-1 Celestial Ancient
-1 Centaur Safeguard
-1 Cerebral Vortex
-1 Cerulean Sphinx
-1 Chant of Vitu-Ghazi
-1 Char
-1 Chord of Calling
-1 Chorus of the Conclave
-1 Circu, Dimir Lobotomist
-1 Civic Wayfinder
-1 Cleansing Beam
-1 Clinging Darkness
-1 Cloudstone Curio
-1 Clutch of the Undercity
-1 Coalhauler Swine
-1 Coiling Oracle
-1 Compulsive Research
-1 Concerted Effort
-1 Conclave Equenaut
-1 Conclave Phalanx
-1 Conclave's Blessing
-1 Condemn
-1 Congregation at Dawn
-1 Conjurer's Ban
-1 Consult the Necrosages
-1 Convolute
-1 Copy Enchantment
-1 Courier Hawk
-1 Court Hussar
-1 Crash Landing
-1 Cremate
-1 Crime // Punishment
-1 Crown of Convergence
-1 Cry of Contrition
-1 Crypt Champion
-1 Cryptwailing
-1 Crystal Seer
-1 Culling Sun
-1 Cyclopean Snare
-1 Cytoplast Manipulator
-1 Cytoplast Root-Kin
-1 Cytoshape
-1 Cytospawn Shambler
-1 Daggerclaw Imp
-1 Darkblast
-1 Dark Confidant
-1 Dark Heart of the Wood
-1 Debtors' Knell
-1 Delirium Skeins
-1 Demonfire
-1 Demon's Jester
-1 Devouring Light
-1 Dimir Aqueduct
-1 Dimir Cutpurse
-1 Dimir Doppelganger
-1 Dimir Guildmage
-1 Dimir House Guard
-1 Dimir Infiltrator
-1 Dimir Machinations
-1 Dimir Signet
-1 Disembowel
-1 Divebomber Griffin
-1 Dizzy Spell
-1 Djinn Illuminatus
-1 Dogpile
-1 Doubling Season
-1 Douse in Gloom
-1 Dovescape
-1 Dowsing Shaman
-1 Drake Familiar
-1 Dread Slag
-1 Dream Leash
-1 Drekavac
-1 Drift of Phantasms
-1 Dromad Purebred
-1 Droning Bureaucrats
-1 Drooling Groodion
-1 Drowned Rusalka
-1 Dryad's Caress
-1 Dryad Sophisticate
-1 Dune-Brood Nephilim
-1 Duskmantle, House of Shadow
-1 Earth Surge
-1 Electrolyze
-1 Elemental Resonance
-1 Elves of Deep Shadow
-1 Elvish Skysweeper
-1 Empty the Catacombs
-1 Enemy of the Guildpact
-1 Enigma Eidolon
-1 Entropic Eidolon
-1 Ethereal Usher
-1 Evolution Vat
-1 Excruciator
-1 Exhumer Thrull
-1 Experiment Kraj
-1 Eye of the Storm
-1 Faith's Fetters
-1 Farseek
-1 Fencer's Magemark
-1 Feral Animist
-1 Fertile Imagination
-1 Festival of the Guildpact
-1 Fiery Conclusion
-1 Firemane Angel
-1 Fists of Ironwood
-1 Flame Fusillade
-1 Flame-Kin War Scout
-1 Flame-Kin Zealot
-1 Flaring Flame-Kin
-1 Flash Conscription
-1 Flash Foliage
-1 Flickerform
-1 Flight of Fancy
-1 Flow of Ideas
-1 Followed Footsteps
-1 Frazzle
-1 Freewind Equenaut
-1 Frenzied Goblin
-1 Galvanic Arc
-1 Gate Hound
-1 Gather Courage
-1 Gatherer of Graces
-1 Gaze of the Gorgon
-1 Gelectrode
-1 Ghor-Clan Bloodscale
-1 Ghor-Clan Savage
-1 Ghost Council of Orzhova
-1 Ghost Quarter
-1 Ghosts of the Innocent
-1 Ghost Warden
-1 Ghostway
-1 Giant Solifuge
-1 Gigadrowse
-1 Glare of Subdual
-1 Glass Golem
-1 Gleancrawler
-1 Glimpse the Unthinkable
-1 Glint-Eye Nephilim
-1 Gnat Alley Creeper
-1 Gobhobbler Rats
-1 Goblin Fire Fiend
-1 Goblin Flectomancer
-1 Goblin Spelunkers
-1 Godless Shrine
-1 Golgari Brownscale
-1 Golgari Germination
-1 Golgari Grave-Troll
-1 Golgari Guildmage
-1 Golgari Rot Farm
-1 Golgari Rotwurm
-1 Golgari Signet
-1 Golgari Thug
-1 Goliath Spider
-1 Govern the Guildless
-1 Grand Arbiter Augustin IV
-1 Graven Dominator
-1 Grave-Shell Scarab
-1 Grayscaled Gharial
-1 Greater Forgeling
-1 Greater Mossdog
-1 Grifter's Blade
-1 Gristleback
-1 Grozoth
-1 Gruul Guildmage
-1 Gruul Nodorog
-1 Gruul Scrapper
-1 Gruul Signet
-1 Gruul Turf
-1 Gruul War Plow
-1 Guardian of the Guildpact
-1 Guardian of Vitu-Ghazi
-1 Guardian's Magemark
-1 Haazda Exonerator
-1 Haazda Shield Mate
-1 Halcyon Glaze
-1 Hallowed Fountain
-1 Hammerfist Giant
-1 Harrier Griffin
-1 Hatching Plans
-1 Helium Squirter
-1 Helldozer
-1 Hellhole Rats
-1 Hex
-1 Hide // Seek
-1 Hissing Miasma
-1 Hit // Run
-1 Hour of Reckoning
-1 Hunted Dragon
-1 Hunted Horror
-1 Hunted Lammasu
-1 Hunted Phantasm
-1 Hunted Troll
-1 Hypervolt Grasp
-1 Ignorant Bliss
-1 Incite Hysteria
-1 Indentured Oaf
-1 Indrik Stomphowler
-1 Induce Paranoia
-1 Infectious Host
-1 Infernal Tutor
-1 Infiltrator's Magemark
-1 Ink-Treader Nephilim
-1 Instill Furor
-1 Invoke the Firemind
-1 Isperia the Inscrutable
-1 Ivy Dancer
-1 Izzet Boilerworks
-1 Izzet Chronarch
-1 Izzet Guildmage
-1 Izzet Signet
-1 Jagged Poppet
-1 Junktroller
-1 Keening Banshee
-1 Killer Instinct
-1 Kill-Suit Cultist
-1 Kindle the Carnage
-1 Last Gasp
-1 Leafdrake Roost
-1 Leap of Flame
-1 Leashling
-1 Leave No Trace
-1 Leyline of Lifeforce
-1 Leyline of Lightning
-1 Leyline of Singularity
-1 Leyline of the Meek
-1 Leyline of the Void
-1 Life from the Loam
-1 Lightning Helix
-1 Light of Sanction
-1 Lionheart Maverick
-1 Living Inferno
-1 Loaming Shaman
-1 Lore Broker
-1 Loxodon Gatekeeper
-1 Loxodon Hierarch
-1 Lurking Informant
-1 Lyzolda, the Blood Witch
-1 Macabre Waltz
-1 Magewright's Stone
-1 Mark of Eviction
-1 Martyred Rusalka
-1 Master Warcraft
-1 Mausoleum Turnkey
-1 Might of the Nephilim
-1 Mimeofacture
-1 Mindleech Mass
-1 Mindmoil
-1 Minister of Impediments
-1 Mistral Charger
-1 Mizzium Transreliquat
-1 Mnemonic Nexus
-1 Moldervine Cloak
-1 Molten Sentry
-1 Momir Vig, Simic Visionary
-1 Moonlight Bargain
-1 Moratorium Stone
-1 Moroii
-1 Mortify
-1 Mortipede
-1 Mourning Thrull
-1 Muddle the Mixture
-1 Muse Vessel
-1 Necromancer's Magemark
-1 Necromantic Thirst
-1 Necroplasm
-1 Netherborn Phalanx
-1 Nettling Curse
-1 Nightcreep
-1 Nightguard Patrol
-1 Nightmare Void
-1 Nihilistic Glee
-1 Nivix, Aerie of the Firemind
-1 Niv-Mizzet, the Firemind
-1 Novijen, Heart of Progress
-1 Novijen Sages
-1 Nullmage Shepherd
-1 Nullstone Gargoyle
-1 Oathsworn Giant
-1 Ocular Halo
-1 Odds // Ends
-1 Ogre Gatecrasher
-1 Ogre Savant
-1 Omnibian
-1 Order of the Stars
-1 Ordruun Commando
-1 Orzhova, the Church of Deals
-1 Orzhov Basilica
-1 Orzhov Euthanist
-1 Orzhov Guildmage
-1 Orzhov Pontiff
-1 Orzhov Signet
-1 Ostiary Thrull
-1 Overgrown Tomb
-1 Overrule
-1 Overwhelm
-1 Pain Magnification
-1 Paladin of Prahv
-1 Palliation Accord
-1 Parallectric Feedback
-1 Pariah's Shield
-1 Patagia Viper
-1 Peel from Reality
-1 Peregrine Mask
-1 Perilous Forays
-1 Perplex
-1 Petrahydrox
-1 Petrified Wood-Kin
-1 Phytohydra
-1 Pillar of the Paruns
-1 Pillory of the Sleepless
-1 Plague Boiler
-1 Plagued Rusalka
-1 Plaxcaster Frogling
-1 Plaxmanta
-1 Plumes of Peace
-1 Poisonbelly Ogre
-1 Pollenbright Wings
-1 Prahv, Spires of Order
-1 Predatory Focus
-1 Pride of the Clouds
-1 Primeval Light
-1 Primordial Sage
-1 Privileged Position
-1 Proclamation of Rebirth
-1 Proper Burial
-1 Protean Hulk
-1 Psychic Drain
-1 Psychic Possession
-1 Psychotic Fury
-1 Pure // Simple
-1 Putrefy
-1 Pyromatics
-1 Quickchange
-1 Quicken
-1 Rabble-Rouser
-1 Ragamuffyn
-1 Rain of Embers
-1 Rain of Gore
-1 Rakdos Augermage
-1 Rakdos Carnarium
-1 Rakdos Guildmage
-1 Rakdos Ickspitter
-1 Rakdos Pit Dragon
-1 Rakdos Riteknife
-1 Rakdos Signet
-1 Rakdos the Defiler
-1 Rally the Righteous
-1 Ratcatcher
-1 Razia, Boros Archangel
-1 Razia's Purification
-1 Recollect
-1 Remand
-1 Repeal
-1 Reroute
-1 Research // Development
-1 Restless Bones
-1 Revenant Patriarch
-1 Ribbons of Night
-1 Riot Spikes
-1 Rise // Fall
-1 Rix Maadi, Dungeon Palace
-1 Rolling Spoil
-1 Roofstalker Wight
-1 Root-Kin Ally
-1 Rumbling Slum
-1 Runeboggle
-1 Sabertooth Alley Cat
-1 Sacred Foundry
-1 Sadistic Augermage
-1 Sandsower
-1 Sandstorm Eidolon
-1 Sanguine Praetor
-1 Savage Twister
-1 Savra, Queen of the Golgari
-1 Scab-Clan Mauler
-1 Scatter the Seeds
-1 Schismotivate
-1 Scion of the Wild
-1 Scorched Rusalka
-1 Screeching Griffin
-1 Seal of Doom
-1 Seal of Fire
-1 Searing Meditation
-1 Seeds of Strength
-1 Seed Spark
-1 Seismic Spike
-1 Seize the Soul
-1 Selesnya Evangel
-1 Selesnya Guildmage
-1 Selesnya Sagittars
-1 Selesnya Sanctuary
-1 Selesnya Signet
-1 Sell-Sword Brute
-1 Sewerdreg
-1 Shadow Lance
-1 Shadow of Doubt
-1 Shambling Shell
-1 Shattering Spree
-1 Shielding Plax
-1 Shred Memory
-1 Shrieking Grotesque
-1 Siege of Towers
-1 Siege Wurm
-1 Silhana Ledgewalker
-1 Silhana Starfletcher
-1 Silkwing Scout
-1 Simic Basilisk
-1 Simic Growth Chamber
-1 Simic Guildmage
-1 Simic Initiate
-1 Simic Ragworm
-1 Simic Signet
-1 Simic Sky Swallower
-1 Sins of the Past
-1 Sinstriker's Will
-1 Sisters of Stone Death
-1 Skarrgan Firebird
-1 Skarrgan Pit-Skulk
-1 Skarrgan Skybreaker
-1 Skarrg, the Rage Pits
-1 Skeletal Vampire
-1 Skullmead Cauldron
-1 Sky Hussar
-1 Skyknight Legionnaire
-1 Skyrider Trainee
-1 Skyscribing
-1 Sky Swallower
-1 Slaughterhouse Bouncer
-1 Slithering Shade
-1 Smash
-1 Smogsteed Rider
-1 Snapping Drake
-1 Souls of the Faultless
-1 Soulsworn Jury
-1 Sparkmage Apprentice
-1 Spawnbroker
-1 Spectral Searchlight
-1 Spell Snare
-1 Spelltithe Enforcer
-1 Sporeback Troll
-1 Sprouting Phytohydra
-1 Squealing Devil
-1 Stalking Vengeance
-1 Starved Rusalka
-1 Stasis Cell
-1 Steamcore Weird
-1 Steam Vents
-1 Steeling Stance
-1 Stinkweed Imp
-1 Stitch in Time
-1 Stoic Ephemera
-1 Stomp and Howl
-1 Stomping Ground
-1 Stone-Seeder Hierophant
-1 Stoneshaker Shaman
-1 Storm Herd
-1 Stormscale Anarch
-1 Strands of Undeath
-1 Stratozeppelid
-1 Streetbreaker Wurm
-1 Street Savvy
-1 Sundering Vitae
-1 Sunforger
-1 Sunhome Enforcer
-1 Sunhome, Fortress of the Legion
-1 Supply // Demand
-1 Suppression Field
-1 Surge of Zeal
-1 Surveilling Sprite
-1 Svogthos, the Restless Tomb
-1 Swift Silence
-1 Sword of the Paruns
-1 Szadek, Lord of Secrets
-1 Taste for Mayhem
-1 Tattered Drake
-1 Telling Time
-1 Temple Garden
-1 Terraformer
-1 Terrarion
-1 Teysa, Orzhov Scion
-1 Thoughtpicker Witch
-1 Three Dreams
-1 Thrive
-1 Thunderheads
-1 Thundersong Trumpeter
-1 Tibor and Lumia
-1 Tidespout Tyrant
-1 Tidewater Minion
-1 Tin Street Hooligan
-1 To Arms!
-1 Tolsimir Wolfblood
-1 Torch Drake
-1 Torpid Moloch
-1 Train of Thought
-1 Transguild Courier
-1 Transluminant
-1 Trial // Error
-1 Trophy Hunter
-1 Trygon Predator
-1 Tunnel Vision
-1 Twilight Drover
-1 Twinstrike
-1 Twisted Justice
-1 Ulasht, the Hate Seed
-1 Undercity Shade
-1 Unliving Psychopath
-1 Ursapine
-1 Utopia Sprawl
-1 Utvara Scalper
-1 Vacuumelt
-1 Valor Made Real
-1 Vedalken Dismisser
-1 Vedalken Entrancer
-1 Vedalken Plotter
-1 Verdant Eidolon
-1 Vertigo Spawn
-1 Vesper Ghoul
-1 Veteran Armorer
-1 Viashino Fangtail
-1 Viashino Slasher
-1 Vigean Graftmage
-1 Vigean Hydropon
-1 Vigean Intuition
-1 Vigor Mortis
-1 Vindictive Mob
-1 Vinelasher Kudzu
-1 Vision Skeins
-1 Vitu-Ghazi, the City-Tree
-1 Voidslime
-1 Votary of the Conclave
-1 Voyager Staff
-1 Vulturous Zombie
-1 Wakestone Gargoyle
-1 Walking Archive
-1 Warp World
-1 War's Toll
-1 War-Torch Goblin
-1 Watchwolf
-1 Watery Grave
-1 Wee Dragonauts
-1 Weight of Spires
-1 Whiptail Moloch
-1 Wild Cantor
-1 Wildsize
-1 Windreaver
-1 Witch-Maw Nephilim
-1 Withstand
-1 Wit's End
-1 Wizened Snitches
-1 Woebringer Demon
-1 Wojek Apothecary
-1 Wojek Embermage
-1 Wojek Siren
-1 Woodwraith Corrupter
-1 Woodwraith Strangler
-1 Wreak Havoc
-1 Wrecking Ball
-1 Writ of Passage
-1 Wurmweaver Coil
-1 Yore-Tiller Nephilim
-1 Zephyr Spirit
+1 Absolver Thrull (GPT)
+1 Abyssal Nocturnus (GPT)
+1 Aethermage's Touch (DIS)
+1 Aetherplasm (GPT)
+1 Agent of Masks (GPT)
+1 Agrus Kos, Wojek Veteran (RAV)
+1 Angel of Despair (GPT)
+1 Anthem of Rakdos (DIS)
+1 Aquastrand Spider (DIS)
+1 Assault Zeppelid (DIS)
+1 Auratouched Mage (RAV)
+1 Aurora Eidolon (DIS)
+1 Autochthon Wurm (RAV)
+1 Avatar of Discord (DIS)
+1 Azorius Aethermage (DIS)
+1 Azorius Chancery (DIS)
+1 Azorius First-Wing (DIS)
+1 Azorius Guildmage (DIS)
+1 Azorius Herald (DIS)
+1 Azorius Ploy (DIS)
+1 Azorius Signet (DIS)
+1 Barbarian Riftcutter (RAV)
+1 Bathe in Light (RAV)
+1 Battering Wurm (GPT)
+1 Beacon Hawk (DIS)
+1 Beastmaster's Magemark (GPT)
+1 Belfry Spirit (GPT)
+1 Belltower Sphinx (RAV)
+1 Benediction of Moons (GPT)
+1 Benevolent Ancestor (RAV)
+1 Biomantic Mastery (DIS)
+1 Bioplasm (GPT)
+1 Birds of Paradise (RAV)
+1 Blazing Archon (RAV)
+1 Blessing of the Nephilim (DIS)
+1 Blind Hunter (GPT)
+1 Blockbuster (RAV)
+1 Blood Crypt (DIS)
+1 Blood Funnel (RAV)
+1 Bloodbond March (RAV)
+1 Bloodletter Quill (RAV)
+1 Bloodscale Prowler (GPT)
+1 Bond of Agony (DIS)
+1 Borborygmos (GPT)
+1 Boros Fury-Shield (RAV)
+1 Boros Garrison (RAV)
+1 Boros Guildmage (RAV)
+1 Boros Recruit (RAV)
+1 Boros Signet (RAV)
+1 Boros Swiftblade (RAV)
+1 Bottled Cloister (RAV)
+1 Bound // Determined (DIS)
+1 Brace for Impact (DIS)
+1 Brain Pry (DIS)
+1 Brainspoil (RAV)
+1 Bramble Elemental (RAV)
+1 Breath of Fury (RAV)
+1 Breeding Pool (DIS)
+1 Brightflame (RAV)
+1 Bronze Bombshell (DIS)
+1 Burning-Tree Bloodscale (GPT)
+1 Burning-Tree Shaman (GPT)
+1 Cackling Flames (DIS)
+1 Caregiver (RAV)
+1 Carom (DIS)
+1 Carrion Howler (RAV)
+1 Carven Caryatid (RAV)
+1 Castigate (GPT)
+1 Caustic Rain (GPT)
+1 Celestial Ancient (DIS)
+1 Centaur Safeguard (RAV)
+1 Cerebral Vortex (GPT)
+1 Cerulean Sphinx (RAV)
+1 Chant of Vitu-Ghazi (RAV)
+1 Char (RAV)
+1 Chord of Calling (RAV)
+1 Chorus of the Conclave (RAV)
+1 Circu, Dimir Lobotomist (RAV)
+1 Civic Wayfinder (RAV)
+1 Cleansing Beam (RAV)
+1 Clinging Darkness (RAV)
+1 Cloudstone Curio (RAV)
+1 Clutch of the Undercity (RAV)
+1 Coalhauler Swine (RAV)
+1 Coiling Oracle (DIS)
+1 Compulsive Research (RAV)
+1 Concerted Effort (RAV)
+1 Conclave Equenaut (RAV)
+1 Conclave Phalanx (RAV)
+1 Conclave's Blessing (RAV)
+1 Condemn (DIS)
+1 Congregation at Dawn (RAV)
+1 Conjurer's Ban (GPT)
+1 Consult the Necrosages (RAV)
+1 Convolute (RAV)
+1 Copy Enchantment (RAV)
+1 Courier Hawk (RAV)
+1 Court Hussar (DIS)
+1 Crash Landing (GPT)
+1 Cremate (GPT)
+1 Crime // Punishment (DIS)
+1 Crown of Convergence (RAV)
+1 Cry of Contrition (GPT)
+1 Crypt Champion (DIS)
+1 Cryptwailing (GPT)
+1 Crystal Seer (GPT)
+1 Culling Sun (GPT)
+1 Cyclopean Snare (RAV)
+1 Cytoplast Manipulator (DIS)
+1 Cytoplast Root-Kin (DIS)
+1 Cytoshape (DIS)
+1 Cytospawn Shambler (DIS)
+1 Daggerclaw Imp (GPT)
+1 Dark Confidant (RAV)
+1 Dark Heart of the Wood (RAV)
+1 Darkblast (RAV)
+1 Debtors' Knell (GPT)
+1 Delirium Skeins (DIS)
+1 Demon's Jester (DIS)
+1 Demonfire (DIS)
+1 Devouring Light (RAV)
+1 Dimir Aqueduct (RAV)
+1 Dimir Cutpurse (RAV)
+1 Dimir Doppelganger (RAV)
+1 Dimir Guildmage (RAV)
+1 Dimir House Guard (RAV)
+1 Dimir Infiltrator (RAV)
+1 Dimir Machinations (RAV)
+1 Dimir Signet (RAV)
+1 Disembowel (RAV)
+1 Divebomber Griffin (RAV)
+1 Dizzy Spell (RAV)
+1 Djinn Illuminatus (GPT)
+1 Dogpile (RAV)
+1 Doubling Season (RAV)
+1 Douse in Gloom (GPT)
+1 Dovescape (DIS)
+1 Dowsing Shaman (RAV)
+1 Drake Familiar (RAV)
+1 Dread Slag (DIS)
+1 Dream Leash (RAV)
+1 Drekavac (DIS)
+1 Drift of Phantasms (RAV)
+1 Dromad Purebred (RAV)
+1 Droning Bureaucrats (GPT)
+1 Drooling Groodion (RAV)
+1 Drowned Rusalka (GPT)
+1 Dryad Sophisticate (GPT)
+1 Dryad's Caress (RAV)
+1 Dune-Brood Nephilim (GPT)
+1 Duskmantle, House of Shadow (RAV)
+1 Earth Surge (GPT)
+1 Electrolyze (GPT)
+1 Elemental Resonance (DIS)
+1 Elves of Deep Shadow (RAV)
+1 Elvish Skysweeper (RAV)
+1 Empty the Catacombs (RAV)
+1 Enemy of the Guildpact (DIS)
+1 Enigma Eidolon (DIS)
+1 Entropic Eidolon (DIS)
+1 Ethereal Usher (RAV)
+1 Evolution Vat (DIS)
+1 Excruciator (RAV)
+1 Exhumer Thrull (GPT)
+1 Experiment Kraj (DIS)
+1 Eye of the Storm (RAV)
+1 Faith's Fetters (RAV)
+1 Farseek (RAV)
+1 Fencer's Magemark (GPT)
+1 Feral Animist (GPT)
+1 Fertile Imagination (DIS)
+1 Festival of the Guildpact (RAV)
+1 Fiery Conclusion (RAV)
+1 Firemane Angel (RAV)
+1 Fists of Ironwood (RAV)
+1 Flame Fusillade (RAV)
+1 Flame-Kin War Scout (DIS)
+1 Flame-Kin Zealot (RAV)
+1 Flaring Flame-Kin (DIS)
+1 Flash Conscription (RAV)
+1 Flash Foliage (DIS)
+1 Flickerform (RAV)
+1 Flight of Fancy (RAV)
+1 Flow of Ideas (RAV)
+1 Followed Footsteps (RAV)
+1 Frazzle (GPT)
+1 Freewind Equenaut (DIS)
+1 Frenzied Goblin (RAV)
+1 Galvanic Arc (RAV)
+1 Gate Hound (RAV)
+1 Gather Courage (RAV)
+1 Gatherer of Graces (GPT)
+1 Gaze of the Gorgon (RAV)
+1 Gelectrode (GPT)
+1 Ghor-Clan Bloodscale (GPT)
+1 Ghor-Clan Savage (GPT)
+1 Ghost Council of Orzhova (GPT)
+1 Ghost Quarter (DIS)
+1 Ghost Warden (GPT)
+1 Ghosts of the Innocent (RAV)
+1 Ghostway (GPT)
+1 Giant Solifuge (GPT)
+1 Gigadrowse (GPT)
+1 Glare of Subdual (RAV)
+1 Glass Golem (RAV)
+1 Gleancrawler (RAV)
+1 Glimpse the Unthinkable (RAV)
+1 Glint-Eye Nephilim (GPT)
+1 Gnat Alley Creeper (DIS)
+1 Gobhobbler Rats (DIS)
+1 Goblin Fire Fiend (RAV)
+1 Goblin Flectomancer (GPT)
+1 Goblin Spelunkers (RAV)
+1 Godless Shrine (GPT)
+1 Golgari Brownscale (RAV)
+1 Golgari Germination (RAV)
+1 Golgari Grave-Troll (RAV)
+1 Golgari Guildmage (RAV)
+1 Golgari Rot Farm (RAV)
+1 Golgari Rotwurm (RAV)
+1 Golgari Signet (RAV)
+1 Golgari Thug (RAV)
+1 Goliath Spider (RAV)
+1 Govern the Guildless (DIS)
+1 Grand Arbiter Augustin IV (DIS)
+1 Grave-Shell Scarab (RAV)
+1 Graven Dominator (GPT)
+1 Grayscaled Gharial (RAV)
+1 Greater Forgeling (RAV)
+1 Greater Mossdog (RAV)
+1 Grifter's Blade (RAV)
+1 Gristleback (GPT)
+1 Grozoth (RAV)
+1 Gruul Guildmage (GPT)
+1 Gruul Nodorog (GPT)
+1 Gruul Scrapper (GPT)
+1 Gruul Signet (GPT)
+1 Gruul Turf (GPT)
+1 Gruul War Plow (GPT)
+1 Guardian of the Guildpact (DIS)
+1 Guardian of Vitu-Ghazi (RAV)
+1 Guardian's Magemark (GPT)
+1 Haazda Exonerator (DIS)
+1 Haazda Shield Mate (DIS)
+1 Halcyon Glaze (RAV)
+1 Hallowed Fountain (DIS)
+1 Hammerfist Giant (RAV)
+1 Harrier Griffin (GPT)
+1 Hatching Plans (GPT)
+1 Helium Squirter (DIS)
+1 Helldozer (RAV)
+1 Hellhole Rats (DIS)
+1 Hex (RAV)
+1 Hide // Seek (DIS)
+1 Hissing Miasma (GPT)
+1 Hit // Run (DIS)
+1 Hour of Reckoning (RAV)
+1 Hunted Dragon (RAV)
+1 Hunted Horror (RAV)
+1 Hunted Lammasu (RAV)
+1 Hunted Phantasm (RAV)
+1 Hunted Troll (RAV)
+1 Hypervolt Grasp (GPT)
+1 Ignorant Bliss (DIS)
+1 Incite Hysteria (RAV)
+1 Indentured Oaf (RAV)
+1 Indrik Stomphowler (DIS)
+1 Induce Paranoia (RAV)
+1 Infectious Host (RAV)
+1 Infernal Tutor (DIS)
+1 Infiltrator's Magemark (GPT)
+1 Ink-Treader Nephilim (GPT)
+1 Instill Furor (RAV)
+1 Invoke the Firemind (GPT)
+1 Isperia the Inscrutable (DIS)
+1 Ivy Dancer (RAV)
+1 Izzet Boilerworks (GPT)
+1 Izzet Chronarch (GPT)
+1 Izzet Guildmage (GPT)
+1 Izzet Signet (GPT)
+1 Jagged Poppet (DIS)
+1 Junktroller (RAV)
+1 Keening Banshee (RAV)
+1 Kill-Suit Cultist (DIS)
+1 Killer Instinct (GPT)
+1 Kindle the Carnage (DIS)
+1 Last Gasp (RAV)
+1 Leafdrake Roost (DIS)
+1 Leap of Flame (GPT)
+1 Leashling (RAV)
+1 Leave No Trace (RAV)
+1 Leyline of Lifeforce (GPT)
+1 Leyline of Lightning (GPT)
+1 Leyline of Singularity (GPT)
+1 Leyline of the Meek (GPT)
+1 Leyline of the Void (GPT)
+1 Life from the Loam (RAV)
+1 Light of Sanction (RAV)
+1 Lightning Helix (RAV)
+1 Lionheart Maverick (GPT)
+1 Living Inferno (GPT)
+1 Loaming Shaman (DIS)
+1 Lore Broker (RAV)
+1 Loxodon Gatekeeper (RAV)
+1 Loxodon Hierarch (RAV)
+1 Lurking Informant (RAV)
+1 Lyzolda, the Blood Witch (DIS)
+1 Macabre Waltz (DIS)
+1 Magewright's Stone (DIS)
+1 Mark of Eviction (RAV)
+1 Martyred Rusalka (GPT)
+1 Master Warcraft (RAV)
+1 Mausoleum Turnkey (RAV)
+1 Might of the Nephilim (DIS)
+1 Mimeofacture (GPT)
+1 Mindleech Mass (RAV)
+1 Mindmoil (RAV)
+1 Minister of Impediments (DIS)
+1 Mistral Charger (DIS)
+1 Mizzium Transreliquat (GPT)
+1 Mnemonic Nexus (RAV)
+1 Moldervine Cloak (RAV)
+1 Molten Sentry (RAV)
+1 Momir Vig, Simic Visionary (DIS)
+1 Moonlight Bargain (RAV)
+1 Moratorium Stone (GPT)
+1 Moroii (RAV)
+1 Mortify (GPT)
+1 Mortipede (RAV)
+1 Mourning Thrull (GPT)
+1 Muddle the Mixture (RAV)
+1 Muse Vessel (DIS)
+1 Necromancer's Magemark (GPT)
+1 Necromantic Thirst (RAV)
+1 Necroplasm (RAV)
+1 Netherborn Phalanx (RAV)
+1 Nettling Curse (DIS)
+1 Nightcreep (DIS)
+1 Nightguard Patrol (RAV)
+1 Nightmare Void (RAV)
+1 Nihilistic Glee (DIS)
+1 Niv-Mizzet, the Firemind (GPT)
+1 Nivix, Aerie of the Firemind (GPT)
+1 Novijen Sages (DIS)
+1 Novijen, Heart of Progress (DIS)
+1 Nullmage Shepherd (RAV)
+1 Nullstone Gargoyle (RAV)
+1 Oathsworn Giant (RAV)
+1 Ocular Halo (DIS)
+1 Odds // Ends (DIS)
+1 Ogre Gatecrasher (DIS)
+1 Ogre Savant (GPT)
+1 Omnibian (DIS)
+1 Order of the Stars (GPT)
+1 Ordruun Commando (RAV)
+1 Orzhov Basilica (GPT)
+1 Orzhov Euthanist (GPT)
+1 Orzhov Guildmage (GPT)
+1 Orzhov Pontiff (GPT)
+1 Orzhov Signet (GPT)
+1 Orzhova, the Church of Deals (GPT)
+1 Ostiary Thrull (GPT)
+1 Overgrown Tomb (RAV)
+1 Overrule (DIS)
+1 Overwhelm (RAV)
+1 Pain Magnification (DIS)
+1 Paladin of Prahv (DIS)
+1 Palliation Accord (DIS)
+1 Parallectric Feedback (GPT)
+1 Pariah's Shield (RAV)
+1 Patagia Viper (DIS)
+1 Peel from Reality (RAV)
+1 Peregrine Mask (RAV)
+1 Perilous Forays (RAV)
+1 Perplex (RAV)
+1 Petrahydrox (GPT)
+1 Petrified Wood-Kin (GPT)
+1 Phytohydra (RAV)
+1 Pillar of the Paruns (DIS)
+1 Pillory of the Sleepless (GPT)
+1 Plague Boiler (RAV)
+1 Plagued Rusalka (GPT)
+1 Plaxcaster Frogling (DIS)
+1 Plaxmanta (DIS)
+1 Plumes of Peace (DIS)
+1 Poisonbelly Ogre (GPT)
+1 Pollenbright Wings (RAV)
+1 Prahv, Spires of Order (DIS)
+1 Predatory Focus (GPT)
+1 Pride of the Clouds (DIS)
+1 Primeval Light (GPT)
+1 Primordial Sage (RAV)
+1 Privileged Position (RAV)
+1 Proclamation of Rebirth (DIS)
+1 Proper Burial (DIS)
+1 Protean Hulk (DIS)
+1 Psychic Drain (RAV)
+1 Psychic Possession (DIS)
+1 Psychotic Fury (DIS)
+1 Pure // Simple (DIS)
+1 Putrefy (RAV)
+1 Pyromatics (GPT)
+1 Quickchange (RAV)
+1 Quicken (GPT)
+1 Rabble-Rouser (GPT)
+1 Ragamuffyn (DIS)
+1 Rain of Embers (RAV)
+1 Rain of Gore (DIS)
+1 Rakdos Augermage (DIS)
+1 Rakdos Carnarium (DIS)
+1 Rakdos Guildmage (DIS)
+1 Rakdos Ickspitter (DIS)
+1 Rakdos Pit Dragon (DIS)
+1 Rakdos Riteknife (DIS)
+1 Rakdos Signet (DIS)
+1 Rakdos the Defiler (DIS)
+1 Rally the Righteous (RAV)
+1 Ratcatcher (DIS)
+1 Razia, Boros Archangel (RAV)
+1 Razia's Purification (RAV)
+1 Recollect (RAV)
+1 Remand (RAV)
+1 Repeal (GPT)
+1 Reroute (RAV)
+1 Research // Development (DIS)
+1 Restless Bones (GPT)
+1 Revenant Patriarch (GPT)
+1 Ribbons of Night (RAV)
+1 Riot Spikes (DIS)
+1 Rise // Fall (DIS)
+1 Rix Maadi, Dungeon Palace (DIS)
+1 Rolling Spoil (RAV)
+1 Roofstalker Wight (RAV)
+1 Root-Kin Ally (RAV)
+1 Rumbling Slum (GPT)
+1 Runeboggle (GPT)
+1 Sabertooth Alley Cat (RAV)
+1 Sacred Foundry (RAV)
+1 Sadistic Augermage (RAV)
+1 Sandsower (RAV)
+1 Sandstorm Eidolon (DIS)
+1 Sanguine Praetor (GPT)
+1 Savage Twister (GPT)
+1 Savra, Queen of the Golgari (RAV)
+1 Scab-Clan Mauler (GPT)
+1 Scatter the Seeds (RAV)
+1 Schismotivate (GPT)
+1 Scion of the Wild (RAV)
+1 Scorched Rusalka (GPT)
+1 Screeching Griffin (RAV)
+1 Seal of Doom (DIS)
+1 Seal of Fire (DIS)
+1 Searing Meditation (RAV)
+1 Seed Spark (RAV)
+1 Seeds of Strength (RAV)
+1 Seismic Spike (RAV)
+1 Seize the Soul (GPT)
+1 Selesnya Evangel (RAV)
+1 Selesnya Guildmage (RAV)
+1 Selesnya Sagittars (RAV)
+1 Selesnya Sanctuary (RAV)
+1 Selesnya Signet (RAV)
+1 Sell-Sword Brute (RAV)
+1 Sewerdreg (RAV)
+1 Shadow Lance (GPT)
+1 Shadow of Doubt (RAV)
+1 Shambling Shell (RAV)
+1 Shattering Spree (GPT)
+1 Shielding Plax (DIS)
+1 Shred Memory (RAV)
+1 Shrieking Grotesque (GPT)
+1 Siege of Towers (GPT)
+1 Siege Wurm (RAV)
+1 Silhana Ledgewalker (GPT)
+1 Silhana Starfletcher (GPT)
+1 Silkwing Scout (DIS)
+1 Simic Basilisk (DIS)
+1 Simic Growth Chamber (DIS)
+1 Simic Guildmage (DIS)
+1 Simic Initiate (DIS)
+1 Simic Ragworm (DIS)
+1 Simic Signet (DIS)
+1 Simic Sky Swallower (DIS)
+1 Sins of the Past (RAV)
+1 Sinstriker's Will (GPT)
+1 Sisters of Stone Death (RAV)
+1 Skarrg, the Rage Pits (GPT)
+1 Skarrgan Firebird (GPT)
+1 Skarrgan Pit-Skulk (GPT)
+1 Skarrgan Skybreaker (GPT)
+1 Skeletal Vampire (GPT)
+1 Skullmead Cauldron (DIS)
+1 Sky Hussar (DIS)
+1 Sky Swallower (GPT)
+1 Skyknight Legionnaire (RAV)
+1 Skyrider Trainee (GPT)
+1 Skyscribing (DIS)
+1 Slaughterhouse Bouncer (DIS)
+1 Slithering Shade (DIS)
+1 Smash (RAV)
+1 Smogsteed Rider (GPT)
+1 Snapping Drake (RAV)
+1 Souls of the Faultless (GPT)
+1 Soulsworn Jury (DIS)
+1 Sparkmage Apprentice (RAV)
+1 Spawnbroker (RAV)
+1 Spectral Searchlight (RAV)
+1 Spell Snare (DIS)
+1 Spelltithe Enforcer (GPT)
+1 Sporeback Troll (DIS)
+1 Sprouting Phytohydra (DIS)
+1 Squealing Devil (DIS)
+1 Stalking Vengeance (DIS)
+1 Starved Rusalka (GPT)
+1 Stasis Cell (RAV)
+1 Steam Vents (GPT)
+1 Steamcore Weird (GPT)
+1 Steeling Stance (DIS)
+1 Stinkweed Imp (RAV)
+1 Stitch in Time (GPT)
+1 Stoic Ephemera (DIS)
+1 Stomp and Howl (DIS)
+1 Stomping Ground (GPT)
+1 Stone-Seeder Hierophant (RAV)
+1 Stoneshaker Shaman (RAV)
+1 Storm Herd (GPT)
+1 Stormscale Anarch (DIS)
+1 Strands of Undeath (RAV)
+1 Stratozeppelid (GPT)
+1 Street Savvy (DIS)
+1 Streetbreaker Wurm (GPT)
+1 Sundering Vitae (RAV)
+1 Sunforger (RAV)
+1 Sunhome Enforcer (RAV)
+1 Sunhome, Fortress of the Legion (RAV)
+1 Supply // Demand (DIS)
+1 Suppression Field (RAV)
+1 Surge of Zeal (RAV)
+1 Surveilling Sprite (RAV)
+1 Svogthos, the Restless Tomb (RAV)
+1 Swift Silence (DIS)
+1 Sword of the Paruns (GPT)
+1 Szadek, Lord of Secrets (RAV)
+1 Taste for Mayhem (DIS)
+1 Tattered Drake (RAV)
+1 Telling Time (RAV)
+1 Temple Garden (RAV)
+1 Terraformer (RAV)
+1 Terrarion (RAV)
+1 Teysa, Orzhov Scion (GPT)
+1 Thoughtpicker Witch (RAV)
+1 Three Dreams (RAV)
+1 Thrive (DIS)
+1 Thunderheads (GPT)
+1 Thundersong Trumpeter (RAV)
+1 Tibor and Lumia (GPT)
+1 Tidespout Tyrant (DIS)
+1 Tidewater Minion (RAV)
+1 Tin Street Hooligan (GPT)
+1 To Arms! (GPT)
+1 Tolsimir Wolfblood (RAV)
+1 Torch Drake (GPT)
+1 Torpid Moloch (RAV)
+1 Train of Thought (GPT)
+1 Transguild Courier (DIS)
+1 Transluminant (RAV)
+1 Trial // Error (DIS)
+1 Trophy Hunter (RAV)
+1 Trygon Predator (DIS)
+1 Tunnel Vision (RAV)
+1 Twilight Drover (RAV)
+1 Twinstrike (DIS)
+1 Twisted Justice (RAV)
+1 Ulasht, the Hate Seed (GPT)
+1 Undercity Shade (RAV)
+1 Unliving Psychopath (DIS)
+1 Ursapine (RAV)
+1 Utopia Sprawl (DIS)
+1 Utvara Scalper (DIS)
+1 Vacuumelt (GPT)
+1 Valor Made Real (DIS)
+1 Vedalken Dismisser (RAV)
+1 Vedalken Entrancer (RAV)
+1 Vedalken Plotter (GPT)
+1 Verdant Eidolon (DIS)
+1 Vertigo Spawn (GPT)
+1 Vesper Ghoul (DIS)
+1 Veteran Armorer (RAV)
+1 Viashino Fangtail (RAV)
+1 Viashino Slasher (RAV)
+1 Vigean Graftmage (DIS)
+1 Vigean Hydropon (DIS)
+1 Vigean Intuition (DIS)
+1 Vigor Mortis (RAV)
+1 Vindictive Mob (RAV)
+1 Vinelasher Kudzu (RAV)
+1 Vision Skeins (DIS)
+1 Vitu-Ghazi, the City-Tree (RAV)
+1 Voidslime (DIS)
+1 Votary of the Conclave (RAV)
+1 Voyager Staff (RAV)
+1 Vulturous Zombie (RAV)
+1 Wakestone Gargoyle (DIS)
+1 Walking Archive (DIS)
+1 War-Torch Goblin (RAV)
+1 War's Toll (DIS)
+1 Warp World (RAV)
+1 Watchwolf (RAV)
+1 Watery Grave (RAV)
+1 Wee Dragonauts (GPT)
+1 Weight of Spires (DIS)
+1 Whiptail Moloch (DIS)
+1 Wild Cantor (GPT)
+1 Wildsize (GPT)
+1 Windreaver (DIS)
+1 Wit's End (DIS)
+1 Witch-Maw Nephilim (GPT)
+1 Withstand (GPT)
+1 Wizened Snitches (RAV)
+1 Woebringer Demon (RAV)
+1 Wojek Apothecary (RAV)
+1 Wojek Embermage (RAV)
+1 Wojek Siren (RAV)
+1 Woodwraith Corrupter (RAV)
+1 Woodwraith Strangler (RAV)
+1 Wreak Havoc (GPT)
+1 Wrecking Ball (DIS)
+1 Writ of Passage (DIS)
+1 Wurmweaver Coil (GPT)
+1 Yore-Tiller Nephilim (GPT)
+1 Zephyr Spirit (RAV)

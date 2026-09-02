@@ -1,618 +1,618 @@
 @name Urza's Block (USG/ULG/UDS)
 @format cube
-1 About Face
-1 Absolute Grace
-1 Absolute Law
-1 Abundance
-1 Abyssal Horror
-1 Academy Rector
-1 Academy Researchers
-1 Acidic Soil
-1 Acridian
-1 Aether Sting
-1 Albino Troll
-1 Anaconda
-1 Ancient Silverback
-1 Angelic Chorus
-1 Angelic Curator
-1 Angelic Page
-1 Angel's Trumpet
-1 Annul
-1 Antagonism
-1 Anthroplasm
-1 Apprentice Necromancer
-1 Arcane Laboratory
-1 Archery Training
-1 Archivist
-1 Arc Lightning
-1 Argothian Elder
-1 Argothian Enchantress
-1 Argothian Swine
-1 Argothian Wurm
-1 Attrition
-1 Attunement
-1 Aura Flux
-1 Aura Thief
-1 Avalanche Riders
-1 Back to Basics
-1 Barrin, Master Wizard
-1 Barrin's Codex
-1 Beast of Burden
-1 Bedlam
-1 Befoul
-1 Bereavement
-1 Blanchwood Armor
-1 Blanchwood Treefolk
-1 Blasted Landscape
-1 Blessed Reversal
-1 Blizzard Elemental
-1 Bloated Toad
-1 Bloodshot Cyclops
-1 Blood Vassal
-1 Body Snatcher
-1 Bog Raiders
-1 Bone Shredder
-1 Bouncing Beebles
-1 Braidwood Cup
-1 Braidwood Sextant
-1 Brand
-1 Brass Secretary
-1 Bravado
-1 Breach
-1 Brilliant Halo
-1 Brine Seer
-1 Brink of Madness
-1 Bubbling Beebles
-1 Bubbling Muck
-1 Bull Hippo
-1 Bulwark
-1 Burst of Energy
-1 Cackling Fiend
-1 Caltrops
-1 Capashen Knight
-1 Capashen Standard
-1 Capashen Templar
-1 Carnival of Souls
-1 Carpet of Flowers
-1 Carrion Beetles
-1 Catalog
-1 Catastrophe
-1 Cathodion
-1 Cave Tiger
-1 Cessation
-1 Child of Gaea
-1 Chime of Night
-1 Chimeric Staff
-1 Cinder Seer
-1 Citanul Centaurs
-1 Citanul Flute
-1 Citanul Hierophants
-1 Claws of Gix
-1 Clear
-1 Cloak of Mists
-1 Cloud of Faeries
-1 Colos Yearling
-1 Compost
-1 Confiscate
-1 Congregate
-1 Contamination
-1 Copper Gnomes
-1 Coral Merfolk
-1 Corrupt
-1 Covetous Dragon
-1 Cradle Guard
-1 Crater Hellion
-1 Crawlspace
-1 Crazed Skirge
-1 Crop Rotation
-1 Crosswinds
-1 Crystal Chimes
-1 Curfew
-1 Damping Engine
-1 Darkest Hour
-1 Dark Hatchling
-1 Dark Ritual
-1 Darkwatch Elves
-1 Defender of Chaos
-1 Defender of Law
-1 Defense Grid
-1 Defense of the Heart
-1 Defensive Formation
-1 Delusions of Mediocrity
-1 Deranged Hermit
-1 Despondency
-1 Destructive Urge
-1 Devout Harpist
-1 Diabolic Servitude
-1 Disappear
-1 Disciple of Grace
-1 Disciple of Law
-1 Discordant Dirge
-1 Disease Carriers
-1 Disenchant
-1 Disorder
-1 Disruptive Student
-1 Donate
-1 Douse
-1 Dragon Blood
-1 Drifting Djinn
-1 Drifting Meadow
-1 Dromosaur
-1 Duress
-1 Dying Wail
-1 Eastern Paladin
-1 Electryte
-1 Elite Archers
-1 Elvish Herder
-1 Elvish Lookout
-1 Elvish Lyrist
-1 Elvish Piper
-1 Emperor Crocodile
-1 Enchantment Alteration
-1 Encroach
-1 Endless Wurm
-1 Endoskeleton
-1 Energy Field
-1 Engineered Plague
-1 Eradicate
-1 Erase
-1 Eviscerator
-1 Exhaustion
-1 Exhume
-1 Expendable Troops
-1 Exploration
-1 Expunge
-1 Extruder
-1 Faerie Conclave
-1 Faith Healer
-1 False Prophet
-1 Falter
-1 Fatigue
-1 Fault Line
-1 Fecundity
-1 Fend Off
-1 Fertile Ground
-1 Festering Wound
-1 Field Surgeon
-1 Fiery Mantle
-1 Fire Ants
-1 Flame Jet
-1 Fledgling Osprey
-1 Fleeting Image
-1 Flesh Reaver
-1 Flicker
-1 Fluctuator
-1 Fodder Cannon
-1 Fog Bank
-1 Fog of Gnats
-1 Forbidding Watchtower
-1 Fortitude
-1 Frantic Search
-1 Gaea's Bounty
-1 Gaea's Cradle
-1 Gaea's Embrace
-1 Gamble
-1 Gamekeeper
-1 Gang of Elk
-1 Ghitu Encampment
-1 Ghitu Fire-Eater
-1 Ghitu Slinger
-1 Ghitu War Cry
-1 Giant Cockroach
-1 Gilded Drake
-1 Glorious Anthem
-1 Goblin Berserker
-1 Goblin Cadets
-1 Goblin Festival
-1 Goblin Gardener
-1 Goblin Lackey
-1 Goblin Marshal
-1 Goblin Masons
-1 Goblin Matron
-1 Goblin Medics
-1 Goblin Offensive
-1 Goblin Patrol
-1 Goblin Raider
-1 Goblin Spelunkers
-1 Goblin War Buggy
-1 Goblin Welder
-1 Goliath Beetle
-1 Gorilla Warrior
-1 Grafted Skullcap
-1 Granite Grip
-1 Greater Good
-1 Great Whale
-1 Greener Pastures
-1 Grim Monolith
-1 Guma
-1 Harmonic Convergence
-1 Hawkeater Moth
-1 Headlong Rush
-1 Healing Salve
-1 Heart Warden
-1 Heat Ray
-1 Herald of Serra
-1 Hermetic Study
-1 Hibernation
-1 Hidden Ancients
-1 Hidden Gibbons
-1 Hidden Guerrillas
-1 Hidden Herd
-1 Hidden Predators
-1 Hidden Spider
-1 Hidden Stag
-1 Hollow Dogs
-1 Hope and Glory
-1 Hopping Automaton
-1 Horseshoe Crab
-1 Hulking Ogre
-1 Humble
-1 Hunting Moa
-1 Hush
-1 Ill-Gotten Gains
-1 Illuminated Wings
-1 Imaginary Pet
-1 Impatience
-1 Impending Disaster
-1 Incendiary
-1 Intervene
-1 Intrepid Hero
-1 Iridescent Drake
-1 Iron Maiden
-1 Iron Will
-1 Ivy Seer
-1 Jagged Lightning
-1 Jasmine Seer
-1 Jhoira's Toolbox
-1 Junk Diver
-1 Karmic Guide
-1 Karn, Silver Golem
-1 Keldon Champion
-1 Keldon Vandals
-1 King Crab
-1 Kingfisher
-1 Knighthood
-1 Landslide
-1 Last-Ditch Effort
-1 Launch
-1 Lava Axe
-1 Lay Waste
-1 Levitation
-1 Lifeline
-1 Lightning Dragon
-1 Lilting Refrain
-1 Lingering Mirage
-1 Lone Wolf
-1 Looming Shade
-1 Lotus Blossom
-1 Lull
-1 Lurking Evil
-1 Lurking Jackals
-1 Lurking Skirge
-1 Magnify
-1 Mana Leech
-1 Mantis Engine
-1 Marker Beetles
-1 Mark of Fury
-1 Martyr's Cause
-1 Mask of Law and Grace
-1 Master Healer
-1 Masticore
-1 Meltdown
-1 Memory Jar
-1 Mental Discipline
-1 Metalworker
-1 Metathran Elite
-1 Metathran Soldier
-1 Metrognome
-1 Midsummer Revel
-1 Might of Oaks
-1 Miscalculation
-1 Mishra's Helix
-1 Mobile Fort
-1 Molten Hydra
-1 Momentum
-1 Monk Idealist
-1 Monk Realist
-1 Morphling
-1 Mother of Runes
-1 Multani, Maro-Sorcerer
-1 Multani's Acolyte
-1 Multani's Decree
-1 Multani's Presence
-1 Nightshade Seer
-1 Noetic Scales
-1 No Mercy
-1 No Rest for the Wicked
-1 Okk
-1 Opal Acrolith
-1 Opal Archangel
-1 Opal Avenger
-1 Opal Caryatid
-1 Opal Champion
-1 Opalescence
-1 Opal Gargoyle
-1 Opal Titan
-1 Opportunity
-1 Opposition
-1 Oppression
-1 Order of Yawgmoth
-1 Ostracize
-1 Outmaneuver
-1 Pacifism
-1 Palinchron
-1 Parasitic Bond
-1 Parch
-1 Pariah
-1 Path of Peace
-1 Pattern of Rebirth
-1 Peace and Quiet
-1 Pegasus Charger
-1 Pendrell Drake
-1 Pendrell Flux
-1 Peregrine Drake
-1 Persecute
-1 Pestilence
-1 Phyrexian Broodlings
-1 Phyrexian Colossus
-1 Phyrexian Debaser
-1 Phyrexian Defiler
-1 Phyrexian Denouncer
-1 Phyrexian Ghoul
-1 Phyrexian Monitor
-1 Phyrexian Negator
-1 Phyrexian Plaguelord
-1 Phyrexian Processor
-1 Phyrexian Reclamation
-1 Phyrexian Tower
-1 Pit Trap
-1 Plague Beetle
-1 Plague Dogs
-1 Planar Birth
-1 Planar Collapse
-1 Planar Void
-1 Plated Spider
-1 Plow Under
-1 Polluted Mire
-1 Pouncing Jaguar
-1 Powder Keg
-1 Power Sink
-1 Power Taint
-1 Presence of the Master
-1 Priest of Gix
-1 Priest of Titania
-1 Private Research
-1 Purging Scythe
-1 Purify
-1 Pygmy Pyrosaur
-1 Pyromancy
-1 Quash
-1 Quicksilver Amulet
-1 Rack and Ruin
-1 Radiant, Archangel
-1 Radiant's Dragoons
-1 Radiant's Judgment
-1 Rain of Filth
-1 Rain of Salt
-1 Rancor
-1 Rank and File
-1 Rapid Decay
-1 Raven Familiar
-1 Ravenous Rats
-1 Ravenous Skirge
-1 Rayne, Academy Chancellor
-1 Raze
-1 Rebuild
-1 Recantation
-1 Reckless Abandon
-1 Reclusive Wight
-1 Redeem
-1 Reflexes
-1 Rejuvenate
-1 Reliquary Monk
-1 Remembrance
-1 Remote Isle
-1 Repercussion
-1 Replenish
-1 Repopulate
-1 Reprocess
-1 Rescind
-1 Rescue
-1 Retaliation
-1 Retromancer
-1 Rewind
-1 Ring of Gix
-1 Rivalry
-1 Rofellos, Llanowar Emissary
-1 Rofellos's Gift
-1 Rumbling Crescendo
-1 Rune of Protection: Artifacts
-1 Rune of Protection: Black
-1 Rune of Protection: Blue
-1 Rune of Protection: Green
-1 Rune of Protection: Lands
-1 Rune of Protection: Red
-1 Rune of Protection: White
-1 Sanctimony
-1 Sanctum Custodian
-1 Sanctum Guardian
-1 Sandbar Merfolk
-1 Sandbar Serpent
-1 Sanguine Guard
-1 Scald
-1 Scent of Brine
-1 Scent of Cinder
-1 Scent of Ivy
-1 Scent of Jasmine
-1 Scent of Nightshade
-1 Scoria Wurm
-1 Scour
-1 Scrap
-1 Scrapheap
-1 Scrying Glass
-1 Seasoned Marshal
-1 Second Chance
-1 Serra Advocate
-1 Serra Avatar
-1 Serra's Embrace
-1 Serra's Hymn
-1 Serra's Liturgy
-1 Serra's Sanctum
-1 Serra Zealot
-1 Shimmering Barrier
-1 Shivan Gorge
-1 Shivan Hellkite
-1 Shivan Phoenix
-1 Shivan Raptor
-1 Shiv's Embrace
-1 Show and Tell
-1 Shower of Sparks
-1 Sick and Tired
-1 Sicken
-1 Sigil of Sleep
-1 Silent Attendant
-1 Silk Net
-1 Simian Grunts
-1 Skirge Familiar
-1 Skittering Horror
-1 Skittering Skirge
-1 Sleeper Agent
-1 Sleeper's Guile
-1 Slinking Skirge
-1 Slippery Karst
-1 Slow Motion
-1 Sluggishness
-1 Smokestack
-1 Smoldering Crater
-1 Snap
-1 Sneak Attack
-1 Solidarity
-1 Somnophore
-1 Songstitcher
-1 Soul Feast
-1 Soul Sculptor
-1 Sowing Salt
-1 Spawning Pool
-1 Spined Fluke
-1 Spire Owl
-1 Splinter
-1 Sporogenesis
-1 Spreading Algae
-1 Squirming Mass
-1 Steam Blast
-1 Stern Proctor
-1 Storage Matrix
-1 Stroke of Genius
-1 Subversion
-1 Sulfuric Vapors
-1 Sunder
-1 Sustainer of the Realm
-1 Swat
-1 Symbiosis
-1 Tainted Aether
-1 Taunting Elf
-1 Telepathic Spies
-1 Telepathy
-1 Temporal Adept
-1 Temporal Aperture
-1 Tethered Griffin
-1 Tethered Skirge
-1 Thieving Magpie
-1 Thorn Elemental
-1 Thornwind Faeries
-1 Thran Dynamo
-1 Thran Foundry
-1 Thran Golem
-1 Thran Lens
-1 Thran Quarry
-1 Thran Turbine
-1 Thran War Machine
-1 Thran Weaponry
-1 Thundering Giant
-1 Ticking Gnomes
-1 Time Spiral
-1 Tinker
-1 Titania's Boon
-1 Titania's Chosen
-1 Tolarian Academy
-1 Tolarian Winds
-1 Torch Song
-1 Tormented Angel
-1 Tragic Poet
-1 Treacherous Link
-1 Treachery
-1 Treefolk Mystic
-1 Treefolk Seedlings
-1 Treetop Rangers
-1 Treetop Village
-1 Trumpet Blast
-1 Turnabout
-1 Twisted Experiment
-1 Umbilicus
-1 Unearth
-1 Unnerve
-1 Unworthy Dead
-1 Urza's Armor
-1 Urza's Blueprints
-1 Urza's Incubator
-1 Vampiric Embrace
-1 Vebulid
-1 Veiled Apparition
-1 Veiled Crocodile
-1 Veiled Sentry
-1 Veiled Serpent
-1 Veil of Birds
-1 Venomous Fangs
-1 Vernal Bloom
-1 Viashino Bey
-1 Viashino Cutthroat
-1 Viashino Heretic
-1 Viashino Outrider
-1 Viashino Runner
-1 Viashino Sandscout
-1 Viashino Sandswimmer
-1 Viashino Weaponsmith
-1 Victimize
-1 Vigilant Drake
-1 Vile Requiem
-1 Voice of Duty
-1 Voice of Grace
-1 Voice of Law
-1 Voice of Reason
-1 Voltaic Key
-1 Vug Lizard
-1 Wake of Destruction
-1 Walking Sponge
-1 Wall of Glare
-1 Wall of Junk
-1 War Dance
-1 Waylay
-1 Weatherseed Elf
-1 Weatherseed Faeries
-1 Weatherseed Treefolk
-1 Western Paladin
-1 Wheel of Torture
-1 Whetstone
-1 Whirlwind
-1 Wild Colos
-1 Wild Dogs
-1 Wildfire
-1 Windfall
-1 Winding Wurm
-1 Wing Snare
-1 Wirecat
-1 Witch Engine
-1 Wizard Mentor
-1 Worn Powerstone
-1 Worship
-1 Yavimaya Elder
-1 Yavimaya Enchantress
-1 Yavimaya Granger
-1 Yavimaya Hollow
-1 Yavimaya Scion
-1 Yavimaya Wurm
-1 Yawgmoth's Bargain
-1 Yawgmoth's Edict
-1 Yawgmoth's Will
-1 Zephid
-1 Zephid's Embrace
+1 About Face (ULG)
+1 Absolute Grace (USG)
+1 Absolute Law (USG)
+1 Abundance (USG)
+1 Abyssal Horror (USG)
+1 Academy Rector (UDS)
+1 Academy Researchers (USG)
+1 Acidic Soil (USG)
+1 Acridian (USG)
+1 Aether Sting (UDS)
+1 Albino Troll (USG)
+1 Anaconda (USG)
+1 Ancient Silverback (UDS)
+1 Angel's Trumpet (ULG)
+1 Angelic Chorus (USG)
+1 Angelic Curator (ULG)
+1 Angelic Page (USG)
+1 Annul (USG)
+1 Antagonism (USG)
+1 Anthroplasm (ULG)
+1 Apprentice Necromancer (UDS)
+1 Arc Lightning (USG)
+1 Arcane Laboratory (USG)
+1 Archery Training (UDS)
+1 Archivist (ULG)
+1 Argothian Elder (USG)
+1 Argothian Enchantress (USG)
+1 Argothian Swine (USG)
+1 Argothian Wurm (USG)
+1 Attrition (UDS)
+1 Attunement (USG)
+1 Aura Flux (ULG)
+1 Aura Thief (UDS)
+1 Avalanche Riders (ULG)
+1 Back to Basics (USG)
+1 Barrin, Master Wizard (USG)
+1 Barrin's Codex (USG)
+1 Beast of Burden (ULG)
+1 Bedlam (USG)
+1 Befoul (USG)
+1 Bereavement (USG)
+1 Blanchwood Armor (USG)
+1 Blanchwood Treefolk (USG)
+1 Blasted Landscape (USG)
+1 Blessed Reversal (ULG)
+1 Blizzard Elemental (UDS)
+1 Bloated Toad (ULG)
+1 Blood Vassal (USG)
+1 Bloodshot Cyclops (UDS)
+1 Body Snatcher (UDS)
+1 Bog Raiders (USG)
+1 Bone Shredder (ULG)
+1 Bouncing Beebles (ULG)
+1 Braidwood Cup (UDS)
+1 Braidwood Sextant (UDS)
+1 Brand (USG)
+1 Brass Secretary (UDS)
+1 Bravado (USG)
+1 Breach (USG)
+1 Brilliant Halo (USG)
+1 Brine Seer (UDS)
+1 Brink of Madness (ULG)
+1 Bubbling Beebles (UDS)
+1 Bubbling Muck (UDS)
+1 Bull Hippo (USG)
+1 Bulwark (USG)
+1 Burst of Energy (ULG)
+1 Cackling Fiend (USG)
+1 Caltrops (UDS)
+1 Capashen Knight (UDS)
+1 Capashen Standard (UDS)
+1 Capashen Templar (UDS)
+1 Carnival of Souls (UDS)
+1 Carpet of Flowers (USG)
+1 Carrion Beetles (USG)
+1 Catalog (USG)
+1 Catastrophe (USG)
+1 Cathodion (USG)
+1 Cave Tiger (USG)
+1 Cessation (ULG)
+1 Child of Gaea (USG)
+1 Chime of Night (UDS)
+1 Chimeric Staff (USG)
+1 Cinder Seer (UDS)
+1 Citanul Centaurs (USG)
+1 Citanul Flute (USG)
+1 Citanul Hierophants (USG)
+1 Claws of Gix (USG)
+1 Clear (USG)
+1 Cloak of Mists (USG)
+1 Cloud of Faeries (ULG)
+1 Colos Yearling (UDS)
+1 Compost (UDS)
+1 Confiscate (USG)
+1 Congregate (USG)
+1 Contamination (USG)
+1 Copper Gnomes (USG)
+1 Coral Merfolk (USG)
+1 Corrupt (USG)
+1 Covetous Dragon (UDS)
+1 Cradle Guard (USG)
+1 Crater Hellion (USG)
+1 Crawlspace (ULG)
+1 Crazed Skirge (USG)
+1 Crop Rotation (ULG)
+1 Crosswinds (USG)
+1 Crystal Chimes (USG)
+1 Curfew (USG)
+1 Damping Engine (ULG)
+1 Dark Hatchling (USG)
+1 Dark Ritual (USG)
+1 Darkest Hour (USG)
+1 Darkwatch Elves (ULG)
+1 Defender of Chaos (ULG)
+1 Defender of Law (ULG)
+1 Defense Grid (ULG)
+1 Defense of the Heart (ULG)
+1 Defensive Formation (USG)
+1 Delusions of Mediocrity (ULG)
+1 Deranged Hermit (ULG)
+1 Despondency (USG)
+1 Destructive Urge (USG)
+1 Devout Harpist (ULG)
+1 Diabolic Servitude (USG)
+1 Disappear (UDS)
+1 Disciple of Grace (USG)
+1 Disciple of Law (USG)
+1 Discordant Dirge (USG)
+1 Disease Carriers (UDS)
+1 Disenchant (USG)
+1 Disorder (USG)
+1 Disruptive Student (USG)
+1 Donate (UDS)
+1 Douse (USG)
+1 Dragon Blood (USG)
+1 Drifting Djinn (USG)
+1 Drifting Meadow (USG)
+1 Dromosaur (USG)
+1 Duress (USG)
+1 Dying Wail (UDS)
+1 Eastern Paladin (USG)
+1 Electryte (USG)
+1 Elite Archers (USG)
+1 Elvish Herder (USG)
+1 Elvish Lookout (UDS)
+1 Elvish Lyrist (USG)
+1 Elvish Piper (UDS)
+1 Emperor Crocodile (UDS)
+1 Enchantment Alteration (USG)
+1 Encroach (UDS)
+1 Endless Wurm (USG)
+1 Endoskeleton (USG)
+1 Energy Field (USG)
+1 Engineered Plague (ULG)
+1 Eradicate (UDS)
+1 Erase (ULG)
+1 Eviscerator (ULG)
+1 Exhaustion (USG)
+1 Exhume (USG)
+1 Expendable Troops (ULG)
+1 Exploration (USG)
+1 Expunge (USG)
+1 Extruder (UDS)
+1 Faerie Conclave (ULG)
+1 Faith Healer (USG)
+1 False Prophet (UDS)
+1 Falter (USG)
+1 Fatigue (UDS)
+1 Fault Line (USG)
+1 Fecundity (USG)
+1 Fend Off (UDS)
+1 Fertile Ground (USG)
+1 Festering Wound (UDS)
+1 Field Surgeon (UDS)
+1 Fiery Mantle (USG)
+1 Fire Ants (USG)
+1 Flame Jet (UDS)
+1 Fledgling Osprey (UDS)
+1 Fleeting Image (ULG)
+1 Flesh Reaver (USG)
+1 Flicker (UDS)
+1 Fluctuator (USG)
+1 Fodder Cannon (UDS)
+1 Fog Bank (USG)
+1 Fog of Gnats (ULG)
+1 Forbidding Watchtower (ULG)
+1 Fortitude (USG)
+1 Frantic Search (ULG)
+1 Gaea's Bounty (USG)
+1 Gaea's Cradle (USG)
+1 Gaea's Embrace (USG)
+1 Gamble (USG)
+1 Gamekeeper (UDS)
+1 Gang of Elk (ULG)
+1 Ghitu Encampment (ULG)
+1 Ghitu Fire-Eater (ULG)
+1 Ghitu Slinger (ULG)
+1 Ghitu War Cry (ULG)
+1 Giant Cockroach (ULG)
+1 Gilded Drake (USG)
+1 Glorious Anthem (USG)
+1 Goblin Berserker (UDS)
+1 Goblin Cadets (USG)
+1 Goblin Festival (UDS)
+1 Goblin Gardener (UDS)
+1 Goblin Lackey (USG)
+1 Goblin Marshal (UDS)
+1 Goblin Masons (UDS)
+1 Goblin Matron (USG)
+1 Goblin Medics (ULG)
+1 Goblin Offensive (USG)
+1 Goblin Patrol (USG)
+1 Goblin Raider (USG)
+1 Goblin Spelunkers (USG)
+1 Goblin War Buggy (USG)
+1 Goblin Welder (ULG)
+1 Goliath Beetle (UDS)
+1 Gorilla Warrior (USG)
+1 Grafted Skullcap (USG)
+1 Granite Grip (ULG)
+1 Great Whale (USG)
+1 Greater Good (USG)
+1 Greener Pastures (USG)
+1 Grim Monolith (ULG)
+1 Guma (USG)
+1 Harmonic Convergence (ULG)
+1 Hawkeater Moth (USG)
+1 Headlong Rush (USG)
+1 Healing Salve (USG)
+1 Heart Warden (UDS)
+1 Heat Ray (USG)
+1 Herald of Serra (USG)
+1 Hermetic Study (USG)
+1 Hibernation (USG)
+1 Hidden Ancients (USG)
+1 Hidden Gibbons (ULG)
+1 Hidden Guerrillas (USG)
+1 Hidden Herd (USG)
+1 Hidden Predators (USG)
+1 Hidden Spider (USG)
+1 Hidden Stag (USG)
+1 Hollow Dogs (USG)
+1 Hope and Glory (ULG)
+1 Hopping Automaton (USG)
+1 Horseshoe Crab (USG)
+1 Hulking Ogre (UDS)
+1 Humble (USG)
+1 Hunting Moa (UDS)
+1 Hush (USG)
+1 Ill-Gotten Gains (USG)
+1 Illuminated Wings (UDS)
+1 Imaginary Pet (USG)
+1 Impatience (UDS)
+1 Impending Disaster (ULG)
+1 Incendiary (UDS)
+1 Intervene (ULG)
+1 Intrepid Hero (USG)
+1 Iridescent Drake (UDS)
+1 Iron Maiden (ULG)
+1 Iron Will (ULG)
+1 Ivy Seer (UDS)
+1 Jagged Lightning (USG)
+1 Jasmine Seer (UDS)
+1 Jhoira's Toolbox (ULG)
+1 Junk Diver (UDS)
+1 Karmic Guide (ULG)
+1 Karn, Silver Golem (USG)
+1 Keldon Champion (UDS)
+1 Keldon Vandals (UDS)
+1 King Crab (ULG)
+1 Kingfisher (UDS)
+1 Knighthood (ULG)
+1 Landslide (UDS)
+1 Last-Ditch Effort (ULG)
+1 Launch (USG)
+1 Lava Axe (ULG)
+1 Lay Waste (USG)
+1 Levitation (ULG)
+1 Lifeline (USG)
+1 Lightning Dragon (USG)
+1 Lilting Refrain (USG)
+1 Lingering Mirage (USG)
+1 Lone Wolf (ULG)
+1 Looming Shade (USG)
+1 Lotus Blossom (USG)
+1 Lull (USG)
+1 Lurking Evil (USG)
+1 Lurking Jackals (UDS)
+1 Lurking Skirge (ULG)
+1 Magnify (UDS)
+1 Mana Leech (USG)
+1 Mantis Engine (UDS)
+1 Mark of Fury (UDS)
+1 Marker Beetles (UDS)
+1 Martyr's Cause (ULG)
+1 Mask of Law and Grace (UDS)
+1 Master Healer (UDS)
+1 Masticore (UDS)
+1 Meltdown (USG)
+1 Memory Jar (ULG)
+1 Mental Discipline (UDS)
+1 Metalworker (UDS)
+1 Metathran Elite (UDS)
+1 Metathran Soldier (UDS)
+1 Metrognome (USG)
+1 Midsummer Revel (USG)
+1 Might of Oaks (ULG)
+1 Miscalculation (ULG)
+1 Mishra's Helix (USG)
+1 Mobile Fort (USG)
+1 Molten Hydra (ULG)
+1 Momentum (UDS)
+1 Monk Idealist (USG)
+1 Monk Realist (USG)
+1 Morphling (USG)
+1 Mother of Runes (ULG)
+1 Multani, Maro-Sorcerer (ULG)
+1 Multani's Acolyte (ULG)
+1 Multani's Decree (UDS)
+1 Multani's Presence (ULG)
+1 Nightshade Seer (UDS)
+1 No Mercy (ULG)
+1 No Rest for the Wicked (USG)
+1 Noetic Scales (USG)
+1 Okk (USG)
+1 Opal Acrolith (USG)
+1 Opal Archangel (USG)
+1 Opal Avenger (ULG)
+1 Opal Caryatid (USG)
+1 Opal Champion (ULG)
+1 Opal Gargoyle (USG)
+1 Opal Titan (USG)
+1 Opalescence (UDS)
+1 Opportunity (ULG)
+1 Opposition (UDS)
+1 Oppression (USG)
+1 Order of Yawgmoth (USG)
+1 Ostracize (ULG)
+1 Outmaneuver (USG)
+1 Pacifism (USG)
+1 Palinchron (ULG)
+1 Parasitic Bond (USG)
+1 Parch (ULG)
+1 Pariah (USG)
+1 Path of Peace (USG)
+1 Pattern of Rebirth (UDS)
+1 Peace and Quiet (ULG)
+1 Pegasus Charger (USG)
+1 Pendrell Drake (USG)
+1 Pendrell Flux (USG)
+1 Peregrine Drake (USG)
+1 Persecute (USG)
+1 Pestilence (USG)
+1 Phyrexian Broodlings (ULG)
+1 Phyrexian Colossus (USG)
+1 Phyrexian Debaser (ULG)
+1 Phyrexian Defiler (ULG)
+1 Phyrexian Denouncer (ULG)
+1 Phyrexian Ghoul (USG)
+1 Phyrexian Monitor (UDS)
+1 Phyrexian Negator (UDS)
+1 Phyrexian Plaguelord (ULG)
+1 Phyrexian Processor (USG)
+1 Phyrexian Reclamation (ULG)
+1 Phyrexian Tower (USG)
+1 Pit Trap (USG)
+1 Plague Beetle (ULG)
+1 Plague Dogs (UDS)
+1 Planar Birth (USG)
+1 Planar Collapse (ULG)
+1 Planar Void (USG)
+1 Plated Spider (UDS)
+1 Plow Under (UDS)
+1 Polluted Mire (USG)
+1 Pouncing Jaguar (USG)
+1 Powder Keg (UDS)
+1 Power Sink (USG)
+1 Power Taint (USG)
+1 Presence of the Master (USG)
+1 Priest of Gix (USG)
+1 Priest of Titania (USG)
+1 Private Research (UDS)
+1 Purging Scythe (USG)
+1 Purify (ULG)
+1 Pygmy Pyrosaur (ULG)
+1 Pyromancy (ULG)
+1 Quash (UDS)
+1 Quicksilver Amulet (ULG)
+1 Rack and Ruin (ULG)
+1 Radiant, Archangel (ULG)
+1 Radiant's Dragoons (ULG)
+1 Radiant's Judgment (ULG)
+1 Rain of Filth (USG)
+1 Rain of Salt (USG)
+1 Rancor (ULG)
+1 Rank and File (ULG)
+1 Rapid Decay (UDS)
+1 Raven Familiar (ULG)
+1 Ravenous Rats (UDS)
+1 Ravenous Skirge (USG)
+1 Rayne, Academy Chancellor (UDS)
+1 Raze (USG)
+1 Rebuild (ULG)
+1 Recantation (USG)
+1 Reckless Abandon (UDS)
+1 Reclusive Wight (USG)
+1 Redeem (USG)
+1 Reflexes (USG)
+1 Rejuvenate (USG)
+1 Reliquary Monk (UDS)
+1 Remembrance (USG)
+1 Remote Isle (USG)
+1 Repercussion (UDS)
+1 Replenish (UDS)
+1 Repopulate (ULG)
+1 Reprocess (USG)
+1 Rescind (USG)
+1 Rescue (UDS)
+1 Retaliation (USG)
+1 Retromancer (USG)
+1 Rewind (USG)
+1 Ring of Gix (ULG)
+1 Rivalry (ULG)
+1 Rofellos, Llanowar Emissary (UDS)
+1 Rofellos's Gift (UDS)
+1 Rumbling Crescendo (USG)
+1 Rune of Protection: Artifacts (USG)
+1 Rune of Protection: Black (USG)
+1 Rune of Protection: Blue (USG)
+1 Rune of Protection: Green (USG)
+1 Rune of Protection: Lands (USG)
+1 Rune of Protection: Red (USG)
+1 Rune of Protection: White (USG)
+1 Sanctimony (UDS)
+1 Sanctum Custodian (USG)
+1 Sanctum Guardian (USG)
+1 Sandbar Merfolk (USG)
+1 Sandbar Serpent (USG)
+1 Sanguine Guard (USG)
+1 Scald (USG)
+1 Scent of Brine (UDS)
+1 Scent of Cinder (UDS)
+1 Scent of Ivy (UDS)
+1 Scent of Jasmine (UDS)
+1 Scent of Nightshade (UDS)
+1 Scoria Wurm (USG)
+1 Scour (UDS)
+1 Scrap (USG)
+1 Scrapheap (ULG)
+1 Scrying Glass (UDS)
+1 Seasoned Marshal (USG)
+1 Second Chance (ULG)
+1 Serra Advocate (UDS)
+1 Serra Avatar (USG)
+1 Serra Zealot (USG)
+1 Serra's Embrace (USG)
+1 Serra's Hymn (USG)
+1 Serra's Liturgy (USG)
+1 Serra's Sanctum (USG)
+1 Shimmering Barrier (USG)
+1 Shiv's Embrace (USG)
+1 Shivan Gorge (USG)
+1 Shivan Hellkite (USG)
+1 Shivan Phoenix (ULG)
+1 Shivan Raptor (USG)
+1 Show and Tell (USG)
+1 Shower of Sparks (USG)
+1 Sick and Tired (ULG)
+1 Sicken (USG)
+1 Sigil of Sleep (UDS)
+1 Silent Attendant (USG)
+1 Silk Net (ULG)
+1 Simian Grunts (ULG)
+1 Skirge Familiar (USG)
+1 Skittering Horror (UDS)
+1 Skittering Skirge (USG)
+1 Sleeper Agent (USG)
+1 Sleeper's Guile (ULG)
+1 Slinking Skirge (UDS)
+1 Slippery Karst (USG)
+1 Slow Motion (ULG)
+1 Sluggishness (ULG)
+1 Smokestack (USG)
+1 Smoldering Crater (USG)
+1 Snap (ULG)
+1 Sneak Attack (USG)
+1 Solidarity (UDS)
+1 Somnophore (USG)
+1 Songstitcher (USG)
+1 Soul Feast (UDS)
+1 Soul Sculptor (USG)
+1 Sowing Salt (UDS)
+1 Spawning Pool (ULG)
+1 Spined Fluke (USG)
+1 Spire Owl (USG)
+1 Splinter (UDS)
+1 Sporogenesis (USG)
+1 Spreading Algae (USG)
+1 Squirming Mass (UDS)
+1 Steam Blast (USG)
+1 Stern Proctor (USG)
+1 Storage Matrix (UDS)
+1 Stroke of Genius (USG)
+1 Subversion (ULG)
+1 Sulfuric Vapors (USG)
+1 Sunder (USG)
+1 Sustainer of the Realm (ULG)
+1 Swat (ULG)
+1 Symbiosis (USG)
+1 Tainted Aether (USG)
+1 Taunting Elf (UDS)
+1 Telepathic Spies (UDS)
+1 Telepathy (USG)
+1 Temporal Adept (UDS)
+1 Temporal Aperture (USG)
+1 Tethered Griffin (UDS)
+1 Tethered Skirge (ULG)
+1 Thieving Magpie (UDS)
+1 Thorn Elemental (UDS)
+1 Thornwind Faeries (ULG)
+1 Thran Dynamo (UDS)
+1 Thran Foundry (UDS)
+1 Thran Golem (UDS)
+1 Thran Lens (ULG)
+1 Thran Quarry (USG)
+1 Thran Turbine (USG)
+1 Thran War Machine (ULG)
+1 Thran Weaponry (ULG)
+1 Thundering Giant (USG)
+1 Ticking Gnomes (ULG)
+1 Time Spiral (USG)
+1 Tinker (ULG)
+1 Titania's Boon (USG)
+1 Titania's Chosen (USG)
+1 Tolarian Academy (USG)
+1 Tolarian Winds (USG)
+1 Torch Song (USG)
+1 Tormented Angel (UDS)
+1 Tragic Poet (ULG)
+1 Treacherous Link (ULG)
+1 Treachery (UDS)
+1 Treefolk Mystic (ULG)
+1 Treefolk Seedlings (USG)
+1 Treetop Rangers (USG)
+1 Treetop Village (ULG)
+1 Trumpet Blast (UDS)
+1 Turnabout (USG)
+1 Twisted Experiment (UDS)
+1 Umbilicus (USG)
+1 Unearth (ULG)
+1 Unnerve (USG)
+1 Unworthy Dead (USG)
+1 Urza's Armor (USG)
+1 Urza's Blueprints (ULG)
+1 Urza's Incubator (UDS)
+1 Vampiric Embrace (USG)
+1 Vebulid (USG)
+1 Veil of Birds (USG)
+1 Veiled Apparition (USG)
+1 Veiled Crocodile (USG)
+1 Veiled Sentry (USG)
+1 Veiled Serpent (USG)
+1 Venomous Fangs (USG)
+1 Vernal Bloom (USG)
+1 Viashino Bey (ULG)
+1 Viashino Cutthroat (ULG)
+1 Viashino Heretic (ULG)
+1 Viashino Outrider (USG)
+1 Viashino Runner (USG)
+1 Viashino Sandscout (ULG)
+1 Viashino Sandswimmer (USG)
+1 Viashino Weaponsmith (USG)
+1 Victimize (USG)
+1 Vigilant Drake (ULG)
+1 Vile Requiem (USG)
+1 Voice of Duty (UDS)
+1 Voice of Grace (USG)
+1 Voice of Law (USG)
+1 Voice of Reason (UDS)
+1 Voltaic Key (USG)
+1 Vug Lizard (USG)
+1 Wake of Destruction (UDS)
+1 Walking Sponge (ULG)
+1 Wall of Glare (UDS)
+1 Wall of Junk (USG)
+1 War Dance (USG)
+1 Waylay (USG)
+1 Weatherseed Elf (ULG)
+1 Weatherseed Faeries (ULG)
+1 Weatherseed Treefolk (ULG)
+1 Western Paladin (USG)
+1 Wheel of Torture (ULG)
+1 Whetstone (USG)
+1 Whirlwind (USG)
+1 Wild Colos (UDS)
+1 Wild Dogs (USG)
+1 Wildfire (USG)
+1 Windfall (USG)
+1 Winding Wurm (USG)
+1 Wing Snare (ULG)
+1 Wirecat (USG)
+1 Witch Engine (USG)
+1 Wizard Mentor (USG)
+1 Worn Powerstone (USG)
+1 Worship (USG)
+1 Yavimaya Elder (UDS)
+1 Yavimaya Enchantress (UDS)
+1 Yavimaya Granger (ULG)
+1 Yavimaya Hollow (UDS)
+1 Yavimaya Scion (ULG)
+1 Yavimaya Wurm (ULG)
+1 Yawgmoth's Bargain (UDS)
+1 Yawgmoth's Edict (USG)
+1 Yawgmoth's Will (USG)
+1 Zephid (USG)
+1 Zephid's Embrace (USG)

@@ -100,6 +100,19 @@ var MTGParser = (function () {
   }
 
   /**
+   * Printing pins from "(SET)" suffixes: lowercased name -> set code.
+   * Lets a list like "1 Lightning Bolt (LEA)" resolve to that printing's
+   * art instead of whatever printing Scryfall considers current.
+   */
+  function collectSetHints(entries) {
+    var hints = Object.create(null);
+    (entries || []).forEach(function (e) {
+      if (e && e.set) hints[e.name.toLowerCase()] = e.set.toLowerCase();
+    });
+    return hints;
+  }
+
+  /**
    * Parse a bulk jumpstart-pack import. Pack headers are lines of one of:
    *   # Pack Name
    *   === Pack Name ===
@@ -243,6 +256,7 @@ var MTGParser = (function () {
     parseJumpstartPacks: parseJumpstartPacks,
     parsePresetFile: parsePresetFile,
     expandEntries: expandEntries,
+    collectSetHints: collectSetHints,
     formatDeckList: formatDeckList
   };
 })();

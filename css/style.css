@@ -416,6 +416,9 @@ button.ctx {
 .preview-otherface {
   margin-top: 8px; padding-top: 8px; border-top: 1px dashed #3b4257;
 }
+.preview-backimg {
+  display: block; width: 80%; margin: 6px auto; border-radius: 8px;
+}
 .gcard.token.selected { border-color: var(--accent); }
 .peek-pos { font-size: 10px; color: var(--muted); text-align: left; margin-bottom: 2px; }
 

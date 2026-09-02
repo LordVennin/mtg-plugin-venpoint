@@ -324,6 +324,8 @@ var GameUI = (function () {
     return '<div class="preview-otherface"><div class="preview-name">' + label +
       ': ' + escapeHtml(f.name) +
       (f.pt ? ' <span class="preview-pt">' + escapeHtml(f.pt) + '</span>' : '') + '</div>' +
+      (f.img ? '<img class="preview-backimg" src="' + escapeHtml(f.img) + '" alt="' + escapeHtml(f.name) +
+        '" onerror="this.style.display=\'none\'">' : '') +
       (f.type ? '<div class="preview-type">' + escapeHtml(f.type) + '</div>' : '') +
       (f.text ? '<div class="preview-oracle">' + escapeHtml(f.text).replace(/\n/g, '<br>') + '</div>' : '') +
       '</div>';

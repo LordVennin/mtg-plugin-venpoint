@@ -142,10 +142,18 @@ var Scryfall = (function () {
   /**
    * Resolve an array of card names.
    * onProgress(done, total) is called between batches.
+   * setHints (optional): lowercased name -> set code, pinning that name to a
+   * specific printing ("(SET)" suffixes in lists) — pinned printings cache
+   * under a separate key so old-art and current-art copies coexist.
    * Returns Promise<{cards: {lowerName: cardObj}, notFound: [name]}>.
    */
-  function resolve(names, onProgress) {
+  function resolve(names, onProgress, setHints) {
     loadCache();
+    var hints = setHints || {};
+    var keyOf = function (n) {
+      var k = n.toLowerCase();
+      return hints[k] ? k + '@' + hints[k] : k;
+    };
     var unique = [];
     var seen = Object.create(null);
     names.forEach(function (n) {
@@ -153,7 +161,7 @@ var Scryfall = (function () {
       if (!seen[k]) { seen[k] = true; unique.push(n); }
     });
 
-    var toFetch = unique.filter(function (n) { return !mem[n.toLowerCase()]; });
+    var toFetch = unique.filter(function (n) { return !mem[keyOf(n)]; });
     var notFound = [];
     var total = toFetch.length;
     var done = 0;
@@ -164,7 +172,12 @@ var Scryfall = (function () {
     // existing text-only degradation kicks in, same as before.
     function postCollection(chunk) {
       var body = JSON.stringify({
-        identifiers: chunk.map(function (n) { return { name: apiName(n) }; })
+        identifiers: chunk.map(function (n) {
+          var id = { name: apiName(n) };
+          var s = hints[n.toLowerCase()];
+          if (s) id.set = s; // pin the printing
+          return id;
+        })
       });
       var opts = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body };
       var check = function (res) {
@@ -203,6 +216,13 @@ var Scryfall = (function () {
           });
           if (hit) mem[k] = slim(hit);
         });
+        // Pinned printings also cache under their name@set key, so a later
+        // un-pinned request can fetch current art without clashing.
+        chunk.forEach(function (n) {
+          var k = n.toLowerCase();
+          var key = keyOf(n);
+          if (key !== k && mem[k]) mem[key] = mem[k];
+        });
         done += chunk.length;
         if (onProgress) onProgress(Math.min(done, total), total);
       });
@@ -216,9 +236,15 @@ var Scryfall = (function () {
     // named?exact prioritizes exact full names; fuzzy is the last resort.
     function rescue(name) {
       var enc = encodeURIComponent(name);
+      var setQ = hints[name.toLowerCase()] ? '&set=' + encodeURIComponent(hints[name.toLowerCase()]) : '';
       var okJson = function (res) { return res.ok ? res.json() : Promise.reject(); };
-      return fetch('https://api.scryfall.com/cards/named?exact=' + enc)
+      return fetch('https://api.scryfall.com/cards/named?exact=' + enc + setQ)
         .then(okJson)
+        .catch(function () {
+          // The pinned set may lack this exact spelling — any printing beats none.
+          if (!setQ) return Promise.reject();
+          return fetch('https://api.scryfall.com/cards/named?exact=' + enc).then(okJson);
+        })
         .catch(function () {
           return fetch('https://api.scryfall.com/cards/named?fuzzy=' + enc).then(okJson);
         })
@@ -230,6 +256,7 @@ var Scryfall = (function () {
           var s = slim(card);
           mem[s.name.toLowerCase()] = s;
           mem[name.toLowerCase()] = s;
+          mem[keyOf(name)] = s;
         })
         .catch(function () { /* genuinely unknown — stays a text card */ });
     }
@@ -259,7 +286,8 @@ var Scryfall = (function () {
       var out = Object.create(null);
       unique.forEach(function (n) {
         var k = n.toLowerCase();
-        if (mem[k]) out[k] = mem[k];
+        var hit = mem[keyOf(n)] || mem[k]; // pinned printing first
+        if (hit) out[k] = hit;
         else if (notFound.indexOf(n) === -1) notFound.push(n);
       });
       return { cards: out, notFound: notFound };

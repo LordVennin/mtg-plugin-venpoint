@@ -1,638 +1,638 @@
 @name Innistrad Block (ISD/DKA/AVR)
 @format cube
-1 Abattoir Ghoul
-1 Abbey Griffin
-1 Abundant Growth
-1 Afflicted Deserter // Werewolf Ransacker
-1 Aggravate
-1 Alchemist's Apprentice
-1 Alchemist's Refuge
-1 Alpha Brawl
-1 Altar of the Lost
-1 Altar's Reap
-1 Amass the Components
-1 Ambush Viper
-1 Ancient Grudge
-1 Angelic Armaments
-1 Angelic Overseer
-1 Angelic Wall
-1 Angel of Flight Alabaster
-1 Angel of Glory's Rise
-1 Angel of Jubilation
-1 Angel's Mercy
-1 Angel's Tomb
-1 Appetite for Brains
-1 Arcane Melee
-1 Archangel
-1 Archangel's Light
-1 Archwing Dragon
-1 Armored Skaab
-1 Army of the Damned
-1 Artful Dodge
-1 Ashmouth Hound
-1 Avacyn, Angel of Hope
-1 Avacynian Priest
-1 Avacyn's Collar
-1 Avacyn's Pilgrim
-1 Back from the Brink
-1 Balefire Dragon
-1 Banishing Stroke
-1 Banners Raised
-1 Barter in Blood
-1 Bar the Door
-1 Battleground Geist
-1 Battle Hymn
-1 Beguiler of Wills
-1 Bitterheart Witch
-1 Black Cat
-1 Bladed Bracers
-1 Blasphemous Act
-1 Blazing Torch
-1 Blessings of Nature
-1 Blood Artist
-1 Bloodcrazed Neonate
-1 Blood Feud
-1 Bloodflow Connoisseur
-1 Bloodgift Demon
-1 Bloodline Keeper // Lord of Lineage
-1 Bonds of Faith
-1 Bone Splinters
-1 Bone to Ash
-1 Boneyard Wurm
-1 Bonfire of the Damned
-1 Borderland Ranger
-1 Bower Passage
-1 Brain Weevil
-1 Bramblecrush
-1 Break of Day
-1 Briarpack Alpha
-1 Brimstone Volley
-1 Bruna, Light of Alabaster
-1 Builder's Blessing
-1 Bump in the Night
-1 Burden of Guilt
-1 Burn at the Stake
-1 Burning Oil
-1 Burning Vengeance
-1 Butcher Ghoul
-1 Butcher's Cleaver
-1 Cackling Counterpart
-1 Call to Serve
-1 Call to the Kindred
-1 Captain of the Mists
-1 Caravan Vigil
-1 Cathars' Crusade
-1 Cathedral Sanctifier
-1 Cavern of Souls
-1 Cellar Door
-1 Chalice of Life // Chalice of Death
-1 Champion of Lambholt
-1 Champion of the Parish
-1 Chant of the Skifsang
-1 Chapel Geist
-1 Charmbreaker Devils
-1 Chill of Foreboding
-1 Chosen of Markov // Markov's Servant
-1 Civilized Scholar // Homicidal Brute
-1 Claustrophobia
-1 Clifftop Retreat
-1 Clinging Mists
-1 Cloistered Youth // Unholy Fiend
-1 Cloudshift
-1 Cobbled Wings
-1 Commander's Authority
-1 Conjurer's Closet
-1 Corpse Lunge
-1 Corpse Traders
-1 Counterlash
-1 Craterhoof Behemoth
-1 Creeping Renaissance
-1 Creepy Doll
-1 Crippling Chill
-1 Crossway Vampire
-1 Crushing Vines
-1 Crypt Creeper
-1 Curiosity
-1 Cursebreak
-1 Curse of Bloodletting
-1 Curse of Death's Hold
-1 Curse of Echoes
-1 Curse of Exhaustion
-1 Curse of Misfortunes
-1 Curse of Oblivion
-1 Curse of Stalked Prey
-1 Curse of the Bloody Tome
-1 Curse of the Nightly Hunt
-1 Curse of the Pierced Heart
-1 Curse of Thirst
-1 Dangerous Wager
-1 Dark Impostor
-1 Darkthicket Wolf
-1 Dawntreader Elk
-1 Daybreak Ranger // Nightfall Predator
-1 Deadeye Navigator
-1 Deadly Allure
-1 Dead Weight
-1 Dearly Departed
-1 Death's Caress
-1 Death Wind
-1 Defang
-1 Defy Death
-1 Delver of Secrets // Insectile Aberration
-1 Demolish
-1 Demonic Rising
-1 Demonic Taskmaster
-1 Demonlord of Ashmouth
-1 Demonmail Hauberk
-1 Deranged Assistant
-1 Deranged Outcast
-1 Descendants' Path
-1 Descent into Madness
-1 Desolate Lighthouse
-1 Desperate Ravings
-1 Devastation Tide
-1 Devil's Play
-1 Devout Chaplain
-1 Diregraf Captain
-1 Diregraf Escort
-1 Diregraf Ghoul
-1 Disciple of Griselbrand
-1 Dissipate
-1 Divination
-1 Divine Deflection
-1 Divine Reckoning
-1 Doomed Traveler
-1 Dread Slaver
-1 Dreadwaters
-1 Dream Twist
-1 Driver of the Dead
-1 Drogskol Captain
-1 Drogskol Reaver
-1 Druid's Familiar
-1 Druids' Repository
-1 Dual Casting
-1 Dungeon Geists
-1 Eaten by Spiders
-1 Elbrus, the Binding Blade // Withengar Unbound
-1 Elder Cathar
-1 Elder of Laurels
-1 Elgaud Inquisitor
-1 Elgaud Shieldmate
-1 Elite Inquisitor
-1 Emancipation Angel
-1 Endless Ranks of the Dead
-1 Entreat the Angels
-1 Erdwal Ripper
-1 Essence Harvest
-1 Essence of the Wild
-1 Evernight Shade
-1 Evil Twin
-1 Evolving Wilds
-1 Executioner's Hood
-1 Exquisite Blood
-1 Faithless Looting
-1 Faith's Shield
-1 Falkenrath Aristocrat
-1 Falkenrath Exterminator
-1 Falkenrath Marauders
-1 Falkenrath Noble
-1 Falkenrath Torturer
-1 Farbog Boneflinger
-1 Farbog Explorer
-1 Favorable Winds
-1 Favor of the Woods
-1 Feed the Pack
-1 Feeling of Dread
-1 Feral Ridgewolf
-1 Fervent Cathar
-1 Festerhide Boar
-1 Fettergeist
-1 Fiend Hunter
-1 Fiend of the Shadows
-1 Fires of Undeath
-1 Flayer of the Hatebound
-1 Fleeting Distraction
-1 Fling
-1 Flowering Lumberknot
-1 Forbidden Alchemy
-1 Forge Devil
-1 Fortress Crab
-1 Frightful Delusion
-1 Full Moon's Rise
-1 Furor of the Bitten
-1 Gallows at Willow Hill
-1 Gallows Warden
-1 Galvanic Alchemist
-1 Galvanic Juggernaut
-1 Gang of Devils
-1 Garruk Relentless // Garruk, the Veil-Cursed
-1 Gather the Townsfolk
-1 Gatstaf Shepherd // Gatstaf Howler
-1 Gavony Ironwright
-1 Gavony Township
-1 Geistcatcher's Rig
-1 Geistflame
-1 Geist-Honored Monk
-1 Geist of Saint Traft
-1 Geist Snatch
-1 Geist Trappers
-1 Geralf's Messenger
-1 Geralf's Mindcrusher
-1 Ghostform
-1 Ghostly Flicker
-1 Ghostly Possession
-1 Ghostly Touch
-1 Ghost Quarter
-1 Ghoulcaller's Bell
-1 Ghoulcaller's Chant
-1 Ghoulflesh
-1 Ghoulraiser
-1 Ghoultree
-1 Gisela, Blade of Goldnight
-1 Gloom Surgeon
-1 Gloomwidow
-1 Gnaw to the Bone
-1 Goldnight Commander
-1 Goldnight Redeemer
-1 Grafdigger's Cage
-1 Grasp of Phantoms
-1 Grave Bramble
-1 Gravecrawler
-1 Grave Exchange
-1 Gravepurge
-1 Gravetiller Wurm
-1 Graveyard Shovel
-1 Grim Backwoods
-1 Grim Flowering
-1 Grimgrin, Corpse-Born
-1 Grimoire of the Dead
-1 Griptide
-1 Griselbrand
-1 Grizzled Outcasts // Krallenhorde Wantons
-1 Grounded
-1 Gruesome Deformity
-1 Gruesome Discovery
-1 Gryff Vanguard
-1 Guise of Fire
-1 Gutter Grime
-1 Hamlet Captain
-1 Hanweir Lancer
-1 Hanweir Watchkeep // Bane of Hanweir
-1 Harrowing Journey
-1 Harvester of Souls
-1 Harvest Pyre
-1 Haunted Fengraf
-1 Haunted Guardian
-1 Havengul Lich
-1 Havengul Runebinder
-1 Havengul Skaab
-1 Havengul Vampire
-1 Headless Skaab
-1 Heartless Summoning
-1 Heavy Mattock
-1 Heckling Fiends
-1 Heirs of Stromkirk
-1 Hellrider
-1 Helvault
-1 Herald of War
-1 Heretic's Punishment
-1 Highborn Ghoul
-1 Hinterland Harbor
-1 Hinterland Hermit // Hinterland Scourge
-1 Hollowhenge Beast
-1 Hollowhenge Scavenger
-1 Hollowhenge Spirit
-1 Holy Justiciar
-1 Homicidal Seclusion
-1 Hound of Griselbrand
-1 Howlgeist
-1 Human Frailty
-1 Hunger of the Howlpack
-1 Hunted Ghoul
-1 Huntmaster of the Fells // Ravager of the Fells
-1 Hysterical Blindness
-1 Immerwolf
-1 Increasing Ambition
-1 Increasing Confusion
-1 Increasing Devotion
-1 Increasing Savagery
-1 Increasing Vengeance
-1 Infernal Plunge
-1 Infinite Reflection
-1 Inquisitor's Flail
-1 Instigator Gang // Wildblood Pack
-1 Intangible Virtue
-1 Into the Maw of Hell
-1 Into the Void
-1 Invisible Stalker
-1 Isolated Chapel
-1 Jar of Eyeballs
-1 Joint Assault
-1 Kessig Cagebreakers
-1 Kessig Malcontents
-1 Kessig Recluse
-1 Kessig Wolf
-1 Kessig Wolf Run
-1 Killing Wave
-1 Kindercatch
-1 Kruin Outlaw // Terror of Kruin Pass
-1 Kruin Striker
-1 Laboratory Maniac
-1 Lair Delve
-1 Lambholt Elder // Silverpelt Werewolf
-1 Lantern Spirit
-1 Latch Seeker
-1 Leap of Faith
-1 Lightning Mauler
-1 Lightning Prowess
-1 Liliana of the Veil
-1 Lingering Souls
-1 Lone Revenant
-1 Lost in the Mist
-1 Lost in the Woods
-1 Loyal Cathar // Unhallowed Cathar
-1 Ludevic's Test Subject // Ludevic's Abomination
-1 Lumberknot
-1 Lunar Mystic
-1 Maalfeld Twins
-1 Mad Prophet
-1 Make a Wish
-1 Makeshift Mauler
-1 Malicious Intent
-1 Malignus
-1 Manor Gargoyle
-1 Manor Skeleton
-1 Markov Blademaster
-1 Markov Patrician
-1 Markov Warlord
-1 Marrow Bats
-1 Mask of Avacyn
-1 Mass Appeal
-1 Mausoleum Guard
-1 Maw of the Mire
-1 Mayor of Avabruck // Howlpack Alpha
-1 Memory's Journey
-1 Mental Agony
-1 Mentor of the Meek
-1 Midnight Duelist
-1 Midnight Guard
-1 Midnight Haunting
-1 Midvast Protector
-1 Mikaeus, the Lunarch
-1 Mikaeus, the Unhallowed
-1 Mindshrieker
-1 Mirror-Mad Phantasm
-1 Misthollow Griffin
-1 Mist Raven
-1 Moan of the Unhallowed
-1 Moldgraf Monstrosity
-1 Moment of Heroism
-1 Mondronen Shaman // Tovolar's Magehunter
-1 Moon Heron
-1 Moonlight Geist
-1 Moonmist
-1 Moonsilver Spear
-1 Moonveil Dragon
-1 Moorland Haunt
-1 Moorland Inquisitor
-1 Morkrut Banshee
-1 Mulch
-1 Murder of Crows
-1 Mystic Retrieval
-1 Narstad Scrapper
-1 Natural End
-1 Naturalize
-1 Nearheath Pilgrim
-1 Nearheath Stalker
-1 Necrobite
-1 Nephalia Drownyard
-1 Nephalia Seakite
-1 Nephalia Smuggler
-1 Nettle Swine
-1 Nevermore
-1 Niblis of the Breath
-1 Niblis of the Mist
-1 Niblis of the Urn
-1 Nightbird's Clutches
-1 Night Revelers
-1 Nightshade Peddler
-1 Night Terrors
-1 Olivia Voldaren
-1 One-Eyed Scarecrow
-1 Orchard Spirit
-1 Otherworld Atlas
-1 Outwit
-1 Parallel Lives
-1 Paraselene
-1 Past in Flames
-1 Pathbreaker Wurm
-1 Peel from Reality
-1 Pillar of Flame
-1 Pitchburn Devils
-1 Polluted Dead
-1 Predator Ooze
-1 Predator's Gambit
-1 Prey Upon
-1 Primal Surge
-1 Purify the Grave
-1 Pyreheart Wolf
-1 Rage Thrower
-1 Raging Poltergeist
-1 Rain of Thorns
-1 Rakish Heir
-1 Rally the Peasants
-1 Ranger's Guile
-1 Ravenous Demon // Archdemon of Greed
-1 Ray of Revelation
-1 Reaper from the Abyss
-1 Reap the Seagraf
-1 Rebuke
-1 Reckless Waif // Merciless Predator
-1 Reforge the Soul
-1 Relentless Skaabs
-1 Renegade Demon
-1 Requiem Angel
-1 Restoration Angel
-1 Revenge of the Hunted
-1 Riders of Gavony
-1 Righteous Blow
-1 Riot Devils
-1 Riot Ringleader
-1 Rite of Ruin
-1 Rolling Temblor
-1 Rooftop Storm
-1 Rotcrown Ghoul
-1 Rotting Fensnake
-1 Runechanter's Pike
-1 Runic Repetition
-1 Rush of Blood
-1 Russet Wolves
-1 Sanctuary Cat
-1 Saving Grasp
-1 Scalding Devil
-1 Scorch the Fields
-1 Scorned Villager // Moonscarred Werewolf
-1 Scourge of Geier Reach
-1 Scrapskin Drake
-1 Screeching Bat // Stalking Vampire
-1 Screeching Skaab
-1 Scroll of Avacyn
-1 Scroll of Griselbrand
-1 Séance
-1 Searchlight Geist
-1 Second Guess
-1 Secrets of the Dead
-1 Selfless Cathar
-1 Selhoff Occultist
-1 Sensory Deprivation
-1 Seraph of Dawn
-1 Seraph Sanctuary
-1 Sever the Bloodline
-1 Sharpened Pitchfork
-1 Shattered Perception
-1 Sheltering Word
-1 Shimmering Grotto
-1 Shriekgeist
-1 Sigarda, Host of Herons
-1 Sightless Ghoul
-1 Silent Departure
-1 Silverblade Paladin
-1 Silverchase Fox
-1 Silverclaw Griffin
-1 Silver-Inlaid Dagger
-1 Skaab Goliath
-1 Skaab Ruinator
-1 Skeletal Grimace
-1 Skillful Lunge
-1 Skirsdag Cultist
-1 Skirsdag Flayer
-1 Skirsdag High Priest
-1 Slayer of the Wicked
-1 Slayers' Stronghold
-1 Smite the Monstrous
-1 Snapcaster Mage
-1 Snare the Skies
-1 Somberwald Dryad
-1 Somberwald Sage
-1 Somberwald Spider
-1 Somberwald Vigilante
-1 Sorin, Lord of Innistrad
-1 Soulcage Fiend
-1 Soul of the Harvest
-1 Soul Seizer // Ghastly Haunting
-1 Spare from Evil
-1 Spectral Flight
-1 Spectral Gateguards
-1 Spectral Prison
-1 Spectral Rider
-1 Spider Spawning
-1 Spidery Grasp
-1 Spirit Away
-1 Spiteful Shadows
-1 Splinterfright
-1 Stensia Bloodhall
-1 Stern Mentor
-1 Stitched Drake
-1 Stitcher's Apprentice
-1 Stolen Goods
-1 Stonewright
-1 Stony Silence
-1 Stormbound Geist
-1 Strangleroot Geist
-1 Stromkirk Captain
-1 Stromkirk Noble
-1 Stromkirk Patrol
-1 Sturmgeist
-1 Sudden Disappearance
-1 Sulfur Falls
-1 Talons of Falkenrath
-1 Tamiyo, the Moon Sage
-1 Tandem Lookout
-1 Temporal Mastery
-1 Terminus
-1 Terrifying Presence
-1 Thalia, Guardian of Thraben
-1 Thatcher Revolt
-1 Think Twice
-1 Thought Scour
-1 Thraben Doomsayer
-1 Thraben Heretic
-1 Thraben Purebloods
-1 Thraben Sentry // Thraben Militia
-1 Thraben Valiant
-1 Thunderbolt
-1 Thunderous Wrath
-1 Tibalt, the Fiend-Blooded
-1 Timberland Guide
-1 Torch Fiend
-1 Tormented Pariah // Rampaging Werewolf
-1 Tormentor's Trident
-1 Tower Geist
-1 Tracker's Instincts
-1 Tragic Slip
-1 Traitorous Blood
-1 Traveler's Amulet
-1 Travel Preparations
-1 Treacherous Pit-Dweller
-1 Tree of Redemption
-1 Trepanation Blade
-1 Tribute to Hunger
-1 Triumph of Cruelty
-1 Triumph of Ferocity
-1 Trusted Forcemage
-1 Typhoid Rats
-1 Tyrant of Discord
-1 Ulvenwald Bear
-1 Ulvenwald Mystics // Ulvenwald Primordials
-1 Ulvenwald Tracker
-1 Unbreathing Horde
-1 Unburial Rites
-1 Uncanny Speed
-1 Undead Alchemist
-1 Undead Executioner
-1 Undying Evil
-1 Unhallowed Pact
-1 Unruly Mob
-1 Urgent Exorcism
-1 Vampire Interloper
-1 Vampiric Fury
-1 Vanguard's Shield
-1 Vanishment
-1 Vault of the Archangel
-1 Vengeful Vampire
-1 Vessel of Endless Rest
-1 Vexing Devil
-1 Victim of Night
-1 Vigilante Justice
-1 Village Bell-Ringer
-1 Village Cannibals
-1 Village Ironsmith // Ironfang
-1 Villagers of Estwald // Howlpack of Estwald
-1 Village Survivors
-1 Voiceless Spirit
-1 Voice of the Provinces
-1 Vorapede
-1 Vorstclaw
-1 Wakedancer
-1 Walking Corpse
-1 Wandering Wolf
-1 Warden of the Wall
-1 Wild Defiance
-1 Wild Hunger
-1 Wildwood Geist
-1 Wingcrafter
-1 Witchbane Orb
-1 Wolfbitten Captive // Krallenhorde Killer
-1 Wolfhunter's Quiver
-1 Wolfir Avenger
-1 Wolfir Silverheart
-1 Wooden Stake
-1 Woodland Cemetery
-1 Woodland Sleuth
-1 Wrack with Madness
-1 Wreath of Geists
-1 Yew Spirit
-1 Young Wolf
-1 Zealous Conscripts
-1 Zealous Strike
-1 Zombie Apocalypse
+1 Abattoir Ghoul (ISD)
+1 Abbey Griffin (ISD)
+1 Abundant Growth (AVR)
+1 Afflicted Deserter // Werewolf Ransacker (DKA)
+1 Aggravate (AVR)
+1 Alchemist's Apprentice (AVR)
+1 Alchemist's Refuge (AVR)
+1 Alpha Brawl (DKA)
+1 Altar of the Lost (DKA)
+1 Altar's Reap (ISD)
+1 Amass the Components (AVR)
+1 Ambush Viper (ISD)
+1 Ancient Grudge (ISD)
+1 Angel of Flight Alabaster (ISD)
+1 Angel of Glory's Rise (AVR)
+1 Angel of Jubilation (AVR)
+1 Angel's Mercy (AVR)
+1 Angel's Tomb (AVR)
+1 Angelic Armaments (AVR)
+1 Angelic Overseer (ISD)
+1 Angelic Wall (AVR)
+1 Appetite for Brains (AVR)
+1 Arcane Melee (AVR)
+1 Archangel (AVR)
+1 Archangel's Light (DKA)
+1 Archwing Dragon (AVR)
+1 Armored Skaab (ISD)
+1 Army of the Damned (ISD)
+1 Artful Dodge (DKA)
+1 Ashmouth Hound (ISD)
+1 Avacyn, Angel of Hope (AVR)
+1 Avacyn's Collar (DKA)
+1 Avacyn's Pilgrim (ISD)
+1 Avacynian Priest (ISD)
+1 Back from the Brink (ISD)
+1 Balefire Dragon (ISD)
+1 Banishing Stroke (AVR)
+1 Banners Raised (AVR)
+1 Bar the Door (DKA)
+1 Barter in Blood (AVR)
+1 Battle Hymn (AVR)
+1 Battleground Geist (ISD)
+1 Beguiler of Wills (DKA)
+1 Bitterheart Witch (ISD)
+1 Black Cat (DKA)
+1 Bladed Bracers (AVR)
+1 Blasphemous Act (ISD)
+1 Blazing Torch (ISD)
+1 Blessings of Nature (AVR)
+1 Blood Artist (AVR)
+1 Blood Feud (DKA)
+1 Bloodcrazed Neonate (ISD)
+1 Bloodflow Connoisseur (AVR)
+1 Bloodgift Demon (ISD)
+1 Bloodline Keeper // Lord of Lineage (ISD)
+1 Bonds of Faith (ISD)
+1 Bone Splinters (AVR)
+1 Bone to Ash (DKA)
+1 Boneyard Wurm (ISD)
+1 Bonfire of the Damned (AVR)
+1 Borderland Ranger (AVR)
+1 Bower Passage (AVR)
+1 Brain Weevil (ISD)
+1 Bramblecrush (ISD)
+1 Break of Day (DKA)
+1 Briarpack Alpha (DKA)
+1 Brimstone Volley (ISD)
+1 Bruna, Light of Alabaster (AVR)
+1 Builder's Blessing (AVR)
+1 Bump in the Night (ISD)
+1 Burden of Guilt (DKA)
+1 Burn at the Stake (AVR)
+1 Burning Oil (DKA)
+1 Burning Vengeance (ISD)
+1 Butcher Ghoul (AVR)
+1 Butcher's Cleaver (ISD)
+1 Cackling Counterpart (ISD)
+1 Call to Serve (AVR)
+1 Call to the Kindred (DKA)
+1 Captain of the Mists (AVR)
+1 Caravan Vigil (ISD)
+1 Cathars' Crusade (AVR)
+1 Cathedral Sanctifier (AVR)
+1 Cavern of Souls (AVR)
+1 Cellar Door (ISD)
+1 Chalice of Life // Chalice of Death (DKA)
+1 Champion of Lambholt (AVR)
+1 Champion of the Parish (ISD)
+1 Chant of the Skifsang (DKA)
+1 Chapel Geist (ISD)
+1 Charmbreaker Devils (ISD)
+1 Chill of Foreboding (DKA)
+1 Chosen of Markov // Markov's Servant (DKA)
+1 Civilized Scholar // Homicidal Brute (ISD)
+1 Claustrophobia (ISD)
+1 Clifftop Retreat (ISD)
+1 Clinging Mists (DKA)
+1 Cloistered Youth // Unholy Fiend (ISD)
+1 Cloudshift (AVR)
+1 Cobbled Wings (ISD)
+1 Commander's Authority (AVR)
+1 Conjurer's Closet (AVR)
+1 Corpse Lunge (ISD)
+1 Corpse Traders (AVR)
+1 Counterlash (DKA)
+1 Craterhoof Behemoth (AVR)
+1 Creeping Renaissance (ISD)
+1 Creepy Doll (ISD)
+1 Crippling Chill (AVR)
+1 Crossway Vampire (ISD)
+1 Crushing Vines (DKA)
+1 Crypt Creeper (AVR)
+1 Curiosity (ISD)
+1 Curse of Bloodletting (DKA)
+1 Curse of Death's Hold (ISD)
+1 Curse of Echoes (DKA)
+1 Curse of Exhaustion (DKA)
+1 Curse of Misfortunes (DKA)
+1 Curse of Oblivion (ISD)
+1 Curse of Stalked Prey (ISD)
+1 Curse of the Bloody Tome (ISD)
+1 Curse of the Nightly Hunt (ISD)
+1 Curse of the Pierced Heart (ISD)
+1 Curse of Thirst (DKA)
+1 Cursebreak (AVR)
+1 Dangerous Wager (AVR)
+1 Dark Impostor (AVR)
+1 Darkthicket Wolf (ISD)
+1 Dawntreader Elk (DKA)
+1 Daybreak Ranger // Nightfall Predator (ISD)
+1 Dead Weight (ISD)
+1 Deadeye Navigator (AVR)
+1 Deadly Allure (DKA)
+1 Dearly Departed (ISD)
+1 Death Wind (AVR)
+1 Death's Caress (DKA)
+1 Defang (AVR)
+1 Defy Death (AVR)
+1 Delver of Secrets // Insectile Aberration (ISD)
+1 Demolish (AVR)
+1 Demonic Rising (AVR)
+1 Demonic Taskmaster (AVR)
+1 Demonlord of Ashmouth (AVR)
+1 Demonmail Hauberk (ISD)
+1 Deranged Assistant (ISD)
+1 Deranged Outcast (DKA)
+1 Descendants' Path (AVR)
+1 Descent into Madness (AVR)
+1 Desolate Lighthouse (AVR)
+1 Desperate Ravings (ISD)
+1 Devastation Tide (AVR)
+1 Devil's Play (ISD)
+1 Devout Chaplain (AVR)
+1 Diregraf Captain (DKA)
+1 Diregraf Escort (AVR)
+1 Diregraf Ghoul (ISD)
+1 Disciple of Griselbrand (ISD)
+1 Dissipate (ISD)
+1 Divination (DKA)
+1 Divine Deflection (AVR)
+1 Divine Reckoning (ISD)
+1 Doomed Traveler (ISD)
+1 Dread Slaver (AVR)
+1 Dreadwaters (AVR)
+1 Dream Twist (ISD)
+1 Driver of the Dead (AVR)
+1 Drogskol Captain (DKA)
+1 Drogskol Reaver (DKA)
+1 Druid's Familiar (AVR)
+1 Druids' Repository (AVR)
+1 Dual Casting (AVR)
+1 Dungeon Geists (DKA)
+1 Eaten by Spiders (AVR)
+1 Elbrus, the Binding Blade // Withengar Unbound (DKA)
+1 Elder Cathar (ISD)
+1 Elder of Laurels (ISD)
+1 Elgaud Inquisitor (DKA)
+1 Elgaud Shieldmate (AVR)
+1 Elite Inquisitor (ISD)
+1 Emancipation Angel (AVR)
+1 Endless Ranks of the Dead (ISD)
+1 Entreat the Angels (AVR)
+1 Erdwal Ripper (DKA)
+1 Essence Harvest (AVR)
+1 Essence of the Wild (ISD)
+1 Evernight Shade (AVR)
+1 Evil Twin (ISD)
+1 Evolving Wilds (DKA)
+1 Executioner's Hood (DKA)
+1 Exquisite Blood (AVR)
+1 Faith's Shield (DKA)
+1 Faithless Looting (DKA)
+1 Falkenrath Aristocrat (DKA)
+1 Falkenrath Exterminator (AVR)
+1 Falkenrath Marauders (ISD)
+1 Falkenrath Noble (ISD)
+1 Falkenrath Torturer (DKA)
+1 Farbog Boneflinger (DKA)
+1 Farbog Explorer (AVR)
+1 Favor of the Woods (DKA)
+1 Favorable Winds (AVR)
+1 Feed the Pack (DKA)
+1 Feeling of Dread (ISD)
+1 Feral Ridgewolf (ISD)
+1 Fervent Cathar (AVR)
+1 Festerhide Boar (ISD)
+1 Fettergeist (AVR)
+1 Fiend Hunter (ISD)
+1 Fiend of the Shadows (DKA)
+1 Fires of Undeath (DKA)
+1 Flayer of the Hatebound (DKA)
+1 Fleeting Distraction (AVR)
+1 Fling (DKA)
+1 Flowering Lumberknot (AVR)
+1 Forbidden Alchemy (ISD)
+1 Forge Devil (DKA)
+1 Fortress Crab (ISD)
+1 Frightful Delusion (ISD)
+1 Full Moon's Rise (ISD)
+1 Furor of the Bitten (ISD)
+1 Gallows at Willow Hill (AVR)
+1 Gallows Warden (ISD)
+1 Galvanic Alchemist (AVR)
+1 Galvanic Juggernaut (ISD)
+1 Gang of Devils (AVR)
+1 Garruk Relentless // Garruk, the Veil-Cursed (ISD)
+1 Gather the Townsfolk (DKA)
+1 Gatstaf Shepherd // Gatstaf Howler (ISD)
+1 Gavony Ironwright (DKA)
+1 Gavony Township (ISD)
+1 Geist of Saint Traft (ISD)
+1 Geist Snatch (AVR)
+1 Geist Trappers (AVR)
+1 Geist-Honored Monk (ISD)
+1 Geistcatcher's Rig (ISD)
+1 Geistflame (ISD)
+1 Geralf's Messenger (DKA)
+1 Geralf's Mindcrusher (DKA)
+1 Ghost Quarter (ISD)
+1 Ghostform (AVR)
+1 Ghostly Flicker (AVR)
+1 Ghostly Possession (ISD)
+1 Ghostly Touch (AVR)
+1 Ghoulcaller's Bell (ISD)
+1 Ghoulcaller's Chant (ISD)
+1 Ghoulflesh (AVR)
+1 Ghoulraiser (ISD)
+1 Ghoultree (DKA)
+1 Gisela, Blade of Goldnight (AVR)
+1 Gloom Surgeon (AVR)
+1 Gloomwidow (AVR)
+1 Gnaw to the Bone (ISD)
+1 Goldnight Commander (AVR)
+1 Goldnight Redeemer (AVR)
+1 Grafdigger's Cage (DKA)
+1 Grasp of Phantoms (ISD)
+1 Grave Bramble (ISD)
+1 Grave Exchange (AVR)
+1 Gravecrawler (DKA)
+1 Gravepurge (DKA)
+1 Gravetiller Wurm (DKA)
+1 Graveyard Shovel (ISD)
+1 Grim Backwoods (DKA)
+1 Grim Flowering (DKA)
+1 Grimgrin, Corpse-Born (ISD)
+1 Grimoire of the Dead (ISD)
+1 Griptide (DKA)
+1 Griselbrand (AVR)
+1 Grizzled Outcasts // Krallenhorde Wantons (ISD)
+1 Grounded (AVR)
+1 Gruesome Deformity (ISD)
+1 Gruesome Discovery (DKA)
+1 Gryff Vanguard (AVR)
+1 Guise of Fire (AVR)
+1 Gutter Grime (ISD)
+1 Hamlet Captain (ISD)
+1 Hanweir Lancer (AVR)
+1 Hanweir Watchkeep // Bane of Hanweir (ISD)
+1 Harrowing Journey (DKA)
+1 Harvest Pyre (ISD)
+1 Harvester of Souls (AVR)
+1 Haunted Fengraf (DKA)
+1 Haunted Guardian (AVR)
+1 Havengul Lich (DKA)
+1 Havengul Runebinder (DKA)
+1 Havengul Skaab (AVR)
+1 Havengul Vampire (AVR)
+1 Headless Skaab (DKA)
+1 Heartless Summoning (ISD)
+1 Heavy Mattock (DKA)
+1 Heckling Fiends (DKA)
+1 Heirs of Stromkirk (AVR)
+1 Hellrider (DKA)
+1 Helvault (DKA)
+1 Herald of War (AVR)
+1 Heretic's Punishment (ISD)
+1 Highborn Ghoul (DKA)
+1 Hinterland Harbor (ISD)
+1 Hinterland Hermit // Hinterland Scourge (DKA)
+1 Hollowhenge Beast (DKA)
+1 Hollowhenge Scavenger (ISD)
+1 Hollowhenge Spirit (DKA)
+1 Holy Justiciar (AVR)
+1 Homicidal Seclusion (AVR)
+1 Hound of Griselbrand (AVR)
+1 Howlgeist (AVR)
+1 Human Frailty (AVR)
+1 Hunger of the Howlpack (DKA)
+1 Hunted Ghoul (AVR)
+1 Huntmaster of the Fells // Ravager of the Fells (DKA)
+1 Hysterical Blindness (ISD)
+1 Immerwolf (DKA)
+1 Increasing Ambition (DKA)
+1 Increasing Confusion (DKA)
+1 Increasing Devotion (DKA)
+1 Increasing Savagery (DKA)
+1 Increasing Vengeance (DKA)
+1 Infernal Plunge (ISD)
+1 Infinite Reflection (AVR)
+1 Inquisitor's Flail (ISD)
+1 Instigator Gang // Wildblood Pack (ISD)
+1 Intangible Virtue (ISD)
+1 Into the Maw of Hell (ISD)
+1 Into the Void (AVR)
+1 Invisible Stalker (ISD)
+1 Isolated Chapel (ISD)
+1 Jar of Eyeballs (DKA)
+1 Joint Assault (AVR)
+1 Kessig Cagebreakers (ISD)
+1 Kessig Malcontents (AVR)
+1 Kessig Recluse (DKA)
+1 Kessig Wolf (ISD)
+1 Kessig Wolf Run (ISD)
+1 Killing Wave (AVR)
+1 Kindercatch (ISD)
+1 Kruin Outlaw // Terror of Kruin Pass (ISD)
+1 Kruin Striker (AVR)
+1 Laboratory Maniac (ISD)
+1 Lair Delve (AVR)
+1 Lambholt Elder // Silverpelt Werewolf (DKA)
+1 Lantern Spirit (ISD)
+1 Latch Seeker (AVR)
+1 Leap of Faith (AVR)
+1 Lightning Mauler (AVR)
+1 Lightning Prowess (AVR)
+1 Liliana of the Veil (ISD)
+1 Lingering Souls (DKA)
+1 Lone Revenant (AVR)
+1 Lost in the Mist (ISD)
+1 Lost in the Woods (DKA)
+1 Loyal Cathar // Unhallowed Cathar (DKA)
+1 Ludevic's Test Subject // Ludevic's Abomination (ISD)
+1 Lumberknot (ISD)
+1 Lunar Mystic (AVR)
+1 Maalfeld Twins (AVR)
+1 Mad Prophet (AVR)
+1 Make a Wish (ISD)
+1 Makeshift Mauler (ISD)
+1 Malicious Intent (AVR)
+1 Malignus (AVR)
+1 Manor Gargoyle (ISD)
+1 Manor Skeleton (ISD)
+1 Markov Blademaster (DKA)
+1 Markov Patrician (ISD)
+1 Markov Warlord (DKA)
+1 Marrow Bats (AVR)
+1 Mask of Avacyn (ISD)
+1 Mass Appeal (AVR)
+1 Mausoleum Guard (ISD)
+1 Maw of the Mire (ISD)
+1 Mayor of Avabruck // Howlpack Alpha (ISD)
+1 Memory's Journey (ISD)
+1 Mental Agony (AVR)
+1 Mentor of the Meek (ISD)
+1 Midnight Duelist (AVR)
+1 Midnight Guard (DKA)
+1 Midnight Haunting (ISD)
+1 Midvast Protector (AVR)
+1 Mikaeus, the Lunarch (ISD)
+1 Mikaeus, the Unhallowed (DKA)
+1 Mindshrieker (ISD)
+1 Mirror-Mad Phantasm (ISD)
+1 Mist Raven (AVR)
+1 Misthollow Griffin (AVR)
+1 Moan of the Unhallowed (ISD)
+1 Moldgraf Monstrosity (ISD)
+1 Moment of Heroism (ISD)
+1 Mondronen Shaman // Tovolar's Magehunter (DKA)
+1 Moon Heron (ISD)
+1 Moonlight Geist (AVR)
+1 Moonmist (ISD)
+1 Moonsilver Spear (AVR)
+1 Moonveil Dragon (DKA)
+1 Moorland Haunt (ISD)
+1 Moorland Inquisitor (AVR)
+1 Morkrut Banshee (ISD)
+1 Mulch (ISD)
+1 Murder of Crows (ISD)
+1 Mystic Retrieval (DKA)
+1 Narstad Scrapper (AVR)
+1 Natural End (AVR)
+1 Naturalize (ISD)
+1 Nearheath Pilgrim (AVR)
+1 Nearheath Stalker (DKA)
+1 Necrobite (AVR)
+1 Nephalia Drownyard (ISD)
+1 Nephalia Seakite (DKA)
+1 Nephalia Smuggler (AVR)
+1 Nettle Swine (AVR)
+1 Nevermore (ISD)
+1 Niblis of the Breath (DKA)
+1 Niblis of the Mist (DKA)
+1 Niblis of the Urn (DKA)
+1 Night Revelers (ISD)
+1 Night Terrors (ISD)
+1 Nightbird's Clutches (ISD)
+1 Nightshade Peddler (AVR)
+1 Olivia Voldaren (ISD)
+1 One-Eyed Scarecrow (ISD)
+1 Orchard Spirit (ISD)
+1 Otherworld Atlas (AVR)
+1 Outwit (AVR)
+1 Parallel Lives (ISD)
+1 Paraselene (ISD)
+1 Past in Flames (ISD)
+1 Pathbreaker Wurm (AVR)
+1 Peel from Reality (AVR)
+1 Pillar of Flame (AVR)
+1 Pitchburn Devils (ISD)
+1 Polluted Dead (AVR)
+1 Predator Ooze (DKA)
+1 Predator's Gambit (AVR)
+1 Prey Upon (ISD)
+1 Primal Surge (AVR)
+1 Purify the Grave (ISD)
+1 Pyreheart Wolf (DKA)
+1 Rage Thrower (ISD)
+1 Raging Poltergeist (AVR)
+1 Rain of Thorns (AVR)
+1 Rakish Heir (ISD)
+1 Rally the Peasants (ISD)
+1 Ranger's Guile (ISD)
+1 Ravenous Demon // Archdemon of Greed (DKA)
+1 Ray of Revelation (DKA)
+1 Reap the Seagraf (DKA)
+1 Reaper from the Abyss (ISD)
+1 Rebuke (ISD)
+1 Reckless Waif // Merciless Predator (ISD)
+1 Reforge the Soul (AVR)
+1 Relentless Skaabs (DKA)
+1 Renegade Demon (AVR)
+1 Requiem Angel (DKA)
+1 Restoration Angel (AVR)
+1 Revenge of the Hunted (AVR)
+1 Riders of Gavony (AVR)
+1 Righteous Blow (AVR)
+1 Riot Devils (ISD)
+1 Riot Ringleader (AVR)
+1 Rite of Ruin (AVR)
+1 Rolling Temblor (ISD)
+1 Rooftop Storm (ISD)
+1 Rotcrown Ghoul (AVR)
+1 Rotting Fensnake (ISD)
+1 Runechanter's Pike (ISD)
+1 Runic Repetition (ISD)
+1 Rush of Blood (AVR)
+1 Russet Wolves (DKA)
+1 Sanctuary Cat (DKA)
+1 Saving Grasp (DKA)
+1 Scalding Devil (AVR)
+1 Scorch the Fields (DKA)
+1 Scorned Villager // Moonscarred Werewolf (DKA)
+1 Scourge of Geier Reach (ISD)
+1 Scrapskin Drake (AVR)
+1 Screeching Bat // Stalking Vampire (ISD)
+1 Screeching Skaab (DKA)
+1 Scroll of Avacyn (AVR)
+1 Scroll of Griselbrand (AVR)
+1 Séance (DKA)
+1 Searchlight Geist (AVR)
+1 Second Guess (AVR)
+1 Secrets of the Dead (DKA)
+1 Selfless Cathar (ISD)
+1 Selhoff Occultist (ISD)
+1 Sensory Deprivation (ISD)
+1 Seraph of Dawn (AVR)
+1 Seraph Sanctuary (AVR)
+1 Sever the Bloodline (ISD)
+1 Sharpened Pitchfork (ISD)
+1 Shattered Perception (DKA)
+1 Sheltering Word (AVR)
+1 Shimmering Grotto (ISD)
+1 Shriekgeist (DKA)
+1 Sigarda, Host of Herons (AVR)
+1 Sightless Ghoul (DKA)
+1 Silent Departure (ISD)
+1 Silver-Inlaid Dagger (ISD)
+1 Silverblade Paladin (AVR)
+1 Silverchase Fox (ISD)
+1 Silverclaw Griffin (DKA)
+1 Skaab Goliath (ISD)
+1 Skaab Ruinator (ISD)
+1 Skeletal Grimace (ISD)
+1 Skillful Lunge (DKA)
+1 Skirsdag Cultist (ISD)
+1 Skirsdag Flayer (DKA)
+1 Skirsdag High Priest (ISD)
+1 Slayer of the Wicked (ISD)
+1 Slayers' Stronghold (AVR)
+1 Smite the Monstrous (ISD)
+1 Snapcaster Mage (ISD)
+1 Snare the Skies (AVR)
+1 Somberwald Dryad (DKA)
+1 Somberwald Sage (AVR)
+1 Somberwald Spider (ISD)
+1 Somberwald Vigilante (AVR)
+1 Sorin, Lord of Innistrad (DKA)
+1 Soul of the Harvest (AVR)
+1 Soul Seizer // Ghastly Haunting (DKA)
+1 Soulcage Fiend (AVR)
+1 Spare from Evil (ISD)
+1 Spectral Flight (ISD)
+1 Spectral Gateguards (AVR)
+1 Spectral Prison (AVR)
+1 Spectral Rider (ISD)
+1 Spider Spawning (ISD)
+1 Spidery Grasp (ISD)
+1 Spirit Away (AVR)
+1 Spiteful Shadows (DKA)
+1 Splinterfright (ISD)
+1 Stensia Bloodhall (ISD)
+1 Stern Mentor (AVR)
+1 Stitched Drake (ISD)
+1 Stitcher's Apprentice (ISD)
+1 Stolen Goods (AVR)
+1 Stonewright (AVR)
+1 Stony Silence (ISD)
+1 Stormbound Geist (DKA)
+1 Strangleroot Geist (DKA)
+1 Stromkirk Captain (DKA)
+1 Stromkirk Noble (ISD)
+1 Stromkirk Patrol (ISD)
+1 Sturmgeist (ISD)
+1 Sudden Disappearance (DKA)
+1 Sulfur Falls (ISD)
+1 Talons of Falkenrath (DKA)
+1 Tamiyo, the Moon Sage (AVR)
+1 Tandem Lookout (AVR)
+1 Temporal Mastery (AVR)
+1 Terminus (AVR)
+1 Terrifying Presence (AVR)
+1 Thalia, Guardian of Thraben (DKA)
+1 Thatcher Revolt (AVR)
+1 Think Twice (ISD)
+1 Thought Scour (DKA)
+1 Thraben Doomsayer (DKA)
+1 Thraben Heretic (DKA)
+1 Thraben Purebloods (ISD)
+1 Thraben Sentry // Thraben Militia (ISD)
+1 Thraben Valiant (AVR)
+1 Thunderbolt (AVR)
+1 Thunderous Wrath (AVR)
+1 Tibalt, the Fiend-Blooded (AVR)
+1 Timberland Guide (AVR)
+1 Torch Fiend (DKA)
+1 Tormented Pariah // Rampaging Werewolf (ISD)
+1 Tormentor's Trident (AVR)
+1 Tower Geist (DKA)
+1 Tracker's Instincts (DKA)
+1 Tragic Slip (DKA)
+1 Traitorous Blood (ISD)
+1 Travel Preparations (ISD)
+1 Traveler's Amulet (ISD)
+1 Treacherous Pit-Dweller (AVR)
+1 Tree of Redemption (ISD)
+1 Trepanation Blade (ISD)
+1 Tribute to Hunger (ISD)
+1 Triumph of Cruelty (AVR)
+1 Triumph of Ferocity (AVR)
+1 Trusted Forcemage (AVR)
+1 Typhoid Rats (ISD)
+1 Tyrant of Discord (AVR)
+1 Ulvenwald Bear (DKA)
+1 Ulvenwald Mystics // Ulvenwald Primordials (ISD)
+1 Ulvenwald Tracker (AVR)
+1 Unbreathing Horde (ISD)
+1 Unburial Rites (ISD)
+1 Uncanny Speed (AVR)
+1 Undead Alchemist (ISD)
+1 Undead Executioner (AVR)
+1 Undying Evil (DKA)
+1 Unhallowed Pact (AVR)
+1 Unruly Mob (ISD)
+1 Urgent Exorcism (ISD)
+1 Vampire Interloper (ISD)
+1 Vampiric Fury (ISD)
+1 Vanguard's Shield (AVR)
+1 Vanishment (AVR)
+1 Vault of the Archangel (DKA)
+1 Vengeful Vampire (DKA)
+1 Vessel of Endless Rest (AVR)
+1 Vexing Devil (AVR)
+1 Victim of Night (ISD)
+1 Vigilante Justice (AVR)
+1 Village Bell-Ringer (ISD)
+1 Village Cannibals (ISD)
+1 Village Ironsmith // Ironfang (ISD)
+1 Village Survivors (DKA)
+1 Villagers of Estwald // Howlpack of Estwald (ISD)
+1 Voice of the Provinces (AVR)
+1 Voiceless Spirit (ISD)
+1 Vorapede (DKA)
+1 Vorstclaw (AVR)
+1 Wakedancer (DKA)
+1 Walking Corpse (ISD)
+1 Wandering Wolf (AVR)
+1 Warden of the Wall (DKA)
+1 Wild Defiance (AVR)
+1 Wild Hunger (DKA)
+1 Wildwood Geist (AVR)
+1 Wingcrafter (AVR)
+1 Witchbane Orb (ISD)
+1 Wolfbitten Captive // Krallenhorde Killer (DKA)
+1 Wolfhunter's Quiver (DKA)
+1 Wolfir Avenger (AVR)
+1 Wolfir Silverheart (AVR)
+1 Wooden Stake (ISD)
+1 Woodland Cemetery (ISD)
+1 Woodland Sleuth (ISD)
+1 Wrack with Madness (DKA)
+1 Wreath of Geists (ISD)
+1 Yew Spirit (AVR)
+1 Young Wolf (DKA)
+1 Zealous Conscripts (AVR)
+1 Zealous Strike (AVR)
+1 Zombie Apocalypse (DKA)

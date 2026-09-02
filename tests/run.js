@@ -99,6 +99,15 @@ section('parsePresetFile (lists/ directory format)');
   assert(bare.format === '' && bare.body === '1 Island\n1 Forest', 'plain lists work without a header');
 }
 
+section('collectSetHints (printing pins)');
+{
+  const parsed = Parser.parseDeckList('1 Lightning Bolt (LEA)\n1 Counterspell\n2 Doom Blade (M10) 94');
+  const hints = Parser.collectSetHints(parsed.entries);
+  assert(hints['lightning bolt'] === 'lea' && hints['doom blade'] === 'm10',
+    '(SET) suffixes become lowercased set hints');
+  assert(hints['counterspell'] === undefined, 'unpinned names get no hint');
+}
+
 /* ---------------- cube draft ---------------- */
 section('CubeDraft');
 {
@@ -1107,6 +1116,40 @@ section('Scryfall slim() back faces');
           assert(tok.name === 'Goblin' && tok.img === 'https://x/goblin-token.jpg' && tok.pt === '1/1',
             'fetchToken returns the slim token with art and p/t');
 
+          // ---- printing pins: "(SET)" hints reach the API and cache separately ----
+          section('Set-pinned printings');
+          let sentIdentifiers = [];
+          let fetchCount = 0;
+          global.fetch = async (url, opts) => {
+            fetchCount++;
+            const ids = JSON.parse(opts.body).identifiers;
+            sentIdentifiers = ids;
+            return {
+              ok: true,
+              json: async () => ({
+                object: 'list', not_found: [],
+                data: ids.map(i => ({
+                  object: 'card', name: i.name, type_line: 'Instant', oracle_text: 'Zap.',
+                  image_uris: { normal: 'https://x/' + (i.set || 'latest') + '.jpg' }
+                }))
+              })
+            };
+          };
+          return Scryfall.resolve(['Pinned Zap'], null, { 'pinned zap': 'lea' }).then(r5 => {
+            assert(sentIdentifiers[0].name === 'Pinned Zap' && sentIdentifiers[0].set === 'lea',
+              'the collection identifier carries the pinned set');
+            assert(r5.cards['pinned zap'].img === 'https://x/lea.jpg', 'the pinned printing comes back');
+            return Scryfall.resolve(['Pinned Zap']); // same name, no pin
+          }).then(r6 => {
+            assert(r6.cards['pinned zap'].img === 'https://x/lea.jpg' || r6.cards['pinned zap'].img === 'https://x/latest.jpg',
+              'unpinned request still resolves');
+            const before = fetchCount;
+            return Scryfall.resolve(['Pinned Zap'], null, { 'pinned zap': 'lea' }).then(r7 => {
+              assert(fetchCount === before && r7.cards['pinned zap'].img === 'https://x/lea.jpg',
+                'the pinned printing is served from cache without refetching');
+            });
+          }).then(() => {
+
           // ---- Scryfall down -> the relay mirror answers instead ----
           section('Scryfall outage falls back to the relay mirror');
           const urls = [];
@@ -1136,6 +1179,7 @@ section('Scryfall slim() back faces');
               'Scryfall was tried first');
             console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
             process.exit(failures ? 1 : 0);
+          });
           });
         });
       });

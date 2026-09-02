@@ -1,618 +1,618 @@
 @name Invasion Block (INV/PLS/APC)
 @format cube
-1 Absorb
-1 Addle
-1 Aether Mutation
-1 Aether Rift
-1 Aggressive Urge
-1 Agonizing Demise
-1 Alabaster Leech
-1 Allied Strategies
-1 Alloy Golem
-1 Alpha Kavu
-1 Amphibious Kavu
-1 Ana Disciple
-1 Ana Sanctuary
-1 Anavolver
-1 Ancient Kavu
-1 Ancient Spider
-1 Ancient Spring
-1 Andradite Leech
-1 Angelfire Crusader
-1 Angelic Shield
-1 Angel of Mercy
-1 Annihilate
-1 Archaeological Dig
-1 Arctic Merfolk
-1 Ardent Soldier
-1 Armadillo Cloak
-1 Armored Guardian
-1 Artifact Mutation
-1 Assault // Battery
-1 Atalya, Samite Master
-1 Aura Blast
-1 Aura Mutation
-1 Aura Shards
-1 Aurora Griffin
-1 Backlash
-1 Barrin's Spite
-1 Barrin's Unmaking
-1 Battlefield Forge
-1 Benalish Emissary
-1 Benalish Heralds
-1 Benalish Lancer
-1 Benalish Trapper
-1 Bend or Break
-1 Bind
-1 Blazing Specter
-1 Blinding Light
-1 Blind Seer
-1 Bloodfire Colossus
-1 Bloodfire Dwarf
-1 Bloodfire Infusion
-1 Bloodfire Kavu
-1 Bloodstone Cameo
-1 Blurred Mongoose
-1 Bog Down
-1 Bog Gnarr
-1 Bog Initiate
-1 Brass Herald
-1 Breaking Wave
-1 Breath of Darigaaz
-1 Caldera Kavu
-1 Callous Giant
-1 Canopy Surge
-1 Capashen Unicorn
-1 Captain Sisay
-1 Captain's Maneuver
-1 Cauldron Dance
-1 Cavern Harpy
-1 Caves of Koilos
-1 Ceta Disciple
-1 Ceta Sanctuary
-1 Cetavolver
-1 Chaotic Strike
-1 Charging Troll
-1 Chromatic Sphere
-1 Cinder Shade
-1 Cloud Cover
-1 Coalition Flag
-1 Coalition Honor Guard
-1 Coalition Victory
-1 Coastal Drake
-1 Coastal Tower
-1 Collapsing Borders
-1 Collective Restraint
-1 Confound
-1 Consume Strength
-1 Cremate
-1 Crimson Acolyte
-1 Cromat
-1 Crosis's Attendant
-1 Crosis's Catacombs
-1 Crosis's Charm
-1 Crosis, the Purger
-1 Crown of Flames
-1 Crusading Knight
-1 Crypt Angel
-1 Crystal Spray
-1 Cursed Flesh
-1 Darigaaz's Attendant
-1 Darigaaz's Caldera
-1 Darigaaz's Charm
-1 Darigaaz, the Igniter
-1 Daring Leap
-1 Dark Suspicions
-1 Deadapult
-1 Dead Ringers
-1 Death Bomb
-1 Death Grasp
-1 Death Mutation
-1 Death or Glory
-1 Defiling Tears
-1 Dega Disciple
-1 Dega Sanctuary
-1 Degavolver
-1 Desolation Angel
-1 Desolation Giant
-1 Desperate Research
-1 Destructive Flow
-1 Devouring Strossus
-1 Diabolic Intent
-1 Disciple of Kangee
-1 Dismantling Blow
-1 Disrupt
-1 Distorting Wake
-1 Diversionary Tactics
-1 Divine Light
-1 Divine Presence
-1 Dodecapod
-1 Dominaria's Judgment
-1 Doomsday Specter
-1 Do or Die
-1 Draco
-1 Dragon Arch
-1 Drake-Skull Cameo
-1 Dralnu's Crusade
-1 Dralnu's Pet
-1 Dream Thrush
-1 Dredge
-1 Dromar's Attendant
-1 Dromar's Cavern
-1 Dromar's Charm
-1 Dromar, the Banisher
-1 Dueling Grounds
-1 Duskwalker
-1 Dwarven Landslide
-1 Dwarven Patrol
-1 Ebony Treefolk
-1 Eladamri's Call
-1 Elfhame Palace
-1 Elfhame Sanctuary
-1 Elvish Champion
-1 Emblazoned Golem
-1 Empress Galina
-1 Enlistment Officer
-1 Ertai's Trickery
-1 Ertai, the Corrupted
-1 Escape Routes
-1 Essence Leak
-1 Evasive Action
-1 Exclude
-1 Exotic Curse
-1 Exotic Disease
-1 Explosive Growth
-1 Fact or Fiction
-1 Faerie Squadron
-1 Falling Timber
-1 False Dawn
-1 Fertile Ground
-1 Fervent Charge
-1 Fight or Flight
-1 Firebrand Ranger
-1 Fire // Ice
-1 Firescreamer
-1 Fires of Yavimaya
-1 Flametongue Kavu
-1 Fleetfoot Panther
-1 Flowstone Charger
-1 Forsaken City
-1 Foul Presence
-1 Frenzied Tilling
-1 Fungal Shambler
-1 Gaea's Balance
-1 Gaea's Herald
-1 Gaea's Might
-1 Gaea's Skyfolk
-1 Gainsay
-1 Galina's Knight
-1 Geothermal Crevice
-1 Gerrard Capashen
-1 Gerrard's Command
-1 Gerrard's Verdict
-1 Ghitu Fire
-1 Glade Gnarr
-1 Glimmering Angel
-1 Global Ruin
-1 Goblin Game
-1 Goblin Legionnaire
-1 Goblin Ringleader
-1 Goblin Spy
-1 Goblin Trenches
-1 Goham Djinn
-1 Grave Defiler
-1 Guard Dogs
-1 Guided Passage
-1 Halam Djinn
-1 Hanna, Ship's Navigator
-1 Harrow
-1 Harsh Judgment
-1 Hate Weaver
-1 Haunted Angel
-1 Helionaut
-1 Heroes' Reunion
-1 Heroic Defiance
-1 Hobble
-1 Holy Day
-1 Honorable Scout
-1 Hooded Kavu
-1 Horned Cheetah
-1 Horned Kavu
-1 Hull Breach
-1 Hunting Drake
-1 Hunting Kavu
-1 Hypnotic Cloud
-1 Ice Cave
-1 Illuminate
-1 Illusion // Reality
-1 Implode
-1 Index
-1 Insolence
-1 Irrigation Ditch
-1 Jaded Response
-1 Jade Leech
-1 Jilt
-1 Jungle Barrier
-1 Juntu Stakes
-1 Kangee, Aerie Keeper
-1 Kavu Aggressor
-1 Kavu Chameleon
-1 Kavu Climber
-1 Kavu Glider
-1 Kavu Howler
-1 Kavu Lair
-1 Kavu Mauler
-1 Kavu Monarch
-1 Kavu Recluse
-1 Kavu Runner
-1 Kavu Scout
-1 Kavu Titan
-1 Keldon Mantle
-1 Keldon Necropolis
-1 Keldon Twilight
-1 Lashknife Barrier
-1 Last Caress
-1 Last Stand
-1 Lava Zombie
-1 Lay of the Land
-1 Legacy Weapon
-1 Liberate
-1 Life // Death
-1 Lightning Angel
-1 Lightning Dart
-1 Living Airship
-1 Llanowar Cavalry
-1 Llanowar Dead
-1 Llanowar Elite
-1 Llanowar Knight
-1 Llanowar Vanguard
-1 Llanowar Wastes
-1 Loafing Giant
-1 Lobotomy
-1 Lord of the Undead
-1 Lotus Guardian
-1 Mages' Contest
-1 Maggot Carrier
-1 Magma Burst
-1 Magnigoth Treefolk
-1 Malicious Advice
-1 Manacles of Decay
-1 Mana Cylix
-1 Mana Maze
-1 Maniacal Rage
-1 Manipulate Fate
-1 Marauding Knight
-1 March of Souls
-1 Marsh Crocodile
-1 Martyrs' Tomb
-1 Mask of Intolerance
-1 Meddling Mage
-1 Metathran Aerostat
-1 Metathran Transport
-1 Metathran Zombie
-1 Meteor Crater
-1 Meteor Storm
-1 Might Weaver
-1 Mind Extraction
-1 Minotaur Illusionist
-1 Minotaur Tactician
-1 Mire Kavu
-1 Mirrorwood Treefolk
-1 Mogg Jailer
-1 Mogg Sentry
-1 Molimo, Maro-Sorcerer
-1 Morgue Toad
-1 Mournful Zombie
-1 Mourning
-1 Multani's Harmony
-1 Mystic Snake
-1 Natural Emergence
-1 Necra Disciple
-1 Necra Sanctuary
-1 Necravolver
-1 Nemata, Grove Guardian
-1 Night // Day
-1 Nightscape Apprentice
-1 Nightscape Battlemage
-1 Nightscape Familiar
-1 Nightscape Master
-1 Noble Panther
-1 Nomadic Elf
-1 Noxious Vapors
-1 Obliterate
-1 Obsidian Acolyte
-1 Opt
-1 Order // Chaos
-1 Ordered Migration
-1 Orim's Chant
-1 Orim's Thunder
-1 Orim's Touch
-1 Overabundance
-1 Overgrown Estate
-1 Overload
-1 Pain // Suffering
-1 Penumbra Bobcat
-1 Penumbra Kavu
-1 Penumbra Wurm
-1 Pernicious Deed
-1 Phantasmal Terrain
-1 Phyrexian Altar
-1 Phyrexian Arena
-1 Phyrexian Battleflies
-1 Phyrexian Bloodstock
-1 Phyrexian Delver
-1 Phyrexian Gargantua
-1 Phyrexian Infiltrator
-1 Phyrexian Lens
-1 Phyrexian Rager
-1 Phyrexian Reaper
-1 Phyrexian Scuta
-1 Phyrexian Slayer
-1 Phyrexian Tyranny
-1 Pincer Spider
-1 Plague Spitter
-1 Plague Spores
-1 Planar Despair
-1 Planar Overlay
-1 Planar Portal
-1 Planeswalker's Favor
-1 Planeswalker's Fury
-1 Planeswalker's Mirth
-1 Planeswalker's Mischief
-1 Planeswalker's Scorn
-1 Pledge of Loyalty
-1 Pollen Remedy
-1 Pouncing Kavu
-1 Power Armor
-1 Powerstone Minefield
-1 Primal Growth
-1 Prison Barricade
-1 Probe
-1 Prohibit
-1 Prophetic Bolt
-1 Protective Sphere
-1 Psychic Battle
-1 Pulse of Llanowar
-1 Pure Reflection
-1 Putrid Warrior
-1 Pygmy Kavu
-1 Pyre Zombie
-1 Quagmire Druid
-1 Questing Phelddagrif
-1 Quicksilver Dagger
-1 Quirion Dryad
-1 Quirion Elves
-1 Quirion Explorer
-1 Quirion Sentinel
-1 Quirion Trailblazer
-1 Radiant Kavu
-1 Rage Weaver
-1 Raging Kavu
-1 Rainbow Crow
-1 Raka Disciple
-1 Raka Sanctuary
-1 Rakavolver
-1 Rampant Elephant
-1 Ravenous Rats
-1 Razing Snidd
-1 Razorfin Hunter
-1 Razorfoot Griffin
-1 Reckless Assault
-1 Reckless Spite
-1 Recoil
-1 Recover
-1 Reef Shaman
-1 Repulse
-1 Restock
-1 Restrain
-1 Reviving Dose
-1 Reviving Vapors
-1 Rewards of Diversity
-1 Reya Dawnbringer
-1 Riptide Crab
-1 Rith's Attendant
-1 Rith's Charm
-1 Rith's Grove
-1 Rith, the Awakener
-1 Rogue Kavu
-1 Root Greevil
-1 Rooting Kavu
-1 Rout
-1 Ruby Leech
-1 Ruham Djinn
-1 Rushing River
-1 Sabertooth Nishoba
-1 Salt Marsh
-1 Samite Archer
-1 Samite Elder
-1 Samite Ministration
-1 Samite Pilgrim
-1 Sapphire Leech
-1 Saproling Infestation
-1 Saproling Symbiosis
-1 Savage Gorilla
-1 Savage Offensive
-1 Sawtooth Loon
-1 Scarred Puma
-1 Scavenged Weaponry
-1 Scorching Lava
-1 Scouting Trek
-1 Searing Rays
-1 Seashell Cameo
-1 Sea Snidd
-1 Seer's Vision
-1 Serpentine Kavu
-1 Shackles
-1 Shield of Duty and Reason
-1 Shifting Sky
-1 Shimmering Mirage
-1 Shimmering Wings
-1 Shivan Emissary
-1 Shivan Harvest
-1 Shivan Oasis
-1 Shivan Reef
-1 Shivan Wurm
-1 Shivan Zombie
-1 Shoreline Raider
-1 Shriek of Dread
-1 Silver Drake
-1 Simoon
-1 Singe
-1 Sinister Strength
-1 Sisay's Ingenuity
-1 Skittish Kavu
-1 Skizzik
-1 Skyship Weatherlight
-1 Skyshroud Blessing
-1 Sky Weaver
-1 Slay
-1 Sleeper's Robe
-1 Sleeping Potion
-1 Slimy Kavu
-1 Slingshot Goblin
-1 Slinking Serpent
-1 Smash
-1 Smoldering Tar
-1 Soul Burn
-1 Soul Link
-1 Sparkcaster
-1 Sparring Golem
-1 Spectral Lynx
-1 Spinal Embrace
-1 Spiritmonger
-1 Spirit of Resistance
-1 Spirit Weaver
-1 Spite // Malice
-1 Spreading Plague
-1 Squee's Embrace
-1 Squee's Revenge
-1 Stalking Assassin
-1 Standard Bearer
-1 Stand // Deliver
-1 Stand or Fall
-1 Star Compass
-1 Steel Leaf Paladin
-1 Sterling Grove
-1 Stone Kavu
-1 Stormscape Apprentice
-1 Stormscape Battlemage
-1 Stormscape Familiar
-1 Stormscape Master
-1 Strafe
-1 Stratadon
-1 Strength of Night
-1 Strength of Unity
-1 Stun
-1 Suffocating Blast
-1 Sulam Djinn
-1 Sulfur Vent
-1 Sunken Hope
-1 Sunscape Apprentice
-1 Sunscape Battlemage
-1 Sunscape Familiar
-1 Sunscape Master
-1 Suppress
-1 Surprise Deployment
-1 Sway of Illusion
-1 Sylvan Messenger
-1 Symbiotic Deployment
-1 Tahngarth's Glare
-1 Tahngarth, Talruum Hero
-1 Tainted Well
-1 Tangle
-1 Tectonic Instability
-1 Teferi's Care
-1 Teferi's Moat
-1 Teferi's Response
-1 Tek
-1 Temporal Distortion
-1 Temporal Spring
-1 Terminal Moraine
-1 Terminate
-1 Thicket Elemental
-1 Thornscape Apprentice
-1 Thornscape Battlemage
-1 Thornscape Familiar
-1 Thornscape Master
-1 Thunderscape Apprentice
-1 Thunderscape Battlemage
-1 Thunderscape Familiar
-1 Thunderscape Master
-1 Tidal Courier
-1 Tidal Visionary
-1 Tigereye Cameo
-1 Tinder Farm
-1 Tolarian Emissary
-1 Tower Drake
-1 Tranquility
-1 Tranquil Path
-1 Traveler's Cloak
-1 Treefolk Healer
-1 Trench Wurm
-1 Treva's Attendant
-1 Treva's Charm
-1 Treva's Ruins
-1 Treva, the Renewer
-1 Tribal Flames
-1 Troll-Horn Cameo
-1 Tsabo's Assassin
-1 Tsabo's Decree
-1 Tsabo's Web
-1 Tsabo Tavoc
-1 Tundra Kavu
-1 Turf Wound
-1 Twilight's Call
-1 Undermine
-1 Unnatural Selection
-1 Urborg Drake
-1 Urborg Elf
-1 Urborg Emissary
-1 Urborg Phantom
-1 Urborg Shambler
-1 Urborg Skeleton
-1 Urborg Uprising
-1 Urborg Volcano
-1 Urza's Filter
-1 Urza's Guilt
-1 Urza's Rage
-1 Utopia Tree
-1 Verdeloth the Ancient
-1 Verduran Emissary
-1 Viashino Grappler
-1 Vicious Kavu
-1 Vigorous Charge
-1 Vile Consumption
-1 Vindicate
-1 Vodalian Hypnotist
-1 Vodalian Merchant
-1 Vodalian Mystic
-1 Vodalian Serpent
-1 Vodalian Zombie
-1 Voice of All
-1 Void
-1 Volcano Imp
-1 Voracious Cobra
-1 Wallop
-1 Wandering Stream
-1 Warped Devotion
-1 Wash Out
-1 Waterspout Elemental
-1 Wax // Wane
-1 Wayfaring Giant
-1 Well-Laid Plans
-1 Whip Silk
-1 Whirlpool Drake
-1 Whirlpool Rider
-1 Whirlpool Warrior
-1 Wild Research
-1 Wings of Hope
-1 Winnow
-1 Worldly Counsel
-1 Yavimaya Barbarian
-1 Yavimaya Coast
-1 Yavimaya Kavu
-1 Yavimaya's Embrace
-1 Yawgmoth's Agenda
-1 Zanam Djinn
-1 Zap
-1 Zombie Boa
+1 Absorb (INV)
+1 Addle (INV)
+1 Aether Mutation (APC)
+1 Aether Rift (INV)
+1 Aggressive Urge (INV)
+1 Agonizing Demise (INV)
+1 Alabaster Leech (INV)
+1 Allied Strategies (PLS)
+1 Alloy Golem (INV)
+1 Alpha Kavu (PLS)
+1 Amphibious Kavu (PLS)
+1 Ana Disciple (APC)
+1 Ana Sanctuary (APC)
+1 Anavolver (APC)
+1 Ancient Kavu (INV)
+1 Ancient Spider (PLS)
+1 Ancient Spring (INV)
+1 Andradite Leech (INV)
+1 Angel of Mercy (INV)
+1 Angelfire Crusader (APC)
+1 Angelic Shield (INV)
+1 Annihilate (INV)
+1 Archaeological Dig (INV)
+1 Arctic Merfolk (PLS)
+1 Ardent Soldier (INV)
+1 Armadillo Cloak (INV)
+1 Armored Guardian (INV)
+1 Artifact Mutation (INV)
+1 Assault // Battery (INV)
+1 Atalya, Samite Master (INV)
+1 Aura Blast (PLS)
+1 Aura Mutation (INV)
+1 Aura Shards (INV)
+1 Aurora Griffin (PLS)
+1 Backlash (INV)
+1 Barrin's Spite (INV)
+1 Barrin's Unmaking (INV)
+1 Battlefield Forge (APC)
+1 Benalish Emissary (INV)
+1 Benalish Heralds (INV)
+1 Benalish Lancer (INV)
+1 Benalish Trapper (INV)
+1 Bend or Break (INV)
+1 Bind (INV)
+1 Blazing Specter (INV)
+1 Blind Seer (INV)
+1 Blinding Light (INV)
+1 Bloodfire Colossus (APC)
+1 Bloodfire Dwarf (APC)
+1 Bloodfire Infusion (APC)
+1 Bloodfire Kavu (APC)
+1 Bloodstone Cameo (INV)
+1 Blurred Mongoose (INV)
+1 Bog Down (PLS)
+1 Bog Gnarr (APC)
+1 Bog Initiate (INV)
+1 Brass Herald (APC)
+1 Breaking Wave (INV)
+1 Breath of Darigaaz (INV)
+1 Caldera Kavu (PLS)
+1 Callous Giant (INV)
+1 Canopy Surge (INV)
+1 Capashen Unicorn (INV)
+1 Captain Sisay (INV)
+1 Captain's Maneuver (APC)
+1 Cauldron Dance (INV)
+1 Cavern Harpy (PLS)
+1 Caves of Koilos (APC)
+1 Ceta Disciple (APC)
+1 Ceta Sanctuary (APC)
+1 Cetavolver (APC)
+1 Chaotic Strike (INV)
+1 Charging Troll (INV)
+1 Chromatic Sphere (INV)
+1 Cinder Shade (INV)
+1 Cloud Cover (PLS)
+1 Coalition Flag (APC)
+1 Coalition Honor Guard (APC)
+1 Coalition Victory (INV)
+1 Coastal Drake (APC)
+1 Coastal Tower (INV)
+1 Collapsing Borders (INV)
+1 Collective Restraint (INV)
+1 Confound (PLS)
+1 Consume Strength (APC)
+1 Cremate (INV)
+1 Crimson Acolyte (INV)
+1 Cromat (APC)
+1 Crosis, the Purger (INV)
+1 Crosis's Attendant (INV)
+1 Crosis's Catacombs (PLS)
+1 Crosis's Charm (PLS)
+1 Crown of Flames (INV)
+1 Crusading Knight (INV)
+1 Crypt Angel (INV)
+1 Crystal Spray (INV)
+1 Cursed Flesh (INV)
+1 Darigaaz, the Igniter (INV)
+1 Darigaaz's Attendant (INV)
+1 Darigaaz's Caldera (PLS)
+1 Darigaaz's Charm (PLS)
+1 Daring Leap (PLS)
+1 Dark Suspicions (PLS)
+1 Dead Ringers (APC)
+1 Deadapult (PLS)
+1 Death Bomb (PLS)
+1 Death Grasp (APC)
+1 Death Mutation (APC)
+1 Death or Glory (INV)
+1 Defiling Tears (INV)
+1 Dega Disciple (APC)
+1 Dega Sanctuary (APC)
+1 Degavolver (APC)
+1 Desolation Angel (APC)
+1 Desolation Giant (APC)
+1 Desperate Research (INV)
+1 Destructive Flow (PLS)
+1 Devouring Strossus (INV)
+1 Diabolic Intent (PLS)
+1 Disciple of Kangee (PLS)
+1 Dismantling Blow (INV)
+1 Disrupt (INV)
+1 Distorting Wake (INV)
+1 Diversionary Tactics (APC)
+1 Divine Light (APC)
+1 Divine Presence (INV)
+1 Do or Die (INV)
+1 Dodecapod (APC)
+1 Dominaria's Judgment (PLS)
+1 Doomsday Specter (PLS)
+1 Draco (PLS)
+1 Dragon Arch (APC)
+1 Drake-Skull Cameo (INV)
+1 Dralnu's Crusade (PLS)
+1 Dralnu's Pet (PLS)
+1 Dream Thrush (INV)
+1 Dredge (INV)
+1 Dromar, the Banisher (INV)
+1 Dromar's Attendant (INV)
+1 Dromar's Cavern (PLS)
+1 Dromar's Charm (PLS)
+1 Dueling Grounds (INV)
+1 Duskwalker (INV)
+1 Dwarven Landslide (APC)
+1 Dwarven Patrol (APC)
+1 Ebony Treefolk (APC)
+1 Eladamri's Call (PLS)
+1 Elfhame Palace (INV)
+1 Elfhame Sanctuary (INV)
+1 Elvish Champion (INV)
+1 Emblazoned Golem (APC)
+1 Empress Galina (INV)
+1 Enlistment Officer (APC)
+1 Ertai, the Corrupted (PLS)
+1 Ertai's Trickery (PLS)
+1 Escape Routes (PLS)
+1 Essence Leak (INV)
+1 Evasive Action (APC)
+1 Exclude (INV)
+1 Exotic Curse (INV)
+1 Exotic Disease (PLS)
+1 Explosive Growth (INV)
+1 Fact or Fiction (INV)
+1 Faerie Squadron (INV)
+1 Falling Timber (PLS)
+1 False Dawn (APC)
+1 Fertile Ground (INV)
+1 Fervent Charge (APC)
+1 Fight or Flight (INV)
+1 Fire // Ice (APC)
+1 Firebrand Ranger (INV)
+1 Fires of Yavimaya (INV)
+1 Firescreamer (INV)
+1 Flametongue Kavu (PLS)
+1 Fleetfoot Panther (PLS)
+1 Flowstone Charger (APC)
+1 Forsaken City (PLS)
+1 Foul Presence (APC)
+1 Frenzied Tilling (INV)
+1 Fungal Shambler (APC)
+1 Gaea's Balance (APC)
+1 Gaea's Herald (PLS)
+1 Gaea's Might (PLS)
+1 Gaea's Skyfolk (APC)
+1 Gainsay (PLS)
+1 Galina's Knight (INV)
+1 Geothermal Crevice (INV)
+1 Gerrard Capashen (APC)
+1 Gerrard's Command (PLS)
+1 Gerrard's Verdict (APC)
+1 Ghitu Fire (INV)
+1 Glade Gnarr (APC)
+1 Glimmering Angel (INV)
+1 Global Ruin (INV)
+1 Goblin Game (PLS)
+1 Goblin Legionnaire (APC)
+1 Goblin Ringleader (APC)
+1 Goblin Spy (INV)
+1 Goblin Trenches (APC)
+1 Goham Djinn (INV)
+1 Grave Defiler (APC)
+1 Guard Dogs (PLS)
+1 Guided Passage (APC)
+1 Halam Djinn (INV)
+1 Hanna, Ship's Navigator (INV)
+1 Harrow (INV)
+1 Harsh Judgment (INV)
+1 Hate Weaver (INV)
+1 Haunted Angel (APC)
+1 Helionaut (APC)
+1 Heroes' Reunion (INV)
+1 Heroic Defiance (PLS)
+1 Hobble (PLS)
+1 Holy Day (INV)
+1 Honorable Scout (PLS)
+1 Hooded Kavu (INV)
+1 Horned Cheetah (INV)
+1 Horned Kavu (PLS)
+1 Hull Breach (PLS)
+1 Hunting Drake (PLS)
+1 Hunting Kavu (INV)
+1 Hypnotic Cloud (INV)
+1 Ice Cave (APC)
+1 Illuminate (APC)
+1 Illusion // Reality (APC)
+1 Implode (PLS)
+1 Index (APC)
+1 Insolence (PLS)
+1 Irrigation Ditch (INV)
+1 Jade Leech (INV)
+1 Jaded Response (APC)
+1 Jilt (APC)
+1 Jungle Barrier (APC)
+1 Juntu Stakes (INV)
+1 Kangee, Aerie Keeper (INV)
+1 Kavu Aggressor (INV)
+1 Kavu Chameleon (INV)
+1 Kavu Climber (INV)
+1 Kavu Glider (APC)
+1 Kavu Howler (APC)
+1 Kavu Lair (INV)
+1 Kavu Mauler (APC)
+1 Kavu Monarch (INV)
+1 Kavu Recluse (PLS)
+1 Kavu Runner (INV)
+1 Kavu Scout (INV)
+1 Kavu Titan (INV)
+1 Keldon Mantle (PLS)
+1 Keldon Necropolis (INV)
+1 Keldon Twilight (PLS)
+1 Lashknife Barrier (PLS)
+1 Last Caress (APC)
+1 Last Stand (APC)
+1 Lava Zombie (PLS)
+1 Lay of the Land (APC)
+1 Legacy Weapon (APC)
+1 Liberate (INV)
+1 Life // Death (APC)
+1 Lightning Angel (APC)
+1 Lightning Dart (INV)
+1 Living Airship (APC)
+1 Llanowar Cavalry (INV)
+1 Llanowar Dead (APC)
+1 Llanowar Elite (INV)
+1 Llanowar Knight (INV)
+1 Llanowar Vanguard (INV)
+1 Llanowar Wastes (APC)
+1 Loafing Giant (INV)
+1 Lobotomy (INV)
+1 Lord of the Undead (PLS)
+1 Lotus Guardian (INV)
+1 Mages' Contest (INV)
+1 Maggot Carrier (PLS)
+1 Magma Burst (PLS)
+1 Magnigoth Treefolk (PLS)
+1 Malicious Advice (PLS)
+1 Mana Cylix (PLS)
+1 Mana Maze (INV)
+1 Manacles of Decay (APC)
+1 Maniacal Rage (INV)
+1 Manipulate Fate (INV)
+1 Marauding Knight (INV)
+1 March of Souls (PLS)
+1 Marsh Crocodile (PLS)
+1 Martyrs' Tomb (APC)
+1 Mask of Intolerance (APC)
+1 Meddling Mage (PLS)
+1 Metathran Aerostat (INV)
+1 Metathran Transport (INV)
+1 Metathran Zombie (INV)
+1 Meteor Crater (PLS)
+1 Meteor Storm (INV)
+1 Might Weaver (INV)
+1 Mind Extraction (APC)
+1 Minotaur Illusionist (APC)
+1 Minotaur Tactician (APC)
+1 Mire Kavu (PLS)
+1 Mirrorwood Treefolk (PLS)
+1 Mogg Jailer (PLS)
+1 Mogg Sentry (PLS)
+1 Molimo, Maro-Sorcerer (INV)
+1 Morgue Toad (PLS)
+1 Mournful Zombie (APC)
+1 Mourning (INV)
+1 Multani's Harmony (PLS)
+1 Mystic Snake (APC)
+1 Natural Emergence (PLS)
+1 Necra Disciple (APC)
+1 Necra Sanctuary (APC)
+1 Necravolver (APC)
+1 Nemata, Grove Guardian (PLS)
+1 Night // Day (APC)
+1 Nightscape Apprentice (INV)
+1 Nightscape Battlemage (PLS)
+1 Nightscape Familiar (PLS)
+1 Nightscape Master (INV)
+1 Noble Panther (INV)
+1 Nomadic Elf (INV)
+1 Noxious Vapors (PLS)
+1 Obliterate (INV)
+1 Obsidian Acolyte (INV)
+1 Opt (INV)
+1 Order // Chaos (APC)
+1 Ordered Migration (INV)
+1 Orim's Chant (PLS)
+1 Orim's Thunder (APC)
+1 Orim's Touch (INV)
+1 Overabundance (INV)
+1 Overgrown Estate (APC)
+1 Overload (INV)
+1 Pain // Suffering (INV)
+1 Penumbra Bobcat (APC)
+1 Penumbra Kavu (APC)
+1 Penumbra Wurm (APC)
+1 Pernicious Deed (APC)
+1 Phantasmal Terrain (INV)
+1 Phyrexian Altar (INV)
+1 Phyrexian Arena (APC)
+1 Phyrexian Battleflies (INV)
+1 Phyrexian Bloodstock (PLS)
+1 Phyrexian Delver (INV)
+1 Phyrexian Gargantua (APC)
+1 Phyrexian Infiltrator (INV)
+1 Phyrexian Lens (INV)
+1 Phyrexian Rager (APC)
+1 Phyrexian Reaper (INV)
+1 Phyrexian Scuta (PLS)
+1 Phyrexian Slayer (INV)
+1 Phyrexian Tyranny (PLS)
+1 Pincer Spider (INV)
+1 Plague Spitter (INV)
+1 Plague Spores (INV)
+1 Planar Despair (APC)
+1 Planar Overlay (PLS)
+1 Planar Portal (INV)
+1 Planeswalker's Favor (PLS)
+1 Planeswalker's Fury (PLS)
+1 Planeswalker's Mirth (PLS)
+1 Planeswalker's Mischief (PLS)
+1 Planeswalker's Scorn (PLS)
+1 Pledge of Loyalty (INV)
+1 Pollen Remedy (PLS)
+1 Pouncing Kavu (INV)
+1 Power Armor (INV)
+1 Powerstone Minefield (APC)
+1 Primal Growth (PLS)
+1 Prison Barricade (INV)
+1 Probe (INV)
+1 Prohibit (INV)
+1 Prophetic Bolt (APC)
+1 Protective Sphere (INV)
+1 Psychic Battle (INV)
+1 Pulse of Llanowar (INV)
+1 Pure Reflection (INV)
+1 Putrid Warrior (APC)
+1 Pygmy Kavu (PLS)
+1 Pyre Zombie (INV)
+1 Quagmire Druid (APC)
+1 Questing Phelddagrif (PLS)
+1 Quicksilver Dagger (APC)
+1 Quirion Dryad (PLS)
+1 Quirion Elves (INV)
+1 Quirion Explorer (PLS)
+1 Quirion Sentinel (INV)
+1 Quirion Trailblazer (INV)
+1 Radiant Kavu (PLS)
+1 Rage Weaver (INV)
+1 Raging Kavu (INV)
+1 Rainbow Crow (INV)
+1 Raka Disciple (APC)
+1 Raka Sanctuary (APC)
+1 Rakavolver (APC)
+1 Rampant Elephant (INV)
+1 Ravenous Rats (INV)
+1 Razing Snidd (PLS)
+1 Razorfin Hunter (APC)
+1 Razorfoot Griffin (INV)
+1 Reckless Assault (INV)
+1 Reckless Spite (INV)
+1 Recoil (INV)
+1 Recover (INV)
+1 Reef Shaman (APC)
+1 Repulse (INV)
+1 Restock (INV)
+1 Restrain (INV)
+1 Reviving Dose (INV)
+1 Reviving Vapors (INV)
+1 Rewards of Diversity (INV)
+1 Reya Dawnbringer (INV)
+1 Riptide Crab (INV)
+1 Rith, the Awakener (INV)
+1 Rith's Attendant (INV)
+1 Rith's Charm (PLS)
+1 Rith's Grove (PLS)
+1 Rogue Kavu (INV)
+1 Root Greevil (PLS)
+1 Rooting Kavu (INV)
+1 Rout (INV)
+1 Ruby Leech (INV)
+1 Ruham Djinn (INV)
+1 Rushing River (PLS)
+1 Sabertooth Nishoba (INV)
+1 Salt Marsh (INV)
+1 Samite Archer (INV)
+1 Samite Elder (PLS)
+1 Samite Ministration (INV)
+1 Samite Pilgrim (PLS)
+1 Sapphire Leech (INV)
+1 Saproling Infestation (INV)
+1 Saproling Symbiosis (INV)
+1 Savage Gorilla (APC)
+1 Savage Offensive (INV)
+1 Sawtooth Loon (PLS)
+1 Scarred Puma (INV)
+1 Scavenged Weaponry (INV)
+1 Scorching Lava (INV)
+1 Scouting Trek (INV)
+1 Sea Snidd (PLS)
+1 Searing Rays (INV)
+1 Seashell Cameo (INV)
+1 Seer's Vision (INV)
+1 Serpentine Kavu (INV)
+1 Shackles (INV)
+1 Shield of Duty and Reason (APC)
+1 Shifting Sky (PLS)
+1 Shimmering Mirage (APC)
+1 Shimmering Wings (INV)
+1 Shivan Emissary (INV)
+1 Shivan Harvest (INV)
+1 Shivan Oasis (INV)
+1 Shivan Reef (APC)
+1 Shivan Wurm (PLS)
+1 Shivan Zombie (INV)
+1 Shoreline Raider (INV)
+1 Shriek of Dread (PLS)
+1 Silver Drake (PLS)
+1 Simoon (INV)
+1 Singe (PLS)
+1 Sinister Strength (PLS)
+1 Sisay's Ingenuity (PLS)
+1 Skittish Kavu (INV)
+1 Skizzik (INV)
+1 Sky Weaver (INV)
+1 Skyship Weatherlight (PLS)
+1 Skyshroud Blessing (PLS)
+1 Slay (PLS)
+1 Sleeper's Robe (INV)
+1 Sleeping Potion (PLS)
+1 Slimy Kavu (INV)
+1 Slingshot Goblin (PLS)
+1 Slinking Serpent (INV)
+1 Smash (APC)
+1 Smoldering Tar (INV)
+1 Soul Burn (INV)
+1 Soul Link (APC)
+1 Sparkcaster (PLS)
+1 Sparring Golem (INV)
+1 Spectral Lynx (APC)
+1 Spinal Embrace (INV)
+1 Spirit of Resistance (INV)
+1 Spirit Weaver (INV)
+1 Spiritmonger (APC)
+1 Spite // Malice (INV)
+1 Spreading Plague (INV)
+1 Squee's Embrace (APC)
+1 Squee's Revenge (APC)
+1 Stalking Assassin (INV)
+1 Stand // Deliver (INV)
+1 Stand or Fall (INV)
+1 Standard Bearer (APC)
+1 Star Compass (PLS)
+1 Steel Leaf Paladin (PLS)
+1 Sterling Grove (INV)
+1 Stone Kavu (PLS)
+1 Stormscape Apprentice (INV)
+1 Stormscape Battlemage (PLS)
+1 Stormscape Familiar (PLS)
+1 Stormscape Master (INV)
+1 Strafe (PLS)
+1 Stratadon (PLS)
+1 Strength of Night (APC)
+1 Strength of Unity (INV)
+1 Stun (INV)
+1 Suffocating Blast (APC)
+1 Sulam Djinn (INV)
+1 Sulfur Vent (INV)
+1 Sunken Hope (PLS)
+1 Sunscape Apprentice (INV)
+1 Sunscape Battlemage (PLS)
+1 Sunscape Familiar (PLS)
+1 Sunscape Master (INV)
+1 Suppress (APC)
+1 Surprise Deployment (PLS)
+1 Sway of Illusion (INV)
+1 Sylvan Messenger (APC)
+1 Symbiotic Deployment (APC)
+1 Tahngarth, Talruum Hero (PLS)
+1 Tahngarth's Glare (APC)
+1 Tainted Well (INV)
+1 Tangle (INV)
+1 Tectonic Instability (INV)
+1 Teferi's Care (INV)
+1 Teferi's Moat (INV)
+1 Teferi's Response (INV)
+1 Tek (INV)
+1 Temporal Distortion (INV)
+1 Temporal Spring (APC)
+1 Terminal Moraine (PLS)
+1 Terminate (PLS)
+1 Thicket Elemental (INV)
+1 Thornscape Apprentice (INV)
+1 Thornscape Battlemage (PLS)
+1 Thornscape Familiar (PLS)
+1 Thornscape Master (INV)
+1 Thunderscape Apprentice (INV)
+1 Thunderscape Battlemage (PLS)
+1 Thunderscape Familiar (PLS)
+1 Thunderscape Master (INV)
+1 Tidal Courier (APC)
+1 Tidal Visionary (INV)
+1 Tigereye Cameo (INV)
+1 Tinder Farm (INV)
+1 Tolarian Emissary (INV)
+1 Tower Drake (INV)
+1 Tranquil Path (APC)
+1 Tranquility (INV)
+1 Traveler's Cloak (INV)
+1 Treefolk Healer (INV)
+1 Trench Wurm (INV)
+1 Treva, the Renewer (INV)
+1 Treva's Attendant (INV)
+1 Treva's Charm (PLS)
+1 Treva's Ruins (PLS)
+1 Tribal Flames (INV)
+1 Troll-Horn Cameo (INV)
+1 Tsabo Tavoc (INV)
+1 Tsabo's Assassin (INV)
+1 Tsabo's Decree (INV)
+1 Tsabo's Web (INV)
+1 Tundra Kavu (APC)
+1 Turf Wound (INV)
+1 Twilight's Call (INV)
+1 Undermine (INV)
+1 Unnatural Selection (APC)
+1 Urborg Drake (INV)
+1 Urborg Elf (APC)
+1 Urborg Emissary (INV)
+1 Urborg Phantom (INV)
+1 Urborg Shambler (INV)
+1 Urborg Skeleton (INV)
+1 Urborg Uprising (APC)
+1 Urborg Volcano (INV)
+1 Urza's Filter (INV)
+1 Urza's Guilt (PLS)
+1 Urza's Rage (INV)
+1 Utopia Tree (INV)
+1 Verdeloth the Ancient (INV)
+1 Verduran Emissary (INV)
+1 Viashino Grappler (INV)
+1 Vicious Kavu (INV)
+1 Vigorous Charge (INV)
+1 Vile Consumption (INV)
+1 Vindicate (APC)
+1 Vodalian Hypnotist (INV)
+1 Vodalian Merchant (INV)
+1 Vodalian Mystic (APC)
+1 Vodalian Serpent (INV)
+1 Vodalian Zombie (INV)
+1 Voice of All (PLS)
+1 Void (INV)
+1 Volcano Imp (PLS)
+1 Voracious Cobra (INV)
+1 Wallop (INV)
+1 Wandering Stream (INV)
+1 Warped Devotion (PLS)
+1 Wash Out (INV)
+1 Waterspout Elemental (PLS)
+1 Wax // Wane (INV)
+1 Wayfaring Giant (INV)
+1 Well-Laid Plans (INV)
+1 Whip Silk (INV)
+1 Whirlpool Drake (APC)
+1 Whirlpool Rider (APC)
+1 Whirlpool Warrior (APC)
+1 Wild Research (APC)
+1 Wings of Hope (INV)
+1 Winnow (INV)
+1 Worldly Counsel (INV)
+1 Yavimaya Barbarian (INV)
+1 Yavimaya Coast (APC)
+1 Yavimaya Kavu (INV)
+1 Yavimaya's Embrace (APC)
+1 Yawgmoth's Agenda (INV)
+1 Zanam Djinn (INV)
+1 Zap (INV)
+1 Zombie Boa (APC)
