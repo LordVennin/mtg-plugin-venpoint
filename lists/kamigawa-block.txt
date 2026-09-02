@@ -1,0 +1,618 @@
+@name Kamigawa Block (CHK/BOK/SOK)
+@format cube
+1 Adamaro, First to Desire
+1 Aether Shockwave
+1 Akki Avalanchers
+1 Akki Blizzard-Herder
+1 Akki Coalflinger
+1 Akki Drillmaster
+1 Akki Lavarunner // Tok-Tok, Volcano Born
+1 Akki Raider
+1 Akki Rockspeaker
+1 Akki Underling
+1 Akki Underminer
+1 Akuta, Born of Ash
+1 Araba Mothrider
+1 Arashi, the Sky Asunder
+1 Ashen Monstrosity
+1 Ashen-Skin Zubera
+1 Ashes of the Fallen
+1 Aura Barbs
+1 Aura of Dominion
+1 Ayumi, the Last Visitor
+1 Azami, Lady of Scrolls
+1 Azusa, Lost but Seeking
+1 Baku Altar
+1 Barrel Down Sokenzan
+1 Battle-Mad Ronin
+1 Befoul
+1 Ben-Ben, Akki Hermit
+1 Bile Urchin
+1 Blademane Baku
+1 Blazing Shoal
+1 Blessed Breath
+1 Blessing of Leeches
+1 Blinding Powder
+1 Blind with Anger
+1 Blood Clock
+1 Blood Rites
+1 Blood Speaker
+1 Bloodthirsty Ogre
+1 Body of Jukai
+1 Boseiju, Who Shelters All
+1 Bounteous Kirin
+1 Briarknit Kami
+1 Brothers Yamazaki
+1 Brutal Deceiver
+1 Budoka Gardener // Dokai, Weaver of Life
+1 Budoka Pupil // Ichiga, Who Topples Oaks
+1 Burning-Eye Zubera
+1 Burr Grafter
+1 Bushi Tenderfoot // Kenzo the Hardhearted
+1 Cage of Hands
+1 Call for Blood
+1 Callous Deceiver
+1 Callow Jushi // Jaraku the Interloper
+1 Call to Glory
+1 Candles' Glow
+1 Captive Flame
+1 Celestial Kirin
+1 Charge Across the Araba
+1 Child of Thorns
+1 Chisei, Heart of Oceans
+1 Choice of Damnations
+1 Clash of Realities
+1 Cleanfall
+1 Cloudcrest Lake
+1 Cloudhoof Kirin
+1 Commune with Nature
+1 Consuming Vortex
+1 Counsel of the Soratami
+1 Cowed by Wisdom
+1 Crack the Earth
+1 Cranial Extraction
+1 Crawling Filth
+1 Cruel Deceiver
+1 Crushing Pain
+1 Cunning Bandit // Azamuki, Treachery Incarnate
+1 Cursed Ronin
+1 Curtain of Light
+1 Cut the Earthly Bond
+1 Cut the Tethers
+1 Dampen Thought
+1 Dance of Shadows
+1 Day of Destiny
+1 Deathcurse Ogre
+1 Death Denied
+1 Deathknell Kami
+1 Deathmask Nezumi
+1 Death of a Thousand Stings
+1 Dense Canopy
+1 Descendant of Kiyomaro
+1 Descendant of Masumaro
+1 Descendant of Soramaro
+1 Desperate Ritual
+1 Devoted Retainer
+1 Devouring Greed
+1 Devouring Rage
+1 Disrupting Shoal
+1 Distress
+1 Dosan's Oldest Chant
+1 Dosan the Falling Leaf
+1 Dreamcatcher
+1 Dripping-Tongue Zubera
+1 Earthshaker
+1 Ebony Owl Netsuke
+1 Eerie Procession
+1 Eiganjo Castle
+1 Eiganjo Free-Riders
+1 Eight-and-a-Half-Tails
+1 Elder Pine of Jukai
+1 Ember-Fist Zubera
+1 Empty-Shrine Kannushi
+1 Endless Swarm
+1 Enduring Ideal
+1 Enshrined Memories
+1 Eradicate
+1 Erayo, Soratami Ascendant // Erayo's Essence
+1 Eternal Dominion
+1 Ethereal Haze
+1 Evermind
+1 Exile into Darkness
+1 Eye of Nowhere
+1 Faithful Squire // Kaiso, Memory of Loyalty
+1 Feast of Worms
+1 Feral Deceiver
+1 Feral Lightning
+1 Fiddlehead Kami
+1 Field of Reality
+1 Final Judgment
+1 First Volley
+1 Flames of the Blood Hand
+1 Floating-Dream Zubera
+1 Floodbringer
+1 Footsteps of the Goryo
+1 Forbidden Orchard
+1 Forked-Branch Garami
+1 Freed from the Real
+1 Frostling
+1 Frost Ogre
+1 Frostwielder
+1 Fumiko the Lowblood
+1 Gale Force
+1 Gaze of Adamaro
+1 General's Kabuto
+1 Genju of the Cedars
+1 Genju of the Falls
+1 Genju of the Fens
+1 Genju of the Fields
+1 Genju of the Realm
+1 Genju of the Spires
+1 Ghost-Lit Nourisher
+1 Ghost-Lit Raider
+1 Ghost-Lit Redeemer
+1 Ghost-Lit Stalker
+1 Ghost-Lit Warder
+1 Ghostly Prison
+1 Gibbering Kami
+1 Gifts Ungiven
+1 Glacial Ray
+1 Glimpse of Nature
+1 Glitterfang
+1 Gnarled Mass
+1 Gnat Miser
+1 Goblin Cohort
+1 Godo, Bandit Warlord
+1 Godo's Irregulars
+1 Gods' Eye, Gate to the Reikai
+1 Goryo's Vengeance
+1 Graceful Adept
+1 Guardian of Solitude
+1 Gutwrencher Oni
+1 Hail of Arrows
+1 Hair-Strung Koto
+1 Hall of the Bandit Lord
+1 Hanabi Blast
+1 Hana Kami
+1 Hand of Cruelty
+1 Hand of Honor
+1 Hankyu
+1 Harbinger of Spring
+1 Harsh Deceiver
+1 Haru-Onna
+1 Heartbeat of Spring
+1 Hearth Kami
+1 Heartless Hidetsugu
+1 Heart of Light
+1 Heed the Mists
+1 Hero's Demise
+1 He Who Hungers
+1 Hideous Laughter
+1 Hidetsugu's Second Rite
+1 Higure, the Still Wind
+1 Hikari, Twilight Guardian
+1 Hinder
+1 Hired Muscle // Scarmaker
+1 Hisoka, Minamo Sensei
+1 Hisoka's Defiance
+1 Hisoka's Guard
+1 Hokori, Dust Drinker
+1 Hold the Line
+1 Homura, Human Ascendant // Homura's Essence
+1 Honden of Cleansing Fire
+1 Honden of Infinite Rage
+1 Honden of Life's Web
+1 Honden of Night's Reach
+1 Honden of Seeing Winds
+1 Honor-Worn Shaku
+1 Horizon Seed
+1 Horobi, Death's Wail
+1 Horobi's Whisper
+1 Humble Budoka
+1 Hundred-Talon Kami
+1 Hundred-Talon Strike
+1 Ideas Unbound
+1 Iizuka the Ruthless
+1 Imi Statue
+1 Iname as One
+1 Iname, Death Aspect
+1 Iname, Life Aspect
+1 Indebted Samurai
+1 Indomitable Will
+1 Infernal Kirin
+1 Initiate of Blood // Goka the Unjust
+1 Ink-Eyes, Servant of Oni
+1 Inner Calm, Outer Strength
+1 Inner-Chamber Guard
+1 Inner Fire
+1 Innocence Kami
+1 In the Web of War
+1 Into the Fray
+1 Ire of Kaminari
+1 Isamaru, Hound of Konda
+1 Isao, Enlightened Bushi
+1 Ishi-Ishi, Akki Crackshot
+1 Ivory Crane Netsuke
+1 Iwamori of the Open Fist
+1 Jade Idol
+1 Jetting Glasskite
+1 Jiwari, the Earth Aflame
+1 Journeyer's Kite
+1 Joyous Respite
+1 Jugan, the Rising Star
+1 Jukai Messenger
+1 Junkyo Bell
+1 Jushi Apprentice // Tomoya the Revealer
+1 Kabuto Moth
+1 Kagemaro, First to Suffer
+1 Kagemaro's Clutch
+1 Kaho, Minamo Historian
+1 Kaijin of the Vanishing Touch
+1 Kami of Ancient Law
+1 Kami of Empty Graves
+1 Kami of False Hope
+1 Kami of Fire's Roar
+1 Kami of Lunacy
+1 Kami of Old Stone
+1 Kami of Tattered Shoji
+1 Kami of the Crescent Moon
+1 Kami of the Honored Dead
+1 Kami of the Hunt
+1 Kami of the Painted Road
+1 Kami of the Palace Fields
+1 Kami of the Tended Garden
+1 Kami of the Waning Moon
+1 Kami of Twisted Reflection
+1 Kashi-Tribe Elite
+1 Kashi-Tribe Reaver
+1 Kashi-Tribe Warriors
+1 Kataki, War's Wage
+1 Keiga, the Tide Star
+1 Kemuri-Onna
+1 Kentaro, the Smiling Cat
+1 Kiki-Jiki, Mirror Breaker
+1 Kiku, Night's Flower
+1 Kiku's Shadow
+1 Kira, Great Glass-Spinner
+1 Kiri-Onna
+1 Kitsune Blademaster
+1 Kitsune Bonesetter
+1 Kitsune Dawnblade
+1 Kitsune Diviner
+1 Kitsune Healer
+1 Kitsune Loreweaver
+1 Kitsune Mystic // Autumn-Tail, Kitsune Sage
+1 Kitsune Palliator
+1 Kitsune Riftwalker
+1 Kiyomaro, First to Stand
+1 Kodama of the Center Tree
+1 Kodama of the North Tree
+1 Kodama of the South Tree
+1 Kodama's Might
+1 Kodama's Reach
+1 Kokusho, the Evening Star
+1 Konda, Lord of Eiganjo
+1 Konda's Banner
+1 Konda's Hatamoto
+1 Kumano, Master Yamabushi
+1 Kumano's Blessing
+1 Kumano's Pupils
+1 Kuon, Ogre Ascendant // Kuon's Essence
+1 Kuro, Pitlord
+1 Kuro's Taken
+1 Kusari-Gama
+1 Kyoki, Sanity's Eclipse
+1 Lantern Kami
+1 Lantern-Lit Graveyard
+1 Lava Spike
+1 Lifegift
+1 Lifespinner
+1 Lifted by Clouds
+1 Loam Dweller
+1 Locust Miser
+1 Long-Forgotten Gohei
+1 Lure
+1 Maga, Traitor to Mortals
+1 Mana Seism
+1 Mannichi, the Fevered Dream
+1 Manriki-Gusari
+1 Mark of Sakiko
+1 Mark of the Oni
+1 Marrow-Gnawer
+1 Masako the Humorless
+1 Masumaro, First to Live
+1 Matsu-Tribe Birdstalker
+1 Matsu-Tribe Decoy
+1 Matsu-Tribe Sniper
+1 Measure of Wickedness
+1 Meishin, the Mind Cage
+1 Meloku the Clouded Mirror
+1 Mending Hands
+1 Michiko Konda, Truth Seeker
+1 Midnight Covenant
+1 Mikokoro, Center of the Sea
+1 Minamo, School at Water's Edge
+1 Minamo Scrollkeeper
+1 Minamo Sightbender
+1 Minamo's Meddling
+1 Mindblaze
+1 Miren, the Moaning Well
+1 Mirror Gallery
+1 Mistblade Shinobi
+1 Molting Skin
+1 Moonbow Illusionist
+1 Moonlit Strider
+1 Moonring Mirror
+1 Moonwing Moth
+1 Moss Kami
+1 Mothrider Samurai
+1 Murmurs from Beyond
+1 Myojin of Cleansing Fire
+1 Myojin of Infinite Rage
+1 Myojin of Life's Web
+1 Myojin of Night's Reach
+1 Myojin of Seeing Winds
+1 Mystic Restraints
+1 Nagao, Bound by Honor
+1 Nature's Will
+1 Neko-Te
+1 Neverending Torment
+1 Nezumi Bone-Reader
+1 Nezumi Cutthroat
+1 Nezumi Graverobber // Nighteyes the Desecrator
+1 Nezumi Ronin
+1 Nezumi Shadow-Watcher
+1 Nezumi Shortfang // Stabwhisker the Odious
+1 Night Dealings
+1 Night of Souls' Betrayal
+1 Nightsoil Kami
+1 Nikko-Onna
+1 Nine-Ringed Bo
+1 Ninja of the Deep Hours
+1 No-Dachi
+1 Nourishing Shoal
+1 Numai Outcast
+1 Oathkeeper, Takeno's Daisho
+1 Oboro Breezecaller
+1 Oboro Envoy
+1 Oboro, Palace in the Clouds
+1 Ogre Marauder
+1 Ogre Recluse
+1 Okiba-Gang Shinobi
+1 Okina Nightwatch
+1 Okina, Temple to the Grandfathers
+1 O-Naginata
+1 One with Nothing
+1 Oni of Wild Places
+1 Oni Possession
+1 Opal-Eye, Konda's Yojimbo
+1 Oppressive Will
+1 Orb of Dreams
+1 Orbweaver Kumo
+1 Order of the Sacred Bell
+1 Ore Gorger
+1 Ornate Kanzashi
+1 Orochi Eggwatcher // Shidako, Broodmistress
+1 Orochi Hatchery
+1 Orochi Leafcaller
+1 Orochi Ranger
+1 Orochi Sustainer
+1 Otherworldly Journey
+1 Overblaze
+1 Overwhelming Intellect
+1 Oyobi, Who Split the Heavens
+1 Pain Kami
+1 Pain's Reward
+1 Painwracker Oni
+1 Part the Veil
+1 Path of Anger's Flame
+1 Patron of the Akki
+1 Patron of the Kitsune
+1 Patron of the Moon
+1 Patron of the Nezumi
+1 Patron of the Orochi
+1 Peer Through Depths
+1 Petalmane Baku
+1 Petals of Insight
+1 Phantom Wings
+1 Pinecrest Ridge
+1 Pious Kitsune
+1 Pithing Needle
+1 Plow Through Reito
+1 Presence of the Wise
+1 Promised Kannushi
+1 Promise of Bunrei
+1 Psychic Puppetry
+1 Psychic Spear
+1 Pull Under
+1 Pure Intentions
+1 Pus Kami
+1 Quash
+1 Quiet Purity
+1 Quillmane Baku
+1 Rag Dealer
+1 Ragged Veins
+1 Rally the Horde
+1 Raving Oni-Slave
+1 Razorjaw Oni
+1 Reach Through Mists
+1 Reciprocate
+1 Reduce to Dreams
+1 Reito Lantern
+1 Reki, the History of Kamigawa
+1 Rend Flesh
+1 Rending Vines
+1 Rend Spirit
+1 Reverence
+1 Reverse the Sands
+1 Reweave
+1 Ribbons of the Reikai
+1 River Kaijin
+1 Roar of Jukai
+1 Ronin Cavekeeper
+1 Ronin Cliffrider
+1 Ronin Houndmaster
+1 Ronin Warclub
+1 Rootrunner
+1 Rune-Tail, Kitsune Ascendant // Rune-Tail's Essence
+1 Rushing-Tide Zubera
+1 Ryusei, the Falling Star
+1 Sachi, Daughter of Seshiro
+1 Sakashima the Impostor
+1 Sakiko, Mother of Summer
+1 Sakura-Tribe Elder
+1 Sakura-Tribe Scout
+1 Sakura-Tribe Springcaller
+1 Samurai Enforcers
+1 Samurai of the Pale Curtain
+1 Sasaya, Orochi Ascendant // Sasaya's Essence
+1 Scaled Hulk
+1 Scour
+1 Scourge of Numai
+1 Scroll of Origins
+1 Scuttling Death
+1 Secretkeeper
+1 Seed the Land
+1 Seek the Horizon
+1 Seizan, Perverter of Truth
+1 Sekki, Seasons' Guide
+1 Sensei Golden-Tail
+1 Sensei's Divining Top
+1 Serpent Skin
+1 Seshiro the Anointed
+1 Shape Stealer
+1 Shell of the Last Kappa
+1 Shifting Borders
+1 Shimatsu the Bloodcloaked
+1 Shimmering Glasskite
+1 Shinen of Fear's Chill
+1 Shinen of Flight's Wings
+1 Shinen of Fury's Fire
+1 Shinen of Life's Roar
+1 Shinen of Stars' Light
+1 Shining Shoal
+1 Shinka Gatekeeper
+1 Shinka, the Bloodsoaked Keep
+1 Shirei, Shizo's Caretaker
+1 Shisato, Whispering Hunter
+1 Shizo, Death's Storehouse
+1 Shizuko, Caller of Autumn
+1 Shuko
+1 Shuriken
+1 Sickening Shoal
+1 Sideswipe
+1 Sift Through Sands
+1 Silent-Chant Zubera
+1 Silverstorm Samurai
+1 Sink into Takenuma
+1 Sire of the Storm
+1 Skull Collector
+1 Skullmane Baku
+1 Skullsnatcher
+1 Skyfire Kirin
+1 Slumbering Tora
+1 Soilshaper
+1 Sokenzan Bruiser
+1 Sokenzan Renegade
+1 Sokenzan Spellblade
+1 Soramaro, First to Dream
+1 Soratami Cloud Chariot
+1 Soratami Cloudskater
+1 Soratami Mindsweeper
+1 Soratami Mirror-Guard
+1 Soratami Mirror-Mage
+1 Soratami Rainshaper
+1 Soratami Savant
+1 Soratami Seer
+1 Sosuke, Son of Seshiro
+1 Sosuke's Summons
+1 Soulblast
+1 Soulless Revival
+1 Soul of Magma
+1 Sowing Salt
+1 Spiraling Embers
+1 Spiritual Visit
+1 Splinter
+1 Split-Tail Miko
+1 Squelch
+1 Stampeding Serow
+1 Stir the Grave
+1 Stone Rain
+1 Strange Inversion
+1 Stream of Consciousness
+1 Strength of Cedars
+1 Struggle for Sanity
+1 Student of Elements // Tobita, Master of Winds
+1 Sunder from Within
+1 Swallowing Plague
+1 Sway of the Stars
+1 Swirl the Mists
+1 Takeno, Samurai General
+1 Takeno's Cavalry
+1 Takenuma Bleeder
+1 Tallowisp
+1 Tatsumasa, the Dragon's Fang
+1 Teardrop Kami
+1 Teller of Tales
+1 Tendo Ice Bridge
+1 Tenza, Godo's Maul
+1 Terashi's Cry
+1 Terashi's Grasp
+1 Terashi's Verdict
+1 That Which Was Taken
+1 The Unspeakable
+1 Thief of Hope
+1 Thoughtbind
+1 Thoughts of Ruin
+1 Thousand-legged Kami
+1 Threads of Disloyalty
+1 Three Tragedies
+1 Throat Slitter
+1 Through the Breach
+1 Tide of War
+1 Time of Need
+1 Time Stop
+1 Toils of Night and Day
+1 Tomb of Urami
+1 Tomorrow, Azami's Familiar
+1 Torii Watchward
+1 Torrent of Stone
+1 Toshiro Umezawa
+1 Tranquil Garden
+1 Traproot Kami
+1 Trusted Advisor
+1 Twincast
+1 Twist Allegiance
+1 Uba Mask
+1 Umezawa's Jitte
+1 Unchecked Growth
+1 Uncontrollable Anger
+1 Undying Flames
+1 Unearthly Blizzard
+1 Unnatural Speed
+1 Untaidake, the Cloud Keeper
+1 Uproot
+1 Uyo, Silent Prophet
+1 Vassal's Duty
+1 Veil of Secrecy
+1 Venerable Kumo
+1 Vigilance
+1 Villainous Ogre
+1 Vine Kami
+1 Vital Surge
+1 Waking Nightmare
+1 Walker of Secret Ways
+1 Wandering Ones
+1 Ward of Piety
+1 Waterveil Cavern
+1 Waxmane Baku
+1 Wear Away
+1 Wicked Akuba
+1 Wine of Blood and Iron
+1 Yamabushi's Flame
+1 Yamabushi's Storm
+1 Yomiji, Who Bars the Way
+1 Yosei, the Morning Star
+1 Yuki-Onna
+1 Yukora, the Prisoner
+1 Zo-Zu the Punisher

@@ -1,0 +1,618 @@
+@name Mirrodin Block (MRD/DST/5DN)
+@format cube
+1 Abuna's Chant
+1 Acquire
+1 Advanced Hoverguard
+1 Aether Snap
+1 Aether Spellbomb
+1 Aether Vial
+1 Ageless Entity
+1 All Suns' Dawn
+1 Alpha Myr
+1 Altar of Shadows
+1 Altar's Light
+1 Ancient Den
+1 Angel's Feather
+1 Annul
+1 Anodet Lurker
+1 Arachnoid
+1 Arcane Spyglass
+1 Arcbound Bruiser
+1 Arcbound Crusher
+1 Arcbound Fiend
+1 Arcbound Hybrid
+1 Arcbound Lancer
+1 Arcbound Overseer
+1 Arcbound Ravager
+1 Arcbound Reclaimer
+1 Arcbound Slith
+1 Arcbound Stinger
+1 Arcbound Wanderer
+1 Arcbound Worker
+1 Arc-Slogger
+1 Armed Response
+1 Arrest
+1 Artificer's Intuition
+1 Assert Authority
+1 Atog
+1 Auriok Bladewarden
+1 Auriok Champion
+1 Auriok Glaivemaster
+1 Auriok Salvagers
+1 Auriok Siege Sled
+1 Auriok Steelshaper
+1 Auriok Transfixer
+1 Auriok Windwalker
+1 Avarice Totem
+1 Awe Strike
+1 Banshee's Blade
+1 Barbed Lightning
+1 Barter in Blood
+1 Baton of Courage
+1 Battered Golem
+1 Battlegrowth
+1 Beacon of Creation
+1 Beacon of Destruction
+1 Beacon of Immortality
+1 Beacon of Tomorrows
+1 Beacon of Unrest
+1 Betrayal of Flesh
+1 Blasting Station
+1 Blind Creeper
+1 Blinding Beam
+1 Blinkmoth Infusion
+1 Blinkmoth Nexus
+1 Blinkmoth Urn
+1 Blinkmoth Well
+1 Bloodscent
+1 Bonesplitter
+1 Bosh, Iron Golem
+1 Bottle Gnomes
+1 Bringer of the Black Dawn
+1 Bringer of the Blue Dawn
+1 Bringer of the Green Dawn
+1 Bringer of the Red Dawn
+1 Bringer of the White Dawn
+1 Broodstar
+1 Brown Ouphe
+1 Burden of Greed
+1 Cackling Imp
+1 Carry Away
+1 Cathodion
+1 Chalice of the Void
+1 Channel the Suns
+1 Chimeric Coils
+1 Chimeric Egg
+1 Chimney Imp
+1 Chittering Rats
+1 Chromatic Sphere
+1 Chrome Mox
+1 Chromescale Drake
+1 Circle of Protection: Artifacts
+1 Clearwater Goblet
+1 Clock of Omens
+1 Clockwork Beetle
+1 Clockwork Condor
+1 Clockwork Dragon
+1 Clockwork Vorrac
+1 Cloudpost
+1 Cobalt Golem
+1 Composite Golem
+1 Condescend
+1 Confusion in the Ranks
+1 Conjurer's Bauble
+1 Consume Spirit
+1 Contaminated Bond
+1 Copperhoof Vorrac
+1 Copper Myr
+1 Coretapper
+1 Cosmic Larva
+1 Cranial Plating
+1 Crazed Goblin
+1 Creeping Mold
+1 Crucible of Worlds
+1 Crystal Shard
+1 Culling Scales
+1 Damping Matrix
+1 Darksteel Brute
+1 Darksteel Citadel
+1 Darksteel Colossus
+1 Darksteel Forge
+1 Darksteel Gargoyle
+1 Darksteel Ingot
+1 Darksteel Pendant
+1 Darksteel Reactor
+1 Dawn's Reflection
+1 Dead-Iron Sledge
+1 Death Cloud
+1 Death-Mask Duplicant
+1 Deconstruct
+1 Demon's Horn
+1 Desecration Elemental
+1 Detonate
+1 Devour in Shadow
+1 Disarm
+1 Disciple of the Vault
+1 Dismantle
+1 Disruption Aura
+1 Domineer
+1 Door to Nothingness
+1 Doubling Cube
+1 Dragon Blood
+1 Dragon's Claw
+1 Dream's Grip
+1 Drill-Skimmer
+1 Drooling Ogre
+1 Dross Crocodile
+1 Dross Golem
+1 Dross Harvester
+1 Dross Prowler
+1 Dross Scorpion
+1 Duplicant
+1 Duskworker
+1 Early Frost
+1 Eater of Days
+1 Ebon Drake
+1 Echoing Calm
+1 Echoing Courage
+1 Echoing Decay
+1 Echoing Ruin
+1 Echoing Truth
+1 Electrostatic Bolt
+1 Elf Replica
+1 Emissary of Despair
+1 Emissary of Hope
+1 Empyrial Plate
+1 Endless Whispers
+1 Energy Chamber
+1 Engineered Explosives
+1 Ensouled Scimitar
+1 Eon Hub
+1 Essence Drain
+1 Etched Oracle
+1 Eternal Witness
+1 Extraplanar Lens
+1 Eyes of the Watcher
+1 Fabricate
+1 Fangren Firstborn
+1 Fangren Hunter
+1 Fangren Pathcutter
+1 Farsight Mask
+1 Fatespinner
+1 Feedback Bolt
+1 Ferocious Charge
+1 Ferropede
+1 Fiery Gambit
+1 Fill with Fright
+1 Fireball
+1 Fireshrieker
+1 Fist of Suns
+1 Fists of the Anvil
+1 Flamebreak
+1 Flayed Nim
+1 Fleshgrafter
+1 Fold into Aether
+1 Forge Armor
+1 Fractured Loyalty
+1 Frogmite
+1 Furnace Dragon
+1 Furnace Whelp
+1 Galvanic Key
+1 Gate to the Aether
+1 Gemini Engine
+1 Gemstone Array
+1 Genesis Chamber
+1 Geth's Grimoire
+1 Gilded Lotus
+1 Glimmervoid
+1 Glissa Sunseeker
+1 Goblin Archaeologist
+1 Goblin Brawler
+1 Goblin Cannon
+1 Goblin Charbelcher
+1 Goblin Dirigible
+1 Goblin Replica
+1 Goblin Striker
+1 Goblin War Wagon
+1 Gold Myr
+1 Golem-Skin Gauntlets
+1 Grab the Reins
+1 Grafted Wargear
+1 Granite Shard
+1 Granulate
+1 Greater Harvester
+1 Great Furnace
+1 Grid Monitor
+1 Grimclaw Bats
+1 Grim Reminder
+1 Grinding Station
+1 Groffskithur
+1 Guardian Idol
+1 Hallow
+1 Healer's Headdress
+1 Heartseeker
+1 Heartwood Shard
+1 Heliophial
+1 Helm of Kaldra
+1 Hematite Golem
+1 Horned Helm
+1 Hoverguard Observer
+1 Hoverguard Sweepers
+1 Hum of the Radix
+1 Hunger of the Nim
+1 Icy Manipulator
+1 Incite War
+1 Inertia Bubble
+1 Infested Roothold
+1 Inflame
+1 Infused Arrows
+1 Into Thin Air
+1 Ion Storm
+1 Iron-Barb Hellion
+1 Iron Myr
+1 Irradiate
+1 Isochron Scepter
+1 Jinxed Choker
+1 Joiner Adept
+1 Journey of Discovery
+1 Juggernaut
+1 Karstoderm
+1 Kraken's Eye
+1 Krark-Clan Engineers
+1 Krark-Clan Grunt
+1 Krark-Clan Ironworks
+1 Krark-Clan Ogre
+1 Krark-Clan Shaman
+1 Krark-Clan Stoker
+1 Krark's Thumb
+1 Lantern of Insight
+1 Last Word
+1 Leaden Myr
+1 Leonin Abunas
+1 Leonin Battlemage
+1 Leonin Bladetrap
+1 Leonin Bola
+1 Leonin Den-Guard
+1 Leonin Elder
+1 Leonin Scimitar
+1 Leonin Shikari
+1 Leonin Skyhunter
+1 Leonin Squire
+1 Leonin Sun Standard
+1 Leveler
+1 Liar's Pendulum
+1 Lich's Tomb
+1 Lifespark Spellbomb
+1 Lightning Coils
+1 Lightning Greaves
+1 Living Hive
+1 Lodestone Myr
+1 Looming Hoverguard
+1 Lose Hope
+1 Loxodon Anchorite
+1 Loxodon Mender
+1 Loxodon Mystic
+1 Loxodon Peacekeeper
+1 Loxodon Punisher
+1 Loxodon Stalwart
+1 Loxodon Warhammer
+1 Lumengrid Augur
+1 Lumengrid Sentinel
+1 Lumengrid Warden
+1 Luminous Angel
+1 Lunar Avenger
+1 Machinate
+1 Magma Giant
+1 Magma Jet
+1 Magnetic Flux
+1 Magnetic Theft
+1 Malachite Golem
+1 Mana Geyser
+1 March of the Machines
+1 Mask of Memory
+1 Mass Hysteria
+1 Megatog
+1 Memnarch
+1 Mephidross Vampire
+1 Mephitic Ooze
+1 Mesmeric Orb
+1 Metal Fatigue
+1 Mind's Eye
+1 Mindslaver
+1 Mindstorm Crown
+1 Mirrodin's Core
+1 Mirror Golem
+1 Molder Slug
+1 Molten Rain
+1 Moriok Rigger
+1 Moriok Scavenger
+1 Mourner's Shield
+1 Murderous Spoils
+1 Mycosynth Golem
+1 Mycosynth Lattice
+1 Myr Adapter
+1 Myr Enforcer
+1 Myr Incubator
+1 Myr Landshaper
+1 Myr Matrix
+1 Myr Mindservant
+1 Myr Moonvessel
+1 Myr Prototype
+1 Myr Quadropod
+1 Myr Retriever
+1 Myr Servitor
+1 Necrogen Mists
+1 Necrogen Spellbomb
+1 Needlebug
+1 Nemesis Mask
+1 Neurok Familiar
+1 Neurok Hoversail
+1 Neurok Prodigy
+1 Neurok Spy
+1 Neurok Stealthsuit
+1 Neurok Transmuter
+1 Nightmare Lash
+1 Night's Whisper
+1 Nim Abomination
+1 Nim Devourer
+1 Nim Grotesque
+1 Nim Lasher
+1 Nim Replica
+1 Nim Shambler
+1 Nim Shrieker
+1 Nourish
+1 Nuisance Engine
+1 Oblivion Stone
+1 Ogre Leadfoot
+1 Omega Myr
+1 One Dozen Eyes
+1 Opaline Bracers
+1 Ornithopter
+1 Ouphe Vandals
+1 Override
+1 Oxidda Golem
+1 Oxidize
+1 Panoptic Mirror
+1 Paradise Mantle
+1 Pearl Shard
+1 Pentad Prism
+1 Pentavus
+1 Pewter Golem
+1 Plasma Elemental
+1 Plated Slagwurm
+1 Platinum Angel
+1 Plunge into Darkness
+1 Possessed Portal
+1 Power Conduit
+1 Predator's Strike
+1 Pristine Angel
+1 Promise of Power
+1 Proteus Staff
+1 Psychic Membrane
+1 Psychic Overload
+1 Psychogenic Probe
+1 Pteron Ghost
+1 Pulse of the Dross
+1 Pulse of the Fields
+1 Pulse of the Forge
+1 Pulse of the Grid
+1 Pulse of the Tangle
+1 Purge
+1 Pyrite Spellbomb
+1 Quicksilver Behemoth
+1 Quicksilver Elemental
+1 Quicksilver Fountain
+1 Qumulox
+1 Rain of Rust
+1 Raise the Alarm
+1 Raksha Golden Cub
+1 Razor Barrier
+1 Razor Golem
+1 Razorgrass Screen
+1 Razormane Masticore
+1 Reap and Sow
+1 Rebuking Ceremony
+1 Regress
+1 Reiver Demon
+1 Relentless Rats
+1 Relic Bane
+1 Relic Barrier
+1 Reshape
+1 Retaliate
+1 Retract
+1 Reversal of Fortune
+1 Rite of Passage
+1 Ritual of Restoration
+1 Roaring Slagwurm
+1 Roar of Reclamation
+1 Roar of the Kha
+1 Rude Awakening
+1 Rule of Law
+1 Rust Elemental
+1 Rustmouth Ogre
+1 Rustspore Ram
+1 Salvaging Station
+1 Savage Beating
+1 Sawtooth Thresher
+1 Scale of Chiss-Goria
+1 Scavenging Scarab
+1 Scrabbling Claws
+1 Screaming Fury
+1 Screams from Within
+1 Scrounge
+1 Sculpting Steel
+1 Scythe of the Wretched
+1 Seat of the Synod
+1 Second Sight
+1 Second Sunrise
+1 Seething Song
+1 Serum Powder
+1 Serum Tank
+1 Serum Visions
+1 Shared Fate
+1 Shatter
+1 Shattered Dreams
+1 Shield of Kaldra
+1 Shrapnel Blast
+1 Shriveling Rot
+1 Shunt
+1 Silent Arbiter
+1 Silver Myr
+1 Skeleton Shard
+1 Skullcage
+1 Skullclamp
+1 Skyhunter Cub
+1 Skyhunter Patrol
+1 Skyhunter Prowler
+1 Skyhunter Skirmisher
+1 Skyreach Manta
+1 Slagwurm Armor
+1 Slith Ascendant
+1 Slith Bloodletter
+1 Slith Firewalker
+1 Slith Predator
+1 Slith Strider
+1 Slobad, Goblin Tinkerer
+1 Solarion
+1 Solar Tide
+1 Soldier Replica
+1 Solemn Simulacrum
+1 Somber Hoverguard
+1 Soul Foundry
+1 Soul Nova
+1 Soulscour
+1 Spark Elemental
+1 Sparring Collar
+1 Spawning Pit
+1 Specter's Shroud
+1 Spectral Shift
+1 Spellbinder
+1 Spellweaver Helix
+1 Sphere of Purity
+1 Spikeshot Goblin
+1 Spinal Parasite
+1 Spincrusher
+1 Spire Golem
+1 Spoils of the Vault
+1 Staff of Domination
+1 Stalking Stones
+1 Stand Firm
+1 Stand Together
+1 Stasis Cocoon
+1 Steelshaper Apprentice
+1 Steelshaper's Gift
+1 Steel Wall
+1 Stir the Pride
+1 Summoner's Egg
+1 Summoning Station
+1 Sunbeam Spellbomb
+1 Suncrusher
+1 Sundering Titan
+1 Sun Droplet
+1 Suntouched Myr
+1 Surestrike Trident
+1 Sword of Fire and Ice
+1 Sword of Kaldra
+1 Sword of Light and Shadow
+1 Sylvan Scrying
+1 Sylvok Explorer
+1 Synod Artificer
+1 Synod Centurion
+1 Synod Sanctum
+1 Taj-Nar Swordsmith
+1 Talisman of Dominance
+1 Talisman of Impulse
+1 Talisman of Indulgence
+1 Talisman of Progress
+1 Talisman of Unity
+1 Talon of Pain
+1 Tangle Asp
+1 Tanglebloom
+1 Tangle Golem
+1 Tangleroot
+1 Tangle Spider
+1 Tanglewalker
+1 Tears of Rage
+1 Tel-Jilad Archers
+1 Tel-Jilad Chosen
+1 Tel-Jilad Exile
+1 Tel-Jilad Justice
+1 Tel-Jilad Lifebreather
+1 Tel-Jilad Outrider
+1 Tel-Jilad Stylus
+1 Tel-Jilad Wolf
+1 Tempest of Light
+1 Temporal Cascade
+1 Terror
+1 Test of Faith
+1 Thermal Navigator
+1 Thirst for Knowledge
+1 Thoughtcast
+1 Thought Courier
+1 Thought Dissector
+1 Thought Prison
+1 Thunderstaff
+1 Timesifter
+1 Titanium Golem
+1 Tooth and Nail
+1 Tooth of Chiss-Goria
+1 Tornado Elemental
+1 Tower of Champions
+1 Tower of Eons
+1 Tower of Fortunes
+1 Tower of Murmurs
+1 Trash for Treasure
+1 Tree of Tales
+1 Trinisphere
+1 Trinket Mage
+1 Triskelion
+1 Troll Ascetic
+1 Trolls of Tel-Jilad
+1 Turn the Tables
+1 Turn to Dust
+1 Tyrranax
+1 Unforge
+1 Ur-Golem's Eye
+1 Vanquish
+1 Vault of Whispers
+1 Vedalken Archmage
+1 Vedalken Engineer
+1 Vedalken Mastermind
+1 Vedalken Orrery
+1 Vedalken Shackles
+1 Vermiculos
+1 Vex
+1 Vicious Betrayal
+1 Viridian Acolyte
+1 Viridian Joiner
+1 Viridian Longbow
+1 Viridian Lorebearers
+1 Viridian Scout
+1 Viridian Shaman
+1 Viridian Zealot
+1 Voltaic Construct
+1 Vorrac Battlehorns
+1 Vulshok Battlegear
+1 Vulshok Battlemaster
+1 Vulshok Berserker
+1 Vulshok Gauntlets
+1 Vulshok Morningstar
+1 Vulshok Sorcerer
+1 Vulshok War Boar
+1 Wail of the Nim
+1 Wall of Blood
+1 Wanderguard Sentry
+1 Wand of the Elements
+1 War Elemental
+1 Wayfarer's Bauble
+1 Welding Jar
+1 Well of Lost Dreams
+1 Whispersilk Cloak
+1 Wirefly Hive
+1 Wizard Replica
+1 Woebearer
+1 Worldslayer
+1 Wrench Mind
+1 Wurmskin Forger
+1 Wurm's Tooth
+1 Yotian Soldier

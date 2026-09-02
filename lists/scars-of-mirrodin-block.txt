@@ -1,0 +1,541 @@
+@name Scars of Mirrodin Block (SOM/MBS/NPH)
+@format cube
+1 Abuna Acolyte
+1 Accorder Paladin
+1 Accorder's Shield
+1 Acid Web Spider
+1 Act of Aggression
+1 Alloy Myr
+1 Alpha Tyrranax
+1 Apostle's Blessing
+1 Arc Trail
+1 Ardent Recruit
+1 Argent Mutation
+1 Argent Sphinx
+1 Argentum Armor
+1 Arm with Aether
+1 Arrest
+1 Artillerize
+1 Asceticism
+1 Assault Strobe
+1 Auriok Edgewright
+1 Auriok Replica
+1 Auriok Sunchaser
+1 Auriok Survivors
+1 Banishment Decree
+1 Barbed Battlegear
+1 Barrage Ogre
+1 Batterskull
+1 Beast Within
+1 Bellowing Tanglewurm
+1 Birthing Pod
+1 Blackcleave Cliffs
+1 Blackcleave Goblin
+1 Black Sun's Zenith
+1 Bladed Pinions
+1 Bladed Sentinel
+1 Blade Splicer
+1 Blade-Tribe Berserkers
+1 Bleak Coven Vampires
+1 Blighted Agent
+1 Blight Mamba
+1 Blightsteel Colossus
+1 Blightwidow
+1 Blinding Souleater
+1 Blind Zealot
+1 Blistergrub
+1 Blisterstick Shaman
+1 Bloodshot Trainee
+1 Bludgeon Brawl
+1 Blue Sun's Zenith
+1 Blunt the Assault
+1 Bonds of Quicksilver
+1 Bonehoard
+1 Brass Squire
+1 Brutalizer Exarch
+1 Burn the Impure
+1 Caged Sun
+1 Carapace Forger
+1 Caress of Phyrexia
+1 Carnifex Demon
+1 Carrion Call
+1 Cathedral Membrane
+1 Caustic Hound
+1 Cerebral Eruption
+1 Chained Throatseeker
+1 Chancellor of the Annex
+1 Chancellor of the Dross
+1 Chancellor of the Forge
+1 Chancellor of the Spires
+1 Chancellor of the Tangle
+1 Chimeric Mass
+1 Choking Fumes
+1 Chrome Steed
+1 Clone Shell
+1 Concussive Bolt
+1 Consecrated Sphinx
+1 Contagion Clasp
+1 Contagion Engine
+1 Contagious Nim
+1 Contested War Zone
+1 Conversion Chamber
+1 Copper Carapace
+1 Copperhorn Scout
+1 Copperline Gorge
+1 Copper Myr
+1 Core Prowler
+1 Corpse Cur
+1 Corrosive Gale
+1 Corrupted Conscience
+1 Corrupted Harvester
+1 Corrupted Resolve
+1 Creeping Corrosion
+1 Crush
+1 Cryptoplasm
+1 Culling Dais
+1 Cystbearer
+1 Darkslick Drake
+1 Darkslick Shores
+1 Darksteel Axe
+1 Darksteel Juggernaut
+1 Darksteel Myr
+1 Darksteel Plate
+1 Darksteel Relic
+1 Darksteel Sentinel
+1 Death-Hood Cobra
+1 Deceiver Exarch
+1 Decimator Web
+1 Defensive Stance
+1 Dementia Bat
+1 Despise
+1 Dismember
+1 Dispatch
+1 Dispense Justice
+1 Disperse
+1 Dissipation Field
+1 Distant Memories
+1 Divine Offering
+1 Dross Hopper
+1 Dross Ripper
+1 Due Respect
+1 Echo Circlet
+1 Elesh Norn, Grand Cenobite
+1 Elspeth Tirel
+1 Embersmith
+1 Engulfing Slagwurm
+1 Enslave
+1 Entomber Exarch
+1 Etched Champion
+1 Etched Monstrosity
+1 Evil Presence
+1 Exclusion Ritual
+1 Exsanguinate
+1 Ezuri, Renegade Leader
+1 Ezuri's Archers
+1 Ezuri's Brigade
+1 Fallen Ferromancer
+1 Fangren Marauder
+1 Ferrovore
+1 Flameborn Hellion
+1 Flameborn Viron
+1 Flayer Husk
+1 Flensermite
+1 Flesh Allergy
+1 Flesh-Eater Imp
+1 Flight Spellbomb
+1 Forced Worship
+1 Frantic Salvage
+1 Fresh Meat
+1 Fuel for the Cause
+1 Fulgent Distraction
+1 Fume Spitter
+1 Furnace Celebration
+1 Furnace Scamp
+1 Galvanic Blast
+1 Galvanoth
+1 Genesis Wave
+1 Geosurge
+1 Geth, Lord of the Vault
+1 Geth's Verdict
+1 Ghalma's Warden
+1 Gitaxian Probe
+1 Glimmerpoint Stag
+1 Glimmerpost
+1 Glint Hawk
+1 Glint Hawk Idol
+1 Glissa's Courier
+1 Glissa's Scorn
+1 Glissa, the Traitor
+1 Glistener Elf
+1 Glistening Oil
+1 Gnathosaur
+1 Goblin Gaveleer
+1 Goblin Wardriver
+1 Go for the Throat
+1 Golden Urn
+1 Gold Myr
+1 Golem Artisan
+1 Golem Foundry
+1 Golem's Heart
+1 Gore Vassal
+1 Grafted Exoskeleton
+1 Grand Architect
+1 Grasp of Darkness
+1 Greenhilt Trainee
+1 Green Sun's Zenith
+1 Gremlin Mine
+1 Grim Affliction
+1 Grindclock
+1 Gruesome Encore
+1 Gust-Skimmer
+1 Gut Shot
+1 Halt Order
+1 Hand of the Praetors
+1 Heavy Arbalest
+1 Hellkite Igniter
+1 Hero of Bladehold
+1 Hero of Oxid Ridge
+1 Hex Parasite
+1 Hexplate Golem
+1 Hoard-Smelter Dragon
+1 Horizon Spellbomb
+1 Horrifying Revelation
+1 Hovermyr
+1 Ichorclaw Myr
+1 Ichor Explosion
+1 Ichor Rats
+1 Ichor Wellspring
+1 Immolating Souleater
+1 Impaler Shrike
+1 Indomitable Archangel
+1 Inexorable Tide
+1 Infiltration Lens
+1 Inkmoth Nexus
+1 Inquisitor Exarch
+1 Insatiable Souleater
+1 Instill Infection
+1 Into the Core
+1 Invader Parasite
+1 Iron Myr
+1 Isolation Cell
+1 Jin-Gitaxias, Core Augur
+1 Jor Kadeen, the Prevailer
+1 Karn Liberated
+1 Kemba, Kha Regent
+1 Kemba's Legion
+1 Kemba's Skyguard
+1 Kiln Walker
+1 Knowledge Pool
+1 Koth of the Hammer
+1 Koth's Courier
+1 Kuldotha Flamefiend
+1 Kuldotha Forgemaster
+1 Kuldotha Phoenix
+1 Kuldotha Rebirth
+1 Kuldotha Ringleader
+1 Lashwrithe
+1 Leaden Myr
+1 Lead the Stampede
+1 Leeching Bite
+1 Leonin Arbiter
+1 Leonin Relic-Warder
+1 Leonin Skyhunter
+1 Liege of the Tangle
+1 Life's Finale
+1 Lifesmith
+1 Liquimetal Coating
+1 Livewire Lash
+1 Lost Leonin
+1 Loxodon Convert
+1 Loxodon Partisan
+1 Loxodon Wayfarer
+1 Lumengrid Drake
+1 Lumengrid Gargoyle
+1 Lux Cannon
+1 Magnetic Mine
+1 Marrow Shards
+1 Massacre Wurm
+1 Master's Call
+1 Master Splicer
+1 Maul Splicer
+1 Melira's Keepers
+1 Melira, Sylvok Outcast
+1 Melt Terrain
+1 Memnite
+1 Memoricide
+1 Mental Misstep
+1 Metallic Mastery
+1 Mimic Vat
+1 Mindcrank
+1 Mindculling
+1 Mindslaver
+1 Mirran Crusader
+1 Mirran Mettle
+1 Mirran Spy
+1 Mirrorworks
+1 Mitotic Manipulation
+1 Molder Beast
+1 Molten Psyche
+1 Moltensteel Dragon
+1 Molten-Tail Masticore
+1 Morbid Plunder
+1 Moriok Reaver
+1 Moriok Replica
+1 Mortarpod
+1 Mortis Dogs
+1 Mox Opal
+1 Mutagenic Growth
+1 Mycosynth Fiend
+1 Mycosynth Wellspring
+1 Myr Battlesphere
+1 Myr Galvanizer
+1 Myr Propagator
+1 Myr Reservoir
+1 Myr Sire
+1 Myrsmith
+1 Myr Superion
+1 Myr Turbine
+1 Myr Welder
+1 Necrogen Censer
+1 Necrogen Scudder
+1 Necropede
+1 Necropouncer
+1 Necrotic Ooze
+1 Nested Ghoul
+1 Neurok Commando
+1 Neurok Invisimancer
+1 Neurok Replica
+1 Nihil Spellbomb
+1 Nim Deathmantle
+1 Norn's Annex
+1 Noxious Revival
+1 Numbing Dose
+1 Oculus
+1 Ogre Geargrabber
+1 Ogre Menial
+1 Ogre Resister
+1 Omen Machine
+1 Origin Spellbomb
+1 Oxidda Daredevil
+1 Oxidda Scrapmelter
+1 Painful Quandary
+1 Painsmith
+1 Palladium Myr
+1 Panic Spellbomb
+1 Parasitic Implant
+1 Peace Strider
+1 Perilous Myr
+1 Pestilent Souleater
+1 Phyresis
+1 Phyrexian Crusader
+1 Phyrexian Digester
+1 Phyrexian Hulk
+1 Phyrexian Hydra
+1 Phyrexian Ingester
+1 Phyrexian Juggernaut
+1 Phyrexian Metamorph
+1 Phyrexian Obliterator
+1 Phyrexian Rager
+1 Phyrexian Rebirth
+1 Phyrexian Revoker
+1 Phyrexian Swarmlord
+1 Phyrexian Unlife
+1 Phyrexian Vatmother
+1 Phyrexia's Core
+1 Pierce Strider
+1 Piston Sledge
+1 Pistus Strike
+1 Pith Driller
+1 Plaguemaw Beast
+1 Plague Myr
+1 Plague Stinger
+1 Plated Seastrider
+1 Platinum Emperion
+1 Porcelain Legionnaire
+1 Postmortem Lunge
+1 Praetor's Counsel
+1 Praetor's Grasp
+1 Precursor Golem
+1 Priest of Urabrask
+1 Priests of Norn
+1 Pristine Talisman
+1 Prototype Portal
+1 Psychic Barrier
+1 Psychic Miasma
+1 Psychic Surgery
+1 Psychosis Crawler
+1 Puresteel Paladin
+1 Putrefax
+1 Quicksilver Gargantuan
+1 Quicksilver Geyser
+1 Quilled Slagwurm
+1 Rage Extractor
+1 Rally the Forces
+1 Ratchet Bomb
+1 Razorfield Rhino
+1 Razorfield Thresher
+1 Razor Hippogriff
+1 Razor Swine
+1 Razorverge Thicket
+1 Reaper of Sheoldred
+1 Red Sun's Zenith
+1 Relic Putrescence
+1 Remember the Fallen
+1 Revoke Existence
+1 Riddlesmith
+1 Rotted Hystrix
+1 Rot Wolf
+1 Rusted Relic
+1 Rusted Slasher
+1 Rust Tick
+1 Ruthless Invasion
+1 Saberclaw Golem
+1 Salvage Scout
+1 Sangromancer
+1 Scoria Elemental
+1 Scourge Servant
+1 Scrapdiver Serpent
+1 Scrapyard Salvo
+1 Screeching Silcaw
+1 Seachrome Coast
+1 Seize the Initiative
+1 Semblance Anvil
+1 Sensor Splicer
+1 Septic Rats
+1 Serum Raker
+1 Shape Anew
+1 Shatter
+1 Shattered Angel
+1 Sheoldred, Whispering One
+1 Shimmer Myr
+1 Shriekhorn
+1 Shriek Raptor
+1 Shrine of Boundless Growth
+1 Shrine of Burning Rage
+1 Shrine of Limitless Power
+1 Shrine of Loyal Legions
+1 Shrine of Piercing Vision
+1 Sickleslicer
+1 Signal Pest
+1 Silver Myr
+1 Silverskin Armor
+1 Skinrender
+1 Skinwing
+1 Skithiryx, the Blight Dragon
+1 Sky-Eel School
+1 Slag Fiend
+1 Slagstorm
+1 Slash Panther
+1 Slice in Twain
+1 Snapsail Glider
+1 Soliton
+1 Soul Conduit
+1 Soul Parry
+1 Spellskite
+1 Sphere of the Suns
+1 Spikeshot Elder
+1 Spinebiter
+1 Spined Thopter
+1 Spin Engine
+1 Spine of Ish Sah
+1 Spiraling Duelist
+1 Spire Monitor
+1 Spire Serpent
+1 Spread the Sickness
+1 Steady Progress
+1 Steel Hellkite
+1 Steel Sabotage
+1 Stoic Rebuttal
+1 Strandwalker
+1 Strata Scythe
+1 Strider Harness
+1 Sunblast Angel
+1 Sunspear Shikari
+1 Surge Node
+1 Surgical Extraction
+1 Suture Priest
+1 Sword of Body and Mind
+1 Sword of Feast and Famine
+1 Sword of War and Peace
+1 Sylvok Lifestaff
+1 Sylvok Replica
+1 Tainted Strike
+1 Tangle Angler
+1 Tangle Hulk
+1 Tangle Mantis
+1 Tel-Jilad Defiance
+1 Tel-Jilad Fallen
+1 Tempered Steel
+1 Tezzeret, Agent of Bolas
+1 Tezzeret's Gambit
+1 Thopter Assembly
+1 Throne of Geth
+1 Thrummingbird
+1 Thrun, the Last Troll
+1 Thundering Tanadon
+1 Tine Shrike
+1 Titan Forge
+1 Tormentor Exarch
+1 Torpor Orb
+1 Tower of Calamities
+1 Toxic Nim
+1 Training Drone
+1 Treasure Mage
+1 Trespassing Souleater
+1 Trigon of Corruption
+1 Trigon of Infestation
+1 Trigon of Mending
+1 Trigon of Rage
+1 Trigon of Thought
+1 Trinket Mage
+1 Triumph of the Hordes
+1 True Conviction
+1 Tumble Magnet
+1 Tunnel Ignus
+1 Turn Aside
+1 Turn the Tide
+1 Turn to Slag
+1 Twisted Image
+1 Unnatural Predation
+1 Untamed Might
+1 Unwinding Clock
+1 Urabrask the Hidden
+1 Vapor Snag
+1 Vault Skirge
+1 Vault Skyward
+1 Vector Asp
+1 Vedalken Anatomist
+1 Vedalken Certarch
+1 Vedalken Infuser
+1 Venser's Journal
+1 Venser, the Sojourner
+1 Victorious Destruction
+1 Victory's Herald
+1 Vigil for the Lost
+1 Viral Drake
+1 Viridian Betrayers
+1 Viridian Claw
+1 Viridian Corrupter
+1 Viridian Emissary
+1 Viridian Harvest
+1 Viridian Revel
+1 Virulent Wound
+1 Vital Splicer
+1 Vivisection
+1 Volition Reins
+1 Volt Charge
+1 Vorinclex, Voice of Hunger
+1 Vulshok Heartstoker
+1 Vulshok Refugee
+1 Vulshok Replica
+1 Wall of Tanglecord
+1 War Report
+1 Whipflare
+1 Whispering Specter
+1 Whitesun's Passage
+1 White Sun's Zenith
+1 Wing Puncture
+1 Wing Splicer
+1 Withstand Death
+1 Wurmcoil Engine
+1 Xenograft

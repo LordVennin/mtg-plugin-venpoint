@@ -1,0 +1,433 @@
+@name Lorwyn Block (LRW/MOR)
+@format cube
+1 Adder-Staff Boggart
+1 Aethersnipe
+1 Ajani Goldmane
+1 Ambassador Oak
+1 Amoeboid Changeling
+1 Ancient Amphitheater
+1 Aquitect's Will
+1 Arbiter of Knollridge
+1 Ashling's Prerogative
+1 Ashling the Pilgrim
+1 Auntie's Hovel
+1 Auntie's Snitch
+1 Austere Command
+1 Avian Changeling
+1 Axegrinder Giant
+1 Ballyrush Banneret
+1 Battle Mastery
+1 Battletide Alchemist
+1 Battlewand Oak
+1 Benthicore
+1 Bitterblossom
+1 Black Poplar Shaman
+1 Blades of Velis Vel
+1 Blightsoil Druid
+1 Blind-Spot Giant
+1 Boggart Birth Rite
+1 Boggart Forager
+1 Boggart Harbinger
+1 Boggart Loggers
+1 Boggart Mob
+1 Boggart Shenanigans
+1 Boggart Sprite-Chaser
+1 Bog Hoodlums
+1 Bog-Strider Ash
+1 Boldwyr Heavyweights
+1 Boldwyr Intimidator
+1 Borderland Behemoth
+1 Bosk Banneret
+1 Bramblewood Paragon
+1 Briarhorn
+1 Brighthearth Banneret
+1 Brigid, Hero of Kinsbaile
+1 Brion Stoutarm
+1 Broken Ambitions
+1 Burrenton Bombardier
+1 Burrenton Forge-Tender
+1 Burrenton Shield-Bearers
+1 Cairn Wanderer
+1 Captivating Glance
+1 Caterwauling Boggart
+1 Ceaseless Searblades
+1 Cenn's Heir
+1 Cenn's Tactician
+1 Chameleon Colossus
+1 Chandra Nalaar
+1 Changeling Berserker
+1 Changeling Hero
+1 Changeling Sentinel
+1 Changeling Titan
+1 Cloak and Dagger
+1 Cloudcrown Oak
+1 Cloudgoat Ranger
+1 Cloudthresher
+1 Colfenor's Plans
+1 Colfenor's Urn
+1 Consuming Bonfire
+1 Coordinated Barrage
+1 Countryside Crusher
+1 Cream of the Crop
+1 Crib Swap
+1 Crush Underfoot
+1 Cryptic Command
+1 Daily Regimen
+1 Dauntless Dourbark
+1 Dawnfluke
+1 Deathrender
+1 Declaration of Naught
+1 Deeptread Merrow
+1 Deglamer
+1 Dewdrop Spy
+1 Disperse
+1 Distant Melody
+1 Diviner's Wand
+1 Dolmen Gate
+1 Door of Destinies
+1 Doran, the Siege Tower
+1 Dread
+1 Dreamspoiler Witches
+1 Drowner of Secrets
+1 Earthbrawn
+1 Earwig Squad
+1 Ego Erasure
+1 Elvish Branchbender
+1 Elvish Eulogist
+1 Elvish Handservant
+1 Elvish Harbinger
+1 Elvish Promenade
+1 Elvish Warrior
+1 Entangling Trap
+1 Epic Proportions
+1 Ethereal Whiskergill
+1 Everbark Shaman
+1 Exiled Boggart
+1 Eyeblight's Ending
+1 Eyes of the Wisent
+1 Facevaulter
+1 Faerie Harbinger
+1 Faerie Tauntings
+1 Faerie Trickery
+1 Fallowsage
+1 Familiar's Ruse
+1 Fathom Trawl
+1 Faultgrinder
+1 Favor of the Mighty
+1 Fencer Clique
+1 Fendeep Summoner
+1 Fertile Ground
+1 Fertilid
+1 Festercreep
+1 Feudkiller's Verdict
+1 Final Revels
+1 Final-Sting Faerie
+1 Fire-Belly Changeling
+1 Fire Juggler
+1 Fistful of Force
+1 Flamekin Bladewhirl
+1 Flamekin Brawler
+1 Flamekin Harbinger
+1 Flamekin Spitfire
+1 Floodchaser
+1 Fodder Launch
+1 Footbottom Feast
+1 Forced Fruition
+1 Forfend
+1 Frogtosser Banneret
+1 Gaddock Teeg
+1 Galepowder Mage
+1 Game-Trail Changeling
+1 Garruk Wildspeaker
+1 Ghostly Changeling
+1 Giant Harbinger
+1 Giant's Ire
+1 Gilt-Leaf Ambush
+1 Gilt-Leaf Archdruid
+1 Gilt-Leaf Palace
+1 Gilt-Leaf Seer
+1 Glarewielder
+1 Glen Elendra Pranksters
+1 Glimmerdust Nap
+1 Goatnapper
+1 Goldmeadow Dodger
+1 Goldmeadow Harrier
+1 Goldmeadow Stalwart
+1 Graceful Reprieve
+1 Greatbow Doyen
+1 Grimoire Thief
+1 Guardian of Cloverdell
+1 Guile
+1 Hamletback Goliath
+1 Harpoon Sniper
+1 Heal the Scars
+1 Hearthcage Giant
+1 Heat Shimmer
+1 Herbal Poultice
+1 Heritage Druid
+1 Hillcomber Giant
+1 Hoarder's Greed
+1 Hoofprints of the Stag
+1 Horde of Notions
+1 Hornet Harasser
+1 Hostile Realm
+1 Hostility
+1 Howltooth Hollow
+1 Hunt Down
+1 Hunter of Eyeblights
+1 Hunting Triad
+1 Hurly-Burly
+1 Idyllic Tutor
+1 Immaculate Magistrate
+1 Imperious Perfect
+1 Incandescent Soulstoke
+1 Incendiary Command
+1 Incremental Growth
+1 Indomitable Ancients
+1 Ingot Chewer
+1 Ink Dissolver
+1 Inkfathom Divers
+1 Inner-Flame Acolyte
+1 Inner-Flame Igniter
+1 Inspired Sprite
+1 Jace Beleren
+1 Jagged-Scar Archers
+1 Judge of Currents
+1 Kindled Fury
+1 Kinsbaile Balloonist
+1 Kinsbaile Borderguard
+1 Kinsbaile Cavalier
+1 Kinsbaile Skirmisher
+1 Kithkin Daggerdare
+1 Kithkin Greatheart
+1 Kithkin Harbinger
+1 Kithkin Healer
+1 Kithkin Mourncaller
+1 Kithkin Zephyrnaut
+1 Knight of Meadowgrain
+1 Knowledge Exploitation
+1 Knucklebone Witch
+1 Lace with Moonglove
+1 Lairwatch Giant
+1 Lammastide Weave
+1 Lash Out
+1 Latchkey Faerie
+1 Leaf-Crowned Elder
+1 Leaf Gilder
+1 Lightning Crafter
+1 Lignify
+1 Liliana Vess
+1 Lowland Oaf
+1 Luminescent Rain
+1 Lunk Errant
+1 Lys Alana Bowmaster
+1 Lys Alana Huntmaster
+1 Lys Alana Scarblade
+1 Mad Auntie
+1 Makeshift Mannequin
+1 Maralen of the Mornsong
+1 Marsh Flitter
+1 Masked Admirers
+1 Meadowboon
+1 Merrow Commerce
+1 Merrow Harbinger
+1 Merrow Reejerey
+1 Merrow Witsniper
+1 Militia's Pride
+1 Mind Shatter
+1 Mind Spring
+1 Mirror Entity
+1 Mistbind Clique
+1 Moonglove Changeling
+1 Moonglove Extract
+1 Moonglove Winnower
+1 Morsel Theft
+1 Mosquito Guard
+1 Mosswort Bridge
+1 Mothdust Changeling
+1 Mournwhelk
+1 Mudbutton Clanger
+1 Mudbutton Torchrunner
+1 Mulldrifter
+1 Murmuring Bosk
+1 Mutavault
+1 Nameless Inversion
+1 Nath of the Gilt-Leaf
+1 Nath's Buffoon
+1 Nath's Elite
+1 Neck Snap
+1 Nectar Faerie
+1 Needle Drop
+1 Negate
+1 Nettlevine Blight
+1 Nevermaker
+1 Nightshade Schemers
+1 Nightshade Stinger
+1 Noggin Whack
+1 Notorious Throng
+1 Nova Chaser
+1 Oaken Brawler
+1 Oakgnarl Warrior
+1 Oblivion Ring
+1 Obsidian Battle-Axe
+1 Offalsnout
+1 Oona's Blackguard
+1 Oona's Prowler
+1 Orchard Warden
+1 Order of the Golden Cricket
+1 Pack's Disdain
+1 Paperfin Rascal
+1 Peppersmoke
+1 Pestermite
+1 Plover Knights
+1 Pollen Lullaby
+1 Ponder
+1 Preeminent Captain
+1 Prickly Boggart
+1 Primal Beyond
+1 Primal Command
+1 Profane Command
+1 Protective Bubble
+1 Prowess of the Fair
+1 Pulling Teeth
+1 Purity
+1 Pyroclast Consul
+1 Quill-Slinger Boggart
+1 Rage Forger
+1 Reach of Branches
+1 Rebellion of the Flamekin
+1 Recross the Paths
+1 Redeem the Lost
+1 Reins of the Vinesteed
+1 Release the Ants
+1 Research the Deep
+1 Reveillark
+1 Revive the Fallen
+1 Rhys the Exiled
+1 Ringskipper
+1 Rings of Brighthearth
+1 Rivals' Duel
+1 Roar of the Crowd
+1 Rootgrapple
+1 Runed Stalactite
+1 Rustic Clachan
+1 Sage of Fables
+1 Sage's Dousing
+1 Scapeshift
+1 Scarblade Elite
+1 Scarred Vinebreeder
+1 Scattering Stroke
+1 Scion of Oona
+1 Secluded Glen
+1 Seedguide Ash
+1 Seething Pathblazer
+1 Sensation Gorger
+1 Sentinels of Glen Elendra
+1 Sentry Oak
+1 Shapesharer
+1 Shard Volley
+1 Shared Animosity
+1 Shelldock Isle
+1 Shields of Velis Vel
+1 Shimmering Grotto
+1 Shinewend
+1 Shriekmaw
+1 Sigil Tracer
+1 Silvergill Adept
+1 Silvergill Douser
+1 Skeletal Changeling
+1 Slithermuse
+1 Smokebraider
+1 Soaring Hope
+1 Soulbright Flamekin
+1 Sower of Temptation
+1 Spellstutter Sprite
+1 Spiderwig Boggart
+1 Spinerock Knoll
+1 Spitebellows
+1 Spring Cleaning
+1 Springjack Knight
+1 Springleaf Drum
+1 Squeaking Pie Grubfellows
+1 Squeaking Pie Sneak
+1 Stenchskipper
+1 Stingmoggie
+1 Stinkdrinker Bandit
+1 Stinkdrinker Daredevil
+1 Stomping Slabs
+1 Stonehewer Giant
+1 Stonybrook Angler
+1 Stonybrook Banneret
+1 Stonybrook Schoolmaster
+1 Streambed Aquitects
+1 Stream of Unconsciousness
+1 Summon the School
+1 Sunflare Shaman
+1 Sunrise Sovereign
+1 Supreme Exemplar
+1 Surge of Thoughtweft
+1 Surgespanner
+1 Swell of Courage
+1 Sygg, River Guide
+1 Sylvan Echoes
+1 Tarfire
+1 Tar Pitcher
+1 Taurean Mauler
+1 Thieves' Fortune
+1 Thieving Sprite
+1 Thornbite Staff
+1 Thorn of Amethyst
+1 Thorntooth Witch
+1 Thoughtseize
+1 Thoughtweft Trio
+1 Thousand-Year Elixir
+1 Thundercloud Shaman
+1 Tideshaper Mystic
+1 Timber Protector
+1 Titan's Revenge
+1 Treefolk Harbinger
+1 Triclopean Sight
+1 Turtleshell Changeling
+1 Twinning Glass
+1 Unstoppable Ash
+1 Vendilion Clique
+1 Vengeful Firebrand
+1 Veteran of the Depths
+1 Veteran's Armaments
+1 Vigor
+1 Violet Pall
+1 Vivid Crag
+1 Vivid Creek
+1 Vivid Grove
+1 Vivid Marsh
+1 Vivid Meadow
+1 Walker of the Grove
+1 Wanderer's Twig
+1 Wandering Graybeard
+1 Wanderwine Hub
+1 Wanderwine Prophets
+1 Warren Pilferers
+1 Warren-Scourge Elf
+1 Warren Weirding
+1 War-Spike Changeling
+1 Waterspout Weavers
+1 Weed-Pruner Poplar
+1 Weed Strangle
+1 Weight of Conscience
+1 Weirding Shaman
+1 Wellgabber Apothecary
+1 Whirlpool Whelm
+1 Wild Ricochet
+1 Windbrisk Heights
+1 Wings of Velis Vel
+1 Winnower Patrol
+1 Wispmare
+1 Wizened Cenn
+1 Wolf-Skull Shaman
+1 Woodland Changeling
+1 Woodland Guidance
+1 Wort, Boggart Auntie
+1 Wren's Run Packmaster
+1 Wren's Run Vanquisher
+1 Wydwen, the Biting Gale
+1 Zephyr Net

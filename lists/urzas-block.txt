@@ -1,0 +1,618 @@
+@name Urza's Block (USG/ULG/UDS)
+@format cube
+1 About Face
+1 Absolute Grace
+1 Absolute Law
+1 Abundance
+1 Abyssal Horror
+1 Academy Rector
+1 Academy Researchers
+1 Acidic Soil
+1 Acridian
+1 Aether Sting
+1 Albino Troll
+1 Anaconda
+1 Ancient Silverback
+1 Angelic Chorus
+1 Angelic Curator
+1 Angelic Page
+1 Angel's Trumpet
+1 Annul
+1 Antagonism
+1 Anthroplasm
+1 Apprentice Necromancer
+1 Arcane Laboratory
+1 Archery Training
+1 Archivist
+1 Arc Lightning
+1 Argothian Elder
+1 Argothian Enchantress
+1 Argothian Swine
+1 Argothian Wurm
+1 Attrition
+1 Attunement
+1 Aura Flux
+1 Aura Thief
+1 Avalanche Riders
+1 Back to Basics
+1 Barrin, Master Wizard
+1 Barrin's Codex
+1 Beast of Burden
+1 Bedlam
+1 Befoul
+1 Bereavement
+1 Blanchwood Armor
+1 Blanchwood Treefolk
+1 Blasted Landscape
+1 Blessed Reversal
+1 Blizzard Elemental
+1 Bloated Toad
+1 Bloodshot Cyclops
+1 Blood Vassal
+1 Body Snatcher
+1 Bog Raiders
+1 Bone Shredder
+1 Bouncing Beebles
+1 Braidwood Cup
+1 Braidwood Sextant
+1 Brand
+1 Brass Secretary
+1 Bravado
+1 Breach
+1 Brilliant Halo
+1 Brine Seer
+1 Brink of Madness
+1 Bubbling Beebles
+1 Bubbling Muck
+1 Bull Hippo
+1 Bulwark
+1 Burst of Energy
+1 Cackling Fiend
+1 Caltrops
+1 Capashen Knight
+1 Capashen Standard
+1 Capashen Templar
+1 Carnival of Souls
+1 Carpet of Flowers
+1 Carrion Beetles
+1 Catalog
+1 Catastrophe
+1 Cathodion
+1 Cave Tiger
+1 Cessation
+1 Child of Gaea
+1 Chime of Night
+1 Chimeric Staff
+1 Cinder Seer
+1 Citanul Centaurs
+1 Citanul Flute
+1 Citanul Hierophants
+1 Claws of Gix
+1 Clear
+1 Cloak of Mists
+1 Cloud of Faeries
+1 Colos Yearling
+1 Compost
+1 Confiscate
+1 Congregate
+1 Contamination
+1 Copper Gnomes
+1 Coral Merfolk
+1 Corrupt
+1 Covetous Dragon
+1 Cradle Guard
+1 Crater Hellion
+1 Crawlspace
+1 Crazed Skirge
+1 Crop Rotation
+1 Crosswinds
+1 Crystal Chimes
+1 Curfew
+1 Damping Engine
+1 Darkest Hour
+1 Dark Hatchling
+1 Dark Ritual
+1 Darkwatch Elves
+1 Defender of Chaos
+1 Defender of Law
+1 Defense Grid
+1 Defense of the Heart
+1 Defensive Formation
+1 Delusions of Mediocrity
+1 Deranged Hermit
+1 Despondency
+1 Destructive Urge
+1 Devout Harpist
+1 Diabolic Servitude
+1 Disappear
+1 Disciple of Grace
+1 Disciple of Law
+1 Discordant Dirge
+1 Disease Carriers
+1 Disenchant
+1 Disorder
+1 Disruptive Student
+1 Donate
+1 Douse
+1 Dragon Blood
+1 Drifting Djinn
+1 Drifting Meadow
+1 Dromosaur
+1 Duress
+1 Dying Wail
+1 Eastern Paladin
+1 Electryte
+1 Elite Archers
+1 Elvish Herder
+1 Elvish Lookout
+1 Elvish Lyrist
+1 Elvish Piper
+1 Emperor Crocodile
+1 Enchantment Alteration
+1 Encroach
+1 Endless Wurm
+1 Endoskeleton
+1 Energy Field
+1 Engineered Plague
+1 Eradicate
+1 Erase
+1 Eviscerator
+1 Exhaustion
+1 Exhume
+1 Expendable Troops
+1 Exploration
+1 Expunge
+1 Extruder
+1 Faerie Conclave
+1 Faith Healer
+1 False Prophet
+1 Falter
+1 Fatigue
+1 Fault Line
+1 Fecundity
+1 Fend Off
+1 Fertile Ground
+1 Festering Wound
+1 Field Surgeon
+1 Fiery Mantle
+1 Fire Ants
+1 Flame Jet
+1 Fledgling Osprey
+1 Fleeting Image
+1 Flesh Reaver
+1 Flicker
+1 Fluctuator
+1 Fodder Cannon
+1 Fog Bank
+1 Fog of Gnats
+1 Forbidding Watchtower
+1 Fortitude
+1 Frantic Search
+1 Gaea's Bounty
+1 Gaea's Cradle
+1 Gaea's Embrace
+1 Gamble
+1 Gamekeeper
+1 Gang of Elk
+1 Ghitu Encampment
+1 Ghitu Fire-Eater
+1 Ghitu Slinger
+1 Ghitu War Cry
+1 Giant Cockroach
+1 Gilded Drake
+1 Glorious Anthem
+1 Goblin Berserker
+1 Goblin Cadets
+1 Goblin Festival
+1 Goblin Gardener
+1 Goblin Lackey
+1 Goblin Marshal
+1 Goblin Masons
+1 Goblin Matron
+1 Goblin Medics
+1 Goblin Offensive
+1 Goblin Patrol
+1 Goblin Raider
+1 Goblin Spelunkers
+1 Goblin War Buggy
+1 Goblin Welder
+1 Goliath Beetle
+1 Gorilla Warrior
+1 Grafted Skullcap
+1 Granite Grip
+1 Greater Good
+1 Great Whale
+1 Greener Pastures
+1 Grim Monolith
+1 Guma
+1 Harmonic Convergence
+1 Hawkeater Moth
+1 Headlong Rush
+1 Healing Salve
+1 Heart Warden
+1 Heat Ray
+1 Herald of Serra
+1 Hermetic Study
+1 Hibernation
+1 Hidden Ancients
+1 Hidden Gibbons
+1 Hidden Guerrillas
+1 Hidden Herd
+1 Hidden Predators
+1 Hidden Spider
+1 Hidden Stag
+1 Hollow Dogs
+1 Hope and Glory
+1 Hopping Automaton
+1 Horseshoe Crab
+1 Hulking Ogre
+1 Humble
+1 Hunting Moa
+1 Hush
+1 Ill-Gotten Gains
+1 Illuminated Wings
+1 Imaginary Pet
+1 Impatience
+1 Impending Disaster
+1 Incendiary
+1 Intervene
+1 Intrepid Hero
+1 Iridescent Drake
+1 Iron Maiden
+1 Iron Will
+1 Ivy Seer
+1 Jagged Lightning
+1 Jasmine Seer
+1 Jhoira's Toolbox
+1 Junk Diver
+1 Karmic Guide
+1 Karn, Silver Golem
+1 Keldon Champion
+1 Keldon Vandals
+1 King Crab
+1 Kingfisher
+1 Knighthood
+1 Landslide
+1 Last-Ditch Effort
+1 Launch
+1 Lava Axe
+1 Lay Waste
+1 Levitation
+1 Lifeline
+1 Lightning Dragon
+1 Lilting Refrain
+1 Lingering Mirage
+1 Lone Wolf
+1 Looming Shade
+1 Lotus Blossom
+1 Lull
+1 Lurking Evil
+1 Lurking Jackals
+1 Lurking Skirge
+1 Magnify
+1 Mana Leech
+1 Mantis Engine
+1 Marker Beetles
+1 Mark of Fury
+1 Martyr's Cause
+1 Mask of Law and Grace
+1 Master Healer
+1 Masticore
+1 Meltdown
+1 Memory Jar
+1 Mental Discipline
+1 Metalworker
+1 Metathran Elite
+1 Metathran Soldier
+1 Metrognome
+1 Midsummer Revel
+1 Might of Oaks
+1 Miscalculation
+1 Mishra's Helix
+1 Mobile Fort
+1 Molten Hydra
+1 Momentum
+1 Monk Idealist
+1 Monk Realist
+1 Morphling
+1 Mother of Runes
+1 Multani, Maro-Sorcerer
+1 Multani's Acolyte
+1 Multani's Decree
+1 Multani's Presence
+1 Nightshade Seer
+1 Noetic Scales
+1 No Mercy
+1 No Rest for the Wicked
+1 Okk
+1 Opal Acrolith
+1 Opal Archangel
+1 Opal Avenger
+1 Opal Caryatid
+1 Opal Champion
+1 Opalescence
+1 Opal Gargoyle
+1 Opal Titan
+1 Opportunity
+1 Opposition
+1 Oppression
+1 Order of Yawgmoth
+1 Ostracize
+1 Outmaneuver
+1 Pacifism
+1 Palinchron
+1 Parasitic Bond
+1 Parch
+1 Pariah
+1 Path of Peace
+1 Pattern of Rebirth
+1 Peace and Quiet
+1 Pegasus Charger
+1 Pendrell Drake
+1 Pendrell Flux
+1 Peregrine Drake
+1 Persecute
+1 Pestilence
+1 Phyrexian Broodlings
+1 Phyrexian Colossus
+1 Phyrexian Debaser
+1 Phyrexian Defiler
+1 Phyrexian Denouncer
+1 Phyrexian Ghoul
+1 Phyrexian Monitor
+1 Phyrexian Negator
+1 Phyrexian Plaguelord
+1 Phyrexian Processor
+1 Phyrexian Reclamation
+1 Phyrexian Tower
+1 Pit Trap
+1 Plague Beetle
+1 Plague Dogs
+1 Planar Birth
+1 Planar Collapse
+1 Planar Void
+1 Plated Spider
+1 Plow Under
+1 Polluted Mire
+1 Pouncing Jaguar
+1 Powder Keg
+1 Power Sink
+1 Power Taint
+1 Presence of the Master
+1 Priest of Gix
+1 Priest of Titania
+1 Private Research
+1 Purging Scythe
+1 Purify
+1 Pygmy Pyrosaur
+1 Pyromancy
+1 Quash
+1 Quicksilver Amulet
+1 Rack and Ruin
+1 Radiant, Archangel
+1 Radiant's Dragoons
+1 Radiant's Judgment
+1 Rain of Filth
+1 Rain of Salt
+1 Rancor
+1 Rank and File
+1 Rapid Decay
+1 Raven Familiar
+1 Ravenous Rats
+1 Ravenous Skirge
+1 Rayne, Academy Chancellor
+1 Raze
+1 Rebuild
+1 Recantation
+1 Reckless Abandon
+1 Reclusive Wight
+1 Redeem
+1 Reflexes
+1 Rejuvenate
+1 Reliquary Monk
+1 Remembrance
+1 Remote Isle
+1 Repercussion
+1 Replenish
+1 Repopulate
+1 Reprocess
+1 Rescind
+1 Rescue
+1 Retaliation
+1 Retromancer
+1 Rewind
+1 Ring of Gix
+1 Rivalry
+1 Rofellos, Llanowar Emissary
+1 Rofellos's Gift
+1 Rumbling Crescendo
+1 Rune of Protection: Artifacts
+1 Rune of Protection: Black
+1 Rune of Protection: Blue
+1 Rune of Protection: Green
+1 Rune of Protection: Lands
+1 Rune of Protection: Red
+1 Rune of Protection: White
+1 Sanctimony
+1 Sanctum Custodian
+1 Sanctum Guardian
+1 Sandbar Merfolk
+1 Sandbar Serpent
+1 Sanguine Guard
+1 Scald
+1 Scent of Brine
+1 Scent of Cinder
+1 Scent of Ivy
+1 Scent of Jasmine
+1 Scent of Nightshade
+1 Scoria Wurm
+1 Scour
+1 Scrap
+1 Scrapheap
+1 Scrying Glass
+1 Seasoned Marshal
+1 Second Chance
+1 Serra Advocate
+1 Serra Avatar
+1 Serra's Embrace
+1 Serra's Hymn
+1 Serra's Liturgy
+1 Serra's Sanctum
+1 Serra Zealot
+1 Shimmering Barrier
+1 Shivan Gorge
+1 Shivan Hellkite
+1 Shivan Phoenix
+1 Shivan Raptor
+1 Shiv's Embrace
+1 Show and Tell
+1 Shower of Sparks
+1 Sick and Tired
+1 Sicken
+1 Sigil of Sleep
+1 Silent Attendant
+1 Silk Net
+1 Simian Grunts
+1 Skirge Familiar
+1 Skittering Horror
+1 Skittering Skirge
+1 Sleeper Agent
+1 Sleeper's Guile
+1 Slinking Skirge
+1 Slippery Karst
+1 Slow Motion
+1 Sluggishness
+1 Smokestack
+1 Smoldering Crater
+1 Snap
+1 Sneak Attack
+1 Solidarity
+1 Somnophore
+1 Songstitcher
+1 Soul Feast
+1 Soul Sculptor
+1 Sowing Salt
+1 Spawning Pool
+1 Spined Fluke
+1 Spire Owl
+1 Splinter
+1 Sporogenesis
+1 Spreading Algae
+1 Squirming Mass
+1 Steam Blast
+1 Stern Proctor
+1 Storage Matrix
+1 Stroke of Genius
+1 Subversion
+1 Sulfuric Vapors
+1 Sunder
+1 Sustainer of the Realm
+1 Swat
+1 Symbiosis
+1 Tainted Aether
+1 Taunting Elf
+1 Telepathic Spies
+1 Telepathy
+1 Temporal Adept
+1 Temporal Aperture
+1 Tethered Griffin
+1 Tethered Skirge
+1 Thieving Magpie
+1 Thorn Elemental
+1 Thornwind Faeries
+1 Thran Dynamo
+1 Thran Foundry
+1 Thran Golem
+1 Thran Lens
+1 Thran Quarry
+1 Thran Turbine
+1 Thran War Machine
+1 Thran Weaponry
+1 Thundering Giant
+1 Ticking Gnomes
+1 Time Spiral
+1 Tinker
+1 Titania's Boon
+1 Titania's Chosen
+1 Tolarian Academy
+1 Tolarian Winds
+1 Torch Song
+1 Tormented Angel
+1 Tragic Poet
+1 Treacherous Link
+1 Treachery
+1 Treefolk Mystic
+1 Treefolk Seedlings
+1 Treetop Rangers
+1 Treetop Village
+1 Trumpet Blast
+1 Turnabout
+1 Twisted Experiment
+1 Umbilicus
+1 Unearth
+1 Unnerve
+1 Unworthy Dead
+1 Urza's Armor
+1 Urza's Blueprints
+1 Urza's Incubator
+1 Vampiric Embrace
+1 Vebulid
+1 Veiled Apparition
+1 Veiled Crocodile
+1 Veiled Sentry
+1 Veiled Serpent
+1 Veil of Birds
+1 Venomous Fangs
+1 Vernal Bloom
+1 Viashino Bey
+1 Viashino Cutthroat
+1 Viashino Heretic
+1 Viashino Outrider
+1 Viashino Runner
+1 Viashino Sandscout
+1 Viashino Sandswimmer
+1 Viashino Weaponsmith
+1 Victimize
+1 Vigilant Drake
+1 Vile Requiem
+1 Voice of Duty
+1 Voice of Grace
+1 Voice of Law
+1 Voice of Reason
+1 Voltaic Key
+1 Vug Lizard
+1 Wake of Destruction
+1 Walking Sponge
+1 Wall of Glare
+1 Wall of Junk
+1 War Dance
+1 Waylay
+1 Weatherseed Elf
+1 Weatherseed Faeries
+1 Weatherseed Treefolk
+1 Western Paladin
+1 Wheel of Torture
+1 Whetstone
+1 Whirlwind
+1 Wild Colos
+1 Wild Dogs
+1 Wildfire
+1 Windfall
+1 Winding Wurm
+1 Wing Snare
+1 Wirecat
+1 Witch Engine
+1 Wizard Mentor
+1 Worn Powerstone
+1 Worship
+1 Yavimaya Elder
+1 Yavimaya Enchantress
+1 Yavimaya Granger
+1 Yavimaya Hollow
+1 Yavimaya Scion
+1 Yavimaya Wurm
+1 Yawgmoth's Bargain
+1 Yawgmoth's Edict
+1 Yawgmoth's Will
+1 Zephid
+1 Zephid's Embrace

@@ -1,0 +1,646 @@
+@name Return to Ravnica Block (RTR/GTC/DGM)
+@format cube
+1 Abrupt Decay
+1 Act of Treason
+1 Adaptive Snapjaw
+1 Advent of the Wurm
+1 Aerial Maneuver
+1 Aerial Predation
+1 Aetherize
+1 Aetherling
+1 Agoraphobia
+1 Alive // Well
+1 Alms Beast
+1 Alpha Authority
+1 Angelic Edict
+1 Angelic Skirmisher
+1 Angel of Serenity
+1 Annihilating Fire
+1 Aquus Steed
+1 Archon of the Triumvirate
+1 Archweaver
+1 Armada Wurm
+1 Armed // Dangerous
+1 Armored Transport
+1 Armored Wolf-Rider
+1 Armory Guard
+1 Arrest
+1 Arrows of Justice
+1 Ascended Lawmage
+1 Ash Zealot
+1 Assassin's Strike
+1 Assault Griffin
+1 Assemble the Legion
+1 Auger Spree
+1 Aurelia's Fury
+1 Aurelia, the Warleader
+1 Avenging Arrow
+1 Awe for the Guilds
+1 Axebane Guardian
+1 Axebane Stag
+1 Azorius Arrester
+1 Azorius Charm
+1 Azorius Cluestone
+1 Azorius Guildgate
+1 Azorius Justiciar
+1 Azorius Keyrune
+1 Azor's Elocutors
+1 Balustrade Spy
+1 Bane Alley Blackguard
+1 Bane Alley Broker
+1 Basilica Guards
+1 Basilica Screecher
+1 Batterhorn
+1 Battering Krasis
+1 Bazaar Krovod
+1 Beck // Call
+1 Beckon Apparition
+1 Beetleform Mage
+1 Bellows Lizard
+1 Biomass Mutation
+1 Bioshift
+1 Biovisionary
+1 Blast of Genius
+1 Blaze Commando
+1 Blind Obedience
+1 Blistercoil Weird
+1 Blood Baron of Vizkopa
+1 Blood Crypt
+1 Bloodfray Giant
+1 Blood Scrivener
+1 Blustersquall
+1 Bomber Corps
+1 Borborygmos Enraged
+1 Boros Battleshaper
+1 Boros Charm
+1 Boros Cluestone
+1 Boros Elite
+1 Boros Guildgate
+1 Boros Keyrune
+1 Boros Mastiff
+1 Boros Reckoner
+1 Breaking // Entering
+1 Bred for the Hunt
+1 Breeding Pool
+1 Bronzebeak Moa
+1 Brushstrider
+1 Burning-Tree Emissary
+1 Burst of Strength
+1 Call of the Conclave
+1 Call of the Nightwing
+1 Cancel
+1 Carnage Gladiator
+1 Carnival Hellsteed
+1 Cartel Aristocrat
+1 Catacomb Slug
+1 Catch // Release
+1 Centaur Healer
+1 Centaur's Herald
+1 Chaos Imps
+1 Chemister's Trick
+1 Chorus of Might
+1 Chromatic Lantern
+1 Chronic Flooding
+1 Cinder Elemental
+1 Civic Saber
+1 Clan Defiance
+1 Clear a Path
+1 Clinging Anemones
+1 Cloudfin Raptor
+1 Cobblebrute
+1 Codex Shredder
+1 Coerced Confession
+1 Collective Blessing
+1 Common Bond
+1 Concordia Pegasus
+1 Conjured Currency
+1 Consuming Aberration
+1 Contaminated Ground
+1 Corpse Blockade
+1 Corpsejack Menace
+1 Council of the Absolute
+1 Counterflux
+1 Coursers' Accord
+1 Court Street Denizen
+1 Crackling Perimeter
+1 Cremate
+1 Crocanura
+1 Crosstown Courier
+1 Crowned Ceratok
+1 Cryptborn Horror
+1 Crypt Ghast
+1 Crypt Incursion
+1 Cyclonic Rift
+1 Daggerdrome Imp
+1 Daring Skyjek
+1 Dark Revenant
+1 Deadbridge Chant
+1 Deadbridge Goliath
+1 Dead Reveler
+1 Deathcult Rogue
+1 Deathpact Angel
+1 Deathrite Shaman
+1 Death's Approach
+1 Death's Presence
+1 Debtor's Pulpit
+1 Debt to the Deathless
+1 Deputy of Acquittals
+1 Desecration Demon
+1 Destroy the Evidence
+1 Detention Sphere
+1 Deviant Glee
+1 Devour Flesh
+1 Diluvian Primordial
+1 Dimir Charm
+1 Dimir Cluestone
+1 Dimir Guildgate
+1 Dimir Keyrune
+1 Dinrova Horror
+1 Disciple of the Old Ways
+1 Dispel
+1 Domri Rade
+1 Doorkeeper
+1 Down // Dirty
+1 Downsize
+1 Dragonshift
+1 Drainpipe Vermin
+1 Drakewing Krasis
+1 Dramatic Rescue
+1 Dreadbore
+1 Dreg Mangler
+1 Drown in Filth
+1 Drudge Beetle
+1 Druid's Deliverance
+1 Dryad Militant
+1 Duskmantle Guildmage
+1 Duskmantle Seer
+1 Dutiful Thrull
+1 Dying Wish
+1 Dynacharge
+1 Electrickery
+1 Elusive Krasis
+1 Ember Beast
+1 Emmara Tandris
+1 Enter the Infinite
+1 Epic Experiment
+1 Essence Backlash
+1 Ethereal Armor
+1 Exava, Rakdos Blood Witch
+1 Executioner's Swing
+1 Experiment One
+1 Explosive Impact
+1 Eyes in the Skies
+1 Faerie Impostor
+1 Fall of the Gavel
+1 Far // Away
+1 Fatal Fumes
+1 Fathom Mage
+1 Fencing Ace
+1 Feral Animist
+1 Firefist Striker
+1 Firemane Avenger
+1 Firemind's Foresight
+1 Five-Alarm Fire
+1 Flesh // Blood
+1 Fluxcharger
+1 Forced Adaptation
+1 Fortress Cyclops
+1 Foundry Champion
+1 Foundry Street Denizen
+1 Frenzied Tilling
+1 Frilled Oculus
+1 Frontline Medic
+1 Frostburn Weird
+1 Furious Resistance
+1 Gatecreeper Vine
+1 Gateway Shade
+1 Gaze of Granite
+1 Ghor-Clan Rampager
+1 Giant Adephage
+1 Giant Growth
+1 Gideon, Champion of Justice
+1 Gift of Orzhova
+1 Give // Take
+1 Glaring Spotlight
+1 Gleam of Battle
+1 Gobbling Ooze
+1 Goblin Electromancer
+1 Goblin Rally
+1 Goblin Test Pilot
+1 Godless Shrine
+1 Golgari Charm
+1 Golgari Cluestone
+1 Golgari Decoy
+1 Golgari Guildgate
+1 Golgari Keyrune
+1 Golgari Longlegs
+1 Gore-House Chainwalker
+1 Grave Betrayal
+1 Greenside Watcher
+1 Gridlock
+1 Grim Roustabout
+1 Grisly Salvage
+1 Grisly Spectacle
+1 Ground Assault
+1 Grove of the Guardian
+1 Growing Ranks
+1 Gruul Charm
+1 Gruul Cluestone
+1 Gruul Guildgate
+1 Gruul Keyrune
+1 Gruul Ragebeast
+1 Gruul War Chant
+1 Guardian of the Gateless
+1 Guild Feud
+1 Guildscorn Ward
+1 Gutter Skulk
+1 Guttersnipe
+1 Gyre Sage
+1 Haazda Snare Squad
+1 Hallowed Fountain
+1 Hands of Binding
+1 Haunter of Nightveil
+1 Havoc Festival
+1 Hellhole Flailer
+1 Hellkite Tyrant
+1 Hellraiser Goblin
+1 Heroes' Reunion
+1 Hidden Strings
+1 High Priest of Penance
+1 Hindervines
+1 Hired Torturer
+1 Hold the Gates
+1 Holy Mantle
+1 Homing Lightning
+1 Horncaller's Chant
+1 Horror of the Dim
+1 Hover Barrier
+1 Hussar Patrol
+1 Hydroform
+1 Hypersonic Dragon
+1 Illness in the Ranks
+1 Illusionist's Bracers
+1 Immortal Servitude
+1 Inaction Injunction
+1 Incursion Specialist
+1 Inspiration
+1 Isperia's Skywatch
+1 Isperia, Supreme Judge
+1 Ivy Lane Denizen
+1 Izzet Charm
+1 Izzet Cluestone
+1 Izzet Guildgate
+1 Izzet Keyrune
+1 Izzet Staticaster
+1 Jace, Architect of Thought
+1 Jarad, Golgari Lich Lord
+1 Jarad's Orders
+1 Jelenn Sphinx
+1 Judge's Familiar
+1 Keening Apparition
+1 Keymaster Rogue
+1 Killing Glare
+1 Kingpin's Pet
+1 Knightly Valor
+1 Knight of Obligation
+1 Knight Watch
+1 Korozda Gorgon
+1 Korozda Guildmage
+1 Korozda Monitor
+1 Krasis Incubation
+1 Kraul Warrior
+1 Last Thoughts
+1 Launch Party
+1 Lavinia of the Tenth
+1 Lazav, Dimir Mastermind
+1 Legion Loyalist
+1 Legion's Initiative
+1 Leyline Phantom
+1 Lobber Crew
+1 Lord of the Void
+1 Lotleth Troll
+1 Loxodon Smiter
+1 Luminate Primordial
+1 Lyev Decree
+1 Lyev Skyknight
+1 Madcap Skills
+1 Mana Bloom
+1 Mark for Death
+1 Martial Glory
+1 Martial Law
+1 Massive Raid
+1 Master Biomancer
+1 Master of Cruelties
+1 Maw of the Obzedat
+1 Maze Abomination
+1 Maze Behemoth
+1 Maze Glider
+1 Maze Rusher
+1 Maze's End
+1 Maze Sentinel
+1 Melek, Izzet Paragon
+1 Mending Touch
+1 Mental Vapors
+1 Merciless Eviction
+1 Mercurial Chemister
+1 Merfolk of the Depths
+1 Metropolis Sprite
+1 Midnight Recovery
+1 Millennial Gargoyle
+1 Miming Slime
+1 Mindeye Drake
+1 Mind Grind
+1 Mind Rot
+1 Mindstatic
+1 Minotaur Aggressor
+1 Mirko Vosk, Mind Drinker
+1 Mizzium Mortars
+1 Mizzium Skin
+1 Molten Primordial
+1 Morgue Burst
+1 Mortus Strider
+1 Mugging
+1 Murder Investigation
+1 Murmuring Phantasm
+1 Mutant's Prey
+1 Mystic Genesis
+1 Naturalize
+1 Nav Squad Commandos
+1 Necropolis Regent
+1 New Prahv Guildmage
+1 Nightveil Specter
+1 Nimbus Swimmer
+1 Nivix Cyclops
+1 Nivix Guildmage
+1 Nivmagus Elemental
+1 Niv-Mizzet, Dracogenius
+1 Notion Thief
+1 Oak Street Innkeeper
+1 Obzedat, Ghost Council
+1 Obzedat's Aid
+1 Ogre Jailbreaker
+1 Ogre Slumlord
+1 One Thousand Lashes
+1 Ooze Flux
+1 Opal Lake Gatekeepers
+1 Ordruun Veteran
+1 Orzhov Charm
+1 Orzhov Cluestone
+1 Orzhov Guildgate
+1 Orzhov Keyrune
+1 Overgrown Tomb
+1 Pack Rat
+1 Palisade Giant
+1 Paralyzing Grasp
+1 Paranoid Delusions
+1 Perilous Shadow
+1 Phantom General
+1 Phytoburst
+1 Pilfered Plans
+1 Pit Fight
+1 Pithing Needle
+1 Plasm Capture
+1 Pontiff of Blight
+1 Possibility Storm
+1 Precinct Captain
+1 Predator's Rapport
+1 Primal Visitation
+1 Prime Speaker Zegana
+1 Profit // Loss
+1 Progenitor Mimic
+1 Prophetic Prism
+1 Protect // Serve
+1 Psychic Spiral
+1 Psychic Strike
+1 Punish the Enemy
+1 Purge the Profane
+1 Pursuit of Flight
+1 Putrefy
+1 Pyrewild Shaman
+1 Pyroconvergence
+1 Racecourse Fury
+1 Rakdos Cackler
+1 Rakdos Charm
+1 Rakdos Cluestone
+1 Rakdos Drake
+1 Rakdos Guildgate
+1 Rakdos Keyrune
+1 Rakdos, Lord of Riots
+1 Rakdos Ragemutt
+1 Rakdos Ringleader
+1 Rakdos Shred-Freak
+1 Rakdos's Return
+1 Ral Zarek
+1 Rapid Hybridization
+1 Razortip Whip
+1 Ready // Willing
+1 Realmwright
+1 Reap Intellect
+1 Render Silent
+1 Renegade Krasis
+1 Renounce the Guilds
+1 Rest in Peace
+1 Restore the Peace
+1 Righteous Authority
+1 Righteous Charge
+1 Riot Control
+1 Riot Gear
+1 Riot Piker
+1 Ripscale Predator
+1 Risen Sanctuary
+1 Rites of Reaping
+1 Rix Maadi Guildmage
+1 Rogue's Passage
+1 Rootborn Defenses
+1 Rot Farm Skeleton
+1 Rubbleback Rhino
+1 Rubblebelt Maaka
+1 Rubblebelt Raiders
+1 Rubblehulk
+1 Ruination Wurm
+1 Runewing
+1 Runner's Bane
+1 Ruric Thar, the Unbowed
+1 Rust Scarab
+1 Sacred Foundry
+1 Sage's Row Denizen
+1 Sapphire Drake
+1 Saruli Gatekeepers
+1 Savageborn Hydra
+1 Savage Surge
+1 Scab-Clan Charger
+1 Scab-Clan Giant
+1 Scatter Arc
+1 Scion of Vitu-Ghazi
+1 Scorchwalker
+1 Search the City
+1 Search Warrant
+1 Security Blockade
+1 Seek the Horizon
+1 Selesnya Charm
+1 Selesnya Cluestone
+1 Selesnya Guildgate
+1 Selesnya Keyrune
+1 Selesnya Sentry
+1 Seller of Songbirds
+1 Sepulchral Primordial
+1 Serene Remembrance
+1 Sewer Shambler
+1 Shadow Alley Denizen
+1 Shadow Slice
+1 Shambleshark
+1 Shattering Blow
+1 Shielded Passage
+1 Showstopper
+1 Shrieking Affliction
+1 Signal the Clans
+1 Simic Charm
+1 Simic Cluestone
+1 Simic Fluxmage
+1 Simic Guildgate
+1 Simic Keyrune
+1 Simic Manipulator
+1 Sin Collector
+1 Sinister Possession
+1 Sire of Insanity
+1 Skarrg Goliath
+1 Skarrg Guildmage
+1 Skinbrand Goblin
+1 Skullcrack
+1 Skull Rend
+1 Skyblinder Staff
+1 Skygames
+1 Skyknight Legionnaire
+1 Skylasher
+1 Skyline Predator
+1 Skymark Roc
+1 Slate Street Ruffian
+1 Slaughter Games
+1 Slaughterhorn
+1 Slime Molding
+1 Slitherhead
+1 Sluiceway Scorpion
+1 Slum Reaper
+1 Smelt-Ward Gatekeepers
+1 Smite
+1 Smog Elemental
+1 Soul Ransom
+1 Soulsworn Spirit
+1 Soul Tithe
+1 Spark Trooper
+1 Spawn of Rix Maadi
+1 Species Gorger
+1 Spell Rupture
+1 Sphere of Safety
+1 Sphinx of the Chimes
+1 Sphinx's Revelation
+1 Spike Jester
+1 Spire Tracer
+1 Splatter Thug
+1 Stab Wound
+1 Stealer of Secrets
+1 Steam Vents
+1 Steeple Roc
+1 Stolen Identity
+1 Stomping Ground
+1 Stonefare Crocodile
+1 Street Spasm
+1 Street Sweeper
+1 Structural Collapse
+1 Sundering Growth
+1 Sunhome Guildmage
+1 Sunspire Gatekeepers
+1 Sunspire Griffin
+1 Supreme Verdict
+1 Survey the Wreckage
+1 Swift Justice
+1 Sylvan Primordial
+1 Syncopate
+1 Syndicate Enforcer
+1 Syndic of Tithes
+1 Tablet of the Guilds
+1 Tajic, Blade of the Legion
+1 Tavern Swindler
+1 Teleportal
+1 Temple Garden
+1 Tenement Crasher
+1 Terrus Wurm
+1 Teysa, Envoy of Ghosts
+1 Thespian's Stage
+1 Thoughtflare
+1 Thrashing Mossdog
+1 Thrill-Kill Assassin
+1 Thrull Parasite
+1 Tin Street Market
+1 Tithe Drinker
+1 Toil // Trouble
+1 Totally Lost
+1 Tower Defense
+1 Tower Drake
+1 Towering Indrik
+1 Towering Thunderfist
+1 Trained Caracal
+1 Trait Doctoring
+1 Traitorous Instinct
+1 Transguild Promenade
+1 Treasured Find
+1 Treasury Thrull
+1 Trestle Troll
+1 Trostani, Selesnya's Voice
+1 Trostani's Judgment
+1 Trostani's Summoner
+1 Truefire Paladin
+1 Turn // Burn
+1 Ubul Sar Gatekeepers
+1 Ultimate Price
+1 Uncovered Clues
+1 Undercity Informer
+1 Undercity Plague
+1 Underworld Connections
+1 Unexpected Results
+1 Unflinching Courage
+1 Urban Burgeoning
+1 Urban Evolution
+1 Urbis Protector
+1 Utvara Hellkite
+1 Vandalblast
+1 Varolz, the Scar-Striped
+1 Vassal Soul
+1 Verdant Haven
+1 Viashino Firstblade
+1 Viashino Racketeer
+1 Viashino Shanktail
+1 Vitu-Ghazi Guildmage
+1 Vizkopa Confessor
+1 Vizkopa Guildmage
+1 Voice of Resurgence
+1 Voidwalk
+1 Voidwielder
+1 Volatile Rig
+1 Vorel of the Hull Clade
+1 Vraska the Unseen
+1 Wake the Reflections
+1 Warleader's Helix
+1 Warmind Infantry
+1 Warped Physique
+1 Wasteland Viper
+1 Watery Grave
+1 Wayfaring Temple
+1 Way of the Thief
+1 Weapon Surge
+1 Wear // Tear
+1 Whispering Madness
+1 Wight of Precinct Six
+1 Wild Beastmaster
+1 Wildwood Rebirth
+1 Wind Drake
+1 Wojek Halberdiers
+1 Woodlot Crawler
+1 Worldspine Wurm
+1 Wrecking Ogre
+1 Zameck Guildmage
+1 Zanikev Locust
+1 Zarichi Tiger
+1 Zhur-Taa Ancient
+1 Zhur-Taa Druid
+1 Zhur-Taa Swine

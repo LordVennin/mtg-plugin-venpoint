@@ -1,0 +1,463 @@
+@name Shadowmoor Block (SHM/EVE)
+@format cube
+1 Advice from the Fae
+1 Aerie Ouphes
+1 Aethertow
+1 Altar Golem
+1 Antler Skulkin
+1 Aphotic Wisps
+1 Apothecary Initiate
+1 Archon of Justice
+1 Armored Ascension
+1 Ashenmoor Cohort
+1 Ashenmoor Gouger
+1 Ashenmoor Liege
+1 Ashling, the Extinguisher
+1 Augury Adept
+1 Balefire Liege
+1 Ballynock Cohort
+1 Ballynock Trapper
+1 Banishing Knack
+1 Barkshell Blessing
+1 Barrenton Cragtreads
+1 Barrenton Medic
+1 Battlegate Mimic
+1 Batwing Brume
+1 Beckon Apparition
+1 Belligerent Hatchling
+1 Beseech the Queen
+1 Biting Tether
+1 Blazethorn Scarecrow
+1 Blight Sickle
+1 Blistering Dieflyn
+1 Bloodied Ghost
+1 Bloodmark Mentor
+1 Bloodshed Fever
+1 Bloom Tender
+1 Blowfly Infestation
+1 Boartusk Liege
+1 Boggart Arsonists
+1 Boggart Ram-Gang
+1 Boon Reflection
+1 Briarberry Cohort
+1 Burn Trail
+1 Cache Raiders
+1 Call the Skybreaker
+1 Canker Abomination
+1 Cankerous Thirst
+1 Cascade Bluffs
+1 Cauldron Haze
+1 Cauldron of Souls
+1 Cemetery Puca
+1 Cenn's Enlistment
+1 Cerulean Wisps
+1 Chainbreaker
+1 Chaotic Backlash
+1 Cinderbones
+1 Cinderhaze Wretch
+1 Cinder Pyromancer
+1 Clout of the Dominus
+1 Cold-Eyed Selkie
+1 Consign to Dream
+1 Corrosive Mentor
+1 Corrupt
+1 Counterbore
+1 Crabapple Cohort
+1 Crackleburr
+1 Cragganwick Cremator
+1 Crag Puca
+1 Creakwood Ghoul
+1 Creakwood Liege
+1 Crimson Wisps
+1 Crowd of Cinders
+1 Crumbling Ashes
+1 Cultbrand Cinder
+1 Cursecatcher
+1 Curse of Chains
+1 Dawnglow Infusion
+1 Deathbringer Liege
+1 Deepchannel Mentor
+1 Deep-Slumber Titan
+1 Deity of Scars
+1 Demigod of Revenge
+1 Desecrator Hag
+1 Deus of Calamity
+1 Devoted Druid
+1 Din of the Fireherd
+1 Dire Undercurrents
+1 Disturbing Plot
+1 Divinity of Pride
+1 Dominus of Fealty
+1 Doomgape
+1 Double Cleave
+1 Drain the Well
+1 Dramatic Entrance
+1 Dream Fracture
+1 Dream Salvage
+1 Dream Thief
+1 Drove of Elves
+1 Drowner Initiate
+1 Duergar Assailant
+1 Duergar Cave-Guard
+1 Duergar Hedge-Mage
+1 Duergar Mine-Captain
+1 Duskdale Wurm
+1 Dusk Urchins
+1 Edge of the Divinity
+1 Elemental Mastery
+1 Elsewhere Flask
+1 Elvish Hexhunter
+1 Ember Gale
+1 Emberstrike Duo
+1 Enchanted Evening
+1 Endless Horizons
+1 Endure
+1 Everlasting Torment
+1 Evershrike
+1 Fable of Wolf and Owl
+1 Faerie Macabre
+1 Faerie Swarm
+1 Fang Skulkin
+1 Farhaven Elf
+1 Fate Transfer
+1 Favor of the Overbeing
+1 Fetid Heath
+1 Fiery Bombardment
+1 Figure of Destiny
+1 Fire at Will
+1 Fire-Lit Thicket
+1 Firespout
+1 Fists of the Demigod
+1 Flame Jab
+1 Flame Javelin
+1 Flickerwisp
+1 Flooded Grove
+1 Flourishing Defenses
+1 Flow of Ideas
+1 Fossil Find
+1 Foxfire Oak
+1 Fracturing Gust
+1 Fulminator Mage
+1 Furystoke Giant
+1 Ghastlord of Fugue
+1 Ghastly Discovery
+1 Giantbaiting
+1 Gift of the Deity
+1 Gilder Bairn
+1 Glamerdye
+1 Glamer Spinners
+1 Gleeful Sabotage
+1 Glen Elendra Archmage
+1 Glen Elendra Liege
+1 Gloomlance
+1 Gloomwidow
+1 Gloomwidow's Feast
+1 Gnarled Effigy
+1 Godhead of Awe
+1 Goldenglow Moth
+1 Gravelgill Axeshark
+1 Gravelgill Duo
+1 Graven Cairns
+1 Grazing Kelpie
+1 Greater Auramancy
+1 Grief Tyrant
+1 Grim Poppet
+1 Groundling Pouncer
+1 Guttural Response
+1 Gwyllion Hedge-Mage
+1 Hag Hedge-Mage
+1 Hallowed Burial
+1 Harvest Gwyllion
+1 Hatchet Bully
+1 Hateflayer
+1 Heap Doll
+1 Hearthfire Hobgoblin
+1 Heartlash Cinder
+1 Heartmender
+1 Helix Pinnacle
+1 Helm of the Ghastlord
+1 Hobgoblin Dragoon
+1 Hollowborn Barghest
+1 Hollowsage
+1 Hoof Skulkin
+1 Horde of Boggarts
+1 Hotheaded Giant
+1 Howl of the Night Pack
+1 Hungry Spriggan
+1 Idle Thoughts
+1 Illuminated Folio
+1 Impelled Giant
+1 Impromptu Raid
+1 Incremental Blight
+1 Indigo Faerie
+1 Inescapable Brute
+1 Inkfathom Infiltrator
+1 Inkfathom Witch
+1 Inquisitor's Snare
+1 Inside Out
+1 Intimidator Initiate
+1 Inundate
+1 Invert the Skies
+1 Isleback Spawn
+1 Jawbone Skulkin
+1 Jaws of Stone
+1 Juvenile Gloomwidow
+1 Kinscaer Harpoonist
+1 Kitchen Finks
+1 Kithkin Rabble
+1 Kithkin Shielddare
+1 Kithkin Spellduster
+1 Kithkin Zealot
+1 Knacksaw Clique
+1 Knollspine Dragon
+1 Knollspine Invocation
+1 Kulrath Knight
+1 Last Breath
+1 Leech Bonder
+1 Leechridden Swamp
+1 Leering Emblem
+1 Light from Within
+1 Lingering Tormentor
+1 Loamdragger Giant
+1 Loch Korrigan
+1 Lockjaw Snapper
+1 Loyal Gyrfalcon
+1 Lurebound Scarecrow
+1 Madblind Mountain
+1 Manaforge Cinder
+1 Manamorphose
+1 Mana Reflection
+1 Marshdrinker Giant
+1 Mass Calcify
+1 Medicine Runner
+1 Memory Plunder
+1 Memory Sluice
+1 Mercy Killing
+1 Merrow Bonegnawer
+1 Merrow Grimeblotter
+1 Merrow Levitator
+1 Merrow Wavebreakers
+1 Midnight Banshee
+1 Mindwrack Liege
+1 Mine Excavation
+1 Mirror Sheen
+1 Mirrorweave
+1 Mistmeadow Skulk
+1 Mistmeadow Witch
+1 Mistveil Plains
+1 Monstrify
+1 Moonhold
+1 Moonring Island
+1 Morselhoarder
+1 Mossbridge Troll
+1 Mudbrawler Cohort
+1 Mudbrawler Raiders
+1 Murderous Redcap
+1 Murkfiend Liege
+1 Mystic Gate
+1 Necroskitter
+1 Needle Specter
+1 Nettle Sentinel
+1 Nightmare Incursion
+1 Nightsky Mimic
+1 Nip Gwyllion
+1 Niveous Wisps
+1 Nobilis of War
+1 Noggle Bandit
+1 Noggle Bridgebreaker
+1 Noggle Hedge-Mage
+1 Noggle Ransacker
+1 Noxious Hatchling
+1 Nucklavee
+1 Nurturer Initiate
+1 Odious Trow
+1 Old Ghastbark
+1 Oona, Queen of the Fae
+1 Oona's Gatewarden
+1 Oona's Grace
+1 Oracle of Nectars
+1 Order of Whiteclay
+1 Outrage Shaman
+1 Overbeing of Myth
+1 Oversoul of Dusk
+1 Painter's Servant
+1 Pale Wayfarer
+1 Parapet Watchers
+1 Patrol Signaler
+1 Phosphorescent Feast
+1 Pili-Pala
+1 Plague of Vermin
+1 Plumeveil
+1 Poison the Well
+1 Polluted Bonds
+1 Power of Fire
+1 Presence of Gond
+1 Primalcrux
+1 Prismatic Omen
+1 Prismwake Merrow
+1 Prison Term
+1 Puca's Mischief
+1 Puncture Blast
+1 Puncture Bolt
+1 Puppeteer Clique
+1 Puresight Merrow
+1 Put Away
+1 Pyre Charger
+1 Pyrrhic Revival
+1 Quillspike
+1 Rage Reflection
+1 Raking Canopy
+1 Rattleblaze Scarecrow
+1 Raven's Crime
+1 Raven's Run Dragoon
+1 Razorfin Abolisher
+1 Reaper King
+1 Recumbent Bliss
+1 Reflecting Pool
+1 Regal Force
+1 Rekindled Flame
+1 Reknit
+1 Rendclaw Trow
+1 Repel Intruders
+1 Resplendent Mentor
+1 Restless Apparition
+1 Revelsong Horn
+1 Rhys the Redeemed
+1 Rise of the Hobgoblins
+1 Rite of Consumption
+1 Riverfall Mimic
+1 River Kelpie
+1 River's Grasp
+1 Rosheen Meanderer
+1 Roughshod Mentor
+1 Rugged Prairie
+1 Rune-Cervin Rider
+1 Runed Halo
+1 Runes of the Deus
+1 Rustrazor Butcher
+1 Safehold Duo
+1 Safehold Elite
+1 Safehold Sentry
+1 Safewright Quest
+1 Sanity Grinding
+1 Sapling of Colfenor
+1 Sapseep Forest
+1 Savage Conception
+1 Savor the Moment
+1 Scar
+1 Scarecrone
+1 Scarscale Ritual
+1 Scourge of the Nobilis
+1 Scrapbasket
+1 Scuttlemutt
+1 Scuzzback Marauders
+1 Scuzzback Scrapper
+1 Seedcradle Witch
+1 Selkie Hedge-Mage
+1 Shell Skulkin
+1 Shield of the Oversoul
+1 Shorecrasher Mimic
+1 Shrewd Hatchling
+1 Sickle Ripper
+1 Silkbind Faerie
+1 Sinking Feeling
+1 Slinking Giant
+1 Slippery Bogle
+1 Smash to Smithereens
+1 Smoldering Butcher
+1 Smolder Initiate
+1 Snakeform
+1 Somnomancer
+1 Soot Imp
+1 Sootstoke Kindler
+1 Sootwalkers
+1 Soul Reap
+1 Soul Snuffers
+1 Spawnwrithe
+1 Spectral Procession
+1 Spell Syphon
+1 Spirit of the Hearth
+1 Spiteflame Witch
+1 Spiteful Visions
+1 Spitemare
+1 Spitting Image
+1 Splitting Headache
+1 Springjack Pasture
+1 Springjack Shepherd
+1 Stalker Hag
+1 Steel of the Godhead
+1 Stigma Lasher
+1 Stillmoon Cavalier
+1 Stream Hopper
+1 Strip Bare
+1 Sturdy Hatchling
+1 Sunken Ruins
+1 Suture Spirit
+1 Swans of Bryn Argoll
+1 Swirling Spriggan
+1 Sygg, River Cutthroat
+1 Syphon Life
+1 Talara's Bane
+1 Talara's Battalion
+1 Talonrend
+1 Tatterkite
+1 Tattermunge Duo
+1 Tattermunge Maniac
+1 Tattermunge Witch
+1 Thistledown Duo
+1 Thistledown Liege
+1 Thornwatch Scarecrow
+1 Thought Reflection
+1 Thoughtweft Gambit
+1 Thunderblust
+1 Tilling Treefolk
+1 Toil to Renown
+1 Torpor Dust
+1 Torrent of Souls
+1 Torture
+1 Tower Above
+1 Traitor's Roar
+1 Trapjaw Kelpie
+1 Trip Noose
+1 Turn to Mist
+1 Twilight Mire
+1 Twilight Shepherd
+1 Twinblade Slasher
+1 Tyrannize
+1 Umbral Mantle
+1 Umbra Stalker
+1 Unmake
+1 Unnerving Assault
+1 Unwilling Recruit
+1 Valleymaker
+1 Vexing Shusher
+1 Viridescent Wisps
+1 Voracious Hatchling
+1 Wake Thrasher
+1 Wanderbrine Rootcutters
+1 Ward of Bones
+1 Wasp Lancer
+1 Watchwing Scarecrow
+1 Waves of Aggression
+1 Wheel of Sun and Moon
+1 Whimwader
+1 Wickerbough Elder
+1 Wicker Warcrawler
+1 Wilderness Hypnotist
+1 Wildslayer Elves
+1 Wild Swing
+1 Wilt-Leaf Cavaliers
+1 Wilt-Leaf Liege
+1 Windbrisk Raptor
+1 Wingrattle Scarecrow
+1 Wistful Selkie
+1 Witherscale Wurm
+1 Woeleecher
+1 Wooded Bastion
+1 Woodfall Primus
+1 Woodlurker Mimic
+1 Worldpurge
+1 Worm Harvest
+1 Wort, the Raidmother
+1 Wound Reflection
+1 Zealous Guardian

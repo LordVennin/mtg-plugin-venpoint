@@ -1,0 +1,618 @@
+@name Tempest Block (TMP/STH/EXO)
+@format cube
+1 Abandon Hope
+1 Acidic Sliver
+1 Advance Scout
+1 Aether Tide
+1 Aftershock
+1 Allay
+1 Altar of Dementia
+1 Aluren
+1 Amok
+1 Anarchist
+1 Ancient Runes
+1 Ancient Tomb
+1 Angelic Blessing
+1 Angelic Protector
+1 Anoint
+1 Apes of Rath
+1 Apocalypse
+1 Armored Pegasus
+1 Armor Sliver
+1 Auratog
+1 Avenging Angel
+1 Avenging Druid
+1 Awakening
+1 Bandage
+1 Barbed Sliver
+1 Bayou Dragonfly
+1 Bellowing Fiend
+1 Benthic Behemoth
+1 Bequeathal
+1 Blood Frenzy
+1 Blood Pet
+1 Boil
+1 Booby Trap
+1 Bottle Gnomes
+1 Bottomless Pit
+1 Bounty Hunter
+1 Broken Fall
+1 Brush with Death
+1 Bullwhip
+1 Burgeoning
+1 Caldera Lake
+1 Calming Licid
+1 Cannibalize
+1 Canopy Spider
+1 Canyon Drake
+1 Canyon Wildcat
+1 Capsize
+1 Carnassid
+1 Carnophage
+1 Carrionette
+1 Cartographer
+1 Cataclysm
+1 Cat Burglar
+1 Change of Heart
+1 Chaotic Goo
+1 Charging Paladin
+1 Charging Rhino
+1 Chill
+1 Choke
+1 Cinder Crawler
+1 Cinder Marsh
+1 Circle of Protection: Black
+1 Circle of Protection: Blue
+1 Circle of Protection: Green
+1 Circle of Protection: Red
+1 Circle of Protection: Shadow
+1 Circle of Protection: White
+1 City of Traitors
+1 Clergy en-Vec
+1 Clot Sliver
+1 Cloudchaser Eagle
+1 Cloud Spirit
+1 Coat of Arms
+1 Coercion
+1 Coffin Queen
+1 Coiled Tinviper
+1 Cold Storage
+1 Commander Greven il-Vec
+1 Constant Mists
+1 Contemplation
+1 Contempt
+1 Convalescence
+1 Conviction
+1 Convulsing Licid
+1 Corpse Dance
+1 Corrupting Licid
+1 Counterspell
+1 Crashing Boars
+1 Craven Giant
+1 Crazed Armodon
+1 Crossbow Ambush
+1 Crovax the Cursed
+1 Crown of Flames
+1 Crystalline Sliver
+1 Culling the Weak
+1 Cunning
+1 Curiosity
+1 Cursed Flesh
+1 Cursed Scroll
+1 Dark Banishing
+1 Darkling Stalker
+1 Dark Ritual
+1 Dauthi Cutthroat
+1 Dauthi Embrace
+1 Dauthi Ghoul
+1 Dauthi Horror
+1 Dauthi Jackal
+1 Dauthi Marauder
+1 Dauthi Mercenary
+1 Dauthi Mindripper
+1 Dauthi Slayer
+1 Dauthi Trapper
+1 Dauthi Warlord
+1 Deadshot
+1 Death Pits of Rath
+1 Death's Duet
+1 Death Stroke
+1 Diabolic Edict
+1 Dirtcowl Wurm
+1 Disenchant
+1 Dismiss
+1 Disturbed Burial
+1 Dizzying Gaze
+1 Dominating Licid
+1 Dracoplasm
+1 Dread of Night
+1 Dream Cache
+1 Dream Halls
+1 Dream Prowler
+1 Dregs of Sorrow
+1 Duct Crawler
+1 Dungeon Shade
+1 Duplicity
+1 Earthcraft
+1 Echo Chamber
+1 Eladamri, Lord of Leaves
+1 Eladamri's Vineyard
+1 Elite Javelineer
+1 Elven Palisade
+1 Elven Rite
+1 Elven Warhounds
+1 Elvish Berserker
+1 Elvish Fury
+1 Emerald Medallion
+1 Emmessi Tome
+1 Endangered Armodon
+1 Endless Scream
+1 Energizer
+1 Enfeeblement
+1 Enraging Licid
+1 Ensnaring Bridge
+1 Entropic Specter
+1 Ephemeron
+1 Equilibrium
+1 Erratic Portal
+1 Ertai's Meddling
+1 Ertai, Wizard Adept
+1 Escaped Shapeshifter
+1 Essence Bottle
+1 Evacuation
+1 Evincar's Justice
+1 Exalted Dragon
+1 Excavator
+1 Extinction
+1 Fade Away
+1 Fanning the Flames
+1 Fevered Convulsions
+1 Field of Souls
+1 Fighting Chance
+1 Fighting Drake
+1 Firefly
+1 Fireslinger
+1 Flailing Drake
+1 Flame Wave
+1 Flickering Ward
+1 Fling
+1 Flowstone Blade
+1 Flowstone Flood
+1 Flowstone Giant
+1 Flowstone Hellion
+1 Flowstone Mauler
+1 Flowstone Salamander
+1 Flowstone Sculpture
+1 Flowstone Shambler
+1 Flowstone Wyvern
+1 Fool's Tome
+1 Forbid
+1 Foul Imp
+1 Frog Tongue
+1 Fugitive Druid
+1 Fugue
+1 Furnace Brood
+1 Furnace of Rath
+1 Furnace Spirit
+1 Fylamarid
+1 Gallantry
+1 Gaseous Form
+1 Gerrard's Battle Cry
+1 Ghost Town
+1 Giant Crab
+1 Giant Strength
+1 Gliding Licid
+1 Goblin Bombardment
+1 Gravedigger
+1 Grave Pact
+1 Grindstone
+1 Grollub
+1 Hammerhead Shark
+1 Hand to Hand
+1 Hanna's Custody
+1 Harrow
+1 Hatred
+1 Havoc
+1 Heart Sliver
+1 Heartstone
+1 Heartwood Dryad
+1 Heartwood Giant
+1 Heartwood Treefolk
+1 Heat of Battle
+1 Helm of Possession
+1 Hermit Druid
+1 Hero's Resolve
+1 Hesitation
+1 Hibernation Sliver
+1 Hidden Retreat
+1 High Ground
+1 Honor Guard
+1 Horned Sliver
+1 Horned Turtle
+1 Hornet Cannon
+1 Horn of Greed
+1 Humility
+1 Imps' Taunt
+1 Insight
+1 Interdict
+1 Intruder Alarm
+1 Intuition
+1 Invasion Plans
+1 Invulnerability
+1 Jackalope Herd
+1 Jackal Pup
+1 Jet Medallion
+1 Jinxed Idol
+1 Jinxed Ring
+1 Keeper of the Beasts
+1 Keeper of the Dead
+1 Keeper of the Flame
+1 Keeper of the Light
+1 Keeper of the Mind
+1 Kezzerdrix
+1 Killer Whale
+1 Kindle
+1 Knight of Dawn
+1 Knight of Dusk
+1 Kor Chant
+1 Krakilin
+1 Lab Rats
+1 Lancers en-Kor
+1 Leap
+1 Leeching Licid
+1 Legacy's Allure
+1 Legerdemain
+1 Lightning Blast
+1 Lightning Elemental
+1 Light of Day
+1 Limited Resources
+1 Living Death
+1 Lobotomy
+1 Lotus Petal
+1 Lowland Basilisk
+1 Lowland Giant
+1 Maddening Imp
+1 Mage il-Vec
+1 Magmasaur
+1 Magnetic Web
+1 Manabond
+1 Mana Breach
+1 Manakin
+1 Mana Leak
+1 Mana Severance
+1 Maniacal Rage
+1 Manta Riders
+1 Marble Titan
+1 Marsh Lurker
+1 Mask of the Mimic
+1 Master Decoy
+1 Mawcor
+1 Maze of Shadows
+1 Medicine Bag
+1 Meditate
+1 Megrim
+1 Memory Crystal
+1 Merfolk Looter
+1 Metallic Sliver
+1 Mind Games
+1 Mindless Automaton
+1 Mind Maggots
+1 Mind Over Matter
+1 Mind Peel
+1 Mindwarper
+1 Mindwhip Sliver
+1 Minion of the Wastes
+1 Mirozel
+1 Mirri, Cat Warrior
+1 Mirri's Guile
+1 Mnemonic Sliver
+1 Mob Justice
+1 Mogg Assassin
+1 Mogg Bombers
+1 Mogg Cannon
+1 Mogg Conscripts
+1 Mogg Fanatic
+1 Mogg Flunkies
+1 Mogg Hollows
+1 Mogg Infestation
+1 Mogg Maniac
+1 Mogg Raider
+1 Mogg Squad
+1 Mongrel Pack
+1 Monstrous Hound
+1 Morgue Thrull
+1 Mortuary
+1 Mounted Archers
+1 Mox Diamond
+1 Mulch
+1 Muscle Sliver
+1 Natural Spring
+1 Nature's Revolt
+1 Nausea
+1 Necrologia
+1 Needle Storm
+1 Nomads en-Kor
+1 No Quarter
+1 Null Brooch
+1 Nurturing Licid
+1 Oath of Druids
+1 Oath of Ghouls
+1 Oath of Lieges
+1 Oath of Mages
+1 Oath of Scholars
+1 Ogre Shaman
+1 Onslaught
+1 Opportunist
+1 Oracle en-Vec
+1 Orim, Samite Healer
+1 Orim's Prayer
+1 Overgrowth
+1 Overrun
+1 Pacifism
+1 Paladin en-Vec
+1 Pallimud
+1 Pandemonium
+1 Paroxysm
+1 Patchwork Gnomes
+1 Peace of Mind
+1 Pearl Medallion
+1 Pegasus Refuge
+1 Pegasus Stampede
+1 Penance
+1 Perish
+1 Phyrexian Grimoire
+1 Phyrexian Hulk
+1 Phyrexian Splicer
+1 Pincher Beetles
+1 Pine Barrens
+1 Pit Imp
+1 Pit Spawn
+1 Plaguebearer
+1 Plated Rootwalla
+1 Portcullis
+1 Power Sink
+1 Precognition
+1 Predatory Hunger
+1 Price of Progress
+1 Primal Rage
+1 Propaganda
+1 Provoke
+1 Puppet Strings
+1 Pursuit of Knowledge
+1 Pygmy Troll
+1 Quickening Licid
+1 Rabid Rats
+1 Rabid Wolverines
+1 Raging Goblin
+1 Rain of Tears
+1 Rampant Growth
+1 Ranger en-Vec
+1 Ransack
+1 Rathi Dragon
+1 Rats of Rath
+1 Ravenous Baboons
+1 Reality Anchor
+1 Reanimate
+1 Reap
+1 Reaping the Rewards
+1 Rebound
+1 Reckless Ogre
+1 Reckless Spite
+1 Reclaim
+1 Reconnaissance
+1 Recurring Nightmare
+1 Recycle
+1 Reflecting Pool
+1 Reins of Power
+1 Renegade Warlord
+1 Repentance
+1 Respite
+1 Resuscitate
+1 Revenant
+1 Robe of Mirrors
+1 Rolling Stones
+1 Rolling Thunder
+1 Rootbreaker Wurm
+1 Root Maze
+1 Rootwalla
+1 Rootwater Alligator
+1 Rootwater Depths
+1 Rootwater Diver
+1 Rootwater Hunter
+1 Rootwater Matriarch
+1 Rootwater Mystic
+1 Rootwater Shaman
+1 Ruby Medallion
+1 Ruination
+1 Sabertooth Wyvern
+1 Sacred Ground
+1 Sacred Guide
+1 Sadistic Glee
+1 Safeguard
+1 Salt Flats
+1 Samite Blessing
+1 Sandstone Warrior
+1 Sapphire Medallion
+1 Sarcomancy
+1 Scabland
+1 Scalding Salamander
+1 Scalding Tongs
+1 Scapegoat
+1 Scare Tactics
+1 School of Piranha
+1 Scorched Earth
+1 Scragnoth
+1 Screeching Harpy
+1 Scrivener
+1 Scroll Rack
+1 Sea Monster
+1 Searing Touch
+1 Seeker of Skybreak
+1 Seething Anger
+1 Segmented Wurm
+1 Seismic Assault
+1 Selenia, Dark Angel
+1 Serene Offering
+1 Serpent Warrior
+1 Servant of Volrath
+1 Shackles
+1 Shadow Rift
+1 Shadowstorm
+1 Shaman en-Kor
+1 Shard Phoenix
+1 Shatter
+1 Shattering Pulse
+1 Shield Mate
+1 Shifting Wall
+1 Shimmering Wings
+1 Shock
+1 Shocker
+1 Sift
+1 Silver Wyvern
+1 Skeleton Scavengers
+1 Skyshaper
+1 Skyshroud Archer
+1 Skyshroud Condor
+1 Skyshroud Elf
+1 Skyshroud Elite
+1 Skyshroud Falcon
+1 Skyshroud Forest
+1 Skyshroud Ranger
+1 Skyshroud Troll
+1 Skyshroud Troopers
+1 Skyshroud Vampire
+1 Skyshroud War Beast
+1 Sky Spirit
+1 Slaughter
+1 Sliver Queen
+1 Smite
+1 Soltari Champion
+1 Soltari Crusader
+1 Soltari Emissary
+1 Soltari Foot Soldier
+1 Soltari Guerrillas
+1 Soltari Lancer
+1 Soltari Monk
+1 Soltari Priest
+1 Soltari Trooper
+1 Soltari Visionary
+1 Song of Serenity
+1 Sonic Burst
+1 Souldrinker
+1 Soul Warden
+1 Spell Blast
+1 Spellbook
+1 Spellshock
+1 Sphere of Resistance
+1 Spike Breeder
+1 Spike Cannibal
+1 Spike Colony
+1 Spike Drone
+1 Spike Feeder
+1 Spike Hatcher
+1 Spike Rogue
+1 Spike Soldier
+1 Spike Weaver
+1 Spike Worker
+1 Spinal Graft
+1 Spindrift Drake
+1 Spined Sliver
+1 Spined Wurm
+1 Spirit en-Kor
+1 Spirit Mirror
+1 Spitting Hydra
+1 Spontaneous Combustion
+1 Squee's Toy
+1 Stalking Stones
+1 Standing Troops
+1 Starke of Rath
+1 Static Orb
+1 Staunch Defenders
+1 Steal Enchantment
+1 Stinging Licid
+1 Stone Rain
+1 Storm Front
+1 Stronghold Assassin
+1 Stronghold Taskmaster
+1 Stun
+1 Sudden Impact
+1 Survival of the Fittest
+1 Sword of the Chosen
+1 Tahngarth's Rage
+1 Talon Sliver
+1 Telethopter
+1 Temper
+1 Tempting Licid
+1 Thalakos Deceiver
+1 Thalakos Dreamsower
+1 Thalakos Drifters
+1 Thalakos Lowlands
+1 Thalakos Mistfolk
+1 Thalakos Scout
+1 Thalakos Seer
+1 Thalakos Sentry
+1 Theft of Dreams
+1 Thopter Squadron
+1 Thrull Surgeon
+1 Thumbscrews
+1 Tidal Surge
+1 Tidal Warrior
+1 Time Ebb
+1 Time Warp
+1 Tooth and Claw
+1 Torment
+1 Torture Chamber
+1 Tortured Existence
+1 Tradewind Rider
+1 Trained Armodon
+1 Tranquility
+1 Transmogrifying Licid
+1 Treasure Hunter
+1 Treasure Trove
+1 Trumpeting Armodon
+1 Twitch
+1 Unstable Shapeshifter
+1 Vampire Hounds
+1 Vec Townships
+1 Venerable Monk
+1 Verdant Force
+1 Verdant Touch
+1 Verdigris
+1 Vhati il-Dal
+1 Victual Sliver
+1 Volrath's Curse
+1 Volrath's Dungeon
+1 Volrath's Gardens
+1 Volrath's Laboratory
+1 Volrath's Shapeshifter
+1 Volrath's Stronghold
+1 Walking Dream
+1 Wall of Blossoms
+1 Wall of Diffusion
+1 Wall of Essence
+1 Wall of Nets
+1 Wall of Razors
+1 Wall of Souls
+1 Wall of Tears
+1 Warmth
+1 Warrior Angel
+1 Warrior en-Kor
+1 Wasteland
+1 Watchdog
+1 Wayward Soul
+1 Welkin Hawk
+1 Whim of Volrath
+1 Whiptongue Frog
+1 Whispers of the Muse
+1 Wild Wurm
+1 Wind Dancer
+1 Wind Drake
+1 Winds of Rath
+1 Winged Sliver
+1 Winter's Grasp
+1 Wood Elves
+1 Wood Sage
+1 Workhorse
+1 Worthy Cause
+1 Youthful Knight
+1 Zealots en-Dal

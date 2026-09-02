@@ -1,0 +1,604 @@
+@name Zendikar Block (ZEN/WWK/ROE)
+@format cube
+1 Abyssal Persecutor
+1 Admonition Angel
+1 Adventuring Gear
+1 Aether Figment
+1 Aether Tradewinds
+1 Affa Guard Hound
+1 Agadeem Occultist
+1 Akoum Battlesinger
+1 Akoum Boulderfoot
+1 Akoum Refuge
+1 All Is Dust
+1 Amulet of Vigor
+1 Ancient Stirrings
+1 Angelheart Vial
+1 Anowon, the Ruin Sage
+1 Apex Hawks
+1 Arbor Elf
+1 Archive Trap
+1 Archmage Ascension
+1 Archon of Redemption
+1 Arid Mesa
+1 Armament Master
+1 Arrogant Bloodlord
+1 Arrow Volley Trap
+1 Artisan of Kozilek
+1 Aura Finesse
+1 Aura Gnarlid
+1 Avenger of Zendikar
+1 Awakening Zone
+1 Bala Ged Scorpion
+1 Bala Ged Thief
+1 Baloth Cage Trap
+1 Baloth Woodcrasher
+1 Baneful Omen
+1 Basilisk Collar
+1 Battle Hurda
+1 Battle Rampart
+1 Battle-Rattle Shaman
+1 Bazaar Trader
+1 Bear Umbra
+1 Beastbreaker of Bala Ged
+1 Beast Hunt
+1 Beastmaster Ascension
+1 Bestial Menace
+1 Blade of the Bloodchief
+1 Bladetusk Boar
+1 Blazing Torch
+1 Bloodchief Ascension
+1 Bloodghast
+1 Bloodhusk Ritualist
+1 Bloodrite Invoker
+1 Blood Seeker
+1 Bloodthrone Vampire
+1 Blood Tribute
+1 Boar Umbra
+1 Bog Tatters
+1 Bojuka Bog
+1 Bojuka Brigand
+1 Bold Defense
+1 Bramblesnap
+1 Brave the Elements
+1 Brimstone Mage
+1 Brink of Disaster
+1 Brood Birthing
+1 Broodwarden
+1 Bull Rush
+1 Burst Lightning
+1 Butcher of Malakir
+1 Cadaver Imp
+1 Calcite Snapper
+1 Caller of Gales
+1 Cancel
+1 Canopy Cover
+1 Caravan Escort
+1 Caravan Hurda
+1 Carnage Altar
+1 Cast Through Time
+1 Caustic Crawler
+1 Celestial Colonnade
+1 Celestial Mantle
+1 Chain Reaction
+1 Champion's Drake
+1 Chandra Ablaze
+1 Claws of Valakut
+1 Cliff Threader
+1 Cobra Trap
+1 Comet Storm
+1 Conquering Manticore
+1 Conqueror's Pledge
+1 Consume the Meek
+1 Consuming Vapors
+1 Contaminated Ground
+1 Coralhelm Commander
+1 Corpsehatch
+1 Corrupted Zendikon
+1 Cosi's Ravager
+1 Cosi's Trickster
+1 Crab Umbra
+1 Creeping Tar Pit
+1 Crusher Zendikon
+1 Crypt of Agadeem
+1 Crypt Ripper
+1 Cunning Sparkmage
+1 Curse of Wizardry
+1 Daggerback Basilisk
+1 Dawnglare Invoker
+1 Day of Judgment
+1 Dead Reckoning
+1 Death Cultist
+1 Deathforge Shaman
+1 Deathless Angel
+1 Death's Shadow
+1 Demolish
+1 Demonic Appetite
+1 Demystify
+1 Deprive
+1 Desecrated Earth
+1 Devastating Summons
+1 Devout Lightcaster
+1 Disaster Radius
+1 Disfigure
+1 Dispel
+1 Distortion Strike
+1 Domestication
+1 Dormant Gomazoa
+1 Dragonmaster Outcast
+1 Drake Umbra
+1 Drana, Kalastria Bloodchief
+1 Dread Drone
+1 Dread Statuary
+1 Dreamstone Hedron
+1 Echo Mage
+1 Eel Umbra
+1 Eland Umbra
+1 Eldrazi Conscription
+1 Eldrazi Monument
+1 Eldrazi Temple
+1 Electropotence
+1 Elemental Appeal
+1 Emerge Unscathed
+1 Emeria Angel
+1 Emeria, the Sky Ruin
+1 Emrakul's Hatcher
+1 Emrakul, the Aeons Torn
+1 Enatu Golem
+1 Enclave Cryptologist
+1 Enclave Elite
+1 Escaped Null
+1 Essence Feed
+1 Eternity Vessel
+1 Everflowing Chalice
+1 Evolving Wilds
+1 Expedition Map
+1 Explore
+1 Explorer's Scope
+1 Explosive Revelation
+1 Eye of Ugin
+1 Feast of Blood
+1 Felidar Sovereign
+1 Feral Contest
+1 Fissure Vent
+1 Flame Slash
+1 Fledgling Griffin
+1 Fleeting Distraction
+1 Forked Bolt
+1 Frontier Guide
+1 Frostwind Invoker
+1 Gatekeeper of Malakir
+1 Gelatinous Genesis
+1 Geyser Glider
+1 Giant Scorpion
+1 Gideon Jura
+1 Gigantiform
+1 Gigantomancer
+1 Gloomhunter
+1 Glory Seeker
+1 Gnarlid Pack
+1 Goblin Arsonist
+1 Goblin Bushwhacker
+1 Goblin Guide
+1 Goblin Roughrider
+1 Goblin Ruinblaster
+1 Goblin Shortcutter
+1 Goblin Tunneler
+1 Goblin War Paint
+1 Goliath Sphinx
+1 Gomazoa
+1 Grappler Spider
+1 Grappling Hook
+1 Gravitational Shift
+1 Gravity Well
+1 Graypelt Hunter
+1 Graypelt Refuge
+1 Grazing Gladehart
+1 Greenweaver Druid
+1 Grim Discovery
+1 Grotag Siege-Runner
+1 Grotag Thrasher
+1 Groundswell
+1 Growth Spasm
+1 Guard Duty
+1 Guard Gomazoa
+1 Guardian Zendikon
+1 Guul Draz Assassin
+1 Guul Draz Specter
+1 Guul Draz Vampire
+1 Hada Freeblade
+1 Hada Spy Patrol
+1 Hagra Crocodile
+1 Hagra Diabolist
+1 Halimar Depths
+1 Halimar Excavator
+1 Halimar Wavewatch
+1 Halo Hunter
+1 Hammer of Ruin
+1 Hand of Emrakul
+1 Harabaz Druid
+1 Harmless Assault
+1 Harrow
+1 Haze Frog
+1 Heartstabber Mosquito
+1 Heat Ray
+1 Hedron Crab
+1 Hedron-Field Purists
+1 Hedron Matrix
+1 Hedron Rover
+1 Hedron Scrabbler
+1 Hellcarver Demon
+1 Hellfire Mongrel
+1 Hellion Eruption
+1 Hellkite Charger
+1 Hideous End
+1 Highland Berserker
+1 Horizon Drake
+1 Hyena Umbra
+1 Ikiral Outrider
+1 Induce Despair
+1 Inferno Trap
+1 Inquisition of Kozilek
+1 Into the Roil
+1 Iona, Shield of Emeria
+1 Iona's Judgment
+1 Ior Ruin Expedition
+1 Irresistible Prey
+1 It That Betrays
+1 Jace, the Mind Sculptor
+1 Jaddi Lifestrider
+1 Jagwasp Swarm
+1 Join the Ranks
+1 Joraga Bard
+1 Joraga Treespeaker
+1 Joraga Warcaller
+1 Journey to Nowhere
+1 Jwari Scuttler
+1 Jwari Shapeshifter
+1 Jwar Isle Refuge
+1 Kabira Crossroads
+1 Kabira Evangel
+1 Kabira Vindicator
+1 Kalastria Highborn
+1 Kalitas, Bloodchief of Ghet
+1 Kargan Dragonlord
+1 Kazandu Blademaster
+1 Kazandu Refuge
+1 Kazandu Tuskcaller
+1 Kazuul, Tyrant of the Cliffs
+1 Kazuul Warlord
+1 Keening Stone
+1 Khalni Garden
+1 Khalni Gem
+1 Khalni Heart Expedition
+1 Khalni Hydra
+1 Kiln Fiend
+1 Kitesail
+1 Kitesail Apprentice
+1 Knight of Cliffhaven
+1 Kor Aeronaut
+1 Kor Cartographer
+1 Kor Duelist
+1 Kor Firewalker
+1 Kor Hookmaster
+1 Kor Line-Slinger
+1 Kor Outfitter
+1 Kor Sanctifiers
+1 Kor Skyfisher
+1 Kor Spiritdancer
+1 Kozilek, Butcher of Truth
+1 Kozilek's Predator
+1 Kraken Hatchling
+1 Lagac Lizard
+1 Landbind Ritual
+1 Last Kiss
+1 Lavaball Trap
+1 Lavaclaw Reaches
+1 Lavafume Invoker
+1 Lay Bare
+1 Leaf Arrow
+1 Leatherback Baloth
+1 Lethargy Trap
+1 Lighthouse Chronologist
+1 Lightkeeper of Emeria
+1 Lightmine Field
+1 Linvala, Keeper of Silence
+1 Living Destiny
+1 Living Tsunami
+1 Loam Lion
+1 Lodestone Golem
+1 Lone Missionary
+1 Lord of Shatterskull Pass
+1 Lorthos, the Tidemaker
+1 Lotus Cobra
+1 Lullmage Mentor
+1 Luminarch Ascension
+1 Luminous Wake
+1 Lust for War
+1 Magma Rift
+1 Magmaw
+1 Magosi, the Waterveil
+1 Makindi Griffin
+1 Makindi Shieldmate
+1 Malakir Bloodwitch
+1 Mammoth Umbra
+1 Mark of Mutiny
+1 Marshal's Anthem
+1 Marsh Casualties
+1 Marsh Flats
+1 Marsh Threader
+1 Merfolk Observer
+1 Merfolk Seastalkers
+1 Merfolk Skyscout
+1 Merfolk Wayfinder
+1 Might of the Masses
+1 Mindbreak Trap
+1 Mindless Null
+1 Mind Sludge
+1 Mire Blight
+1 Mire's Toll
+1 Misty Rainforest
+1 Mnemonic Wall
+1 Mold Shambler
+1 Molten Ravager
+1 Momentous Fall
+1 Mordant Dragon
+1 Mortician Beetle
+1 Mul Daya Channelers
+1 Murasa Pyromancer
+1 Mysteries of the Deep
+1 Narcolepsy
+1 Narrow Escape
+1 Naturalize
+1 Nature's Claim
+1 Near-Death Experience
+1 Needlebite Trap
+1 Nema Siltlurker
+1 Nemesis Trap
+1 Nest Invader
+1 Nighthaze
+1 Nimana Sell-Sword
+1 Nimbus Wings
+1 Nirkana Cutthroat
+1 Nirkana Revenant
+1 Nissa Revane
+1 Nissa's Chosen
+1 Noble Vestige
+1 Nomads' Assembly
+1 Not of This World
+1 Novablast Wurm
+1 Null Champion
+1 Ob Nixilis, the Fallen
+1 Obsidian Fireheart
+1 Ogre's Cleaver
+1 Ogre Sentry
+1 Omnath, Locus of Mana
+1 Ondu Cleric
+1 Ondu Giant
+1 Oracle of Mul Daya
+1 Oran-Rief Recluse
+1 Oran-Rief Survivalist
+1 Oran-Rief, the Vastwood
+1 Oust
+1 Overgrown Battlement
+1 Paralyzing Grasp
+1 Pathrazer of Ulamog
+1 Pawn of Ulamog
+1 Pelakka Wurm
+1 Pennon Blade
+1 Perimeter Captain
+1 Perish the Thought
+1 Permafrost Trap
+1 Pestilence Demon
+1 Phantasmal Abomination
+1 Pilgrim's Eye
+1 Pillarfield Ox
+1 Piranha Marsh
+1 Pitfall Trap
+1 Plated Geopede
+1 Predatory Urge
+1 Prey's Vengeance
+1 Primal Bellow
+1 Prophetic Prism
+1 Pulse Tracker
+1 Puncturing Light
+1 Punishing Fire
+1 Pyromancer Ascension
+1 Quag Vampires
+1 Quest for Ancient Secrets
+1 Quest for Pure Flame
+1 Quest for Renewal
+1 Quest for the Gemblades
+1 Quest for the Goblin Lord
+1 Quest for the Gravelord
+1 Quest for the Holy Relic
+1 Quest for the Nihil Stone
+1 Quest for Ula's Temple
+1 Quicksand
+1 Rage Nimbus
+1 Raging Ravine
+1 Raid Bombardment
+1 Rampaging Baloths
+1 Rapacious One
+1 Ravenous Trap
+1 Razor Boomerang
+1 Reality Spasm
+1 Realms Uncharted
+1 Reckless Scholar
+1 Recurring Insight
+1 Refraction Trap
+1 Regress
+1 Reinforced Bulwark
+1 Relic Crush
+1 Renegade Doppelganger
+1 Repay in Kind
+1 Repel the Darkness
+1 Rest for the Weary
+1 Ricochet Trap
+1 Rite of Replication
+1 River Boa
+1 Roil Elemental
+1 Roiling Terrain
+1 Ruin Ghost
+1 Ruinous Minotaur
+1 Rumbling Aftershocks
+1 Runed Servitor
+1 Runeflare Trap
+1 Ruthless Cullblade
+1 Sadistic Sacrament
+1 Sarkhan the Mad
+1 Savage Silhouette
+1 Scalding Tarn
+1 Scrib Nibblers
+1 Scute Mob
+1 Scythe Tiger
+1 Sea Gate Loremaster
+1 Sea Gate Oracle
+1 Searing Blaze
+1 Seascape Aerialist
+1 See Beyond
+1 Seer's Sundial
+1 Seismic Shudder
+1 Sejiri Merfolk
+1 Sejiri Refuge
+1 Sejiri Steppe
+1 Selective Memory
+1 Shared Discovery
+1 Shatterskull Giant
+1 Shepherd of the Lost
+1 Shieldmate's Blessing
+1 Shoal Serpent
+1 Shoreline Salvager
+1 Shrivel
+1 Skeletal Wurm
+1 Skittering Invasion
+1 Skitter of Lizards
+1 Sky Ruin Drake
+1 Skywatcher Adept
+1 Slaughter Cry
+1 Slavering Nulls
+1 Slingbow Trap
+1 Smite
+1 Smoldering Spires
+1 Smother
+1 Snake Umbra
+1 Snapping Creeper
+1 Soaring Seacliff
+1 Sorin Markov
+1 Soulbound Guardians
+1 Soul's Attendant
+1 Soul Stair Expedition
+1 Soulsurge Elemental
+1 Spawning Breath
+1 Spawnsire of Ulamog
+1 Spell Contortion
+1 Spell Pierce
+1 Sphinx-Bone Wand
+1 Sphinx of Jwar Isle
+1 Sphinx of Lost Truths
+1 Sphinx of Magosi
+1 Spidersilk Net
+1 Spider Umbra
+1 Spire Barrage
+1 Splinter Twin
+1 Sporecap Spider
+1 Spreading Seas
+1 Staggershock
+1 Stalwart Shield-Bearers
+1 Steppe Lynx
+1 Stirring Wildwood
+1 Stomper Cub
+1 Stoneforge Mystic
+1 Stone Idol Trap
+1 Stonework Puma
+1 Strength of the Tajuru
+1 Student of Warfare
+1 Suffer the Past
+1 Summit Apes
+1 Summoner's Bane
+1 Summoning Trap
+1 Sunspring Expedition
+1 Surrakar Banisher
+1 Surrakar Marauder
+1 Surrakar Spellblade
+1 Surreal Memoir
+1 Survival Cache
+1 Tajuru Archer
+1 Tajuru Preserver
+1 Talus Paladin
+1 Tanglesap
+1 Tectonic Edge
+1 Teetering Peaks
+1 Tempest Owl
+1 Terastodon
+1 Terra Eternal
+1 Terra Stomper
+1 Territorial Baloth
+1 Thada Adel, Acquisitor
+1 Thought Gorger
+1 Tideforce Elemental
+1 Timbermaw Larva
+1 Time of Heroes
+1 Tomb Hex
+1 Torch Slinger
+1 Totem-Guide Hartebeest
+1 Trailblazer's Boots
+1 Training Grounds
+1 Traitorous Instinct
+1 Transcendent Master
+1 Trapfinder's Trick
+1 Trapmaker's Snare
+1 Treasure Hunt
+1 Trusty Machete
+1 Tuktuk Grunts
+1 Tuktuk Scrapper
+1 Tuktuk the Explorer
+1 Turntimber Basilisk
+1 Turntimber Grove
+1 Turntimber Ranger
+1 Twitch
+1 Ulamog's Crusher
+1 Ulamog, the Infinite Gyre
+1 Umara Raptor
+1 Umbra Mystic
+1 Unified Will
+1 Unstable Footing
+1 Urge to Feed
+1 Valakut Fireboar
+1 Valakut, the Molten Pinnacle
+1 Vampire Hexmage
+1 Vampire Lacerator
+1 Vampire Nighthawk
+1 Vampire's Bite
+1 Vapor Snare
+1 Vastwood Animist
+1 Vastwood Gorger
+1 Vastwood Zendikon
+1 Vendetta
+1 Venerated Teacher
+1 Vengevine
+1 Vent Sentinel
+1 Verdant Catacombs
+1 Veteran's Reflexes
+1 Vines of Vastwood
+1 Virulent Swipe
+1 Voyager Drake
+1 Walking Atlas
+1 Wall of Omens
+1 Warmonger's Chariot
+1 Warren Instigator
+1 Welkin Tern
+1 Whiplash Trap
+1 Wildheart Invoker
+1 Windborne Charge
+1 Windrider Eel
+1 Wind Zendikon
+1 Wolfbriar Elemental
+1 World at War
+1 World Queller
+1 Wrap in Flames
+1 Wrexial, the Risen Deep
+1 Zektar Shrine Expedition
+1 Zendikar Farguide
+1 Zof Shade
+1 Zulaport Enforcer

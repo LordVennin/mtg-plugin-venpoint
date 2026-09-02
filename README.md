@@ -87,6 +87,11 @@ and decides which box offers the preset. The relay server indexes the
 directory automatically (`/api/lists`); on plain static hosting list the
 filenames in `lists/manifest.json` instead. See `lists/README.md`.
 
+The repo ships **16 ready-made block cubes** (every unique card in the
+block, basics excluded): Alpha/Beta/Revised, Mirage, Tempest, Urza's,
+Invasion, Onslaught, Mirrodin, Kamigawa, Ravnica, Lorwyn, Shadowmoor,
+Zendikar, Scars of Mirrodin, Innistrad, Return to Ravnica, and Theros.
+
 ## Matches and spectating (3+ players)
 
 After a draft with three or more players, the host gets a **match panel**:

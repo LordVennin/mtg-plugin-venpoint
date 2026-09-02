@@ -1,0 +1,618 @@
+@name Invasion Block (INV/PLS/APC)
+@format cube
+1 Absorb
+1 Addle
+1 Aether Mutation
+1 Aether Rift
+1 Aggressive Urge
+1 Agonizing Demise
+1 Alabaster Leech
+1 Allied Strategies
+1 Alloy Golem
+1 Alpha Kavu
+1 Amphibious Kavu
+1 Ana Disciple
+1 Ana Sanctuary
+1 Anavolver
+1 Ancient Kavu
+1 Ancient Spider
+1 Ancient Spring
+1 Andradite Leech
+1 Angelfire Crusader
+1 Angelic Shield
+1 Angel of Mercy
+1 Annihilate
+1 Archaeological Dig
+1 Arctic Merfolk
+1 Ardent Soldier
+1 Armadillo Cloak
+1 Armored Guardian
+1 Artifact Mutation
+1 Assault // Battery
+1 Atalya, Samite Master
+1 Aura Blast
+1 Aura Mutation
+1 Aura Shards
+1 Aurora Griffin
+1 Backlash
+1 Barrin's Spite
+1 Barrin's Unmaking
+1 Battlefield Forge
+1 Benalish Emissary
+1 Benalish Heralds
+1 Benalish Lancer
+1 Benalish Trapper
+1 Bend or Break
+1 Bind
+1 Blazing Specter
+1 Blinding Light
+1 Blind Seer
+1 Bloodfire Colossus
+1 Bloodfire Dwarf
+1 Bloodfire Infusion
+1 Bloodfire Kavu
+1 Bloodstone Cameo
+1 Blurred Mongoose
+1 Bog Down
+1 Bog Gnarr
+1 Bog Initiate
+1 Brass Herald
+1 Breaking Wave
+1 Breath of Darigaaz
+1 Caldera Kavu
+1 Callous Giant
+1 Canopy Surge
+1 Capashen Unicorn
+1 Captain Sisay
+1 Captain's Maneuver
+1 Cauldron Dance
+1 Cavern Harpy
+1 Caves of Koilos
+1 Ceta Disciple
+1 Ceta Sanctuary
+1 Cetavolver
+1 Chaotic Strike
+1 Charging Troll
+1 Chromatic Sphere
+1 Cinder Shade
+1 Cloud Cover
+1 Coalition Flag
+1 Coalition Honor Guard
+1 Coalition Victory
+1 Coastal Drake
+1 Coastal Tower
+1 Collapsing Borders
+1 Collective Restraint
+1 Confound
+1 Consume Strength
+1 Cremate
+1 Crimson Acolyte
+1 Cromat
+1 Crosis's Attendant
+1 Crosis's Catacombs
+1 Crosis's Charm
+1 Crosis, the Purger
+1 Crown of Flames
+1 Crusading Knight
+1 Crypt Angel
+1 Crystal Spray
+1 Cursed Flesh
+1 Darigaaz's Attendant
+1 Darigaaz's Caldera
+1 Darigaaz's Charm
+1 Darigaaz, the Igniter
+1 Daring Leap
+1 Dark Suspicions
+1 Deadapult
+1 Dead Ringers
+1 Death Bomb
+1 Death Grasp
+1 Death Mutation
+1 Death or Glory
+1 Defiling Tears
+1 Dega Disciple
+1 Dega Sanctuary
+1 Degavolver
+1 Desolation Angel
+1 Desolation Giant
+1 Desperate Research
+1 Destructive Flow
+1 Devouring Strossus
+1 Diabolic Intent
+1 Disciple of Kangee
+1 Dismantling Blow
+1 Disrupt
+1 Distorting Wake
+1 Diversionary Tactics
+1 Divine Light
+1 Divine Presence
+1 Dodecapod
+1 Dominaria's Judgment
+1 Doomsday Specter
+1 Do or Die
+1 Draco
+1 Dragon Arch
+1 Drake-Skull Cameo
+1 Dralnu's Crusade
+1 Dralnu's Pet
+1 Dream Thrush
+1 Dredge
+1 Dromar's Attendant
+1 Dromar's Cavern
+1 Dromar's Charm
+1 Dromar, the Banisher
+1 Dueling Grounds
+1 Duskwalker
+1 Dwarven Landslide
+1 Dwarven Patrol
+1 Ebony Treefolk
+1 Eladamri's Call
+1 Elfhame Palace
+1 Elfhame Sanctuary
+1 Elvish Champion
+1 Emblazoned Golem
+1 Empress Galina
+1 Enlistment Officer
+1 Ertai's Trickery
+1 Ertai, the Corrupted
+1 Escape Routes
+1 Essence Leak
+1 Evasive Action
+1 Exclude
+1 Exotic Curse
+1 Exotic Disease
+1 Explosive Growth
+1 Fact or Fiction
+1 Faerie Squadron
+1 Falling Timber
+1 False Dawn
+1 Fertile Ground
+1 Fervent Charge
+1 Fight or Flight
+1 Firebrand Ranger
+1 Fire // Ice
+1 Firescreamer
+1 Fires of Yavimaya
+1 Flametongue Kavu
+1 Fleetfoot Panther
+1 Flowstone Charger
+1 Forsaken City
+1 Foul Presence
+1 Frenzied Tilling
+1 Fungal Shambler
+1 Gaea's Balance
+1 Gaea's Herald
+1 Gaea's Might
+1 Gaea's Skyfolk
+1 Gainsay
+1 Galina's Knight
+1 Geothermal Crevice
+1 Gerrard Capashen
+1 Gerrard's Command
+1 Gerrard's Verdict
+1 Ghitu Fire
+1 Glade Gnarr
+1 Glimmering Angel
+1 Global Ruin
+1 Goblin Game
+1 Goblin Legionnaire
+1 Goblin Ringleader
+1 Goblin Spy
+1 Goblin Trenches
+1 Goham Djinn
+1 Grave Defiler
+1 Guard Dogs
+1 Guided Passage
+1 Halam Djinn
+1 Hanna, Ship's Navigator
+1 Harrow
+1 Harsh Judgment
+1 Hate Weaver
+1 Haunted Angel
+1 Helionaut
+1 Heroes' Reunion
+1 Heroic Defiance
+1 Hobble
+1 Holy Day
+1 Honorable Scout
+1 Hooded Kavu
+1 Horned Cheetah
+1 Horned Kavu
+1 Hull Breach
+1 Hunting Drake
+1 Hunting Kavu
+1 Hypnotic Cloud
+1 Ice Cave
+1 Illuminate
+1 Illusion // Reality
+1 Implode
+1 Index
+1 Insolence
+1 Irrigation Ditch
+1 Jaded Response
+1 Jade Leech
+1 Jilt
+1 Jungle Barrier
+1 Juntu Stakes
+1 Kangee, Aerie Keeper
+1 Kavu Aggressor
+1 Kavu Chameleon
+1 Kavu Climber
+1 Kavu Glider
+1 Kavu Howler
+1 Kavu Lair
+1 Kavu Mauler
+1 Kavu Monarch
+1 Kavu Recluse
+1 Kavu Runner
+1 Kavu Scout
+1 Kavu Titan
+1 Keldon Mantle
+1 Keldon Necropolis
+1 Keldon Twilight
+1 Lashknife Barrier
+1 Last Caress
+1 Last Stand
+1 Lava Zombie
+1 Lay of the Land
+1 Legacy Weapon
+1 Liberate
+1 Life // Death
+1 Lightning Angel
+1 Lightning Dart
+1 Living Airship
+1 Llanowar Cavalry
+1 Llanowar Dead
+1 Llanowar Elite
+1 Llanowar Knight
+1 Llanowar Vanguard
+1 Llanowar Wastes
+1 Loafing Giant
+1 Lobotomy
+1 Lord of the Undead
+1 Lotus Guardian
+1 Mages' Contest
+1 Maggot Carrier
+1 Magma Burst
+1 Magnigoth Treefolk
+1 Malicious Advice
+1 Manacles of Decay
+1 Mana Cylix
+1 Mana Maze
+1 Maniacal Rage
+1 Manipulate Fate
+1 Marauding Knight
+1 March of Souls
+1 Marsh Crocodile
+1 Martyrs' Tomb
+1 Mask of Intolerance
+1 Meddling Mage
+1 Metathran Aerostat
+1 Metathran Transport
+1 Metathran Zombie
+1 Meteor Crater
+1 Meteor Storm
+1 Might Weaver
+1 Mind Extraction
+1 Minotaur Illusionist
+1 Minotaur Tactician
+1 Mire Kavu
+1 Mirrorwood Treefolk
+1 Mogg Jailer
+1 Mogg Sentry
+1 Molimo, Maro-Sorcerer
+1 Morgue Toad
+1 Mournful Zombie
+1 Mourning
+1 Multani's Harmony
+1 Mystic Snake
+1 Natural Emergence
+1 Necra Disciple
+1 Necra Sanctuary
+1 Necravolver
+1 Nemata, Grove Guardian
+1 Night // Day
+1 Nightscape Apprentice
+1 Nightscape Battlemage
+1 Nightscape Familiar
+1 Nightscape Master
+1 Noble Panther
+1 Nomadic Elf
+1 Noxious Vapors
+1 Obliterate
+1 Obsidian Acolyte
+1 Opt
+1 Order // Chaos
+1 Ordered Migration
+1 Orim's Chant
+1 Orim's Thunder
+1 Orim's Touch
+1 Overabundance
+1 Overgrown Estate
+1 Overload
+1 Pain // Suffering
+1 Penumbra Bobcat
+1 Penumbra Kavu
+1 Penumbra Wurm
+1 Pernicious Deed
+1 Phantasmal Terrain
+1 Phyrexian Altar
+1 Phyrexian Arena
+1 Phyrexian Battleflies
+1 Phyrexian Bloodstock
+1 Phyrexian Delver
+1 Phyrexian Gargantua
+1 Phyrexian Infiltrator
+1 Phyrexian Lens
+1 Phyrexian Rager
+1 Phyrexian Reaper
+1 Phyrexian Scuta
+1 Phyrexian Slayer
+1 Phyrexian Tyranny
+1 Pincer Spider
+1 Plague Spitter
+1 Plague Spores
+1 Planar Despair
+1 Planar Overlay
+1 Planar Portal
+1 Planeswalker's Favor
+1 Planeswalker's Fury
+1 Planeswalker's Mirth
+1 Planeswalker's Mischief
+1 Planeswalker's Scorn
+1 Pledge of Loyalty
+1 Pollen Remedy
+1 Pouncing Kavu
+1 Power Armor
+1 Powerstone Minefield
+1 Primal Growth
+1 Prison Barricade
+1 Probe
+1 Prohibit
+1 Prophetic Bolt
+1 Protective Sphere
+1 Psychic Battle
+1 Pulse of Llanowar
+1 Pure Reflection
+1 Putrid Warrior
+1 Pygmy Kavu
+1 Pyre Zombie
+1 Quagmire Druid
+1 Questing Phelddagrif
+1 Quicksilver Dagger
+1 Quirion Dryad
+1 Quirion Elves
+1 Quirion Explorer
+1 Quirion Sentinel
+1 Quirion Trailblazer
+1 Radiant Kavu
+1 Rage Weaver
+1 Raging Kavu
+1 Rainbow Crow
+1 Raka Disciple
+1 Raka Sanctuary
+1 Rakavolver
+1 Rampant Elephant
+1 Ravenous Rats
+1 Razing Snidd
+1 Razorfin Hunter
+1 Razorfoot Griffin
+1 Reckless Assault
+1 Reckless Spite
+1 Recoil
+1 Recover
+1 Reef Shaman
+1 Repulse
+1 Restock
+1 Restrain
+1 Reviving Dose
+1 Reviving Vapors
+1 Rewards of Diversity
+1 Reya Dawnbringer
+1 Riptide Crab
+1 Rith's Attendant
+1 Rith's Charm
+1 Rith's Grove
+1 Rith, the Awakener
+1 Rogue Kavu
+1 Root Greevil
+1 Rooting Kavu
+1 Rout
+1 Ruby Leech
+1 Ruham Djinn
+1 Rushing River
+1 Sabertooth Nishoba
+1 Salt Marsh
+1 Samite Archer
+1 Samite Elder
+1 Samite Ministration
+1 Samite Pilgrim
+1 Sapphire Leech
+1 Saproling Infestation
+1 Saproling Symbiosis
+1 Savage Gorilla
+1 Savage Offensive
+1 Sawtooth Loon
+1 Scarred Puma
+1 Scavenged Weaponry
+1 Scorching Lava
+1 Scouting Trek
+1 Searing Rays
+1 Seashell Cameo
+1 Sea Snidd
+1 Seer's Vision
+1 Serpentine Kavu
+1 Shackles
+1 Shield of Duty and Reason
+1 Shifting Sky
+1 Shimmering Mirage
+1 Shimmering Wings
+1 Shivan Emissary
+1 Shivan Harvest
+1 Shivan Oasis
+1 Shivan Reef
+1 Shivan Wurm
+1 Shivan Zombie
+1 Shoreline Raider
+1 Shriek of Dread
+1 Silver Drake
+1 Simoon
+1 Singe
+1 Sinister Strength
+1 Sisay's Ingenuity
+1 Skittish Kavu
+1 Skizzik
+1 Skyship Weatherlight
+1 Skyshroud Blessing
+1 Sky Weaver
+1 Slay
+1 Sleeper's Robe
+1 Sleeping Potion
+1 Slimy Kavu
+1 Slingshot Goblin
+1 Slinking Serpent
+1 Smash
+1 Smoldering Tar
+1 Soul Burn
+1 Soul Link
+1 Sparkcaster
+1 Sparring Golem
+1 Spectral Lynx
+1 Spinal Embrace
+1 Spiritmonger
+1 Spirit of Resistance
+1 Spirit Weaver
+1 Spite // Malice
+1 Spreading Plague
+1 Squee's Embrace
+1 Squee's Revenge
+1 Stalking Assassin
+1 Standard Bearer
+1 Stand // Deliver
+1 Stand or Fall
+1 Star Compass
+1 Steel Leaf Paladin
+1 Sterling Grove
+1 Stone Kavu
+1 Stormscape Apprentice
+1 Stormscape Battlemage
+1 Stormscape Familiar
+1 Stormscape Master
+1 Strafe
+1 Stratadon
+1 Strength of Night
+1 Strength of Unity
+1 Stun
+1 Suffocating Blast
+1 Sulam Djinn
+1 Sulfur Vent
+1 Sunken Hope
+1 Sunscape Apprentice
+1 Sunscape Battlemage
+1 Sunscape Familiar
+1 Sunscape Master
+1 Suppress
+1 Surprise Deployment
+1 Sway of Illusion
+1 Sylvan Messenger
+1 Symbiotic Deployment
+1 Tahngarth's Glare
+1 Tahngarth, Talruum Hero
+1 Tainted Well
+1 Tangle
+1 Tectonic Instability
+1 Teferi's Care
+1 Teferi's Moat
+1 Teferi's Response
+1 Tek
+1 Temporal Distortion
+1 Temporal Spring
+1 Terminal Moraine
+1 Terminate
+1 Thicket Elemental
+1 Thornscape Apprentice
+1 Thornscape Battlemage
+1 Thornscape Familiar
+1 Thornscape Master
+1 Thunderscape Apprentice
+1 Thunderscape Battlemage
+1 Thunderscape Familiar
+1 Thunderscape Master
+1 Tidal Courier
+1 Tidal Visionary
+1 Tigereye Cameo
+1 Tinder Farm
+1 Tolarian Emissary
+1 Tower Drake
+1 Tranquility
+1 Tranquil Path
+1 Traveler's Cloak
+1 Treefolk Healer
+1 Trench Wurm
+1 Treva's Attendant
+1 Treva's Charm
+1 Treva's Ruins
+1 Treva, the Renewer
+1 Tribal Flames
+1 Troll-Horn Cameo
+1 Tsabo's Assassin
+1 Tsabo's Decree
+1 Tsabo's Web
+1 Tsabo Tavoc
+1 Tundra Kavu
+1 Turf Wound
+1 Twilight's Call
+1 Undermine
+1 Unnatural Selection
+1 Urborg Drake
+1 Urborg Elf
+1 Urborg Emissary
+1 Urborg Phantom
+1 Urborg Shambler
+1 Urborg Skeleton
+1 Urborg Uprising
+1 Urborg Volcano
+1 Urza's Filter
+1 Urza's Guilt
+1 Urza's Rage
+1 Utopia Tree
+1 Verdeloth the Ancient
+1 Verduran Emissary
+1 Viashino Grappler
+1 Vicious Kavu
+1 Vigorous Charge
+1 Vile Consumption
+1 Vindicate
+1 Vodalian Hypnotist
+1 Vodalian Merchant
+1 Vodalian Mystic
+1 Vodalian Serpent
+1 Vodalian Zombie
+1 Voice of All
+1 Void
+1 Volcano Imp
+1 Voracious Cobra
+1 Wallop
+1 Wandering Stream
+1 Warped Devotion
+1 Wash Out
+1 Waterspout Elemental
+1 Wax // Wane
+1 Wayfaring Giant
+1 Well-Laid Plans
+1 Whip Silk
+1 Whirlpool Drake
+1 Whirlpool Rider
+1 Whirlpool Warrior
+1 Wild Research
+1 Wings of Hope
+1 Winnow
+1 Worldly Counsel
+1 Yavimaya Barbarian
+1 Yavimaya Coast
+1 Yavimaya Kavu
+1 Yavimaya's Embrace
+1 Yawgmoth's Agenda
+1 Zanam Djinn
+1 Zap
+1 Zombie Boa

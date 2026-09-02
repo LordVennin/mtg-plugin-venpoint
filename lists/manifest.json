@@ -1,1 +1,20 @@
-["example-cube.txt", "example-jumpstart.txt"]
+[
+  "alpha-beta-revised.txt",
+  "example-cube.txt",
+  "example-jumpstart.txt",
+  "innistrad-block.txt",
+  "invasion-block.txt",
+  "kamigawa-block.txt",
+  "lorwyn-block.txt",
+  "mirage-block.txt",
+  "mirrodin-block.txt",
+  "onslaught-block.txt",
+  "ravnica-block.txt",
+  "return-to-ravnica-block.txt",
+  "scars-of-mirrodin-block.txt",
+  "shadowmoor-block.txt",
+  "tempest-block.txt",
+  "theros-block.txt",
+  "urzas-block.txt",
+  "zendikar-block.txt"
+]
