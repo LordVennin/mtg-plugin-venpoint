@@ -222,6 +222,8 @@ draw 7, and you go:
   effects). **✂ Unattach all** clears everything stuck to one of your
   permanents, including other players' auras.
 - **👁 Reveal** shows the top X cards of your library to the whole table,
+  and **🔝 Reveal top** keeps just your top card revealed (Courser style)
+  until toggled off —
   live — as you draw, the window slides down. Reveal 0 (or *Stop
   revealing*) ends it. **🖐 Reveal hand** is a toggle that shows your whole
   hand to the table the same way (cards drawn while it's on are visible

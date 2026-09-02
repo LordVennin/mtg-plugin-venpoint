@@ -436,8 +436,13 @@ button.ctx {
   position: fixed; inset: 0; z-index: 40;
   background: rgba(10, 12, 16, 0.85);
   display: flex; align-items: center; justify-content: center;
-  padding: 20px;
+  gap: 14px; padding: 20px;
 }
+/* The modal's own reading pane (the board's preview is behind the dim). */
+.modal-preview {
+  max-height: 86vh; overflow-y: auto;
+}
+@media (max-width: 900px) { .modal-preview { display: none; } }
 .search-inner {
   background: var(--panel); border: 1px solid var(--accent);
   border-radius: var(--radius); padding: 18px;

@@ -198,6 +198,12 @@ var GameUI = (function () {
       '</div></div>';
   }
 
+  /** A reading pane INSIDE a modal — the main preview sits behind the dim. */
+  function modalPreviewPane() {
+    return '<aside class="card-preview modal-preview">' +
+      '<div class="preview-empty">Click any card to read it here</div></aside>';
+  }
+
   function pileModalHtml(view) {
     if (!openPile) return '';
     var pid = openPile.pid, zone = openPile.zone;
@@ -205,7 +211,7 @@ var GameUI = (function () {
     var cards = view.zones[pid][zone];
     var mine = pid === view.you;
     var who = mine ? 'Your' : escapeHtml(view.names[pid] || pid) + '’s';
-    return '<div class="search-inner">' +
+    return modalPreviewPane() + '<div class="search-inner">' +
       '<h3>' + who + ' ' + zone + ' (' + cards.length + ')</h3>' +
       '<p class="hint">Newest on top' + (mine ? '' : ' — public information') + '. Click a card to read it.</p>' +
       '<div class="search-grid">' +
@@ -368,7 +374,7 @@ var GameUI = (function () {
 
   function peekModalHtml(view) {
     if (!view.peek) return '';
-    return '<div class="search-inner">' +
+    return modalPreviewPane() + '<div class="search-inner">' +
       '<h3>Top of your library (' + view.peek.cards.length + ' shown, top first)</h3>' +
       '<p class="hint">Only you can see this. "Top" moves a card to the very top; ' +
       '"Bottom" and card counts are logged, names are not (except to battlefield/graveyard).</p>' +
@@ -396,7 +402,7 @@ var GameUI = (function () {
 
   function searchModalHtml(view) {
     if (!view.searching || !view.library) return '';
-    return '<div class="search-inner">' +
+    return modalPreviewPane() + '<div class="search-inner">' +
       '<h3>Searching your library (' + view.library.length + ' cards)</h3>' +
       '<p class="hint">Only you can see this. Taking a card to hand is logged without its name.</p>' +
       '<input id="search-filter" class="search-filter" placeholder="🔍 Filter by name, type, or text…" autocomplete="off">' +
@@ -530,6 +536,8 @@ var GameUI = (function () {
           (view.turn === 1 ? '<button class="gact" data-act="mulligan">Mulligan</button>' : '') +
           '<button class="gact" data-act="scry" title="hotkey: e">👁 Scry</button>' +
           '<button class="gact" data-act="reveal" title="show the top X publicly">👁‍🗨 Reveal</button>' +
+          '<button class="gact" data-act="revealTop" title="keep your top card revealed to the table (Courser style, toggles)">' +
+            (view.reveals && view.reveals[me] && view.reveals[me].length ? '🔝 Hide top' : '🔝 Reveal top') + '</button>' +
           '<button class="gact" data-act="revealHand" title="show your whole hand publicly (toggles)">' +
             (view.openHands && view.openHands[me] ? '🖐 Hide hand' : '🖐 Reveal hand') + '</button>' +
           '<button class="gact" data-act="discardRandom" title="discard a random card">🎲🗑 Discard random</button>' +
@@ -873,6 +881,12 @@ var GameUI = (function () {
         if (kind === 'token') { promptToken(); return; }
         if (kind === 'scry') { promptScry(); return; }
         if (kind === 'pcounter') { promptPlayerCounter(); return; }
+        if (kind === 'revealTop') {
+          var topOn = lastView && lastView.reveals && lastView.reveals[lastView.you] &&
+            lastView.reveals[lastView.you].length;
+          act(topOn ? { a: 'endReveal' } : { a: 'reveal', n: 1 });
+          return;
+        }
         if (kind === 'reveal') {
           var rv = parseInt(window.prompt('Reveal how many cards from the top of your library? (0 stops revealing)', '1'), 10);
           if (isNaN(rv) || rv < 0) return;
@@ -1092,11 +1106,16 @@ var GameUI = (function () {
 
     // Clicking a card inside any modal previews it.
     [modal, peekModal, zoneModal].forEach(function (m) {
+      // The modal carries its own reading pane — the main preview is behind
+      // the dimmed overlay and unreadable while a modal is open.
+      var mp = m.querySelector('.modal-preview');
+      if (mp && previewUid && cardIndex[previewUid]) mp.innerHTML = previewHtml();
       m.querySelectorAll('.gcard').forEach(function (el) {
         el.addEventListener('click', function (ev) {
           ev.stopPropagation();
           previewUid = el.getAttribute('data-uid');
           $('#card-preview').innerHTML = previewHtml();
+          if (mp) mp.innerHTML = previewHtml();
         });
       });
     });
