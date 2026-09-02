@@ -147,6 +147,12 @@ legend { color: var(--muted); font-size: 13px; padding: 0 6px; }
   display: flex; flex-direction: column; justify-content: center; gap: 6px;
   height: 100%; padding: 10px; text-align: center;
 }
+/* Cards render their art with a hidden text face behind it; if the image
+   fails to load (CDN outage), onerror flips the tile to the text face. */
+.img-fallback { display: none; }
+.img-dead img { display: none; }
+.card.img-dead .card-text.img-fallback { display: flex; }
+.gcard.img-dead .gcard-name.img-fallback { display: flex; }
 .card-name { font-weight: 600; font-size: 14px; }
 .card-cost { color: var(--accent); font-size: 12px; }
 .card-type { color: var(--muted); font-size: 12px; }

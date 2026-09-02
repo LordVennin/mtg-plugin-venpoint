@@ -67,7 +67,10 @@ var GameUI = (function () {
       inner = '<div class="fd-back">🂠</div>' +
         (card.peek ? '<span class="fd-peek">' + escapeHtml(card.name) + '</span>' : '');
     } else if (card.img) {
-      inner = '<img loading="lazy" src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) + '">';
+      // If the art can't load (image CDN down), fall back to the name.
+      inner = '<img loading="lazy" src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) +
+        '" onerror="this.parentNode.classList.add(\'img-dead\')">' +
+        '<span class="gcard-name img-fallback">' + escapeHtml(card.name) + '</span>';
     } else {
       inner = '<span class="gcard-name">' + escapeHtml(card.name) + '</span>';
     }
@@ -342,7 +345,8 @@ var GameUI = (function () {
       card = card.real;
     }
     var body = card.img
-      ? '<img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) + '">'
+      ? '<img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) +
+        '" onerror="this.style.display=\'none\'">'
       : '<div class="preview-text"><strong>' + escapeHtml(card.name) + '</strong></div>';
     var cardNote = noteByUid[previewUid]
       ? '<div class="preview-cardnote">📝 ' + escapeHtml(noteByUid[previewUid]) + '</div>'

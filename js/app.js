@@ -880,7 +880,8 @@
 
   function buildPreviewHtml(card) {
     var body = card.img
-      ? '<img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) + '">'
+      ? '<img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) +
+        '" onerror="this.style.display=\'none\'">'
       : '<div class="preview-text"><strong>' + escapeHtml(card.name) + '</strong></div>';
     return body + '<div class="preview-meta">' +
       '<div class="preview-name">' + escapeHtml(card.name) +
@@ -1359,12 +1360,17 @@
   /* ---------------- helpers ---------------- */
 
   function cardFace(c) {
+    var text = function (extra) {
+      return '<div class="card-text' + extra + '"><span class="card-name">' + escapeHtml(c.name) + '</span>' +
+        (c.cost ? '<span class="card-cost">' + escapeHtml(c.cost) + '</span>' : '') +
+        (c.type ? '<span class="card-type">' + escapeHtml(c.type) + '</span>' : '') + '</div>';
+    };
     if (c.img) {
-      return '<img loading="lazy" src="' + escapeHtml(c.img) + '" alt="' + escapeHtml(c.name) + '">';
+      // If the art can't load (image CDN down), fall back to the text face.
+      return '<img loading="lazy" src="' + escapeHtml(c.img) + '" alt="' + escapeHtml(c.name) +
+        '" onerror="this.parentNode.classList.add(\'img-dead\')">' + text(' img-fallback');
     }
-    return '<div class="card-text"><span class="card-name">' + escapeHtml(c.name) + '</span>' +
-      (c.cost ? '<span class="card-cost">' + escapeHtml(c.cost) + '</span>' : '') +
-      (c.type ? '<span class="card-type">' + escapeHtml(c.type) + '</span>' : '') + '</div>';
+    return text('');
   }
 
   function escapeHtml(s) {
