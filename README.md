@@ -22,6 +22,11 @@ It's a static site — no build step, no dependencies to install.
   needs node + npm, curl) runs the relay server behind a Cloudflare quick
   tunnel and prints a single URL for you and your friends to open — no
   open firewall ports, no WebRTC. The URL changes on every run.
+  On **Windows**, double-click `host-draft.bat` for the same thing (needs
+  node; curl is built into Windows 10+). Both fetch a private copy of
+  cloudflared automatically if it isn't installed;
+  `install-cloudflared.bat` installs it properly on Windows (winget, or a
+  direct download) if you'd rather have it on your system.
 
 ### Two transports
 
