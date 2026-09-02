@@ -99,6 +99,26 @@ section('parsePresetFile (lists/ directory format)');
   assert(bare.format === '' && bare.body === '1 Island\n1 Forest', 'plain lists work without a header');
 }
 
+section('manaValue + cardMainType (deck stats)');
+{
+  assert(Parser.manaValue('{2}{R}{R}') === 4, 'generic + colored add up');
+  assert(Parser.manaValue('{X}{G}{G}') === 2, 'X counts 0');
+  assert(Parser.manaValue('{2/W}{2/W}') === 4, 'monocolor hybrid counts 2');
+  assert(Parser.manaValue('{W/U}{B/P}{S}') === 3, 'hybrid, phyrexian, snow count 1');
+  assert(Parser.manaValue('') === 0 && Parser.manaValue(null) === 0, 'no cost -> 0');
+
+  assert(Parser.cardMainType('Artifact Creature — Golem') === 'Creatures', 'artifact creature is a creature');
+  assert(Parser.cardMainType('Artifact Land') === 'Lands', 'artifact land is a land');
+  assert(Parser.cardMainType('Legendary Enchantment Creature — God') === 'Creatures', 'god is a creature');
+  assert(Parser.cardMainType('Instant — Arcane') === 'Instants', 'instants');
+  assert(Parser.cardMainType('Sorcery') === 'Sorceries', 'sorceries');
+  assert(Parser.cardMainType('Legendary Planeswalker — Jace') === 'Planeswalkers', 'planeswalkers');
+  assert(Parser.cardMainType('Enchantment — Aura') === 'Enchantments', 'auras are enchantments');
+  assert(Parser.cardMainType('Creature — Human Wizard // Creature — Human Insect') === 'Creatures',
+    'DFC buckets by its front face');
+  assert(Parser.cardMainType('') === 'Other', 'unknown type lines land in Other');
+}
+
 section('collectSetHints (printing pins)');
 {
   const parsed = Parser.parseDeckList('1 Lightning Bolt (LEA)\n1 Counterspell\n2 Doom Blade (M10) 94');

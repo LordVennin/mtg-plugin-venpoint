@@ -762,11 +762,59 @@
       '" title="' + escapeHtml(c.name) + '">' + cardFace(c) + cmdBtn + '</div>';
   }
 
+  /** Value, mana curve, and type breakdown of the deck as currently built. */
+  function buildStatsHtml() {
+    var deck = builderDeck();
+    if (!deck.length) return '<span class="hint">Deck stats appear as you add cards.</span>';
+
+    var value = 0;
+    var unpriced = 0;
+    deck.forEach(function (c) {
+      var p = parseFloat(c.price);
+      if (isNaN(p)) unpriced++; else value += p;
+    });
+    var valueLine = '💰 TCG value: $' + value.toFixed(2) +
+      (unpriced ? ' <span class="stat-dim">(' + unpriced + ' unpriced)</span>' : '');
+
+    // Type breakdown, in a fixed display order.
+    var order = ['Creatures', 'Instants', 'Sorceries', 'Enchantments', 'Artifacts',
+                 'Planeswalkers', 'Battles', 'Lands', 'Other'];
+    var counts = {};
+    deck.forEach(function (c) {
+      var t = MTGParser.cardMainType(c.type);
+      counts[t] = (counts[t] | 0) + 1;
+    });
+    var typeLine = order.filter(function (t) { return counts[t]; })
+      .map(function (t) { return t + ' <b>' + counts[t] + '</b>'; })
+      .join(' · ');
+
+    // Mana curve over nonland cards, bucketed 0..6 and 7+.
+    var curve = [0, 0, 0, 0, 0, 0, 0, 0];
+    deck.forEach(function (c) {
+      if (MTGParser.cardMainType(c.type) === 'Lands') return;
+      curve[Math.min(MTGParser.manaValue(c.cost), 7)]++;
+    });
+    var max = Math.max.apply(null, curve.concat([1]));
+    var bars = curve.map(function (n, mv) {
+      var h = n ? Math.max(4, Math.round(n / max * 48)) : 0;
+      var label = (mv === 7 ? '7+' : mv);
+      return '<div class="curve-col" title="' + n + ' card(s) at mana value ' + label + '">' +
+        '<span class="curve-count">' + (n || '') + '</span>' +
+        '<div class="curve-track"><div class="curve-bar" style="height:' + h + 'px"></div></div>' +
+        '<span class="curve-mv">' + label + '</span></div>';
+    }).join('');
+
+    return '<div class="stat-row">' + valueLine + '</div>' +
+      '<div class="curve">' + bars + '</div>' +
+      '<div class="stat-row stat-types">' + typeLine + '</div>';
+  }
+
   function renderBuilder() {
     var b = App.builder;
     if (!b) return;
     var landTotal = BASICS.reduce(function (s, x) { return s + b.lands[x.name]; }, 0);
     var total = b.main.length + landTotal + (b.commander ? 1 : 0);
+    $('#build-stats').innerHTML = buildStatsHtml();
     $('#build-count').textContent = total + ' cards (' + b.main.length + ' spells + ' + landTotal + ' lands' +
       (b.commander ? ' + commander' : '') + ')' + (total < 40 ? ' — need 40+' : '');
     $('#main-count').textContent = b.main.length + (landTotal ? ' + ' + landTotal + ' lands' : '');

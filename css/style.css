@@ -148,8 +148,10 @@ legend { color: var(--muted); font-size: 13px; padding: 0 6px; }
   height: 100%; padding: 10px; text-align: center;
 }
 /* Cards render their art with a hidden text face behind it; if the image
-   fails to load (CDN outage), onerror flips the tile to the text face. */
-.img-fallback { display: none; }
+   fails to load (CDN outage), onerror flips the tile to the text face.
+   The hide rule needs to outrank the later .gcard-name/.card-text display
+   rules, so it carries the parent class too. */
+.gcard .img-fallback, .card .card-text.img-fallback, .img-fallback { display: none; }
 .img-dead img { display: none; }
 .card.img-dead .card-text.img-fallback { display: flex; }
 .gcard.img-dead .gcard-name.img-fallback { display: flex; }
@@ -491,6 +493,34 @@ button.ctx {
 }
 
 .sub-modes { margin-bottom: 8px; }
+
+/* Deck-builder stats: value line, mana curve, type breakdown. */
+.build-stats {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px;
+  margin: 6px 0 10px; padding: 8px 12px;
+  border: 1px solid #3b4257; border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 13px;
+}
+.build-stats .stat-row b { color: inherit; }
+.stat-dim { opacity: 0.6; }
+.stat-types { opacity: 0.9; }
+.curve { display: flex; align-items: flex-end; gap: 6px; }
+.curve-col {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  width: 20px;
+}
+.curve-track {
+  display: flex; align-items: flex-end;
+  height: 48px; width: 14px;
+  background: rgba(255, 255, 255, 0.05); border-radius: 4px 4px 0 0;
+}
+.curve-bar {
+  width: 100%; background: var(--accent);
+  border-radius: 4px 4px 0 0; /* rounded data end, flat baseline */
+}
+.curve-count { font-size: 11px; min-height: 14px; opacity: 0.85; }
+.curve-mv { font-size: 11px; opacity: 0.65; border-top: 1px solid #3b4257; width: 100%; text-align: center; }
 
 .bcard { position: relative; }
 .cmd-btn {

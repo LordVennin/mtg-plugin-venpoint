@@ -137,7 +137,11 @@ exactly two players everything still flows automatically like before.
    card at a time, packs pass left/right by round. Classic booster draft.
    Afterwards everyone gets a **deck builder**: click cards to move them
    between your pool and your main deck, add basic lands with +/− steppers
-   (art included), hover to read cards, and copy the finished list. With
+   (art included), hover to read cards, and copy the finished list. A live
+   **stats bar** shows the deck's total TCG value, its mana curve (0–7+,
+   lands excluded), and a type breakdown (creatures / instants / sorceries
+   / enchantments / artifacts / planeswalkers / lands…), updating with
+   every click. With
    exactly two players, both hit **Ready** and the 1v1 play surface opens
    with your *built* decks — lands and all.
 4. **Jumpstart:** in snake order, each player is offered up to 3 random packs

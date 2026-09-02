@@ -207,6 +207,42 @@ var MTGParser = (function () {
     return { entries: entries, commanders: commanders, errors: errors };
   }
 
+  /* ---------------- deck-stat helpers (pure card-data utilities) ---------------- */
+
+  /**
+   * Mana value of a cost string like "{2}{R}{R}" -> 4.
+   * X/Y/Z count 0, monocolor hybrid {2/W} counts 2, everything else in
+   * braces (colored, hybrid, phyrexian, snow) counts 1.
+   */
+  function manaValue(cost) {
+    var mv = 0;
+    String(cost || '').replace(/\{([^}]+)\}/g, function (_, sym) {
+      if (/^\d+$/.test(sym)) mv += parseInt(sym, 10);
+      else if (/^[XYZ]$/i.test(sym)) mv += 0;
+      else if (/^2\//.test(sym)) mv += 2;
+      else mv += 1;
+      return '';
+    });
+    return mv;
+  }
+
+  /**
+   * Bucket a type line into one primary category. Priority matters:
+   * "Artifact Creature" is a creature, "Artifact Land" is a land.
+   */
+  function cardMainType(typeLine) {
+    var t = String(typeLine || '').split('//')[0];
+    if (/\bLand\b/i.test(t)) return 'Lands';
+    if (/\bCreature\b/i.test(t)) return 'Creatures';
+    if (/\bPlaneswalker\b/i.test(t)) return 'Planeswalkers';
+    if (/\bInstant\b/i.test(t)) return 'Instants';
+    if (/\bSorcery\b/i.test(t)) return 'Sorceries';
+    if (/\bBattle\b/i.test(t)) return 'Battles';
+    if (/\bArtifact\b/i.test(t)) return 'Artifacts';
+    if (/\bEnchantment\b/i.test(t)) return 'Enchantments';
+    return 'Other';
+  }
+
   /**
    * Format a list of card names back into a Moxfield-importable decklist.
    */
@@ -257,6 +293,8 @@ var MTGParser = (function () {
     parsePresetFile: parsePresetFile,
     expandEntries: expandEntries,
     collectSetHints: collectSetHints,
+    manaValue: manaValue,
+    cardMainType: cardMainType,
     formatDeckList: formatDeckList
   };
 })();
