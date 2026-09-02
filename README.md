@@ -22,12 +22,13 @@ It's a static site — no build step, no dependencies to install.
   needs node + npm, curl) runs the relay server behind a Cloudflare quick
   tunnel and prints a single URL for you and your friends to open — no
   open firewall ports, no WebRTC. The URL changes on every run.
-  On **Windows**, double-click `host-draft.bat` for the same thing (needs
-  node; curl is built into Windows 10+). Both fetch a private copy of
-  cloudflared automatically if it isn't installed;
-  `install-cloudflared.bat` installs it on Windows by downloading the
-  official binary directly from Cloudflare's GitHub releases — no
-  Microsoft Store or winget needed, so it works on debloated installs.
+  On **Windows**, double-click `host-draft.bat` for the same thing — it
+  installs everything it's missing by itself via
+  `install-dependencies.bat` (portable Node.js from nodejs.org into
+  `%USERPROFILE%\.mtgdraft\`, cloudflared from Cloudflare's GitHub
+  releases, the relay's npm packages). No Microsoft Store, no winget, no
+  admin rights — it works on debloated installs; the only requirement is
+  curl, which is built into Windows 10+.
 
 ### Two transports
 
