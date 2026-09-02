@@ -683,6 +683,20 @@
     broadcastGameViews();
   }
 
+  /** Host only: end the whole session — everyone back to the start screen. */
+  function hostCloseRoom() {
+    if (App.role !== 'host') return;
+    if (!window.confirm('Close the room for everyone? All players return to the start screen.')) return;
+    App.players.forEach(function (p) {
+      if (p.conn) App.net.send(p.conn, { t: 'ended' });
+    });
+    // Give the goodbyes a moment to flush, then reset this tab too.
+    setTimeout(function () {
+      try { App.net.close(); } catch (e) { /* already gone */ }
+      window.location.reload();
+    }, 300);
+  }
+
   function hostEndMatch() {
     if (!App.game) return;
     App.game = null;
@@ -860,6 +874,7 @@
       b.pool.map(function (c) { return builderCardTile(c, 'pool'); }).join('') ||
       '<span class="zone-empty">empty</span>';
 
+    $('#btn-close-room-build').hidden = App.role !== 'host';
     var count = playerCount();
     var readyBtn = $('#btn-build-ready');
     readyBtn.hidden = count < 2;
@@ -1212,7 +1227,11 @@
         break;
       case 'ended':
         clearRejoin();
-        toast('The host ended the draft.', true);
+        // Leave cleanly so the reconnect machinery doesn't chase a dead room.
+        App.joinInfo = null;
+        App.myId = null;
+        try { App.conn.close(); } catch (e) { /* already closed */ }
+        toast('The host closed the room.', true);
         show('home');
         break;
     }
@@ -1447,6 +1466,7 @@
     var isJs = App.lastView && App.lastView.mode === 'jumpstart';
     var count = App.role === 'host' ? App.players.length : (App.lobby ? App.lobby.players.length : 0);
     $('#btn-start-game').hidden = !(isJs && count === 2 && App.role === 'host');
+    $('#btn-close-room-done').hidden = App.role !== 'host';
     $('#game-hint').hidden = !(isJs && count >= 2 && App.role !== 'host');
     if (isJs && App.role === 'host') {
       renderMatchPanel('match-panel-done', App.players.map(function (p) { return p.id; }));
@@ -1510,6 +1530,8 @@
     $('#btn-end-match').addEventListener('click', function () {
       if (App.role === 'host') hostEndMatch();
     });
+    $('#btn-close-room-build').addEventListener('click', hostCloseRoom);
+    $('#btn-close-room-done').addEventListener('click', hostCloseRoom);
     $('#btn-copy-code').addEventListener('click', function () {
       var code = $('#room-code').textContent;
       if (navigator.clipboard && navigator.clipboard.writeText) {
