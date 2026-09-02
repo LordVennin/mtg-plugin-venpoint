@@ -25,8 +25,9 @@ It's a static site — no build step, no dependencies to install.
   On **Windows**, double-click `host-draft.bat` for the same thing (needs
   node; curl is built into Windows 10+). Both fetch a private copy of
   cloudflared automatically if it isn't installed;
-  `install-cloudflared.bat` installs it properly on Windows (winget, or a
-  direct download) if you'd rather have it on your system.
+  `install-cloudflared.bat` installs it on Windows by downloading the
+  official binary directly from Cloudflare's GitHub releases — no
+  Microsoft Store or winget needed, so it works on debloated installs.
 
 ### Two transports
 

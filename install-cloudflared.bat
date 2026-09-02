@@ -4,9 +4,10 @@ rem
 rem   install-cloudflared.bat    (double-click it, or run from a terminal)
 rem
 rem - Already installed? Says so and exits.
-rem - Tries winget first (the proper Windows install, gets updates).
-rem - No winget? Downloads the official exe to %USERPROFILE%\.cloudflared\,
-rem   which host-draft.bat checks automatically - no PATH changes needed.
+rem - Otherwise downloads the OFFICIAL exe straight from Cloudflare's GitHub
+rem   releases into %USERPROFILE%\.cloudflared\, which host-draft.bat checks
+rem   automatically. No Microsoft Store, no winget, no PATH changes - works
+rem   on debloated Windows installs.
 rem
 rem host-draft.bat does NOT require this - it can fetch its own private copy -
 rem but a real install keeps cloudflared around for anything else.
@@ -19,17 +20,6 @@ if not errorlevel 1 (
     echo [cloudflared] Already installed: %%v
     goto :done
   )
-)
-
-where winget >nul 2>nul
-if not errorlevel 1 (
-  echo [cloudflared] Installing via winget...
-  winget install --id Cloudflare.cloudflared --accept-source-agreements --accept-package-agreements
-  if not errorlevel 1 (
-    echo [cloudflared] Installed. Open a NEW terminal for it to appear on PATH.
-    goto :done
-  )
-  echo [cloudflared] winget install failed - falling back to a direct download.
 )
 
 where curl >nul 2>nul || (echo [cloudflared] curl is required - built into Windows 10 and newer & goto :faildone)
