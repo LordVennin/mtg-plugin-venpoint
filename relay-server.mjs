@@ -170,6 +170,11 @@ if (!NO_MIRROR) {
  * place the group shares. Honor-system identity, same as seats.
  */
 const DECKS_DIR = join(ROOT, 'data', 'decks');
+// Hard ceilings so a stranger with the URL can't fill the disk:
+// 200 owners x 50 decks x 64KB = at most ~640MB, realistically a few MB.
+const DECK_TEXT_MAX = 64 * 1024;
+const DECKS_PER_OWNER = 50;
+const MAX_OWNERS = 200;
 const slugOwner = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
 
 async function readOwnerDecks(owner) {
@@ -207,10 +212,21 @@ async function handleDecks(req, res, path) {
     try { body = JSON.parse(await readBody(req, 256 * 1024)); } catch { return json(400, { error: 'bad body' }); }
     const owner = slugOwner(body.owner);
     const name = String(body.name || '').trim().slice(0, 60);
-    const text = String(body.text || '').slice(0, 100 * 1024);
+    const text = String(body.text || '');
     if (!owner || !name || !text) return json(400, { error: 'owner, name, text required' });
+    if (text.length > DECK_TEXT_MAX) {
+      return json(400, { error: 'deck too large (max ' + (DECK_TEXT_MAX / 1024) + 'KB of text)' });
+    }
     const decks = await readOwnerDecks(owner);
-    if (!decks[name] && Object.keys(decks).length >= 100) return json(400, { error: 'deck limit reached' });
+    if (!decks[name] && Object.keys(decks).length >= DECKS_PER_OWNER) {
+      return json(400, { error: 'deck limit reached (' + DECKS_PER_OWNER + ' per player) — delete one first' });
+    }
+    if (!Object.keys(decks).length) {
+      // New owner file: keep the total store bounded.
+      let owners = [];
+      try { owners = (await readdir(DECKS_DIR)).filter(f => f.endsWith('.json')); } catch { /* empty */ }
+      if (owners.length >= MAX_OWNERS) return json(400, { error: 'deck storage is full' });
+    }
     decks[name] = { text, updated: Date.now() };
     await writeOwnerDecks(owner, decks);
     return json(200, { ok: true });

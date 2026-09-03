@@ -1707,17 +1707,26 @@
             throw new Error('Deck "' + name + '" not found');
           });
       },
-      /** Saves locally always; to the relay when reachable. Resolves 'relay'|'local'. */
+      /**
+       * Saves locally always; to the relay when reachable. Resolves
+       * 'relay'|'local'; REJECTS when the relay refused for a reason
+       * (limits) — that must not be mistaken for "no relay here".
+       */
       save: function (name, text) {
         var all = localAll();
         all[name] = { text: text, updated: Date.now() };
         localWrite(all);
         if (!owner()) return Promise.resolve('local');
-        return relay('/save', {
+        return fetch('api/decks/save', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ owner: owner(), name: name, text: text })
-        }).then(function () { return 'relay'; }).catch(function () { return 'local'; });
+        }).then(function (r) {
+          if (r.ok) return 'relay';
+          return r.json().catch(function () { return {}; }).then(function (json) {
+            throw new Error(json.error || 'The relay refused the save (HTTP ' + r.status + ').');
+          });
+        }, function () { return 'local'; /* network/static hosting — cache only */ });
       },
       del: function (name) {
         var all = localAll();
@@ -1841,9 +1850,16 @@
     });
   }
 
+  var WS_MAX_CARDS = 500; // matches the cap on decks submitted into games
+
   /** Add one copy (4-copy cap, basics exempt). Card data may arrive later. */
   function wsAddByName(name, set, card) {
     if (card) WS.cards[name.toLowerCase()] = card;
+    var total = WS.entries.reduce(function (s, e) { return s + e.count; }, 0);
+    if (total >= WS_MAX_CARDS) {
+      toast('Deck limit: ' + WS_MAX_CARDS + ' cards.', true);
+      return;
+    }
     var entry = WS.entries.find(function (e) { return e.name === name; });
     if (entry) {
       if (entry.count >= 4 && !wsIsBasic(wsCard(name))) {
@@ -1968,6 +1984,9 @@
           ? '✓ Saved to the relay (survives URL changes)'
           : '✓ Saved in this browser only — no relay reachable; export a .txt to be safe';
         wsRefreshDeckList();
+      }).catch(function (err) {
+        $('#ws-status').textContent = '';
+        toast('Not saved to the relay: ' + err.message, true);
       });
     });
     $('#ws-decks').addEventListener('change', function () {
