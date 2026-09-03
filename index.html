@@ -36,6 +36,39 @@
         <button id="btn-join" class="primary">Join room</button>
       </div>
     </div>
+    <div class="workshop-entry">
+      <h2>Deck workshop</h2>
+      <p class="hint">Build and manage full custom decks — search all of Magic, save them for game night. No room needed.</p>
+      <button id="btn-workshop">🛠 Open the deck workshop</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DECK WORKSHOP (build full custom decks) ============ -->
+<section id="screen-workshop" hidden>
+  <div class="ws-layout">
+    <aside class="ws-search">
+      <h3>Add cards</h3>
+      <input id="ws-search" placeholder="🔍 Search all of Magic…" autocomplete="off">
+      <p class="hint">Full Scryfall syntax works: <code>t:goblin o:haste c:r cmc&lt;3</code>. Click a result to add it.</p>
+      <div id="ws-results" class="card-grid ws-results"></div>
+    </aside>
+    <div class="ws-main">
+      <div class="ws-header">
+        <button id="ws-back">← Back</button>
+        <input id="ws-deck-name" placeholder="Deck name…" maxlength="60">
+        <button id="ws-save" class="primary">💾 Save</button>
+        <select id="ws-decks"><option value="">📂 My decks…</option></select>
+        <button id="ws-delete" title="Delete the selected deck">🗑</button>
+        <button id="ws-export" title="Download as a .txt list">⬇ .txt</button>
+        <label class="ws-import-label" title="Load a .txt list"><input type="file" id="ws-import" accept=".txt,text/plain" hidden>⬆ .txt</label>
+        <span id="ws-status" class="hint"></span>
+      </div>
+      <div id="ws-stats" class="build-stats"></div>
+      <div id="ws-commander" class="ws-commander"></div>
+      <div id="ws-list" class="ws-list"></div>
+    </div>
+    <aside id="ws-preview" class="card-preview"><div class="preview-empty">Hover a card to read it</div></aside>
   </div>
 </section>
 

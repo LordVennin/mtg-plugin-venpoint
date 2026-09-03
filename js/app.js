@@ -52,7 +52,7 @@
   /* ---------------- screen switching ---------------- */
 
   function show(screen) {
-    ['home', 'lobby', 'draft', 'done', 'build', 'game'].forEach(function (s) {
+    ['home', 'lobby', 'draft', 'done', 'build', 'game', 'workshop'].forEach(function (s) {
       $('#screen-' + s).hidden = (s !== screen);
     });
   }
@@ -737,12 +737,34 @@
         '<select class="preset-select">' + buildOptions('') + '</select>';
       var sel = row.querySelector('select');
       var filterBox = row.querySelector('.preset-filter');
-      filterBox.addEventListener('input', function () {
-        sel.innerHTML = buildOptions(filterBox.value.trim().toLowerCase());
-      });
+      var myDecks = [];
+      var rebuild = function () {
+        var q = filterBox.value.trim().toLowerCase();
+        var mine = myDecks.filter(function (n) { return !q || n.toLowerCase().indexOf(q) !== -1; })
+          .map(function (n) {
+            return '<option value="mydeck:' + escapeHtml(n) + '">🃏 My deck: ' + escapeHtml(n) + '</option>';
+          }).join('');
+        sel.innerHTML = buildOptions(q).replace('</option>', '</option>' + mine);
+      };
+      filterBox.addEventListener('input', rebuild);
+      // The deck picker also offers YOUR saved workshop decks.
+      if (row.getAttribute('data-preset-for') === 'deck') {
+        DeckStore.list().then(function (names) { myDecks = names; rebuild(); });
+      }
       sel.addEventListener('change', function () {
         var file = sel.value;
         if (!file) return;
+        if (file.indexOf('mydeck:') === 0) {
+          var dn = file.slice(7);
+          DeckStore.load(dn)
+            .then(function (text) {
+              $('#' + row.getAttribute('data-target')).value = text;
+              toast('Loaded your deck: ' + dn);
+              sel.value = '';
+            })
+            .catch(function (err) { toast(err.message, true); });
+          return;
+        }
         fetch(file)
           .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
           .then(function (text) {
@@ -921,9 +943,8 @@
       '" title="' + escapeHtml(c.name) + '">' + cardFace(c) + cmdBtn + '</div>';
   }
 
-  /** Value, mana curve, and type breakdown of the deck as currently built. */
-  function buildStatsHtml() {
-    var deck = builderDeck();
+  /** Value, mana curve, and type breakdown of any card list. */
+  function deckStatsHtml(deck) {
     if (!deck.length) return '<span class="hint">Deck stats appear as you add cards.</span>';
 
     var value = 0;
@@ -973,7 +994,7 @@
     if (!b) return;
     var landTotal = BASICS.reduce(function (s, x) { return s + b.lands[x.name]; }, 0);
     var total = b.main.length + landTotal + (b.commander ? 1 : 0);
-    $('#build-stats').innerHTML = buildStatsHtml();
+    $('#build-stats').innerHTML = deckStatsHtml(builderDeck());
     $('#build-count').textContent = total + ' cards (' + b.main.length + ' spells + ' + landTotal + ' lands' +
       (b.commander ? ' + commander' : '') + ')' + (total < 40 ? ' — need 40+' : '');
     $('#main-count').textContent = b.main.length + (landTotal ? ' + ' + landTotal + ' lands' : '');
@@ -1414,6 +1435,13 @@
     }).join('');
     $('#lobby-info').textContent = info || '';
     $('#deck-submit-panel').hidden = !isDeckMode(mode);
+    // The deck picker lists YOUR saved workshop decks — those are keyed by
+    // player name, which doesn't exist yet when presets first render at page
+    // load. Rebuild once the panel is shown (or the name changed).
+    if (isDeckMode(mode) && DeckStore.owner() !== renderLobby._deckOwner) {
+      renderLobby._deckOwner = DeckStore.owner();
+      renderPresetRows();
+    }
   }
 
   /* ---------------- draft rendering (both roles) ---------------- */
@@ -1633,6 +1661,352 @@
     });
   }
 
+  /* ---------------- deck storage (relay + localStorage + files) ---------------- */
+  /*
+   * Quick-tunnel URLs change every session and localStorage is origin-locked,
+   * so the durable copy of a saved deck lives on the RELAY (data/decks/ on
+   * the host machine, keyed by player name — the one stable thing the group
+   * shares). localStorage is a same-origin cache; .txt export/import is the
+   * everywhere-else escape hatch.
+   */
+  var DeckStore = (function () {
+    var KEY = 'mtgdraft.mydecks.v1';
+    function localAll() {
+      try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; }
+    }
+    function localWrite(all) {
+      try { localStorage.setItem(KEY, JSON.stringify(all)); } catch (e) { /* cache only */ }
+    }
+    function owner() { return ($('#name-input').value || '').trim(); }
+    function relay(path, opts) {
+      return fetch('api/decks' + path, opts).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      });
+    }
+    return {
+      owner: owner,
+      /** Merged deck names: local cache + the relay's copies for this owner. */
+      list: function () {
+        var names = Object.create(null);
+        Object.keys(localAll()).forEach(function (n) { names[n] = true; });
+        var p = owner()
+          ? relay('?owner=' + encodeURIComponent(owner())).then(function (json) {
+              (json.decks || []).forEach(function (d) { names[d.name] = true; });
+            }).catch(function () { /* no relay (static hosting) — local only */ })
+          : Promise.resolve();
+        return p.then(function () { return Object.keys(names).sort(); });
+      },
+      load: function (name) {
+        var local = localAll()[name];
+        if (!owner()) return local ? Promise.resolve(local.text) : Promise.reject(new Error('not found'));
+        return relay('/get?owner=' + encodeURIComponent(owner()) + '&name=' + encodeURIComponent(name))
+          .then(function (json) { return json.text; })
+          .catch(function () {
+            if (local) return local.text;
+            throw new Error('Deck "' + name + '" not found');
+          });
+      },
+      /** Saves locally always; to the relay when reachable. Resolves 'relay'|'local'. */
+      save: function (name, text) {
+        var all = localAll();
+        all[name] = { text: text, updated: Date.now() };
+        localWrite(all);
+        if (!owner()) return Promise.resolve('local');
+        return relay('/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ owner: owner(), name: name, text: text })
+        }).then(function () { return 'relay'; }).catch(function () { return 'local'; });
+      },
+      del: function (name) {
+        var all = localAll();
+        delete all[name];
+        localWrite(all);
+        if (!owner()) return Promise.resolve();
+        return relay('/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ owner: owner(), name: name })
+        }).catch(function () { /* local delete is enough */ });
+      }
+    };
+  })();
+
+  /* ---------------- deck workshop (full custom deck editor) ---------------- */
+
+  var WS = null; // {entries:[{name,set,count}], commander:{name,set}|null, cards:{lower->slim}, deckName}
+
+  var WS_TYPE_ORDER = ['Creatures', 'Planeswalkers', 'Instants', 'Sorceries',
+    'Enchantments', 'Artifacts', 'Battles', 'Other', 'Lands'];
+
+  function openWorkshop() {
+    WS = WS || { entries: [], commander: null, cards: {}, deckName: '' };
+    show('workshop');
+    wsRefreshDeckList();
+    wsRender();
+    $('#ws-search').focus();
+  }
+
+  function wsCard(name) {
+    return WS.cards[name.toLowerCase()] ||
+      { name: name, cost: '', type: '', text: '', img: null, colors: [] };
+  }
+
+  function wsExpanded() {
+    var out = [];
+    WS.entries.forEach(function (e) {
+      for (var i = 0; i < e.count; i++) out.push(wsCard(e.name));
+    });
+    if (WS.commander) out.push(wsCard(WS.commander.name));
+    return out;
+  }
+
+  function wsIsBasic(card) {
+    return /\bBasic\b/i.test(card.type || '') && /\bLand\b/i.test(card.type || '');
+  }
+
+  function wsRender() {
+    var total = WS.entries.reduce(function (s, e) { return s + e.count; }, 0) +
+      (WS.commander ? 1 : 0);
+    $('#ws-stats').innerHTML =
+      '<div class="stat-row"><b>' + total + '</b> cards</div>' + deckStatsHtml(wsExpanded());
+
+    $('#ws-commander').innerHTML = WS.commander
+      ? '<span class="ws-cmd-label">⭐ Commander:</span> <span class="ws-row-name">' +
+        escapeHtml(WS.commander.name) + '</span>' +
+        '<button id="ws-uncmd" title="back to the main deck">↩</button>'
+      : '<span class="ws-cmd-label">⭐ Commander:</span> <span class="hint">none — hit ★ on a card (needed for commander games)</span>';
+    var uncmd = $('#ws-uncmd');
+    if (uncmd) uncmd.addEventListener('click', function () {
+      wsAddByName(WS.commander.name, WS.commander.set);
+      WS.commander = null;
+      wsRender();
+    });
+
+    // Entries, grouped by type in a fixed order.
+    var groups = {};
+    WS.entries.forEach(function (e) {
+      var t = MTGParser.cardMainType(wsCard(e.name).type);
+      (groups[t] = groups[t] || []).push(e);
+    });
+    $('#ws-list').innerHTML = WS_TYPE_ORDER.filter(function (t) { return groups[t]; })
+      .map(function (t) {
+        var rows = groups[t].sort(function (a, b) { return a.name.localeCompare(b.name); })
+          .map(function (e) {
+            var c = wsCard(e.name);
+            return '<div class="ws-row" data-name="' + escapeHtml(e.name) + '">' +
+              '<button class="ws-dec">−</button><b class="ws-count">' + e.count + '</b>' +
+              '<button class="ws-inc">+</button>' +
+              '<span class="ws-row-name">' + escapeHtml(e.name) + '</span>' +
+              (c.cost ? '<span class="ws-row-cost">' + escapeHtml(c.cost) + '</span>' : '') +
+              '<span class="ws-row-price">' + (c.price ? '$' + escapeHtml(c.price) : '') + '</span>' +
+              '<button class="ws-cmd" title="make this the commander">★</button>' +
+              '<button class="ws-rm" title="remove all copies">×</button>' +
+            '</div>';
+          }).join('');
+        var n = groups[t].reduce(function (s, e) { return s + e.count; }, 0);
+        return '<h4 class="ws-group">' + t + ' (' + n + ')</h4>' + rows;
+      }).join('') ||
+      '<p class="hint">Search on the left and click cards to add them — or import a .txt list above.</p>';
+
+    // Row wiring: counts, commander, remove, hover preview.
+    $('#ws-list').querySelectorAll('.ws-row').forEach(function (row) {
+      var name = row.getAttribute('data-name');
+      var entry = WS.entries.find(function (e) { return e.name === name; });
+      if (!entry) return;
+      row.querySelector('.ws-inc').addEventListener('click', function () {
+        wsAddByName(entry.name, entry.set);
+        wsRender();
+      });
+      row.querySelector('.ws-dec').addEventListener('click', function () {
+        entry.count--;
+        if (entry.count <= 0) WS.entries = WS.entries.filter(function (e) { return e !== entry; });
+        wsRender();
+      });
+      row.querySelector('.ws-rm').addEventListener('click', function () {
+        WS.entries = WS.entries.filter(function (e) { return e !== entry; });
+        wsRender();
+      });
+      row.querySelector('.ws-cmd').addEventListener('click', function () {
+        if (WS.commander) wsAddByName(WS.commander.name, WS.commander.set); // old one back
+        WS.commander = { name: entry.name, set: entry.set };
+        entry.count--;
+        if (entry.count <= 0) WS.entries = WS.entries.filter(function (e) { return e !== entry; });
+        wsRender();
+      });
+      row.addEventListener('mouseenter', function () {
+        $('#ws-preview').innerHTML = buildPreviewHtml(wsCard(name));
+      });
+    });
+  }
+
+  /** Add one copy (4-copy cap, basics exempt). Card data may arrive later. */
+  function wsAddByName(name, set, card) {
+    if (card) WS.cards[name.toLowerCase()] = card;
+    var entry = WS.entries.find(function (e) { return e.name === name; });
+    if (entry) {
+      if (entry.count >= 4 && !wsIsBasic(wsCard(name))) {
+        toast('4 copies max (basic lands excepted).', true);
+        return;
+      }
+      entry.count++;
+    } else {
+      WS.entries.push({ name: name, set: set || null, count: 1 });
+    }
+  }
+
+  var wsSearchTimer = null;
+  function wsRunSearch() {
+    var q = $('#ws-search').value.trim();
+    var box = $('#ws-results');
+    if (q.length < 2) { box.innerHTML = ''; return; }
+    box.innerHTML = '<p class="hint">Searching…</p>';
+    Scryfall.searchCards(q, 2)
+      .then(function (r) {
+        if ($('#ws-search').value.trim() !== q) return; // stale response
+        var cards = r.cards.slice(0, 60);
+        box.innerHTML = cards.map(function (c, i) {
+          return '<div class="card ws-hit" data-i="' + i + '" title="' + escapeHtml(c.name) + '">' +
+            cardFace(c) + '</div>';
+        }).join('') +
+          (r.total > cards.length
+            ? '<p class="hint">' + r.total + ' matches — showing ' + cards.length + '; refine the search.</p>'
+            : '') || '<p class="hint">No matches.</p>';
+        box.querySelectorAll('.ws-hit').forEach(function (el) {
+          var c = cards[parseInt(el.getAttribute('data-i'), 10)];
+          el.addEventListener('click', function () {
+            wsAddByName(c.name, c.set, c);
+            wsRender();
+          });
+          el.addEventListener('mouseenter', function () {
+            $('#ws-preview').innerHTML = buildPreviewHtml(c);
+          });
+        });
+      })
+      .catch(function (err) {
+        box.innerHTML = '<p class="hint">Search failed: ' + escapeHtml(err.message) +
+          (/404/.test(err.message) ? ' (no matches?)' : '') + '</p>';
+      });
+  }
+
+  function wsSerialize() {
+    var lines = WS.entries.map(function (e) {
+      return e.count + ' ' + e.name + (e.set ? ' (' + e.set + ')' : '');
+    });
+    if (WS.commander) {
+      lines.push('', 'Commander',
+        '1 ' + WS.commander.name + (WS.commander.set ? ' (' + WS.commander.set + ')' : ''));
+    }
+    return lines.join('\n');
+  }
+
+  function wsLoadText(name, text) {
+    var parsed = MTGParser.parseDeckListWithCommanders(text);
+    WS.deckName = name || WS.deckName;
+    $('#ws-deck-name').value = WS.deckName;
+    WS.entries = parsed.entries.map(function (e) {
+      return { name: e.name, set: e.set || null, count: e.count };
+    });
+    WS.commander = null;
+    if (parsed.commanders.length) {
+      var cn = parsed.commanders[0];
+      var ce = WS.entries.find(function (e) { return e.name.toLowerCase() === cn.toLowerCase(); });
+      if (ce) {
+        WS.commander = { name: ce.name, set: ce.set };
+        ce.count--;
+        if (ce.count <= 0) WS.entries = WS.entries.filter(function (e) { return e !== ce; });
+      }
+    }
+    wsRender();
+    // Resolve everything for art/costs/prices in the background.
+    var names = WS.entries.map(function (e) { return e.name; });
+    if (WS.commander) names.push(WS.commander.name);
+    var hints = MTGParser.collectSetHints(parsed.entries);
+    $('#ws-status').textContent = 'Loading card data…';
+    Scryfall.resolve(names, null, hints)
+      .then(function (res) {
+        Object.keys(res.cards).forEach(function (k) { WS.cards[k] = res.cards[k]; });
+        $('#ws-status').textContent = '';
+        wsRender();
+      })
+      .catch(function () { $('#ws-status').textContent = 'Card data unavailable — names only.'; });
+  }
+
+  function wsRefreshDeckList() {
+    DeckStore.list().then(function (names) {
+      $('#ws-decks').innerHTML = '<option value="">📂 My decks… (' + names.length + ')</option>' +
+        names.map(function (n) { return '<option>' + escapeHtml(n) + '</option>'; }).join('');
+    });
+  }
+
+  function initWorkshop() {
+    $('#btn-workshop').addEventListener('click', function () {
+      if (!($('#name-input').value || '').trim()) {
+        toast('Enter your name first — saved decks are filed under it.', true);
+        $('#name-input').focus();
+        return;
+      }
+      localStorage.setItem(LS_NAME, $('#name-input').value.trim());
+      openWorkshop();
+    });
+    $('#ws-back').addEventListener('click', function () { show('home'); });
+    $('#ws-search').addEventListener('input', function () {
+      clearTimeout(wsSearchTimer);
+      wsSearchTimer = setTimeout(wsRunSearch, 450);
+    });
+    $('#ws-deck-name').addEventListener('input', function () {
+      WS.deckName = $('#ws-deck-name').value.trim();
+    });
+    $('#ws-save').addEventListener('click', function () {
+      if (!WS.entries.length && !WS.commander) return toast('The deck is empty.', true);
+      var name = ($('#ws-deck-name').value || '').trim();
+      if (!name) { toast('Give the deck a name first.', true); $('#ws-deck-name').focus(); return; }
+      WS.deckName = name;
+      DeckStore.save(name, wsSerialize()).then(function (where) {
+        $('#ws-status').textContent = where === 'relay'
+          ? '✓ Saved to the relay (survives URL changes)'
+          : '✓ Saved in this browser only — no relay reachable; export a .txt to be safe';
+        wsRefreshDeckList();
+      });
+    });
+    $('#ws-decks').addEventListener('change', function () {
+      var name = $('#ws-decks').value;
+      if (!name) return;
+      DeckStore.load(name)
+        .then(function (text) { wsLoadText(name, text); })
+        .catch(function (err) { toast(err.message, true); });
+    });
+    $('#ws-delete').addEventListener('click', function () {
+      var name = $('#ws-decks').value || ($('#ws-deck-name').value || '').trim();
+      if (!name) return toast('Pick a deck to delete (in the My decks list).', true);
+      if (!window.confirm('Delete "' + name + '" everywhere?')) return;
+      DeckStore.del(name).then(function () {
+        toast('Deleted ' + name + '.');
+        wsRefreshDeckList();
+      });
+    });
+    $('#ws-export').addEventListener('click', function () {
+      var name = (($('#ws-deck-name').value || '').trim() || 'deck') + '.txt';
+      var blob = new Blob([wsSerialize() + '\n'], { type: 'text/plain' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
+    });
+    $('#ws-import').addEventListener('change', function () {
+      var file = $('#ws-import').files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        wsLoadText(file.name.replace(/\.txt$/i, ''), String(reader.result));
+      };
+      reader.readAsText(file);
+      $('#ws-import').value = '';
+    });
+  }
+
   /* ---------------- helpers ---------------- */
 
   function cardFace(c) {
@@ -1664,6 +2038,7 @@
     initDone();
     initBuilder();
     initDeckSubmit();
+    initWorkshop();
     $('#btn-end-match').addEventListener('click', function () {
       if (App.role === 'host') hostEndMatch();
     });

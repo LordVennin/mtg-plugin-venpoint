@@ -162,6 +162,71 @@ if (!NO_MIRROR) {
   setInterval(refreshMirror, 24 * 3600 * 1000);
 }
 
+/* ----------------------------- deck storage ----------------------------- */
+/*
+ * Saved decks live on the RELAY's disk (data/decks/<owner>.json), keyed by
+ * player name — quick-tunnel URLs change every session, so browser storage
+ * is origin-locked and useless for persistence; the relay is the one stable
+ * place the group shares. Honor-system identity, same as seats.
+ */
+const DECKS_DIR = join(ROOT, 'data', 'decks');
+const slugOwner = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
+
+async function readOwnerDecks(owner) {
+  try { return JSON.parse(await readFile(join(DECKS_DIR, owner + '.json'), 'utf8')); }
+  catch { return {}; }
+}
+
+async function writeOwnerDecks(owner, decks) {
+  await mkdir(DECKS_DIR, { recursive: true });
+  await writeFile(join(DECKS_DIR, owner + '.json'), JSON.stringify(decks, null, 1));
+}
+
+async function handleDecks(req, res, path) {
+  const params = new URLSearchParams((req.url || '').split('?')[1] || '');
+  const json = (code, obj) => {
+    res.writeHead(code, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(obj));
+  };
+  if (path === '/api/decks' && req.method === 'GET') {
+    const owner = slugOwner(params.get('owner'));
+    if (!owner) return json(400, { error: 'owner required' });
+    const decks = await readOwnerDecks(owner);
+    return json(200, {
+      decks: Object.keys(decks).sort().map(n => ({ name: n, updated: decks[n].updated }))
+    });
+  }
+  if (path === '/api/decks/get' && req.method === 'GET') {
+    const owner = slugOwner(params.get('owner'));
+    const decks = await readOwnerDecks(owner);
+    const d = decks[String(params.get('name') || '')];
+    return d ? json(200, { text: d.text }) : json(404, { error: 'not found' });
+  }
+  if (path === '/api/decks/save' && req.method === 'POST') {
+    let body;
+    try { body = JSON.parse(await readBody(req, 256 * 1024)); } catch { return json(400, { error: 'bad body' }); }
+    const owner = slugOwner(body.owner);
+    const name = String(body.name || '').trim().slice(0, 60);
+    const text = String(body.text || '').slice(0, 100 * 1024);
+    if (!owner || !name || !text) return json(400, { error: 'owner, name, text required' });
+    const decks = await readOwnerDecks(owner);
+    if (!decks[name] && Object.keys(decks).length >= 100) return json(400, { error: 'deck limit reached' });
+    decks[name] = { text, updated: Date.now() };
+    await writeOwnerDecks(owner, decks);
+    return json(200, { ok: true });
+  }
+  if (path === '/api/decks/delete' && req.method === 'POST') {
+    let body;
+    try { body = JSON.parse(await readBody(req, 4096)); } catch { return json(400, { error: 'bad body' }); }
+    const owner = slugOwner(body.owner);
+    const decks = await readOwnerDecks(owner);
+    delete decks[String(body.name || '')];
+    await writeOwnerDecks(owner, decks);
+    return json(200, { ok: true });
+  }
+  json(404, { error: 'unknown decks endpoint' });
+}
+
 function readBody(req, limit) {
   return new Promise((resolve, reject) => {
     let size = 0;
@@ -183,6 +248,10 @@ const server = http.createServer(async (req, res) => {
     if (path === '/api/lists') {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(await presetIndex()));
+      return;
+    }
+    if (path.startsWith('/api/decks')) {
+      await handleDecks(req, res, path);
       return;
     }
     if (path === '/api/cards/collection' && req.method === 'POST') {

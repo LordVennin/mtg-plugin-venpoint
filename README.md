@@ -124,6 +124,23 @@ Also included, built from MTGJSON's official product lists:
   Merfolk vs. Goblins (50 decks; the Anthology reprints are skipped as
   duplicates), offered in the lobby's deck-upload box.
 
+## Deck workshop
+
+**🛠 Deck workshop** on the home screen is a full custom deck editor — no
+room needed. Search **all of Magic** with full Scryfall syntax
+(`t:goblin o:haste c:r cmc<3`), click results to add them, manage counts
+(4-copy cap, basics exempt), star a **commander**, and watch the live
+stats bar (value / curve / types). Decks serialize to the same plain-text
+list format everything else uses.
+
+Saved decks are stored **on the relay server** (`data/decks/`, keyed by
+your player name) — deliberately, because quick-tunnel URLs change every
+session and browser storage is origin-locked, so the relay is the one
+stable place the group shares. localStorage keeps a same-origin cache, and
+**⬆/⬇ .txt** import/export covers backups, sharing, and static hosting.
+In the lobby, the deck picker lists your saved decks (`🃏 My deck: …`) so
+game night is: pick deck, ready, play.
+
 ## Card mirror (works when Scryfall is down)
 
 The relay server keeps a **local mirror of Scryfall's card database**: on

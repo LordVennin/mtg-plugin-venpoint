@@ -561,6 +561,65 @@ button.ctx {
   .card-preview { position: static; flex: 1 1 auto; order: 3; }
 }
 
+/* ---------- deck workshop ---------- */
+
+.workshop-entry { margin-top: 18px; padding-top: 14px; border-top: 1px solid #2c3140; }
+.ws-layout {
+  display: flex; gap: 14px; align-items: flex-start;
+  max-width: 1500px; margin: 0 auto; padding: 12px;
+}
+.ws-search { flex: 0 0 320px; min-width: 0; }
+.ws-search input {
+  width: 100%; padding: 6px 10px; border-radius: 6px;
+  background: #232837; color: inherit; border: 1px solid #3b4257;
+}
+.ws-results {
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  max-height: 75vh; overflow-y: auto; margin-top: 8px;
+}
+.ws-hit { cursor: copy; }
+.ws-main { flex: 1 1 auto; min-width: 0; }
+.ws-header { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+#ws-deck-name {
+  padding: 6px 10px; border-radius: 6px; width: 200px;
+  background: #232837; color: inherit; border: 1px solid #3b4257;
+}
+#ws-decks {
+  max-width: 220px; padding: 5px 8px; border-radius: 6px;
+  background: #232837; color: inherit; border: 1px solid #3b4257;
+}
+.ws-import-label {
+  display: inline-block; padding: 5px 10px; border-radius: 6px; cursor: pointer;
+  background: #2a3040; border: 1px solid #3b4257; font-size: 13px;
+}
+.ws-import-label:hover { background: #333a4e; }
+.ws-commander {
+  display: flex; gap: 8px; align-items: center;
+  padding: 6px 10px; margin-bottom: 6px;
+  border: 1px dashed var(--accent); border-radius: 8px; font-size: 13px;
+}
+.ws-cmd-label { color: var(--accent); font-weight: 600; }
+.ws-group {
+  margin: 12px 0 4px; font-size: 12px; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--muted);
+  border-bottom: 1px solid #2c3140; padding-bottom: 2px;
+}
+.ws-row {
+  display: flex; gap: 6px; align-items: center;
+  padding: 2px 4px; border-radius: 6px; font-size: 13px;
+}
+.ws-row:hover { background: rgba(200, 169, 92, 0.08); }
+.ws-row button { padding: 0 7px; font-size: 12px; line-height: 1.6; }
+.ws-count { min-width: 16px; text-align: center; }
+.ws-row-name { flex: 0 1 auto; }
+.ws-row-cost { color: var(--accent); font-size: 12px; }
+.ws-row-price { margin-left: auto; color: var(--muted); font-size: 12px; }
+.ws-row .ws-cmd { color: var(--accent); }
+@media (max-width: 1100px) {
+  .ws-layout { flex-wrap: wrap; }
+  #ws-preview { order: 3; }
+}
+
 /* ---------- toast ---------- */
 
 .toast {
