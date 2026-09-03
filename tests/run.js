@@ -561,6 +561,59 @@ section('Reveal hand + discard at random');
   assert(!g.viewFor('b').openHands.a, 'resigning clears an open hand reveal');
 }
 
+section('Mill + play from the top of the library');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i }));
+  const g = new Game.Game(['a', 'b'], { a: mkDeck('A', 30), b: mkDeck('B', 30) },
+    { a: 'Alice', b: 'Bob' }, { rng: seededRng(3) });
+  let v = g.viewFor('a');
+  const libBefore = v.zones.a.libraryCount; // 23 after the opening 7
+
+  // Mill X: top cards go to the graveyard publicly, in order.
+  g.apply('a', { a: 'mill', n: 4 });
+  v = g.viewFor('b');
+  assert(v.zones.a.libraryCount === libBefore - 4 && v.zones.a.graveyard.length === 4,
+    'mill 4 moves 4 library cards to the graveyard');
+  assert(/Alice mills 4 cards: /.test(v.log.map(l => l.text).join(' ')),
+    'milling logs the card names (they are public)');
+  // Milling more than the library holds just empties it.
+  g.apply('a', { a: 'mill', n: 99 });
+  v = g.viewFor('a');
+  assert(v.zones.a.libraryCount === 0 && v.zones.a.graveyard.length === libBefore,
+    'over-milling empties the library without erroring');
+  let threw = false;
+  try { g.apply('a', { a: 'mill', n: 1 }); } catch (e) { threw = /empty/.test(e.message); }
+  assert(threw, 'milling an empty library is rejected');
+
+  // fromTop: the deck icon drags — top card straight to a zone.
+  const bLib = g.viewFor('b').zones.b.libraryCount;
+  g.apply('b', { a: 'fromTop', to: 'battlefield' });
+  v = g.viewFor('a');
+  assert(v.zones.b.libraryCount === bLib - 1 && v.zones.b.battlefield.length === 1,
+    'fromTop battlefield plays the top card');
+  assert(/Bob plays the top card of their library: B\d+\./.test(v.log.map(l => l.text).join(' ')),
+    'playing off the top logs the card name');
+  g.apply('b', { a: 'fromTop', to: 'hand' });
+  v = g.viewFor('a');
+  assert(v.zones.b.libraryCount === bLib - 2 && v.zones.b.handCount === 8,
+    'fromTop hand tucks the top card into the hand');
+  assert(/Bob puts the top card of their library into their hand\./.test(v.log.map(l => l.text).join(' ')) &&
+    !/into their hand: B/.test(v.log.map(l => l.text).join(' ')),
+    'drawing off the top stays hidden in the log');
+  g.apply('b', { a: 'fromTop', to: 'exile' });
+  assert(g.viewFor('a').zones.b.exile.length === 1, 'fromTop exile works');
+  threw = false;
+  try { g.apply('b', { a: 'fromTop', to: 'library' }); } catch (e) { threw = true; }
+  assert(threw, 'fromTop rejects bad destinations');
+
+  // draw with a count.
+  const bHand = g.viewFor('b').zones.b.handCount;
+  g.apply('b', { a: 'draw', n: 3 });
+  v = g.viewFor('a');
+  assert(v.zones.b.handCount === bHand + 3, 'draw n:3 draws three');
+  assert(/Bob draws 3 cards\./.test(v.log.map(l => l.text).join(' ')), 'multi-draw is logged');
+}
+
 section('Game actions');
 {
   const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i }));

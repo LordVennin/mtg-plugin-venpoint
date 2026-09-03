@@ -276,7 +276,15 @@ draw 7, and you go:
 - **Attachments**: select an equipment/aura, hit *Attach to…*, click the
   target — works across the table (Pacifism their creature). Attached cards
   render tucked behind their target and auto-detach when it leaves.
-- **Library search** (Demonic Tutor, Cultivate, fetches): hit *🔍 Search* —
+- **Your deck is a clickable icon** (📚 with the count, Cockatrice style):
+  click or right-click it for the **library menu** — Draw, Draw X, play the
+  top card to the battlefield, top card to hand, **Mill X** (top of library
+  → graveyard, names logged — they're public), Scry, Search, Reveal top X,
+  the keep-top-revealed toggle, and Shuffle. You can also **drag the deck
+  icon** onto your battlefield (plays the top card face up), your hand
+  (tucks it in unseen), or your graveyard/exile piles (mills/exiles the top
+  card). Opponents' bars show their deck icon + count too.
+- **Library search** (Demonic Tutor, Cultivate, fetches): in the deck menu —
   only you see your library; take cards to hand (logged without naming the
   card), battlefield, or graveyard, then it shuffles.
 - **Scry / look at top X** (*👁 Scry*): see the top X of your library —
@@ -293,12 +301,13 @@ draw 7, and you go:
 - **Transform / double-faced cards** (Delver, werewolves, MDFCs): a
   *⟳ Transform* button appears on any DFC; both players see the new face,
   and the preview pane shows the current face plus the other face's text.
-- Bottom bar: **Draw**, **🔍 Search**, **Untap all**, **Shuffle**,
-  **Mulligan** (turn 1 only), life **±**, **🎲 d6 / d20 / dX** (any sides, or several dice at once like `3d8`), **🪙 coin flip**
-  (rolled by the host's engine and publicly logged, so nobody can fudge
-  them), **👁 Reveal**, **🏳 Resign**, **Pass turn** — the turn marker
-  always advances in seat order from the active player, no matter who
-  presses Pass.
+- Bottom bar: **Draw**, **📚 Deck ▾** (the library menu — search, shuffle,
+  scry, mill, reveal…), **Untap all**, **Mulligan** (turn 1 only), life
+  **±**, **🎲 d6 / d20 / dX** (any sides, or several dice at once like
+  `3d8`), **🪙 coin flip** (rolled by the host's engine and publicly
+  logged, so nobody can fudge them), **🏳 Resign**, **Pass turn** — the
+  turn marker always advances in seat order from the active player, no
+  matter who presses Pass.
 - Your hand is yours alone; the opponent sees a count. Battlefields,
   graveyards, exile, life, and the action log are public — every action is
   logged so nothing happens silently.

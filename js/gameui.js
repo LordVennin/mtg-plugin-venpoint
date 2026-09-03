@@ -437,6 +437,15 @@ var GameUI = (function () {
     }).join('');
   }
 
+  /** The library as a card-back tile. Yours is a drag source + menu anchor. */
+  function deckIconHtml(count, mine) {
+    return '<span class="deck-icon' + (mine ? ' mine-deck' : '') + '"' +
+      (mine
+        ? ' draggable="true" title="Your library — click for deck actions; drag onto your hand or battlefield to play the top card"'
+        : ' title="' + count + ' cards in their library"') +
+      '>📚<span class="deck-count">' + count + '</span></span>';
+  }
+
   /** One non-me player's area (also used for every player when spectating). */
   function otherAreaHtml(view, pid, compact) {
     var z = view.zones[pid];
@@ -448,7 +457,7 @@ var GameUI = (function () {
         '<span class="pname">' + escapeHtml(view.names[pid] || pid) + '</span>' + badge +
         '<span class="stat">♥ ' + view.life[pid] + '</span>' +
         '<span class="stat">✋ ' + z.handCount + '</span>' +
-        '<span class="stat">📚 ' + z.libraryCount + '</span>' +
+        deckIconHtml(z.libraryCount, false) +
         pcounterChips(view, pid, false) +
       '</div>' +
       revealStrip(view, pid, false) +
@@ -524,20 +533,15 @@ var GameUI = (function () {
         '</div>' +
         '<div class="player-bar">' +
           '<span class="pname">' + escapeHtml(view.names[me] || 'You') + '</span>' + turnBadge(me) +
-          '<span class="stat">📚 ' + mz.libraryCount + '</span>' +
+          deckIconHtml(mz.libraryCount, true) +
           '<button class="gact" data-act="life-">−</button>' +
           '<span class="stat">♥ ' + view.life[me] + '</span>' +
           '<button class="gact" data-act="life+">+</button>' +
           pcounterChips(view, me, true) +
           '<button class="gact" data-act="draw" title="hotkey: d">Draw</button>' +
-          '<button class="gact" data-act="search" title="hotkey: s">🔍 Search</button>' +
+          '<button class="gact" data-act="deckMenu" title="search, shuffle, scry, mill, reveal… (or click your 📚 deck)">📚 Deck ▾</button>' +
           '<button class="gact" data-act="untapAll" title="hotkey: u">Untap all</button>' +
-          '<button class="gact" data-act="shuffle">Shuffle</button>' +
           (view.turn === 1 ? '<button class="gact" data-act="mulligan">Mulligan</button>' : '') +
-          '<button class="gact" data-act="scry" title="hotkey: e">👁 Scry</button>' +
-          '<button class="gact" data-act="reveal" title="show the top X publicly">👁‍🗨 Reveal</button>' +
-          '<button class="gact" data-act="revealTop" title="keep your top card revealed to the table (Courser style, toggles)">' +
-            (view.reveals && view.reveals[me] && view.reveals[me].length ? '🔝 Hide top' : '🔝 Reveal top') + '</button>' +
           '<button class="gact" data-act="revealHand" title="show your whole hand publicly (toggles)">' +
             (view.openHands && view.openHands[me] ? '🖐 Hide hand' : '🖐 Reveal hand') + '</button>' +
           '<button class="gact" data-act="discardRandom" title="discard a random card">🎲🗑 Discard random</button>' +
@@ -556,7 +560,7 @@ var GameUI = (function () {
             '<div class="player-bar"><span class="pname">' + escapeHtml(view.names[me] || 'You') + '</span>' +
               turnBadge(me) +
               '<span class="stat">♥ ' + view.life[me] + '</span>' +
-              '<span class="stat">📚 ' + mz.libraryCount + '</span>' +
+              deckIconHtml(mz.libraryCount, true) +
               pcounterChips(view, me, true) + '</div>' +
             battlefieldHtml(view, me, true, false) +
             zonesHtml +
@@ -768,6 +772,113 @@ var GameUI = (function () {
   }
   document.addEventListener('click', closeCardMenu);
 
+  /* -------- player-level actions (toolbar buttons + the deck menu) -------- */
+
+  function performBarAction(kind) {
+    if (kind === 'token') { promptToken(); return; }
+    if (kind === 'scry') { promptScry(); return; }
+    if (kind === 'pcounter') { promptPlayerCounter(); return; }
+    if (kind === 'revealTop') {
+      var topOn = lastView && lastView.reveals && lastView.reveals[lastView.you] &&
+        lastView.reveals[lastView.you].length;
+      act(topOn ? { a: 'endReveal' } : { a: 'reveal', n: 1 });
+      return;
+    }
+    if (kind === 'reveal') {
+      var rv = parseInt(window.prompt('Reveal how many cards from the top of your library? (0 stops revealing)', '1'), 10);
+      if (isNaN(rv) || rv < 0) return;
+      act(rv === 0 ? { a: 'endReveal' } : { a: 'reveal', n: Math.min(rv, 20) });
+      return;
+    }
+    if (kind === 'drawX') {
+      var dn = parseInt(window.prompt('Draw how many cards?', '2'), 10);
+      if (!dn || dn < 1) return;
+      act({ a: 'draw', n: Math.min(dn, 20) });
+      return;
+    }
+    if (kind === 'millX') {
+      var mn = parseInt(window.prompt('Mill how many cards (top of library → graveyard)?', '3'), 10);
+      if (!mn || mn < 1) return;
+      act({ a: 'mill', n: Math.min(mn, 100) });
+      return;
+    }
+    if (kind === 'dx') {
+      var din = window.prompt('Roll what? A number of sides ("100") or dice-count d sides ("3d8"):', '');
+      if (!din || !din.trim()) return;
+      var dm = din.trim().match(/^(?:(\d+)\s*[dD])?\s*(\d+)$/);
+      if (!dm) return;
+      act({ a: 'roll', sides: parseInt(dm[2], 10), count: dm[1] ? parseInt(dm[1], 10) : 1 });
+      return;
+    }
+    if (kind === 'resign') {
+      if (window.confirm('Resign this game? Your permanents leave the battlefield and you keep watching as a spectator.')) {
+        act({ a: 'resign' });
+      }
+      return;
+    }
+    var map = {
+      'endReveal': { a: 'endReveal' },
+      'revealHand': { a: 'revealHand' },
+      'discardRandom': { a: 'discardRandom' },
+      'draw': { a: 'draw' },
+      'search': { a: 'searchLibrary' },
+      'untapAll': { a: 'untapAll' },
+      'shuffle': { a: 'shuffle' },
+      'mulligan': { a: 'mulligan' },
+      'passTurn': { a: 'passTurn' },
+      'top-hand': { a: 'fromTop', to: 'hand' },
+      'top-bf': { a: 'fromTop', to: 'battlefield' },
+      'life+': { a: 'life', d: 1 },
+      'life-': { a: 'life', d: -1 },
+      'd6': { a: 'roll', sides: 6 },
+      'd20': { a: 'roll', sides: 20 },
+      'coin': { a: 'coin' }
+    };
+    if (map[kind]) act(map[kind]);
+  }
+
+  /* -------- the deck (library) menu — Cockatrice style -------- */
+
+  function openDeckMenu(x, y) {
+    menuPos = { x: x, y: y };
+    closeCardMenu();
+    if (!lastView || !lastView.you) return;
+    selected = null;
+    var mz = lastView.zones[lastView.you];
+    var topOn = lastView.reveals && lastView.reveals[lastView.you] &&
+      lastView.reveals[lastView.you].length;
+    var b = function (kind, label) {
+      return '<button class="ctx" data-act="' + kind + '">' + label + '</button>';
+    };
+    menuEl = document.createElement('div');
+    menuEl.className = 'card-menu deck-menu';
+    menuEl.innerHTML =
+      '<div class="menu-title">📚 Library — ' + mz.libraryCount + ' card' +
+        (mz.libraryCount === 1 ? '' : 's') + '</div>' +
+      b('draw', 'Draw <span class="menu-key">d</span>') +
+      b('drawX', 'Draw X…') +
+      b('top-bf', '▶ Play top card (battlefield)') +
+      b('top-hand', '✋ Top card to hand') +
+      b('millX', '🪦 Mill X…') +
+      b('scry', '👁 Scry / look at top X… <span class="menu-key">e</span>') +
+      b('search', '🔍 Search library <span class="menu-key">s</span>') +
+      b('reveal', '👁‍🗨 Reveal top X…') +
+      b('revealTop', topOn ? '🔝 Stop revealing top card' : '🔝 Keep top card revealed') +
+      b('shuffle', '🔀 Shuffle');
+    document.body.appendChild(menuEl);
+    var mw = menuEl.offsetWidth, mh = menuEl.offsetHeight;
+    menuEl.style.left = Math.max(4, Math.min(x, window.innerWidth - mw - 8)) + 'px';
+    menuEl.style.top = Math.max(4, Math.min(y, window.innerHeight - mh - 8)) + 'px';
+    menuEl.addEventListener('click', function (ev) { ev.stopPropagation(); });
+    menuEl.querySelectorAll('button.ctx').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var kind = btn.getAttribute('data-act');
+        closeCardMenu();
+        performBarAction(kind);
+      });
+    });
+  }
+
   /* -------- shared prompt flows + hotkeys -------- */
 
   function promptScry() {
@@ -878,53 +989,12 @@ var GameUI = (function () {
       btn.addEventListener('click', function (ev) {
         ev.stopPropagation();
         var kind = btn.getAttribute('data-act');
-        if (kind === 'token') { promptToken(); return; }
-        if (kind === 'scry') { promptScry(); return; }
-        if (kind === 'pcounter') { promptPlayerCounter(); return; }
-        if (kind === 'revealTop') {
-          var topOn = lastView && lastView.reveals && lastView.reveals[lastView.you] &&
-            lastView.reveals[lastView.you].length;
-          act(topOn ? { a: 'endReveal' } : { a: 'reveal', n: 1 });
+        if (kind === 'deckMenu') {
+          var r = btn.getBoundingClientRect();
+          openDeckMenu(r.left, r.bottom + 4);
           return;
         }
-        if (kind === 'reveal') {
-          var rv = parseInt(window.prompt('Reveal how many cards from the top of your library? (0 stops revealing)', '1'), 10);
-          if (isNaN(rv) || rv < 0) return;
-          act(rv === 0 ? { a: 'endReveal' } : { a: 'reveal', n: Math.min(rv, 20) });
-          return;
-        }
-        if (kind === 'dx') {
-          var din = window.prompt('Roll what? A number of sides ("100") or dice-count d sides ("3d8"):', '');
-          if (!din || !din.trim()) return;
-          var dm = din.trim().match(/^(?:(\d+)\s*[dD])?\s*(\d+)$/);
-          if (!dm) return;
-          act({ a: 'roll', sides: parseInt(dm[2], 10), count: dm[1] ? parseInt(dm[1], 10) : 1 });
-          return;
-        }
-        if (kind === 'resign') {
-          if (window.confirm('Resign this game? Your permanents leave the battlefield and you keep watching as a spectator.')) {
-            act({ a: 'resign' });
-          }
-          return;
-        }
-        var map = {
-          'endReveal': { a: 'endReveal' },
-          'revealHand': { a: 'revealHand' },
-          'discardRandom': { a: 'discardRandom' },
-          'draw': { a: 'draw' },
-          'search': { a: 'searchLibrary' },
-          'untapAll': { a: 'untapAll' },
-          'shuffle': { a: 'shuffle' },
-          'mulligan': { a: 'mulligan' },
-          'passTurn': { a: 'passTurn' },
-          'life+': { a: 'life', d: 1 },
-          'life-': { a: 'life', d: -1 },
-          'd6': { a: 'roll', sides: 6 },
-          'd20': { a: 'roll', sides: 20 },
-          'coin': { a: 'coin' }
-        };
-        var action = map[btn.getAttribute('data-act')];
-        if (action) act(action);
+        performBarAction(kind);
       });
       // Right-click the life buttons for larger adjustments.
       var la = btn.getAttribute('data-act');
@@ -954,6 +1024,25 @@ var GameUI = (function () {
         } catch (e) { /* some browsers are picky mid-testing */ }
       });
     });
+    // Your deck icon: click/right-click for the library menu; drag it onto
+    // your hand or battlefield to play the top card there sight unseen.
+    board.querySelectorAll('.deck-icon.mine-deck').forEach(function (deck) {
+      var open = function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        openDeckMenu(ev.clientX, ev.clientY);
+      };
+      deck.addEventListener('click', open);
+      deck.addEventListener('contextmenu', open);
+      deck.addEventListener('dragstart', function (ev) {
+        dragUid = '__library__';
+        dragZone = 'library';
+        try {
+          ev.dataTransfer.setData('text/plain', dragUid);
+          ev.dataTransfer.effectAllowed = 'move';
+        } catch (e) { /* ok */ }
+      });
+    });
     function dropTargetBefore(ev, uid) {
       var targetCard = ev.target && ev.target.closest ? ev.target.closest('.gcard') : null;
       return (targetCard && targetCard.getAttribute('data-uid') !== uid)
@@ -976,6 +1065,8 @@ var GameUI = (function () {
           act({ a: 'reorder', uid: uid, row: row.getAttribute('data-row'), before: dropTargetBefore(ev, uid) });
         } else if (from === 'hand') {
           act({ a: 'play', uid: uid });
+        } else if (from === 'library') {
+          act({ a: 'fromTop', to: 'battlefield' });
         } else if (from === 'graveyard' || from === 'exile') {
           act({ a: 'zoneMove', from: from, uid: uid, to: 'battlefield' });
         }
@@ -996,6 +1087,7 @@ var GameUI = (function () {
         if (!uid) return;
         if (from === 'hand') act({ a: 'handOrder', uid: uid, before: dropTargetBefore(ev, uid) });
         else if (from === 'battlefield') act({ a: 'move', uid: uid, to: 'hand' });
+        else if (from === 'library') act({ a: 'fromTop', to: 'hand' });
       });
     }
 
@@ -1022,6 +1114,7 @@ var GameUI = (function () {
         if (!uid) return;
         var zone = strip.getAttribute('data-pile').split(':')[1];
         if (from === 'battlefield') act({ a: 'move', uid: uid, to: zone });
+        else if (from === 'library') act({ a: 'fromTop', to: zone });
         else if (from === 'hand' && zone === 'graveyard') act({ a: 'discard', uid: uid });
         else if ((from === 'graveyard' || from === 'exile') && from !== zone) {
           act({ a: 'zoneMove', from: from, uid: uid, to: zone });

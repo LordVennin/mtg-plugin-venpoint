@@ -179,8 +179,41 @@ var MTGGame = (function () {
     var me = this.name(pid);
     switch (action && action.a) {
       case 'draw': {
-        var got = this._draw(pid, 1);
-        this._log(pid, got ? me + ' draws a card.' : me + ' tries to draw from an empty library!');
+        var want = Math.max(1, Math.min(action.n | 0 || 1, 20));
+        var got = this._draw(pid, want);
+        this._log(pid, !got ? me + ' tries to draw from an empty library!'
+          : got === 1 ? me + ' draws a card.'
+          : me + ' draws ' + got + ' cards.');
+        break;
+      }
+      case 'mill': {
+        var mn = Math.max(1, Math.min(action.n | 0, 100));
+        if (!z.library.length) throw new Error('Your library is empty');
+        var milled = z.library.splice(0, mn);
+        z.graveyard = z.graveyard.concat(milled);
+        this._log(pid, me + ' mills ' + milled.length + ' card' + (milled.length === 1 ? '' : 's') + ': ' +
+          milled.map(function (c) { return c.name; }).join(', ') + '.');
+        break;
+      }
+      case 'fromTop': {
+        // The top card of the library straight into a zone (deck-icon drags).
+        var ftDest = action.to;
+        if (['hand', 'battlefield', 'graveyard', 'exile'].indexOf(ftDest) === -1) {
+          throw new Error('Bad destination');
+        }
+        if (!z.library.length) throw new Error('Your library is empty');
+        var ft = z.library.shift();
+        if (ftDest === 'hand') {
+          z.hand.push(ft);
+          this._log(pid, me + ' puts the top card of their library into their hand.');
+        } else if (ftDest === 'battlefield') {
+          z.battlefield.push(permanent(ft));
+          this._log(pid, me + ' plays the top card of their library: ' + ft.name + '.');
+        } else {
+          z[ftDest].push(ft);
+          this._log(pid, me + (ftDest === 'graveyard' ? ' mills' : ' exiles') +
+            ' the top card of their library: ' + ft.name + '.');
+        }
         break;
       }
       case 'shuffle': {
