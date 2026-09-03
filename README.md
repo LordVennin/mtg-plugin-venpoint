@@ -125,9 +125,16 @@ Also included, built from MTGJSON's official product lists:
   (JMP)**, **Jumpstart 2022 (J22)**, and **Foundations Jumpstart (J25)**,
   offered next to the jumpstart box.
 - **Ready constructed decks** — the 15 **Innistrad-block intro packs**
-  (ISD/DKA/AVR) and every **Duel Deck** from Elves vs. Goblins through
+  (ISD/DKA/AVR), every **Duel Deck** from Elves vs. Goblins through
   Merfolk vs. Goblins (50 decks; the Anthology reprints are skipped as
-  duplicates), offered in the lobby's deck-upload box.
+  duplicates), and all 30 **Challenger Decks** (the 2018–2022 Standard
+  Challengers plus the Pioneer Challengers), offered in the lobby's
+  deck-upload box.
+- **Commander precons** — every Commander preconstructed deck ever
+  printed, from Commander 2011 through today's set precons (174 decks,
+  commander pre-marked; the Collector's Edition foil reprints are skipped
+  as duplicates), offered in the same box — pick one and it submits with
+  its commander already recognized.
 
 ## Deck workshop
 
