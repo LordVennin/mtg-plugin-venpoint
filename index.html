@@ -106,15 +106,21 @@
 
       <div id="sealed-setup" hidden>
         <fieldset class="sub-modes">
+          <legend>Play style</legend>
+          <label class="radio"><input type="radio" name="sealedstyle" id="ss-pool" checked> Sealed pool (prerelease style — everyone just opens their boosters)</label>
+          <label class="radio"><input type="radio" name="sealedstyle" id="ss-draft"> Booster draft (open a pack, pick a card, pass — 3 boosters usual)</label>
+        </fieldset>
+        <fieldset class="sub-modes">
           <legend>Sealed type</legend>
           <label class="radio"><input type="radio" name="sealedvariant" id="sv-standard" checked> Standard (build a 40-card deck)</label>
           <label class="radio"><input type="radio" name="sealedvariant" id="sv-commander"> Commander (adds a commander slot + command zone, 40 life)</label>
         </fieldset>
-        <label for="sealed-set">Set — every player opens boosters of it (real pack rules: 1 rare or mythic, 3 uncommons, 10 commons)</label>
+        <label for="sealed-set">Set — every booster follows real pack rules (1 rare or mythic, 3 uncommons, 10 commons)</label>
         <input id="sealed-set-filter" class="preset-filter" placeholder="🔍 Filter sets… (e.g. innistrad, 2013)" autocomplete="off">
         <select id="sealed-set" size="8"></select>
         <div class="opts">
           <label>Boosters per player <input id="opt-sealed-packs" type="number" min="1" max="12" value="6"></label>
+          <span class="hint">(sealed pool: 6 usual · booster draft: 3 usual)</span>
         </div>
         <p class="hint">Needs Scryfall reachable — the set's card list (with rarities) is fetched when you hit Load &amp; validate.</p>
       </div>

@@ -38,7 +38,7 @@
     postGame: 'lobby',   // which screen a finished match returns to: lobby|build|done
     setup: { mode: 'cube', cubeVariant: 'standard', cubeCards: null, jsPacks: null,
              vanguardCards: null, vgDeal: 1,
-             sealedVariant: 'standard', sealedSet: null, sealedSetName: '',
+             sealedVariant: 'standard', sealedStyle: 'pool', sealedSet: null, sealedSetName: '',
              sealedPacks: 6, sealedCards: null,
              packSize: 15, packsPerPlayer: 3, jsChoices: 3, jsPacksPerPlayer: 2 },
     // guest
@@ -254,7 +254,9 @@
   function poolInfoText() {
     var s = App.setup;
     if (s.mode === 'sealed') {
-      var svLabel = s.sealedVariant === 'commander' ? 'Commander sealed' : 'Sealed';
+      var styleLabel = s.sealedStyle === 'draft' ? 'Booster draft' : 'Sealed pool';
+      var svLabel = s.sealedVariant === 'commander'
+        ? 'Commander ' + styleLabel.toLowerCase() : styleLabel;
       if (!s.sealedCards) return svLabel + ': set not loaded yet';
       return svLabel + ': ' + (s.sealedSetName || s.sealedSet) + ' · ' +
         s.sealedPacks + ' boosters each (' + s.sealedCards.length + ' cards in the pool)';
@@ -291,6 +293,7 @@
       if (s.mode) $('#mode-' + s.mode).checked = true;
       if (s.cubeVariant) $('#cv-' + s.cubeVariant).checked = true;
       if (s.sealedVariant) $('#sv-' + s.sealedVariant).checked = true;
+      if (s.sealedStyle) $('#ss-' + s.sealedStyle).checked = true;
       if (s.sealedPacks) $('#opt-sealed-packs').value = s.sealedPacks;
       if (s.cubeText) $('#cube-text').value = s.cubeText;
       if (s.jsText) $('#js-text').value = s.jsText;
@@ -309,6 +312,7 @@
         mode: App.setup.mode,
         cubeVariant: App.setup.cubeVariant,
         sealedVariant: App.setup.sealedVariant,
+        sealedStyle: App.setup.sealedStyle,
         sealedPacks: $('#opt-sealed-packs').value,
         cubeText: $('#cube-text').value,
         jsText: $('#js-text').value,
@@ -339,6 +343,7 @@
       : $('#cv-vanguard').checked ? 'vanguard'
       : 'standard';
     App.setup.sealedVariant = $('#sv-commander').checked ? 'commander' : 'standard';
+    App.setup.sealedStyle = $('#ss-draft').checked ? 'draft' : 'pool';
     $('#sealed-setup').hidden = (mode !== 'sealed');
     $('#cube-setup').hidden = (mode !== 'cube');
     $('#js-setup').hidden = (mode !== 'jumpstart');
@@ -385,6 +390,9 @@
     });
     ['standard', 'commander'].forEach(function (v) {
       $('#sv-' + v).addEventListener('change', onModeChange);
+    });
+    ['pool', 'draft'].forEach(function (v) {
+      $('#ss-' + v).addEventListener('change', onModeChange);
     });
     $('#sealed-set-filter').addEventListener('input', renderSetOptions);
     $('#sealed-set').addEventListener('change', function () {
@@ -538,6 +546,20 @@
     }
     if (s.mode === 'sealed') {
       if (!s.sealedCards) return toast('Load & validate the set first.', true);
+      if (s.sealedStyle === 'draft') {
+        // Booster draft: real boosters, but picked one card at a time and passed
+        // around like a cube draft. The pick/pass engine takes pre-built packs.
+        try {
+          var rounds = MTGDraft.generateBoosterRounds(ids, s.sealedCards, { rounds: s.sealedPacks });
+          App.vanguardDeals = {};
+          App.engine = new MTGDraft.CubeDraft(ids, [], { rounds: rounds });
+        } catch (err2) {
+          return toast(err2.message, true);
+        }
+        broadcastLobby();
+        broadcastViews();
+        return;
+      }
       try {
         App.sealedPools = MTGDraft.generateSealedPools(ids, s.sealedCards, { packs: s.sealedPacks });
       } catch (err) {
@@ -622,7 +644,11 @@
     var payload = { t: 'view', view: view };
     if (view.finished) {
       payload.deck = hostDeckFor(player.id);
-      if (view.mode === 'cube') payload.variant = App.setup.cubeVariant;
+      if (view.mode === 'cube') {
+        payload.variant = App.setup.mode === 'sealed'
+          ? (App.setup.sealedVariant === 'commander' ? 'commander' : 'standard')
+          : App.setup.cubeVariant;
+      }
     }
     if (player.id === App.myId) applyView(payload); // the host player
     else if (player.conn) App.net.send(player.conn, payload);
@@ -1415,7 +1441,8 @@
                   (App.setup.cubeVariant !== 'vanguard' || App.setup.vanguardCards)) ||
                 (mode === 'jumpstart' && App.setup.jsPacks) ||
                 (mode === 'sealed' && App.setup.sealedCards);
-        $('#btn-start').textContent = mode === 'sealed' ? 'Open the boosters' : 'Start draft';
+        $('#btn-start').textContent =
+          (mode === 'sealed' && App.setup.sealedStyle !== 'draft') ? 'Open the boosters' : 'Start draft';
       }
       $('#btn-start').disabled = !ready;
     } else {

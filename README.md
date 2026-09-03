@@ -58,11 +58,16 @@ plain `ws://` during local testing).
   expansions, masters sets, remasters — with a filter box to find yours).
   Packs follow real collation: 1 rare (upgraded to mythic 1 time in 8 when
   the set has them), 3 uncommons, 10 commons; the same card can show up in
-  several packs, exactly like cracking product. Then straight into the
-  deck builder (40-card minimum). Two flavors: **Standard**, and
-  **Commander**, which adds the commander slot to the builder and starts
-  games with a command zone at 40 life. Needs Scryfall reachable when the
-  host loads the set.
+  several packs, exactly like cracking product. Two play styles:
+  - **Sealed pool** (prerelease style) — everyone just opens their boosters
+    (6 usual) and goes straight to the deck builder.
+  - **Booster draft** — everyone opens a booster, picks a card, and passes
+    the rest around the table, one booster per round (3 usual), then builds.
+
+  Either style builds to a 40-card minimum, and both come in **Standard**
+  and **Commander** (the commander slot in the builder, games start with a
+  command zone at 40 life). Needs Scryfall reachable when the host loads
+  the set.
 - **Cube draft** and **Jumpstart** — draft from a shared pool (below). Cube
   drafting comes in three flavors, picked in the host panel:
   - **Standard** — classic booster draft, then build a 40-card deck.

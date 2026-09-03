@@ -303,6 +303,52 @@ section('Sealed booster generation');
   assert(threw, 'an empty card list is rejected');
 }
 
+section('Sealed booster draft (pre-built rounds)');
+{
+  const mk = (prefix, n, rarity) =>
+    Array.from({ length: n }, (_, i) => ({ name: prefix + i, rarity }));
+  const set = mk('C', 30, 'common').concat(mk('U', 12, 'uncommon'),
+    mk('R', 8, 'rare'), mk('M', 3, 'mythic'));
+
+  const rounds = Draft.generateBoosterRounds(['a', 'b', 'c'], set, { rounds: 3, rng: seededRng(11) });
+  assert(rounds.length === 3, '3 draft rounds requested, 3 built');
+  assert(rounds.every(r => r.length === 3), 'one pack per seat per round');
+  let collationOk = true, dupOk = true;
+  for (const roundPacks of rounds) {
+    for (const pack of roundPacks) {
+      const r = pack.filter(c => c.rarity === 'rare' || c.rarity === 'mythic').length;
+      const u = pack.filter(c => c.rarity === 'uncommon').length;
+      const c = pack.filter(c => c.rarity === 'common').length;
+      if (pack.length !== 14 || r !== 1 || u !== 3 || c !== 10) collationOk = false;
+      if (new Set(pack.map(x => x.name)).size !== pack.length) dupOk = false;
+    }
+  }
+  assert(collationOk, 'every draft pack keeps real collation (1 R/M, 3 U, 10 C)');
+  assert(dupOk, 'no duplicate card within one draft pack');
+
+  // Feed the rounds into the pick/pass engine.
+  const d = new Draft.CubeDraft(['a', 'b', 'c'], [], { rounds });
+  assert(d.packsPerPlayer === 3 && d.packSize === 14,
+    'engine derives packsPerPlayer/packSize from the pre-built rounds');
+  const firstPack = d.currentPack('a');
+  assert(firstPack.length === 14 && firstPack.every(c => c.uid),
+    'engine tags every booster card with a uid');
+  const allUids = d.rounds.flat(2).map(c => c.uid);
+  assert(new Set(allUids).size === allUids.length, 'uids are unique across all boosters');
+
+  // Draft it to the end: everyone picks the first card of whatever they hold.
+  let safety = 3 * 3 * 14 + 10;
+  while (!d.finished && safety-- > 0) {
+    for (const pid of ['a', 'b', 'c']) {
+      const pack = d.currentPack(pid);
+      if (pack) d.pick(pid, pack[0].uid);
+    }
+  }
+  assert(d.finished, 'booster draft runs to completion');
+  assert(Draft.deckFor(d, 'a').length === 42 && Draft.deckFor(d, 'b').length === 42 &&
+    Draft.deckFor(d, 'c').length === 42, 'everyone ends with 3 packs x 14 picks');
+}
+
 /* ---------------- 1v1 game engine ---------------- */
 section('Game setup');
 {

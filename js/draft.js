@@ -43,22 +43,33 @@ var MTGDraft = (function () {
     this.packsPerPlayer = opts.packsPerPlayer || 3;
     this.rng = opts.rng || Math.random;
 
-    var needed = this.players.length * this.packSize * this.packsPerPlayer;
-    if (cardPool.length < needed) {
-      throw new Error('Cube too small: need ' + needed + ' cards (' +
-        this.players.length + ' players x ' + this.packsPerPlayer + ' packs x ' +
-        this.packSize + ' cards), have ' + cardPool.length);
-    }
-
-    var deck = shuffle(cardPool, this.rng).map(tag);
-    // this.rounds[r][seat] = pack (array of cards) opened by seat at round r
-    this.rounds = [];
-    for (var r = 0; r < this.packsPerPlayer; r++) {
-      var roundPacks = [];
-      for (var p = 0; p < this.players.length; p++) {
-        roundPacks.push(deck.splice(0, this.packSize));
+    if (opts.rounds) {
+      // Pre-built boosters (sealed booster draft): rounds[r][seat] = pack.
+      // The pick/pass machinery is identical; only where packs come from
+      // differs (real collation with duplicates vs. a singleton cube).
+      this.rounds = opts.rounds.map(function (roundPacks) {
+        return roundPacks.map(function (pack) { return pack.map(tag); });
+      });
+      this.packsPerPlayer = this.rounds.length;
+      this.packSize = this.rounds[0][0].length;
+    } else {
+      var needed = this.players.length * this.packSize * this.packsPerPlayer;
+      if (cardPool.length < needed) {
+        throw new Error('Cube too small: need ' + needed + ' cards (' +
+          this.players.length + ' players x ' + this.packsPerPlayer + ' packs x ' +
+          this.packSize + ' cards), have ' + cardPool.length);
       }
-      this.rounds.push(roundPacks);
+
+      var deck = shuffle(cardPool, this.rng).map(tag);
+      // this.rounds[r][seat] = pack (array of cards) opened by seat at round r
+      this.rounds = [];
+      for (var r = 0; r < this.packsPerPlayer; r++) {
+        var roundPacks = [];
+        for (var p = 0; p < this.players.length; p++) {
+          roundPacks.push(deck.splice(0, this.packSize));
+        }
+        this.rounds.push(roundPacks);
+      }
     }
 
     this.picks = {};
@@ -250,11 +261,8 @@ var MTGDraft = (function () {
     { rarities: ['common'], count: 10 }
   ];
 
-  function generateSealedPools(playerIds, cards, opts) {
-    opts = opts || {};
-    var packs = opts.packs || 6;
-    var rng = opts.rng || Math.random;
-
+  /** A function that cracks one collation-correct booster (untagged cards). */
+  function boosterFactory(cards, rng) {
     var byRarity = { mythic: [], rare: [], uncommon: [], common: [], other: [] };
     cards.forEach(function (c) {
       var r = String(c.rarity || '').toLowerCase();
@@ -276,7 +284,7 @@ var MTGDraft = (function () {
       }
     }
 
-    function onePack() {
+    return function onePack() {
       var pack = [];
       var taken = Object.create(null);
       PACK_SLOTS.forEach(function (slot) {
@@ -294,19 +302,41 @@ var MTGDraft = (function () {
           if (!pool.length) pool = byRarity.rare;
           var card = drawFrom(pool, taken);
           taken[card.name] = true;
-          pack.push(tag(card));
+          pack.push(card);
         }
       });
       return pack;
-    }
+    };
+  }
 
+  function generateSealedPools(playerIds, cards, opts) {
+    opts = opts || {};
+    var packs = opts.packs || 6;
+    var onePack = boosterFactory(cards, opts.rng || Math.random);
     var pools = {};
     playerIds.forEach(function (pid) {
       var pool = [];
-      for (var p = 0; p < packs; p++) pool = pool.concat(onePack());
+      for (var p = 0; p < packs; p++) pool = pool.concat(onePack().map(tag));
       pools[pid] = pool;
     });
     return pools;
+  }
+
+  /**
+   * Pre-built boosters for a sealed BOOSTER DRAFT, in the shape CubeDraft's
+   * opts.rounds expects: rounds[r][seat] = one collation-correct pack.
+   */
+  function generateBoosterRounds(playerIds, cards, opts) {
+    opts = opts || {};
+    var roundCount = opts.rounds || 3;
+    var onePack = boosterFactory(cards, opts.rng || Math.random);
+    var rounds = [];
+    for (var r = 0; r < roundCount; r++) {
+      var roundPacks = [];
+      for (var p = 0; p < playerIds.length; p++) roundPacks.push(onePack());
+      rounds.push(roundPacks);
+    }
+    return rounds;
   }
 
   /** Flat card list of everything a player drafted (both modes). */
@@ -324,6 +354,7 @@ var MTGDraft = (function () {
     CubeDraft: CubeDraft,
     JumpstartDraft: JumpstartDraft,
     generateSealedPools: generateSealedPools,
+    generateBoosterRounds: generateBoosterRounds,
     deckFor: deckFor,
     shuffle: shuffle
   };
