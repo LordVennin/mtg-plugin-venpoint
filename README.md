@@ -53,6 +53,16 @@ plain `ws://` during local testing).
 
 ## Game modes
 
+- **Sealed** — every player opens real boosters from **any paper set in
+  Magic's history** (the set list comes live from Scryfall — core sets,
+  expansions, masters sets, remasters — with a filter box to find yours).
+  Packs follow real collation: 1 rare (upgraded to mythic 1 time in 8 when
+  the set has them), 3 uncommons, 10 commons; the same card can show up in
+  several packs, exactly like cracking product. Then straight into the
+  deck builder (40-card minimum). Two flavors: **Standard**, and
+  **Commander**, which adds the commander slot to the builder and starts
+  games with a command zone at 40 life. Needs Scryfall reachable when the
+  host loads the set.
 - **Cube draft** and **Jumpstart** — draft from a shared pool (below). Cube
   drafting comes in three flavors, picked in the host panel:
   - **Standard** — classic booster draft, then build a 40-card deck.
@@ -90,7 +100,8 @@ file is the normal paste format plus a couple of `@` metadata lines:
 ```
 
 `@format` is one of `cube`, `vanguard`, `jumpstart`, `deck`, `commander`
-and decides which box offers the preset. The relay server indexes the
+and decides which box offers the preset. Every preset dropdown carries a
+**filter box** — the lists have grown large. The relay server indexes the
 directory automatically (`/api/lists`); on plain static hosting list the
 filenames in `lists/manifest.json` instead. See `lists/README.md`.
 

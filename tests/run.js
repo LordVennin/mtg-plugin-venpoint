@@ -252,6 +252,57 @@ section('JumpstartDraft offer never starves later players');
   assert(threw, 'too few packs rejected with a clear error');
 }
 
+/* ---------------- sealed pools ---------------- */
+section('Sealed booster generation');
+{
+  const mk = (prefix, n, rarity) =>
+    Array.from({ length: n }, (_, i) => ({ name: prefix + i, rarity }));
+  const set = mk('C', 30, 'common').concat(mk('U', 12, 'uncommon'),
+    mk('R', 8, 'rare'), mk('M', 3, 'mythic'));
+
+  const pools = Draft.generateSealedPools(['a', 'b'], set, { packs: 6, rng: seededRng(9) });
+  assert(pools.a.length === 84 && pools.b.length === 84, 'each player opens 6 packs of 14');
+
+  // Every 14-card pack follows real collation: 1 rare/mythic, 3 U, 10 C.
+  let packsOk = true, dupsOk = true;
+  for (const pid of ['a', 'b']) {
+    for (let p = 0; p < 6; p++) {
+      const pack = pools[pid].slice(p * 14, p * 14 + 14);
+      const r = pack.filter(c => c.rarity === 'rare' || c.rarity === 'mythic').length;
+      const u = pack.filter(c => c.rarity === 'uncommon').length;
+      const c = pack.filter(c => c.rarity === 'common').length;
+      if (r !== 1 || u !== 3 || c !== 10) packsOk = false;
+      if (new Set(pack.map(x => x.name)).size !== 14) dupsOk = false;
+    }
+  }
+  assert(packsOk, 'every pack has exactly 1 rare/mythic, 3 uncommons, 10 commons');
+  assert(dupsOk, 'no duplicate card within a single pack');
+  const uids = pools.a.concat(pools.b).map(c => c.uid);
+  assert(new Set(uids).size === uids.length, 'every opened card is its own copy (unique uids)');
+  // Unlike a cube, the same card CAN appear in several packs.
+  const names = pools.a.concat(pools.b).map(c => c.name);
+  assert(new Set(names).size < names.length, 'cards repeat across packs (sealed, not a cube)');
+
+  // rng pinned low -> the rare slot always upgrades to mythic (1-in-8 gate).
+  const always = Draft.generateSealedPools(['a'], set, { packs: 2, rng: () => 0.0001 });
+  assert(always.a.slice(0, 14).some(c => c.rarity === 'mythic') &&
+    always.a.slice(14).some(c => c.rarity === 'mythic'), 'mythic upgrade fires at the 1/8 gate');
+  // No mythics in the set -> the rare slot stays rare even at the gate.
+  const noM = Draft.generateSealedPools(['a'],
+    mk('C', 20, 'common').concat(mk('U', 8, 'uncommon'), mk('R', 5, 'rare')),
+    { packs: 1, rng: () => 0.0001 });
+  assert(noM.a.filter(c => c.rarity === 'rare').length === 1 &&
+    !noM.a.some(c => c.rarity === 'mythic'), 'no-mythic sets never produce mythics');
+
+  // A set missing whole rarities still fills 14-card packs.
+  const thin = Draft.generateSealedPools(['a'], mk('C', 25, 'common'), { packs: 2, rng: seededRng(4) });
+  assert(thin.a.length === 28, 'commons-only sets still make full packs');
+
+  let threw = false;
+  try { Draft.generateSealedPools(['a'], [], {}); } catch (e) { threw = true; }
+  assert(threw, 'an empty card list is rejected');
+}
+
 /* ---------------- 1v1 game engine ---------------- */
 section('Game setup');
 {

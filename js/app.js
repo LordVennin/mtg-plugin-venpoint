@@ -30,12 +30,16 @@
     game: null,          // MTGGame.Game once a post-draft game starts (host only)
     decks: {},           // host only: playerId -> submitted deck (built or uploaded)
     builder: null,       // this client's deck-building state
-    buildVariant: 'standard', // cube variant the builder is building for
+    buildVariant: 'standard', // cube/sealed variant the builder is building for
     vanguardDeals: {},   // host only: playerId -> vanguard cards dealt pre-draft
+    sealedPools: null,   // host only: playerId -> sealed pool, while sealed runs
+    sets: null,          // Scryfall set catalog for sealed, once loaded
     presets: null,       // site-owner preset lists (lists/ directory), once loaded
     postGame: 'lobby',   // which screen a finished match returns to: lobby|build|done
     setup: { mode: 'cube', cubeVariant: 'standard', cubeCards: null, jsPacks: null,
              vanguardCards: null, vgDeal: 1,
+             sealedVariant: 'standard', sealedSet: null, sealedSetName: '',
+             sealedPacks: 6, sealedCards: null,
              packSize: 15, packsPerPlayer: 3, jsChoices: 3, jsPacksPerPlayer: 2 },
     // guest
     conn: null,
@@ -153,7 +157,7 @@
         // still LOOKS connected: a silently dropped socket only surfaces on
         // the relay's ~30s keepalive, and the player's quick reconnect must
         // not be locked out (or silently ignored) in the meantime.
-        if (!ghost && (App.engine || App.game)) {
+        if (!ghost && (App.engine || App.game || App.sealedPools)) {
           ghost = App.players.find(function (p) {
             return p.id !== App.myId && p.name.toLowerCase() === name.toLowerCase();
           });
@@ -165,12 +169,13 @@
           broadcastLobby();
           if (App.game) sendGameViewTo(ghost);
           else if (App.engine) sendViewTo(ghost);
+          else if (App.sealedPools) sendSealedTo(ghost);
           else renderLobby();
           toast(ghost.name + ' reconnected.');
           renderTableStatus();
           return;
         }
-        if (App.engine || App.game) {
+        if (App.engine || App.game || App.sealedPools) {
           App.net.send(conn, { t: 'err', msg: 'A game is already in progress.' });
           return;
         }
@@ -235,7 +240,7 @@
       mode: App.setup.mode,
       poolInfo: poolInfoText(),
       deckReady: Object.keys(App.decks),
-      started: !!App.engine || !!App.game
+      started: !!App.engine || !!App.game || !!App.sealedPools
     };
   }
 
@@ -248,6 +253,12 @@
 
   function poolInfoText() {
     var s = App.setup;
+    if (s.mode === 'sealed') {
+      var svLabel = s.sealedVariant === 'commander' ? 'Commander sealed' : 'Sealed';
+      if (!s.sealedCards) return svLabel + ': set not loaded yet';
+      return svLabel + ': ' + (s.sealedSetName || s.sealedSet) + ' · ' +
+        s.sealedPacks + ' boosters each (' + s.sealedCards.length + ' cards in the pool)';
+    }
     if (s.mode === 'cube') {
       var vLabel = s.cubeVariant === 'commander' ? 'Commander cube'
         : s.cubeVariant === 'vanguard' ? 'Vanguard cube'
@@ -279,6 +290,8 @@
       var s = JSON.parse(raw);
       if (s.mode) $('#mode-' + s.mode).checked = true;
       if (s.cubeVariant) $('#cv-' + s.cubeVariant).checked = true;
+      if (s.sealedVariant) $('#sv-' + s.sealedVariant).checked = true;
+      if (s.sealedPacks) $('#opt-sealed-packs').value = s.sealedPacks;
       if (s.cubeText) $('#cube-text').value = s.cubeText;
       if (s.jsText) $('#js-text').value = s.jsText;
       if (s.vgText) $('#vg-text').value = s.vgText;
@@ -295,6 +308,8 @@
       localStorage.setItem(LS_SETUP, JSON.stringify({
         mode: App.setup.mode,
         cubeVariant: App.setup.cubeVariant,
+        sealedVariant: App.setup.sealedVariant,
+        sealedPacks: $('#opt-sealed-packs').value,
         cubeText: $('#cube-text').value,
         jsText: $('#js-text').value,
         vgText: $('#vg-text').value,
@@ -314,7 +329,8 @@
   function isDeckMode(mode) { return mode === 'constructed' || mode === 'commander'; }
 
   function onModeChange() {
-    var mode = $('#mode-cube').checked ? 'cube'
+    var mode = $('#mode-sealed').checked ? 'sealed'
+      : $('#mode-cube').checked ? 'cube'
       : $('#mode-jumpstart').checked ? 'jumpstart'
       : $('#mode-constructed').checked ? 'constructed'
       : 'commander';
@@ -322,20 +338,59 @@
     App.setup.cubeVariant = $('#cv-commander').checked ? 'commander'
       : $('#cv-vanguard').checked ? 'vanguard'
       : 'standard';
+    App.setup.sealedVariant = $('#sv-commander').checked ? 'commander' : 'standard';
+    $('#sealed-setup').hidden = (mode !== 'sealed');
     $('#cube-setup').hidden = (mode !== 'cube');
     $('#js-setup').hidden = (mode !== 'jumpstart');
     $('#vanguard-setup').hidden = (App.setup.cubeVariant !== 'vanguard');
     $('#btn-load-pool').hidden = isDeckMode(mode);
+    if (mode === 'sealed' && !App.sets) loadSets();
     broadcastLobby();
     renderLobby();
   }
 
+  /* ---------------- sealed: set catalog + picker ---------------- */
+
+  function loadSets() {
+    Scryfall.fetchSets()
+      .then(function (sets) {
+        App.sets = sets;
+        renderSetOptions();
+      })
+      .catch(function (err) {
+        toast('Could not load the set list from Scryfall (' + err.message + ').', true);
+      });
+  }
+
+  function renderSetOptions() {
+    var sel = $('#sealed-set');
+    if (!App.sets) { sel.innerHTML = '<option>Loading sets…</option>'; return; }
+    var q = $('#sealed-set-filter').value.trim().toLowerCase();
+    var matches = App.sets.filter(function (s) {
+      return !q || (s.name + ' ' + s.code + ' ' + s.year).toLowerCase().indexOf(q) !== -1;
+    });
+    sel.innerHTML = matches.slice(0, 400).map(function (s) {
+      var selAttr = App.setup.sealedSet === s.code ? ' selected' : '';
+      return '<option value="' + s.code + '"' + selAttr + '>' +
+        escapeHtml(s.name) + ' (' + s.code + ', ' + s.year + ')</option>';
+    }).join('') || '<option disabled>No sets match</option>';
+  }
+
   function initHostPanel() {
-    ['cube', 'jumpstart', 'constructed', 'commander'].forEach(function (m) {
+    ['sealed', 'cube', 'jumpstart', 'constructed', 'commander'].forEach(function (m) {
       $('#mode-' + m).addEventListener('change', onModeChange);
     });
     ['standard', 'commander', 'vanguard'].forEach(function (v) {
       $('#cv-' + v).addEventListener('change', onModeChange);
+    });
+    ['standard', 'commander'].forEach(function (v) {
+      $('#sv-' + v).addEventListener('change', onModeChange);
+    });
+    $('#sealed-set-filter').addEventListener('input', renderSetOptions);
+    $('#sealed-set').addEventListener('change', function () {
+      App.setup.sealedSet = $('#sealed-set').value;
+      App.setup.sealedCards = null; // set changed — needs a fresh load
+      renderLobby();
     });
 
     $('#btn-load-pool').addEventListener('click', function () {
@@ -349,6 +404,34 @@
       App.setup.packsPerPlayer = clampInt($('#opt-packs').value, 1, 6, 3);
       App.setup.jsChoices = clampInt($('#opt-choices').value, 1, 6, 3);
       App.setup.vgDeal = clampInt($('#opt-vgdeal').value, 1, 10, 1);
+      App.setup.sealedPacks = clampInt($('#opt-sealed-packs').value, 1, 12, 6);
+
+      if (App.setup.mode === 'sealed') {
+        var setCode = $('#sealed-set').value;
+        if (!setCode) { done(); return toast('Pick a set first.', true); }
+        App.setup.sealedSet = setCode;
+        var opt = $('#sealed-set').selectedOptions[0];
+        App.setup.sealedSetName = opt ? opt.textContent : setCode;
+        Scryfall.fetchSetCards(setCode, function (n) { btn.textContent = 'Loading set… ' + n + ' cards'; })
+          .then(function (cards) {
+            if (!cards.length) throw new Error('no cards came back for ' + setCode);
+            App.setup.sealedCards = cards;
+            var byR = { mythic: 0, rare: 0, uncommon: 0, common: 0 };
+            cards.forEach(function (c) { if (byR[c.rarity] !== undefined) byR[c.rarity]++; });
+            done();
+            $('#pool-report').textContent = poolInfoText() + ' — ' +
+              byR.common + 'C / ' + byR.uncommon + 'U / ' + byR.rare + 'R' +
+              (byR.mythic ? ' / ' + byR.mythic + 'M' : '') + ' ✓';
+            $('#pool-report').className = 'pool-report ok';
+            broadcastLobby();
+            renderLobby();
+          })
+          .catch(function (err) {
+            done();
+            toast('Could not load the set from Scryfall (' + err.message + ') — sealed needs it live.', true);
+          });
+        return;
+      }
 
       if (App.setup.mode === 'cube') {
         var parsed = MTGParser.parseDeckList($('#cube-text').value);
@@ -453,6 +536,18 @@
       broadcastGameViews();
       return;
     }
+    if (s.mode === 'sealed') {
+      if (!s.sealedCards) return toast('Load & validate the set first.', true);
+      try {
+        App.sealedPools = MTGDraft.generateSealedPools(ids, s.sealedCards, { packs: s.sealedPacks });
+      } catch (err) {
+        return toast(err.message, true);
+      }
+      App.buildVariant = s.sealedVariant === 'commander' ? 'commander' : 'standard';
+      broadcastLobby();
+      App.players.forEach(function (p) { sendSealedTo(p); });
+      return;
+    }
     try {
       if (s.mode === 'cube') {
         if (!s.cubeCards) return toast('Load & validate the cube first.', true);
@@ -497,6 +592,24 @@
       return;
     }
     broadcastViews();
+  }
+
+  /** Deliver (or re-deliver, on reconnect) a player's sealed pool. */
+  function sendSealedTo(player) {
+    if (!App.sealedPools || !App.sealedPools[player.id]) return;
+    var payload = {
+      t: 'sealed',
+      deck: App.sealedPools[player.id],
+      variant: App.setup.sealedVariant === 'commander' ? 'commander' : 'standard'
+    };
+    if (player.id === App.myId) {
+      App.lastDeck = payload.deck;
+      App.buildVariant = payload.variant;
+      openBuilder(payload.deck);
+    } else if (player.conn) {
+      App.net.send(player.conn, payload);
+    }
+    // else: disconnected — their pool waits for them
   }
 
   /** A cube player's full pool: vanguard cards dealt pre-draft + their picks. */
@@ -609,11 +722,24 @@
       });
       if (!matches.length) { row.hidden = true; row.innerHTML = ''; return; }
       row.hidden = false;
-      row.innerHTML = '<select class="preset-select"><option value="">📚 Preset lists…</option>' +
-        matches.map(function (p) {
-          return '<option value="' + escapeHtml(p.file) + '">' + escapeHtml(p.name) + '</option>';
-        }).join('') + '</select>';
+      // A filter box above the dropdown — these lists have grown large.
+      var buildOptions = function (q) {
+        var shown = matches.filter(function (p) {
+          return !q || p.name.toLowerCase().indexOf(q) !== -1;
+        });
+        return '<option value="">📚 Preset lists… (' + shown.length + ')</option>' +
+          shown.map(function (p) {
+            return '<option value="' + escapeHtml(p.file) + '">' + escapeHtml(p.name) + '</option>';
+          }).join('');
+      };
+      row.innerHTML =
+        '<input class="preset-filter" placeholder="🔍 Filter presets…" autocomplete="off">' +
+        '<select class="preset-select">' + buildOptions('') + '</select>';
       var sel = row.querySelector('select');
+      var filterBox = row.querySelector('.preset-filter');
+      filterBox.addEventListener('input', function () {
+        sel.innerHTML = buildOptions(filterBox.value.trim().toLowerCase());
+      });
       sel.addEventListener('change', function () {
         var file = sel.value;
         if (!file) return;
@@ -657,8 +783,11 @@
     });
   }
 
-  /** Game options for a post-draft cube match (commander cube = 40 life). */
+  /** Game options for a post-draft match (commander cube/sealed = 40 life). */
   function cubeGameOpts() {
+    if (App.setup.mode === 'sealed') {
+      return App.setup.sealedVariant === 'commander' ? { commander: true } : {};
+    }
     return App.setup.cubeVariant === 'commander' ? { commander: true } : {};
   }
 
@@ -675,11 +804,12 @@
       }
     }
     try {
-      App.game = new MTGGame.Game(ids, decks, names, mode === 'cube' ? cubeGameOpts() : {});
+      App.game = new MTGGame.Game(ids, decks, names,
+        (mode === 'cube' || mode === 'sealed') ? cubeGameOpts() : {});
     } catch (err) {
       return toast(err.message, true);
     }
-    App.postGame = mode === 'cube' ? 'build' : 'done';
+    App.postGame = (mode === 'cube' || mode === 'sealed') ? 'build' : 'done';
     broadcastGameViews();
   }
 
@@ -1209,6 +1339,12 @@
       case 'view':
         applyView(msg);
         break;
+      case 'sealed':
+        // Your boosters are open — straight to the deck builder.
+        App.lastDeck = msg.deck || [];
+        App.buildVariant = msg.variant || 'standard';
+        openBuilder(App.lastDeck);
+        break;
       case 'game':
         applyGameView(msg);
         break;
@@ -1256,8 +1392,9 @@
       } else {
         ready = (mode === 'cube' && App.setup.cubeCards &&
                   (App.setup.cubeVariant !== 'vanguard' || App.setup.vanguardCards)) ||
-                (mode === 'jumpstart' && App.setup.jsPacks);
-        $('#btn-start').textContent = 'Start draft';
+                (mode === 'jumpstart' && App.setup.jsPacks) ||
+                (mode === 'sealed' && App.setup.sealedCards);
+        $('#btn-start').textContent = mode === 'sealed' ? 'Open the boosters' : 'Start draft';
       }
       $('#btn-start').disabled = !ready;
     } else {

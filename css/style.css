@@ -491,11 +491,21 @@ button.ctx {
   margin-top: 4px; font-size: 12px; font-weight: 600; color: var(--accent);
 }
 
-.preset-row { margin: 4px 0; }
+.preset-row { margin: 4px 0; display: flex; gap: 6px; flex-wrap: wrap; }
 .preset-row select {
   max-width: 100%; padding: 4px 8px; border-radius: 6px;
   background: #232837; color: inherit; border: 1px solid #3b4257;
 }
+.preset-filter {
+  padding: 4px 8px; border-radius: 6px; font-size: 13px;
+  background: #232837; color: inherit; border: 1px solid #3b4257;
+  width: 220px; max-width: 100%;
+}
+#sealed-set {
+  width: 100%; margin: 4px 0; padding: 4px; border-radius: 6px;
+  background: #232837; color: inherit; border: 1px solid #3b4257;
+}
+#sealed-set option { padding: 2px 6px; }
 
 .sub-modes { margin-bottom: 8px; }
 

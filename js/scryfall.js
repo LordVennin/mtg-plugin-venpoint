@@ -13,7 +13,7 @@ var Scryfall = (function () {
   'use strict';
 
   var API = 'https://api.scryfall.com/cards/collection';
-  var LS_KEY = 'mtgdraft.cardcache.v6'; // v6: added TCGplayer (usd) price
+  var LS_KEY = 'mtgdraft.cardcache.v7'; // v7: added rarity (sealed boosters)
   var mem = Object.create(null);
 
   /**
@@ -95,6 +95,7 @@ var Scryfall = (function () {
         pt: front.pt,
         colors: card.color_identity || [],
         price: priceOf(card),
+        rarity: card.rarity || null,
         tokens: tokenParts(card),
         back: faceData(card.card_faces[1])
       };
@@ -119,8 +120,71 @@ var Scryfall = (function () {
       pt: pt,
       colors: card.color_identity || [],
       price: priceOf(card),
+      rarity: card.rarity || null,
       tokens: tokenParts(card)
     };
+  }
+
+  /* ---------------- sealed: sets catalog + full-set card fetch ---------------- */
+
+  var BOOSTER_SET_TYPES = { core: 1, expansion: 1, masters: 1, draft_innovation: 1, remaster: 1 };
+
+  /** All sets you could crack boosters of, newest first: [{code,name,year,type}]. */
+  function fetchSets() {
+    return fetch('https://api.scryfall.com/sets')
+      .then(function (res) {
+        if (!res.ok) throw new Error('Scryfall error ' + res.status);
+        return res.json();
+      })
+      .then(function (json) {
+        return (json.data || [])
+          .filter(function (s) {
+            return BOOSTER_SET_TYPES[s.set_type] && !s.digital && s.card_count > 0;
+          })
+          .map(function (s) {
+            return {
+              code: s.code.toUpperCase(),
+              name: s.name,
+              year: (s.released_at || '').slice(0, 4),
+              type: s.set_type
+            };
+          });
+      });
+  }
+
+  /**
+   * Every booster card of one set, with rarity, as slim cards.
+   * onProgress(pageCount) between pages.
+   */
+  function fetchSetCards(code, onProgress) {
+    var out = [];
+    var pages = 0;
+    function page(url) {
+      return fetch(url)
+        .then(function (res) {
+          if (!res.ok) throw new Error('Scryfall error ' + res.status);
+          return res.json();
+        })
+        .then(function (json) {
+          (json.data || []).forEach(function (card) { out.push(slim(card)); });
+          pages++;
+          if (onProgress) onProgress(out.length);
+          if (json.has_more && json.next_page && pages < 20) {
+            return new Promise(function (r) { setTimeout(r, 120); })
+              .then(function () { return page(json.next_page); });
+          }
+          return out;
+        });
+    }
+    var base = 'https://api.scryfall.com/cards/search?unique=cards&order=name&q=';
+    // is:booster keeps promo/boxtopper printings out; some very old or odd
+    // sets have no booster flags at all, so fall back to the whole set.
+    return page(base + encodeURIComponent('e:' + code + ' is:booster -t:basic'))
+      .catch(function () {
+        out.length = 0;
+        pages = 0;
+        return page(base + encodeURIComponent('e:' + code + ' -t:basic'));
+      });
   }
 
   /** Fetch one token card by Scryfall id (for "create its token"). */
@@ -304,7 +368,13 @@ var Scryfall = (function () {
     });
   }
 
-  return { resolve: resolve, toCardObjects: toCardObjects, fetchToken: fetchToken };
+  return {
+    resolve: resolve,
+    toCardObjects: toCardObjects,
+    fetchToken: fetchToken,
+    fetchSets: fetchSets,
+    fetchSetCards: fetchSetCards
+  };
 })();
 
 if (typeof module !== 'undefined' && module.exports) module.exports = Scryfall;

@@ -64,11 +64,27 @@
     <div id="host-panel" hidden>
       <fieldset>
         <legend>Game mode</legend>
+        <label class="radio"><input type="radio" name="mode" id="mode-sealed"> Sealed (open real boosters from any set, build a deck)</label>
         <label class="radio"><input type="radio" name="mode" id="mode-cube" checked> Cube draft (booster packs from a cube)</label>
         <label class="radio"><input type="radio" name="mode" id="mode-jumpstart"> Jumpstart (pick 20-card packs)</label>
         <label class="radio"><input type="radio" name="mode" id="mode-constructed"> Constructed (everyone brings their own deck)</label>
         <label class="radio"><input type="radio" name="mode" id="mode-commander"> Commander (own decks, command zone, 40 life)</label>
       </fieldset>
+
+      <div id="sealed-setup" hidden>
+        <fieldset class="sub-modes">
+          <legend>Sealed type</legend>
+          <label class="radio"><input type="radio" name="sealedvariant" id="sv-standard" checked> Standard (build a 40-card deck)</label>
+          <label class="radio"><input type="radio" name="sealedvariant" id="sv-commander"> Commander (adds a commander slot + command zone, 40 life)</label>
+        </fieldset>
+        <label for="sealed-set">Set — every player opens boosters of it (real pack rules: 1 rare or mythic, 3 uncommons, 10 commons)</label>
+        <input id="sealed-set-filter" class="preset-filter" placeholder="🔍 Filter sets… (e.g. innistrad, 2013)" autocomplete="off">
+        <select id="sealed-set" size="8"></select>
+        <div class="opts">
+          <label>Boosters per player <input id="opt-sealed-packs" type="number" min="1" max="12" value="6"></label>
+        </div>
+        <p class="hint">Needs Scryfall reachable — the set's card list (with rarities) is fetched when you hit Load &amp; validate.</p>
+      </div>
 
       <div id="cube-setup">
         <fieldset class="sub-modes">

@@ -235,6 +235,80 @@ var MTGDraft = (function () {
     };
   };
 
+  /* ------------------------------------------------------------------ *
+   * Sealed pools
+   *
+   * Not a draft: every player just opens `packs` boosters generated from a
+   * real set's card list (cards carry {rarity}). Collation follows classic
+   * booster rules: 1 rare (upgraded to mythic 1 time in 8 when the set has
+   * mythics), 3 uncommons, 10 commons. Unlike a cube, the same card can
+   * show up in several packs — only within one pack are cards distinct.
+   * ------------------------------------------------------------------ */
+  var PACK_SLOTS = [
+    { rarities: ['rare', 'mythic'], count: 1 },
+    { rarities: ['uncommon'], count: 3 },
+    { rarities: ['common'], count: 10 }
+  ];
+
+  function generateSealedPools(playerIds, cards, opts) {
+    opts = opts || {};
+    var packs = opts.packs || 6;
+    var rng = opts.rng || Math.random;
+
+    var byRarity = { mythic: [], rare: [], uncommon: [], common: [], other: [] };
+    cards.forEach(function (c) {
+      var r = String(c.rarity || '').toLowerCase();
+      (byRarity[r] || byRarity.other).push(c);
+    });
+    // Old/odd sets ("special", bonus sheets) fold into the rare slot pool.
+    byRarity.rare = byRarity.rare.concat(byRarity.other);
+    if (!byRarity.rare.length && !byRarity.uncommon.length && !byRarity.common.length) {
+      throw new Error('This set has no rarity data to build boosters from');
+    }
+    var hasMythics = byRarity.mythic.length > 0;
+
+    function drawFrom(pool, taken) {
+      // Up to a few tries to avoid duplicating a card within the same pack;
+      // tiny sets may simply not have enough variety, and that's fine.
+      for (var t = 0; t < 8; t++) {
+        var card = pool[Math.floor(rng() * pool.length)];
+        if (!taken[card.name] || t === 7) return card;
+      }
+    }
+
+    function onePack() {
+      var pack = [];
+      var taken = Object.create(null);
+      PACK_SLOTS.forEach(function (slot) {
+        for (var i = 0; i < slot.count; i++) {
+          var pool = null;
+          if (slot.rarities[0] === 'rare') {
+            pool = (hasMythics && rng() < 1 / 8) ? byRarity.mythic : byRarity.rare;
+          } else {
+            pool = byRarity[slot.rarities[0]];
+          }
+          // Rarity missing from this set entirely -> borrow downward/upward
+          // so packs stay full (old sets, funny sets).
+          if (!pool || !pool.length) pool = byRarity.common;
+          if (!pool.length) pool = byRarity.uncommon;
+          if (!pool.length) pool = byRarity.rare;
+          var card = drawFrom(pool, taken);
+          taken[card.name] = true;
+          pack.push(tag(card));
+        }
+      });
+      return pack;
+    }
+
+    var pools = {};
+    playerIds.forEach(function (pid) {
+      var pool = [];
+      for (var p = 0; p < packs; p++) pool = pool.concat(onePack());
+      pools[pid] = pool;
+    });
+    return pools;
+  }
+
   /** Flat card list of everything a player drafted (both modes). */
   function deckFor(engine, playerId) {
     var picks = engine.picks[playerId] || [];
@@ -249,6 +323,7 @@ var MTGDraft = (function () {
   return {
     CubeDraft: CubeDraft,
     JumpstartDraft: JumpstartDraft,
+    generateSealedPools: generateSealedPools,
     deckFor: deckFor,
     shuffle: shuffle
   };
