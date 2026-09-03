@@ -227,6 +227,26 @@
       <h3>Main deck (<span id="main-count">0</span>)</h3>
       <div id="build-main-grid" class="card-grid build-grid"></div>
       <h3>Pool / sideboard (<span id="pool-count">0</span>)</h3>
+      <div id="pool-tools">
+        <select id="pool-sort" title="Sort your pool">
+          <option value="none">Sort: pick order</option>
+          <option value="name">Sort: name</option>
+          <option value="cmc">Sort: mana value</option>
+          <option value="color">Sort: color</option>
+          <option value="type">Sort: type</option>
+          <option value="rarity">Sort: rarity</option>
+          <option value="price">Sort: price</option>
+        </select>
+        <div id="pool-colorticks" title="Filter by color — click to toggle, none ticked shows everything">
+          <button class="ctick tick-W" data-c="W" title="White">W</button>
+          <button class="ctick tick-U" data-c="U" title="Blue">U</button>
+          <button class="ctick tick-B" data-c="B" title="Black">B</button>
+          <button class="ctick tick-R" data-c="R" title="Red">R</button>
+          <button class="ctick tick-G" data-c="G" title="Green">G</button>
+          <button class="ctick tick-M" data-c="M" title="Multicolor">M</button>
+          <button class="ctick tick-C" data-c="C" title="Colorless">◇</button>
+        </div>
+      </div>
       <div id="build-pool-grid" class="card-grid build-grid"></div>
     </div>
   </div>

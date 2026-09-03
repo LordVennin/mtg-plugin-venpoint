@@ -200,6 +200,26 @@ legend { color: var(--muted); font-size: 13px; padding: 0 6px; }
 .land-ctl b { min-width: 18px; text-align: center; }
 .land-btn { padding: 2px 9px; }
 
+/* ---------- pool sort + color-tick filters ---------- */
+#pool-tools { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 8px; }
+#pool-sort { padding: 4px 8px; font-size: 13px; }
+#pool-colorticks { display: flex; gap: 5px; }
+.ctick {
+  width: 28px; height: 28px; padding: 0; border-radius: 50%;
+  font-size: 13px; font-weight: 700; line-height: 1;
+  border: 2px solid transparent; opacity: 0.45; cursor: pointer;
+  color: #1c1a17;
+}
+.ctick:hover { opacity: 0.8; }
+.ctick.on { opacity: 1; border-color: var(--accent); box-shadow: 0 0 6px rgba(120, 170, 255, 0.5); }
+.tick-W { background: #f5f0d8; }
+.tick-U { background: #aed6f2; }
+.tick-B { background: #beb1ab; }
+.tick-R { background: #e8a183; }
+.tick-G { background: #a9cba4; }
+.tick-M { background: linear-gradient(135deg, #e8d26c, #c99a3c); }
+.tick-C { background: #cfd3da; }
+
 /* ---------- play surface ---------- */
 
 #screen-game { max-width: none; padding: 10px 16px; }

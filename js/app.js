@@ -917,7 +917,9 @@
       lands: { Plains: 0, Island: 0, Swamp: 0, Mountain: 0, Forest: 0 },
       landCards: null,
       ready: false,
-      readyList: []
+      readyList: [],
+      poolSort: 'none',
+      poolColors: {} // tick letter -> true; empty = show everything
     };
     show('build');
     renderBuilder();
@@ -958,6 +960,56 @@
         cards.push(copy);
       }
     });
+    return cards;
+  }
+
+  /** The pool as displayed: color-tick filtered, then sorted. Display-only —
+   *  b.pool itself keeps pick order, and moves go by uid. */
+  var COLOR_SEAT = { W: 0, U: 1, B: 2, R: 3, G: 4 };
+  var RARITY_SEAT = { mythic: 0, rare: 1, uncommon: 2, common: 3 };
+  var TYPE_SEAT = ['Creatures', 'Instants', 'Sorceries', 'Enchantments', 'Artifacts',
+                   'Planeswalkers', 'Battles', 'Lands', 'Other'];
+  function colorGroup(c) {
+    var id = c.colors || [];
+    if (!id.length) return 6;                 // colorless (artifacts, most lands)
+    if (id.length > 1) return 5;              // multicolor
+    return COLOR_SEAT[id[0]] !== undefined ? COLOR_SEAT[id[0]] : 6;
+  }
+  function poolView(b) {
+    var ticks = Object.keys(b.poolColors).filter(function (k) { return b.poolColors[k]; });
+    var cards = b.pool.slice();
+    if (ticks.length) {
+      cards = cards.filter(function (c) {
+        var id = c.colors || [];
+        return ticks.some(function (t) {
+          if (t === 'C') return id.length === 0;
+          if (t === 'M') return id.length > 1;
+          return id.indexOf(t) !== -1;
+        });
+      });
+    }
+    var byName = function (a, b2) { return a.name.localeCompare(b2.name); };
+    var mv = function (c) { return MTGParser.manaValue(c.cost); };
+    var sorts = {
+      name: byName,
+      cmc: function (a, b2) { return mv(a) - mv(b2) || byName(a, b2); },
+      color: function (a, b2) { return colorGroup(a) - colorGroup(b2) || mv(a) - mv(b2) || byName(a, b2); },
+      type: function (a, b2) {
+        return TYPE_SEAT.indexOf(MTGParser.cardMainType(a.type)) -
+          TYPE_SEAT.indexOf(MTGParser.cardMainType(b2.type)) || mv(a) - mv(b2) || byName(a, b2);
+      },
+      rarity: function (a, b2) {
+        var ra = RARITY_SEAT[a.rarity] !== undefined ? RARITY_SEAT[a.rarity] : 4;
+        var rb = RARITY_SEAT[b2.rarity] !== undefined ? RARITY_SEAT[b2.rarity] : 4;
+        return ra - rb || byName(a, b2);
+      },
+      price: function (a, b2) {
+        var pa = parseFloat(a.price); if (isNaN(pa)) pa = -1;
+        var pb = parseFloat(b2.price); if (isNaN(pb)) pb = -1;
+        return pb - pa || byName(a, b2);
+      }
+    };
+    if (sorts[b.poolSort]) cards.sort(sorts[b.poolSort]);
     return cards;
   }
 
@@ -1024,7 +1076,15 @@
     $('#build-count').textContent = total + ' cards (' + b.main.length + ' spells + ' + landTotal + ' lands' +
       (b.commander ? ' + commander' : '') + ')' + (total < 40 ? ' — need 40+' : '');
     $('#main-count').textContent = b.main.length + (landTotal ? ' + ' + landTotal + ' lands' : '');
-    $('#pool-count').textContent = b.pool.length;
+    var shownPool = poolView(b);
+    $('#pool-count').textContent = shownPool.length === b.pool.length
+      ? b.pool.length
+      : shownPool.length + ' of ' + b.pool.length;
+    // Keep the sort/tick controls showing this builder's state.
+    $('#pool-sort').value = b.poolSort;
+    document.querySelectorAll('#pool-colorticks .ctick').forEach(function (btn) {
+      btn.classList.toggle('on', !!b.poolColors[btn.getAttribute('data-c')]);
+    });
 
     $('#build-commander').hidden = !builderUsesCommander();
     if (builderUsesCommander()) {
@@ -1048,8 +1108,9 @@
       b.main.map(function (c) { return builderCardTile(c, 'main'); }).join('') ||
       '<span class="zone-empty">click cards in your pool to add them</span>';
     $('#build-pool-grid').innerHTML =
-      b.pool.map(function (c) { return builderCardTile(c, 'pool'); }).join('') ||
-      '<span class="zone-empty">empty</span>';
+      shownPool.map(function (c) { return builderCardTile(c, 'pool'); }).join('') ||
+      '<span class="zone-empty">' +
+        (b.pool.length ? 'nothing matches the color filter' : 'empty') + '</span>';
 
     $('#btn-close-room-build').hidden = App.role !== 'host';
     var count = playerCount();
@@ -1173,6 +1234,19 @@
   }
 
   function initBuilder() {
+    $('#pool-sort').addEventListener('change', function () {
+      if (!App.builder) return;
+      App.builder.poolSort = $('#pool-sort').value;
+      renderBuilder();
+    });
+    document.querySelectorAll('#pool-colorticks .ctick').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (!App.builder) return;
+        var c = btn.getAttribute('data-c');
+        App.builder.poolColors[c] = !App.builder.poolColors[c];
+        renderBuilder();
+      });
+    });
     $('#btn-build-copy').addEventListener('click', function () {
       var text = MTGParser.formatDeckList(builderDeck().map(function (c) { return c.name; }));
       if (navigator.clipboard && navigator.clipboard.writeText) {
