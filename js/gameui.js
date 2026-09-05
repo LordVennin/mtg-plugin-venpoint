@@ -802,6 +802,12 @@ var GameUI = (function () {
       act({ a: 'mill', n: Math.min(mn, 100) });
       return;
     }
+    if (kind === 'exileTopX') {
+      var xn = parseInt(window.prompt('Exile how many cards from the top of your library?', '3'), 10);
+      if (!xn || xn < 1) return;
+      act({ a: 'exileTop', n: Math.min(xn, 100) });
+      return;
+    }
     if (kind === 'dx') {
       var din = window.prompt('Roll what? A number of sides ("100") or dice-count d sides ("3d8"):', '');
       if (!din || !din.trim()) return;
@@ -860,6 +866,7 @@ var GameUI = (function () {
       b('top-bf', '▶ Play top card (battlefield)') +
       b('top-hand', '✋ Top card to hand') +
       b('millX', '🪦 Mill X…') +
+      b('exileTopX', '☀ Exile top X…') +
       b('scry', '👁 Scry / look at top X… <span class="menu-key">e</span>') +
       b('search', '🔍 Search library <span class="menu-key">s</span>') +
       b('reveal', '👁‍🗨 Reveal top X…') +

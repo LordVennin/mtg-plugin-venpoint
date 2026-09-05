@@ -195,6 +195,15 @@ var MTGGame = (function () {
           milled.map(function (c) { return c.name; }).join(', ') + '.');
         break;
       }
+      case 'exileTop': {
+        var xn = Math.max(1, Math.min(action.n | 0, 100));
+        if (!z.library.length) throw new Error('Your library is empty');
+        var exiled = z.library.splice(0, xn);
+        z.exile = z.exile.concat(exiled);
+        this._log(pid, me + ' exiles the top ' + exiled.length + ' card' + (exiled.length === 1 ? '' : 's') +
+          ' of their library: ' + exiled.map(function (c) { return c.name; }).join(', ') + '.');
+        break;
+      }
       case 'fromTop': {
         // The top card of the library straight into a zone (deck-icon drags).
         var ftDest = action.to;

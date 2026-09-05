@@ -279,7 +279,8 @@ draw 7, and you go:
 - **Your deck is a clickable icon** (📚 with the count, Cockatrice style):
   click or right-click it for the **library menu** — Draw, Draw X, play the
   top card to the battlefield, top card to hand, **Mill X** (top of library
-  → graveyard, names logged — they're public), Scry, Search, Reveal top X,
+  → graveyard, names logged — they're public), **Exile top X**, Scry,
+  Search, Reveal top X,
   the keep-top-revealed toggle, and Shuffle. You can also **drag the deck
   icon** onto your battlefield (plays the top card face up), your hand
   (tucks it in unseen), or your graveyard/exile piles (mills/exiles the top

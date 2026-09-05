@@ -585,6 +585,15 @@ section('Mill + play from the top of the library');
   try { g.apply('a', { a: 'mill', n: 1 }); } catch (e) { threw = /empty/.test(e.message); }
   assert(threw, 'milling an empty library is rejected');
 
+  // Exile top X: same shape as mill, but into exile.
+  const bExileLib = g.viewFor('b').zones.b.libraryCount;
+  g.apply('b', { a: 'exileTop', n: 2 });
+  v = g.viewFor('a');
+  assert(v.zones.b.libraryCount === bExileLib - 2 && v.zones.b.exile.length === 2,
+    'exileTop 2 moves 2 library cards to exile');
+  assert(/Bob exiles the top 2 cards of their library: B\d+, B\d+\./.test(v.log.map(l => l.text).join(' ')),
+    'exiling off the top logs the card names');
+
   // fromTop: the deck icon drags — top card straight to a zone.
   const bLib = g.viewFor('b').zones.b.libraryCount;
   g.apply('b', { a: 'fromTop', to: 'battlefield' });
@@ -601,7 +610,7 @@ section('Mill + play from the top of the library');
     !/into their hand: B/.test(v.log.map(l => l.text).join(' ')),
     'drawing off the top stays hidden in the log');
   g.apply('b', { a: 'fromTop', to: 'exile' });
-  assert(g.viewFor('a').zones.b.exile.length === 1, 'fromTop exile works');
+  assert(g.viewFor('a').zones.b.exile.length === 3, 'fromTop exile works (2 exiled earlier + 1)');
   threw = false;
   try { g.apply('b', { a: 'fromTop', to: 'library' }); } catch (e) { threw = true; }
   assert(threw, 'fromTop rejects bad destinations');
