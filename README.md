@@ -282,6 +282,14 @@ draw 7, and you go:
   by the host's engine, publicly logged.
 - **🏳 Resign** clears your battlefield and turns your seat into a
   spectator; the turn order skips you from then on.
+- **The stack** — a narrow column left of the playfield where spells sit
+  while being cast, before they resolve. Drag a hand card onto it (or
+  *⌛ Cast to stack* in the right-click menu) and everyone sees the card
+  mid-cast, so the table can respond. Your own stack cards resolve by
+  drag or menu: **→ battlefield** (double-click works too),
+  **→ graveyard** (an instant/sorcery resolving), **✗ Countered**,
+  back to hand, or exile. Resigning fizzles your unresolved spells into
+  your graveyard.
 - **Two battlefield rows**: lands go to the row nearest their owner, spells
   to the row nearest the middle (auto-sorted by card type; *⇅ Row* overrides).
 - **Attachments**: select an equipment/aura, hit *Attach to…*, click the

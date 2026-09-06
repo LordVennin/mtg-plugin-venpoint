@@ -117,6 +117,7 @@ var MTGGame = (function () {
     this.revealing = {}; // pid -> how many top-of-library cards are PUBLICLY revealed
     this.handOpen = {}; // pid -> true while their whole hand is publicly revealed
     this.resigned = {}; // pid -> true once they leave the game (they spectate)
+    this.stack = []; // shared casting stack: {p: pid, card} — public, last = top
 
     var startLife = opts.startLife || (this.commander ? 40 : 20);
     this.players.forEach(function (id) {
@@ -537,11 +538,52 @@ var MTGGame = (function () {
         this._log(pid, me + ' discards ' + drc.name + ' at random.');
         break;
       }
+      case 'toStack': {
+        // Cast: hand -> the shared stack (public — everyone sees the card).
+        var sc = takeByUid(z.hand, action.uid, function (c) { return c.uid; });
+        if (!sc) throw new Error('Card not in your hand');
+        this.stack.push({ p: pid, card: sc });
+        this._log(pid, me + ' casts ' + sc.name + ' — on the stack.');
+        break;
+      }
+      case 'stackMove': {
+        var si = -1;
+        for (var s2 = 0; s2 < this.stack.length; s2++) {
+          if (this.stack[s2].p === pid && this.stack[s2].card.uid === action.uid) { si = s2; break; }
+        }
+        if (si === -1) throw new Error('That card of yours is not on the stack');
+        var sDest = action.to;
+        if (['battlefield', 'graveyard', 'hand', 'exile'].indexOf(sDest) === -1) {
+          throw new Error('Bad destination');
+        }
+        var stc = this.stack.splice(si, 1)[0].card;
+        if (sDest === 'battlefield') {
+          z.battlefield.push(permanent(stc));
+          this._log(pid, stc.name + ' resolves — onto the battlefield.');
+        } else if (sDest === 'hand') {
+          z.hand.push(stc);
+          this._log(pid, me + ' returns ' + stc.name + ' from the stack to their hand.');
+        } else if (sDest === 'exile') {
+          z.exile.push(stc);
+          this._log(pid, stc.name + ' is exiled from the stack.');
+        } else {
+          z.graveyard.push(stc);
+          this._log(pid, action.countered
+            ? stc.name + ' is countered.'
+            : stc.name + ' resolves — into the graveyard.');
+        }
+        break;
+      }
       case 'resign': {
         if (this.resigned[pid]) throw new Error('Already resigned');
         // Their permanents leave the table; anything attached to them frees up.
         z.battlefield.forEach(function (e) { this._detachDependents(e.card.uid); }, this);
         z.battlefield = [];
+        // Their unresolved spells fizzle into the graveyard.
+        this.stack = this.stack.filter(function (e) {
+          if (e.p === pid) { z.graveyard.push(e.card); return false; }
+          return true;
+        });
         this.revealing[pid] = 0;
         this.handOpen[pid] = false;
         this.resigned[pid] = true;
@@ -852,6 +894,8 @@ var MTGGame = (function () {
       // Publicly revealed whole hands (live while the toggle is on).
       openHands: {},
       resigned: this.players.filter(function (id) { return this.resigned[id]; }, this),
+      // The casting stack is public: everyone sees every card on it.
+      stack: this.stack.map(function (e) { return { p: e.p, card: e.card }; }),
       log: this.log.slice(-40)
     };
     this.players.forEach(function (id) {

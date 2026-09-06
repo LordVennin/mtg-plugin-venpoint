@@ -225,6 +225,36 @@ legend { color: var(--muted); font-size: 13px; padding: 0 6px; }
 #screen-game { max-width: none; padding: 10px 16px; }
 .game-layout { display: flex; gap: 12px; align-items: stretch; }
 #game-board { flex: 1 1 auto; min-width: 0; }
+
+/* the shared casting stack — a narrow column left of the playfield */
+.stack-zone {
+  flex: 0 0 96px;
+  background: var(--panel);
+  border: 1px solid #2c3140;
+  border-radius: var(--radius);
+  padding: 8px 6px;
+  align-self: flex-start;
+  position: sticky;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 140px;
+}
+.stack-title {
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  text-align: center; white-space: nowrap;
+}
+.stack-item .gcard { width: 100%; }
+.stack-owner {
+  font-size: 10px; color: var(--muted); text-align: center;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.stack-empty {
+  font-size: 11px; color: var(--muted); text-align: center;
+  border: 1px dashed #2c3140; border-radius: 6px; padding: 14px 4px;
+}
+.stack-hint { font-size: 10px; opacity: 0.8; }
 .game-log {
   flex: 0 0 230px;
   background: var(--panel);
@@ -597,6 +627,8 @@ button.ctx {
   .game-layout { flex-direction: column; }
   .game-log { flex: 1 1 auto; max-height: 160px; }
   .card-preview { position: static; flex: 1 1 auto; order: 3; }
+  .stack-zone { position: static; flex: 1 1 auto; flex-direction: row; flex-wrap: wrap; min-height: 0; }
+  .stack-zone .stack-item { width: 90px; }
 }
 
 /* ---------- deck workshop ---------- */

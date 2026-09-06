@@ -256,8 +256,13 @@ var GameUI = (function () {
     var b = function (act, label) {
       return '<button class="ctx" data-act="' + act + '">' + label + '</button>';
     };
+    if (selected.zone === 'stack') {
+      return b('stk-bf', '▶ Resolve → battlefield') + b('stk-gy', '✓ Resolve → graveyard') +
+        b('stk-counter', '✗ Countered') + b('stk-hand', '↩ Back to hand') + b('stk-exile', '→ Exile');
+    }
     if (selected.zone === 'hand') {
-      return b('play', '▶ Play') + b('playfd', '🂠 Play face down') + b('discard', 'Discard') +
+      return b('play', '▶ Play') + b('to-stack', '⌛ Cast to stack') +
+        b('playfd', '🂠 Play face down') + b('discard', 'Discard') +
         b('hand-top', '⤒ Library top') + b('hand-bot', '⤓ Library bottom') +
         (view.bottoming > 0 ? b('bottom', '⤓ Bottom (mulligan)') : '') +
         (isCommanderCard(view, 'hand', selected.uid) ? b('hand-cmd', '→ Command zone') : '');
@@ -495,7 +500,10 @@ var GameUI = (function () {
         (selected.zone === 'battlefield' && onMyBf(selected.uid)) ||
         (selected.zone === 'graveyard' && mz.graveyard.some(function (c) { return c.uid === selected.uid; })) ||
         (selected.zone === 'exile' && mz.exile.some(function (c) { return c.uid === selected.uid; })) ||
-        (selected.zone === 'command' && mz.command.some(function (c) { return c.uid === selected.uid; }));
+        (selected.zone === 'command' && mz.command.some(function (c) { return c.uid === selected.uid; })) ||
+        (selected.zone === 'stack' && (view.stack || []).some(function (e) {
+          return e.p === me && e.card.uid === selected.uid;
+        }));
       if (!still) selected = null;
     } else {
       selected = null;
@@ -583,6 +591,20 @@ var GameUI = (function () {
       html = othersHtml + '<div class="board-divider">Turn ' + view.turn + '</div>' + myCell;
     }
     $('#game-board').innerHTML = html;
+
+    // The shared casting stack, top of stack first. Public to everyone;
+    // your own spells there are clickable/draggable like any of your cards.
+    var stEntries = view.stack || [];
+    $('#stack-zone').innerHTML = '<div class="stack-title">⌛ Stack</div>' +
+      (stEntries.length
+        ? stEntries.slice().reverse().map(function (e) {
+            var mineCard = e.p === me;
+            return '<div class="stack-item">' +
+              cardHtml(e.card, { small: true, mine: mineCard, zone: mineCard ? 'stack' : null, drag: mineCard }) +
+              '<div class="stack-owner">' + escapeHtml(view.names[e.p] || e.p) + '</div></div>';
+          }).join('')
+        : '<div class="stack-empty">empty' +
+          (me ? '<br><span class="stack-hint">drag a hand card here to cast it</span>' : '') + '</div>');
 
     $('#card-preview').innerHTML = previewHtml();
 
@@ -733,6 +755,12 @@ var GameUI = (function () {
       'ex-field': { a: 'zoneMove', from: 'exile', uid: uid, to: 'battlefield' },
       'ex-gy': { a: 'zoneMove', from: 'exile', uid: uid, to: 'graveyard' },
       'ex-lib': { a: 'zoneMove', from: 'exile', uid: uid, to: 'library' },
+      'to-stack': { a: 'toStack', uid: uid },
+      'stk-bf': { a: 'stackMove', uid: uid, to: 'battlefield' },
+      'stk-gy': { a: 'stackMove', uid: uid, to: 'graveyard' },
+      'stk-counter': { a: 'stackMove', uid: uid, to: 'graveyard', countered: true },
+      'stk-hand': { a: 'stackMove', uid: uid, to: 'hand' },
+      'stk-exile': { a: 'stackMove', uid: uid, to: 'exile' },
       'cast-cmd': { a: 'castCommander', uid: uid },
       'bf-cmd': { a: 'toCommand', uid: uid, from: 'battlefield' },
       'hand-cmd': { a: 'toCommand', uid: uid, from: 'hand' },
@@ -746,6 +774,10 @@ var GameUI = (function () {
 
   var menuEl = null;
   var menuPos = { x: 0, y: 0 };
+  // Drag state lives at module level: the once-wired stack drop target and the
+  // per-render dragstart handlers must share the same variables.
+  var dragUid = null;
+  var dragZone = null;
   function closeCardMenu() {
     if (menuEl) { menuEl.remove(); menuEl = null; }
   }
@@ -944,7 +976,7 @@ var GameUI = (function () {
   function wire() {
     var board = $('#game-board');
 
-    board.querySelectorAll('.gcard').forEach(function (el) {
+    document.querySelectorAll('#game-board .gcard, #stack-zone .gcard').forEach(function (el) {
       var uid = el.getAttribute('data-uid');
       var zone = el.getAttribute('data-zone');
       var mine = el.getAttribute('data-mine') === '1';
@@ -965,6 +997,7 @@ var GameUI = (function () {
         lastClick = { uid: uid, t: now };
         if (isDouble && mine && zone === 'hand') { act({ a: 'play', uid: uid }); return; }
         if (isDouble && mine && zone === 'battlefield') { act({ a: 'tap', uid: uid }); return; }
+        if (isDouble && mine && zone === 'stack') { act({ a: 'stackMove', uid: uid, to: 'battlefield' }); return; }
         previewUid = uid;
         if (mine && zone) {
           if (selected && selected.uid === uid && selected.zone === zone) selected = null;
@@ -1019,9 +1052,7 @@ var GameUI = (function () {
     // Drag to rearrange your own battlefield (reorder within a row, or move
     // between the spells/lands rows) and your hand. Drops before the card
     // you land on.
-    var dragUid = null;
-    var dragZone = null;
-    board.querySelectorAll('.gcard[data-mine="1"][draggable="true"]').forEach(function (el) {
+    document.querySelectorAll('#game-board .gcard[data-mine="1"][draggable="true"], #stack-zone .gcard[data-mine="1"][draggable="true"]').forEach(function (el) {
       el.addEventListener('dragstart', function (ev) {
         dragUid = el.getAttribute('data-uid');
         dragZone = el.getAttribute('data-zone');
@@ -1074,6 +1105,8 @@ var GameUI = (function () {
           act({ a: 'play', uid: uid });
         } else if (from === 'library') {
           act({ a: 'fromTop', to: 'battlefield' });
+        } else if (from === 'stack') {
+          act({ a: 'stackMove', uid: uid, to: 'battlefield' });
         } else if (from === 'graveyard' || from === 'exile') {
           act({ a: 'zoneMove', from: from, uid: uid, to: 'battlefield' });
         }
@@ -1095,6 +1128,26 @@ var GameUI = (function () {
         if (from === 'hand') act({ a: 'handOrder', uid: uid, before: dropTargetBefore(ev, uid) });
         else if (from === 'battlefield') act({ a: 'move', uid: uid, to: 'hand' });
         else if (from === 'library') act({ a: 'fromTop', to: 'hand' });
+        else if (from === 'stack') act({ a: 'stackMove', uid: uid, to: 'hand' });
+      });
+    }
+
+    // The stack accepts hand cards: dropping one casts it (hand -> stack).
+    var stackZoneEl = $('#stack-zone');
+    if (stackZoneEl && !stackZoneEl._wired) {
+      stackZoneEl._wired = true; // outside #game-board — wire once, it survives re-renders
+      stackZoneEl.addEventListener('dragover', function (ev) {
+        ev.preventDefault();
+        if (ev.dataTransfer) ev.dataTransfer.dropEffect = 'move';
+      });
+      stackZoneEl.addEventListener('drop', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var uid = dragUid || (ev.dataTransfer && ev.dataTransfer.getData('text/plain'));
+        var from = dragZone;
+        dragUid = null;
+        if (!uid) return;
+        if (from === 'hand') act({ a: 'toStack', uid: uid });
       });
     }
 
@@ -1122,6 +1175,7 @@ var GameUI = (function () {
         var zone = strip.getAttribute('data-pile').split(':')[1];
         if (from === 'battlefield') act({ a: 'move', uid: uid, to: zone });
         else if (from === 'library') act({ a: 'fromTop', to: zone });
+        else if (from === 'stack') act({ a: 'stackMove', uid: uid, to: zone });
         else if (from === 'hand' && zone === 'graveyard') act({ a: 'discard', uid: uid });
         else if ((from === 'graveyard' || from === 'exile') && from !== zone) {
           act({ a: 'zoneMove', from: from, uid: uid, to: zone });

@@ -372,6 +372,60 @@ section('Game setup');
   assert(threw, 'nine players rejected');
 }
 
+section('The casting stack');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i }));
+  const g = new Game.Game(['a', 'b'], { a: mkDeck('A', 20), b: mkDeck('B', 20) },
+    { a: 'Alice', b: 'Bob' }, { rng: seededRng(12) });
+
+  // Casting puts the card on the shared, public stack.
+  const spell = g.viewFor('a').hand[0];
+  g.apply('a', { a: 'toStack', uid: spell.uid });
+  let vb = g.viewFor('b');
+  assert(vb.stack.length === 1 && vb.stack[0].p === 'a' && vb.stack[0].card.name === spell.name,
+    'the opponent sees the exact card on the stack');
+  assert(g.viewFor('a').hand.length === 6, 'the card left the hand');
+  assert(/Alice casts A\d+ — on the stack\./.test(vb.log.map(l => l.text).join(' ')), 'casting is logged');
+
+  // Only the owner can move it.
+  let threw = false;
+  try { g.apply('b', { a: 'stackMove', uid: spell.uid, to: 'graveyard' }); } catch (e) { threw = true; }
+  assert(threw, "you can't resolve someone else's spell");
+
+  // Resolve to the battlefield.
+  g.apply('a', { a: 'stackMove', uid: spell.uid, to: 'battlefield' });
+  let va = g.viewFor('a');
+  assert(va.stack.length === 0 && va.zones.a.battlefield.length === 1,
+    'resolving moves stack -> battlefield');
+  assert(/resolves — onto the battlefield/.test(va.log.map(l => l.text).join(' ')), 'resolution logged');
+
+  // Countered: stack -> graveyard with its own log line.
+  const c2 = g.viewFor('a').hand[0];
+  g.apply('a', { a: 'toStack', uid: c2.uid });
+  g.apply('a', { a: 'stackMove', uid: c2.uid, to: 'graveyard', countered: true });
+  va = g.viewFor('a');
+  assert(va.zones.a.graveyard.length === 1 && /is countered\./.test(va.log.map(l => l.text).join(' ')),
+    'countered spells land in the graveyard with a countered log');
+
+  // Back to hand, and exile.
+  const c3 = g.viewFor('a').hand[0];
+  g.apply('a', { a: 'toStack', uid: c3.uid });
+  g.apply('a', { a: 'stackMove', uid: c3.uid, to: 'hand' });
+  assert(g.viewFor('a').hand.some(c => c.uid === c3.uid), 'a stack card can come back to hand');
+  const c4 = g.viewFor('a').hand[0];
+  g.apply('a', { a: 'toStack', uid: c4.uid });
+  g.apply('a', { a: 'stackMove', uid: c4.uid, to: 'exile' });
+  assert(g.viewFor('a').zones.a.exile.length === 1, 'a stack card can be exiled');
+
+  // Resigning fizzles your unresolved spells into your graveyard.
+  const c5 = g.viewFor('b').hand[0];
+  g.apply('b', { a: 'toStack', uid: c5.uid });
+  g.apply('b', { a: 'resign' });
+  va = g.viewFor('a');
+  assert(va.stack.length === 0 && va.zones.b.graveyard.length === 1,
+    "resigning sweeps the player's stack cards to their graveyard");
+}
+
 section('Solo playtest (one-player game)');
 {
   const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i }));
