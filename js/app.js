@@ -36,6 +36,7 @@
     solo: false,         // a solo playtest game is running (no room, no network)
     soloCards: null,     // the resolved deck, kept for instant restarts
     soloCommander: false,
+    soloReturn: 'solo',  // where "End match" lands: 'solo' setup or 'workshop'
     sets: null,          // Scryfall set catalog for sealed, once loaded
     presets: null,       // site-owner preset lists (lists/ directory), once loaded
     postGame: 'lobby',   // which screen a finished match returns to: lobby|build|done
@@ -1400,12 +1401,15 @@
   function endSoloGame() {
     App.game = null;
     App.solo = false;
-    show('solo'); // back to the setup screen — the list is still there
+    // Back to wherever the test came from: the solo setup screen (list kept)
+    // or the workshop (deck still loaded, keep editing).
+    show(App.soloReturn === 'workshop' ? 'workshop' : 'solo');
   }
 
   function initSolo() {
     $('#btn-solo').addEventListener('click', function () {
       renderPresetRows(); // refresh "My deck:" entries against the current name
+      App.soloReturn = 'solo';
       show('solo');
     });
     $('#btn-solo-back').addEventListener('click', function () { show('home'); });
@@ -1953,10 +1957,6 @@
     return out;
   }
 
-  function wsIsBasic(card) {
-    return /\bBasic\b/i.test(card.type || '') && /\bLand\b/i.test(card.type || '');
-  }
-
   function wsRender() {
     var total = WS.entries.reduce(function (s, e) { return s + e.count; }, 0) +
       (WS.commander ? 1 : 0);
@@ -2034,7 +2034,9 @@
 
   var WS_MAX_CARDS = 500; // matches the cap on decks submitted into games
 
-  /** Add one copy (4-copy cap, basics exempt). Card data may arrive later. */
+  /** Add one copy. No per-card copy cap — format legality (4-copy rules,
+   *  Relentless Rats style exceptions, singleton) is the table's to govern;
+   *  only the overall deck size stays bounded for storage/game payloads. */
   function wsAddByName(name, set, card) {
     if (card) WS.cards[name.toLowerCase()] = card;
     var total = WS.entries.reduce(function (s, e) { return s + e.count; }, 0);
@@ -2044,10 +2046,6 @@
     }
     var entry = WS.entries.find(function (e) { return e.name === name; });
     if (entry) {
-      if (entry.count >= 4 && !wsIsBasic(wsCard(name))) {
-        toast('4 copies max (basic lands excepted).', true);
-        return;
-      }
       entry.count++;
     } else {
       WS.entries.push({ name: name, set: set || null, count: 1 });
@@ -2186,6 +2184,16 @@
         toast('Deleted ' + name + '.');
         wsRefreshDeckList();
       });
+    });
+    $('#ws-test').addEventListener('click', function () {
+      if (!WS.entries.length && !WS.commander) {
+        return toast('Add some cards first — there is nothing to test yet.', true);
+      }
+      // Hand the serialized list to the solo flow; ending the test game
+      // comes back here, deck untouched, for a tight edit-test loop.
+      $('#solo-text').value = wsSerialize();
+      App.soloReturn = 'workshop';
+      $('#btn-solo-start').click();
     });
     $('#ws-export').addEventListener('click', function () {
       var name = (($('#ws-deck-name').value || '').trim() || 'deck') + '.txt';

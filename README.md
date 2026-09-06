@@ -148,9 +148,13 @@ Also included, built from MTGJSON's official product lists:
 **🛠 Deck workshop** on the home screen is a full custom deck editor — no
 room needed. Search **all of Magic** with full Scryfall syntax
 (`t:goblin o:haste c:r cmc<3`), click results to add them, manage counts
-(4-copy cap, basics exempt), star a **commander**, and watch the live
-stats bar (value / curve / types). Decks serialize to the same plain-text
-list format everything else uses.
+freely — there is **no per-card copy cap** (Relentless Rats, Shadowborn
+Apostle, singleton… the table governs legality; only the overall deck
+size is bounded) — star a **commander**, and watch the live stats bar
+(value / curve / types). **🧪 Test** launches the deck straight into a
+solo playtest game; ending the test drops you back in the workshop with
+the deck still loaded. Decks serialize to the same plain-text list
+format everything else uses.
 
 Saved decks are stored **on the relay server** (`data/decks/`, keyed by
 your player name) — deliberately, because quick-tunnel URLs change every
