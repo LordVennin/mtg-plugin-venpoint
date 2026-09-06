@@ -41,6 +41,28 @@
       <p class="hint">Build and manage full custom decks — search all of Magic, save them for game night. No room needed.</p>
       <button id="btn-workshop">🛠 Open the deck workshop</button>
     </div>
+    <div class="workshop-entry">
+      <h2>Solo playtest</h2>
+      <p class="hint">Goldfish a deck alone on the full play surface — draw, mulligan, play out your turns. No room, no opponent.</p>
+      <button id="btn-solo">🧪 Solo playtest</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLO PLAYTEST (goldfish a deck, no room) ============ -->
+<section id="screen-solo" hidden>
+  <div class="panel">
+    <h2>🧪 Solo playtest</h2>
+    <p class="hint">Paste a deck list, or grab a preset / one of your saved decks below.
+      Mark a commander with a <code>Commander</code> header (or <code>*CMDR*</code> on its line)
+      to start commander-style — command zone, 40 life. Everything on the play surface works:
+      draw, mulligan, scry, mill, dice, tokens…</p>
+    <div class="preset-row" data-preset-for="deck" data-target="solo-text" hidden></div>
+    <textarea id="solo-text" rows="14" placeholder="4 Lightning Bolt&#10;4 Monastery Swiftspear&#10;20 Mountain&#10;…"></textarea>
+    <div class="actions">
+      <button id="btn-solo-start" class="primary">▶ Start the test game</button>
+      <button id="btn-solo-back">← Back</button>
+    </div>
   </div>
 </section>
 
@@ -256,6 +278,7 @@
 <section id="screen-game" hidden>
   <div class="game-topbar">
     <span id="spectate-note" class="spectate-note" hidden>👁 Spectating</span>
+    <button id="btn-solo-restart" class="mini" hidden>↺ Restart test</button>
     <button id="btn-end-match" class="mini" hidden>⏹ End match</button>
   </div>
   <div class="game-layout">

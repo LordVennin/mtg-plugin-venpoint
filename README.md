@@ -68,6 +68,13 @@ plain `ws://` during local testing).
   and **Commander** (the commander slot in the builder, games start with a
   command zone at 40 life). Needs Scryfall reachable when the host loads
   the set.
+- **Solo playtest** — goldfish a deck alone, straight from the home screen:
+  no room, no opponent. Paste any list (or pick a preset / one of your saved
+  workshop decks), and the full play surface is yours — draw, mulligan,
+  scry, mill, tokens, dice; passing the turn cycles straight back to you.
+  Mark a commander (a `Commander` header or `*CMDR*`) to test
+  commander-style at 40 life with a command zone. **↺ Restart test**
+  reshuffles for a fresh hand instantly.
 - **Cube draft** and **Jumpstart** — draft from a shared pool (below). Cube
   drafting comes in three flavors, picked in the host panel:
   - **Standard** — classic booster draft, then build a 40-card deck.

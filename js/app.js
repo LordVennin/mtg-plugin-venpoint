@@ -33,6 +33,9 @@
     buildVariant: 'standard', // cube/sealed variant the builder is building for
     vanguardDeals: {},   // host only: playerId -> vanguard cards dealt pre-draft
     sealedPools: null,   // host only: playerId -> sealed pool, while sealed runs
+    solo: false,         // a solo playtest game is running (no room, no network)
+    soloCards: null,     // the resolved deck, kept for instant restarts
+    soloCommander: false,
     sets: null,          // Scryfall set catalog for sealed, once loaded
     presets: null,       // site-owner preset lists (lists/ directory), once loaded
     postGame: 'lobby',   // which screen a finished match returns to: lobby|build|done
@@ -52,7 +55,7 @@
   /* ---------------- screen switching ---------------- */
 
   function show(screen) {
-    ['home', 'lobby', 'draft', 'done', 'build', 'game', 'workshop'].forEach(function (s) {
+    ['home', 'lobby', 'draft', 'done', 'build', 'game', 'workshop', 'solo'].forEach(function (s) {
       $('#screen-' + s).hidden = (s !== screen);
     });
   }
@@ -1358,7 +1361,85 @@
     show('game');
     $('#spectate-note').hidden = !!payload.view.you;
     $('#btn-end-match').hidden = App.role !== 'host';
+    $('#btn-solo-restart').hidden = true;
     GameUI.render(payload.view, gameSend);
+  }
+
+  /* ---------------- solo playtest (goldfishing, no room, no network) ---------------- */
+
+  function soloSend(action) {
+    if (!App.game) return;
+    try {
+      App.game.apply('solo', action);
+    } catch (err) {
+      toast(err.message, true);
+    }
+    soloRender();
+  }
+
+  function soloRender() {
+    show('game');
+    $('#spectate-note').hidden = true;
+    $('#btn-end-match').hidden = false;
+    $('#btn-solo-restart').hidden = false;
+    GameUI.render(App.game.viewFor('solo'), soloSend);
+  }
+
+  function startSoloGame() {
+    var name = ($('#name-input').value || '').trim() || 'You';
+    try {
+      App.game = new MTGGame.Game(['solo'], { solo: App.soloCards }, { solo: name },
+        { commander: App.soloCommander });
+    } catch (err) {
+      return toast(err.message, true);
+    }
+    App.solo = true;
+    soloRender();
+  }
+
+  function endSoloGame() {
+    App.game = null;
+    App.solo = false;
+    show('solo'); // back to the setup screen — the list is still there
+  }
+
+  function initSolo() {
+    $('#btn-solo').addEventListener('click', function () {
+      renderPresetRows(); // refresh "My deck:" entries against the current name
+      show('solo');
+    });
+    $('#btn-solo-back').addEventListener('click', function () { show('home'); });
+    $('#btn-solo-restart').addEventListener('click', function () {
+      if (!App.solo || !App.soloCards) return;
+      if (!window.confirm('Restart the test game? Fresh shuffle, fresh hand.')) return;
+      startSoloGame();
+    });
+    $('#btn-solo-start').addEventListener('click', function () {
+      var btn = $('#btn-solo-start');
+      var parsed = MTGParser.parseDeckListWithCommanders($('#solo-text').value);
+      var names = MTGParser.expandEntries(parsed.entries);
+      if (!names.length) return toast('Deck list is empty or unparseable.', true);
+      btn.disabled = true;
+      btn.textContent = 'Loading cards…';
+      var finish = function () { btn.disabled = false; btn.textContent = '▶ Start the test game'; };
+      var begin = function (resolved) {
+        var cards = Scryfall.toCardObjects(names, resolved);
+        var cmdrSet = {};
+        parsed.commanders.forEach(function (n) { cmdrSet[n.toLowerCase()] = true; });
+        cards.forEach(function (c) { if (cmdrSet[c.name.toLowerCase()]) c.commander = true; });
+        App.soloCards = cards;
+        App.soloCommander = parsed.commanders.length > 0;
+        finish();
+        startSoloGame();
+      };
+      Scryfall.resolve(names, function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; },
+        MTGParser.collectSetHints(parsed.entries))
+        .then(function (res) { begin(res.cards); })
+        .catch(function () {
+          toast('Scryfall unreachable — playing with text-only cards.', true);
+          begin({});
+        });
+    });
   }
 
   /* ---------------- joining (guest) ---------------- */
@@ -2159,7 +2240,12 @@
     initBuilder();
     initDeckSubmit();
     initWorkshop();
+    initSolo();
     $('#btn-end-match').addEventListener('click', function () {
+      if (App.solo) {
+        if (window.confirm('End the test game?')) endSoloGame();
+        return;
+      }
       if (App.role === 'host') hostEndMatch();
     });
     $('#btn-close-room-build').addEventListener('click', hostCloseRoom);

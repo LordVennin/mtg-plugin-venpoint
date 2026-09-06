@@ -365,11 +365,40 @@ section('Game setup');
   assert(g.viewFor('b').hand.every(c => c.name.startsWith('B')), "b's view shows b's own hand");
 
   let threw = false;
-  try { new Game.Game(['a'], {}, {}); } catch (e) { threw = /2-8/.test(e.message); }
-  assert(threw, 'one player rejected');
+  try { new Game.Game([], {}, {}); } catch (e) { threw = /1-8/.test(e.message); }
+  assert(threw, 'zero players rejected');
   threw = false;
-  try { new Game.Game('abcdefghi'.split(''), {}, {}); } catch (e) { threw = /2-8/.test(e.message); }
+  try { new Game.Game('abcdefghi'.split(''), {}, {}); } catch (e) { threw = /1-8/.test(e.message); }
   assert(threw, 'nine players rejected');
+}
+
+section('Solo playtest (one-player game)');
+{
+  const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i }));
+  const g = new Game.Game(['solo'], { solo: mkDeck('S', 40) }, { solo: 'Ven' }, { rng: seededRng(7) });
+  let v = g.viewFor('solo');
+  assert(v.hand.length === 7 && v.zones.solo.libraryCount === 33, 'solo game deals a normal hand');
+
+  // Passing the turn cycles straight back to you — goldfish turns.
+  g.apply('solo', { a: 'passTurn' });
+  v = g.viewFor('solo');
+  assert(v.turn === 2 && v.active === 'solo', 'passing the turn stays with the solo player, turn 2');
+
+  // The whole action surface works alone.
+  g.apply('solo', { a: 'draw', n: 2 });
+  g.apply('solo', { a: 'mill', n: 3 });
+  g.apply('solo', { a: 'play', uid: g.viewFor('solo').hand[0].uid });
+  v = g.viewFor('solo');
+  assert(v.hand.length === 8 && v.zones.solo.graveyard.length === 3 &&
+    v.zones.solo.battlefield.length === 1, 'draw / mill / play all work solo');
+
+  // Commander solo: 40 life + command zone.
+  const cmdrDeck = mkDeck('C', 40).concat([{ name: 'The Boss', commander: true }]);
+  const gc = new Game.Game(['solo'], { solo: cmdrDeck }, { solo: 'Ven' },
+    { commander: true, rng: seededRng(8) });
+  const vc = gc.viewFor('solo');
+  assert(vc.life.solo === 40 && vc.zones.solo.command.length === 1 &&
+    vc.zones.solo.command[0].name === 'The Boss', 'solo commander game: 40 life, commander in the zone');
 }
 
 section('Multiplayer, commander zone, spectators');

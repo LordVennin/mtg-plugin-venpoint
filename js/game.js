@@ -94,8 +94,9 @@ var MTGGame = (function () {
    */
   function Game(playerIds, decks, names, opts) {
     opts = opts || {};
-    if (playerIds.length < 2 || playerIds.length > 8) {
-      throw new Error('The play surface needs 2-8 players');
+    // 1 player = solo playtest (goldfishing); multiplayer flows guard 2+.
+    if (playerIds.length < 1 || playerIds.length > 8) {
+      throw new Error('The play surface needs 1-8 players');
     }
     this.players = playerIds.slice();
     this.names = names || {};
