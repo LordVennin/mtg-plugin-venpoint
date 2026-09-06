@@ -156,7 +156,16 @@ solo playtest game; ending the test drops you back in the workshop with
 the deck still loaded. Decks serialize to the same plain-text list
 format everything else uses.
 
-Saved decks are stored **on the relay server** (`data/decks/`, keyed by
+**Inside Venpoint** the app detects the session (token in browser storage)
+and decks save to **your Venpoint account** instead: the account's
+username becomes the deck owner (and prefills the name box), every
+storage call is Bearer-authenticated against
+`/api/games/mtg/storage/<key>`, and the per-account quotas (64KB per
+entry, 32 entries, 512KB per game) come back as readable messages when
+hit. No Venpoint session — standalone hosting, GitHub Pages — and
+everything falls back to the relay/localStorage path below, unchanged.
+
+Otherwise, saved decks are stored **on the relay server** (`data/decks/`, keyed by
 your player name) — deliberately, because quick-tunnel URLs change every
 session and browser storage is origin-locked, so the relay is the one
 stable place the group shares. localStorage keeps a same-origin cache, and

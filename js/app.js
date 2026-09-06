@@ -74,6 +74,11 @@
   function initHome() {
     var saved = localStorage.getItem(LS_NAME);
     if (saved) $('#name-input').value = saved;
+    // Inside a Venpoint session the account's username is the identity —
+    // prefill it (still editable as the table display name).
+    if (VenpointStore.available() && VenpointStore.user() && !$('#name-input').value) {
+      $('#name-input').value = VenpointStore.user();
+    }
 
     $('#btn-host').addEventListener('click', function () {
       var name = $('#name-input').value.trim();
@@ -1863,28 +1868,56 @@
     function localWrite(all) {
       try { localStorage.setItem(KEY, JSON.stringify(all)); } catch (e) { /* cache only */ }
     }
-    function owner() { return ($('#name-input').value || '').trim(); }
+    function owner() {
+      // A Venpoint session makes the account's username the canonical owner;
+      // otherwise decks are filed under the typed player name, as before.
+      return (VenpointStore.available() && VenpointStore.user()) ||
+        ($('#name-input').value || '').trim();
+    }
     function relay(path, opts) {
       return fetch('api/decks' + path, opts).then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
       });
     }
+    /** A server refusal (quota, auth) must reach the user; a plain network
+     *  failure means "no Venpoint/relay here" and the local cache carries. */
+    function vpRefused(err) { return !!(err && err.status); }
     return {
       owner: owner,
-      /** Merged deck names: local cache + the relay's copies for this owner. */
+      usingVenpoint: function () { return VenpointStore.available(); },
+      /** Merged deck names: local cache + the account/relay copies. */
       list: function () {
         var names = Object.create(null);
         Object.keys(localAll()).forEach(function (n) { names[n] = true; });
-        var p = owner()
-          ? relay('?owner=' + encodeURIComponent(owner())).then(function (json) {
-              (json.decks || []).forEach(function (d) { names[d.name] = true; });
-            }).catch(function () { /* no relay (static hosting) — local only */ })
-          : Promise.resolve();
+        var p;
+        if (VenpointStore.available()) {
+          p = VenpointStore.loadDecks().then(function (decks) {
+            Object.keys(decks).forEach(function (n) { names[n] = true; });
+          }).catch(function () { /* venpoint unreachable — local only */ });
+        } else if (owner()) {
+          p = relay('?owner=' + encodeURIComponent(owner())).then(function (json) {
+            (json.decks || []).forEach(function (d) { names[d.name] = true; });
+          }).catch(function () { /* no relay (static hosting) — local only */ });
+        } else {
+          p = Promise.resolve();
+        }
         return p.then(function () { return Object.keys(names).sort(); });
       },
       load: function (name) {
         var local = localAll()[name];
+        if (VenpointStore.available()) {
+          return VenpointStore.loadDecks()
+            .then(function (decks) {
+              if (decks[name]) return decks[name].text;
+              if (local) return local.text;
+              throw new Error('Deck "' + name + '" not found');
+            })
+            .catch(function (err) {
+              if (local) return local.text;
+              throw vpRefused(err) ? err : new Error('Deck "' + name + '" not found');
+            });
+        }
         if (!owner()) return local ? Promise.resolve(local.text) : Promise.reject(new Error('not found'));
         return relay('/get?owner=' + encodeURIComponent(owner()) + '&name=' + encodeURIComponent(name))
           .then(function (json) { return json.text; })
@@ -1894,14 +1927,26 @@
           });
       },
       /**
-       * Saves locally always; to the relay when reachable. Resolves
-       * 'relay'|'local'; REJECTS when the relay refused for a reason
-       * (limits) — that must not be mistaken for "no relay here".
+       * Saves locally always; to the Venpoint account or the relay when
+       * reachable. Resolves 'venpoint'|'relay'|'local'; REJECTS when the
+       * server refused for a reason (quota, limits) — that must not be
+       * mistaken for "no server here".
        */
       save: function (name, text) {
         var all = localAll();
         all[name] = { text: text, updated: Date.now() };
         localWrite(all);
+        if (VenpointStore.available()) {
+          return VenpointStore.loadDecks()
+            .then(function (decks) {
+              decks[name] = { text: text, updated: Date.now() };
+              return VenpointStore.saveDecks(decks);
+            })
+            .then(function () { return 'venpoint'; }, function (err) {
+              if (vpRefused(err)) throw err; // quota/auth message, verbatim
+              return 'local'; // network hiccup — the cache has it
+            });
+        }
         if (!owner()) return Promise.resolve('local');
         return fetch('api/decks/save', {
           method: 'POST',
@@ -1918,6 +1963,15 @@
         var all = localAll();
         delete all[name];
         localWrite(all);
+        if (VenpointStore.available()) {
+          return VenpointStore.loadDecks()
+            .then(function (decks) {
+              if (!(name in decks)) return null;
+              delete decks[name];
+              return VenpointStore.saveDecks(decks);
+            })
+            .catch(function () { /* local delete is enough */ });
+        }
         if (!owner()) return Promise.resolve();
         return relay('/delete', {
           method: 'POST',
@@ -2160,13 +2214,15 @@
       if (!name) { toast('Give the deck a name first.', true); $('#ws-deck-name').focus(); return; }
       WS.deckName = name;
       DeckStore.save(name, wsSerialize()).then(function (where) {
-        $('#ws-status').textContent = where === 'relay'
+        $('#ws-status').textContent = where === 'venpoint'
+          ? '✓ Saved to @' + VenpointStore.user() + "'s Venpoint account"
+          : where === 'relay'
           ? '✓ Saved to the relay (survives URL changes)'
-          : '✓ Saved in this browser only — no relay reachable; export a .txt to be safe';
+          : '✓ Saved in this browser only — no server reachable; export a .txt to be safe';
         wsRefreshDeckList();
       }).catch(function (err) {
         $('#ws-status').textContent = '';
-        toast('Not saved to the relay: ' + err.message, true);
+        toast('Not saved: ' + err.message, true);
       });
     });
     $('#ws-decks').addEventListener('change', function () {
