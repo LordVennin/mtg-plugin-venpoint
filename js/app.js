@@ -72,27 +72,44 @@
   /* ---------------- home screen ---------------- */
 
   function initHome() {
-    var saved = localStorage.getItem(LS_NAME);
-    if (saved) $('#name-input').value = saved;
-    // Inside a Venpoint session the account's username is the identity —
-    // prefill it (still editable as the table display name).
-    if (VenpointStore.available() && VenpointStore.user() && !$('#name-input').value) {
-      $('#name-input').value = VenpointStore.user();
+    // Inside a Venpoint session the account's username IS the identity: the
+    // name step disappears entirely. That keeps table names honest and makes
+    // seat-reclaim on reconnect deterministic (it matches by name). The
+    // standalone build keeps the manual name box unchanged.
+    var venName = VenpointStore.available() ? VenpointStore.user() : null;
+
+    if (venName) {
+      venName = venName.slice(0, 24);
+      $('#name-input').hidden = true;
+      var nameLabel = document.querySelector('label[for="name-input"]');
+      if (nameLabel) nameLabel.hidden = true;
+      var asLine = document.createElement('p');
+      asLine.className = 'hint venpoint-identity';
+      asLine.textContent = 'Playing as ' + venName + ' — your Venpoint account';
+      $('#name-input').parentNode.insertBefore(asLine, $('#name-input'));
+    } else {
+      var saved = localStorage.getItem(LS_NAME);
+      if (saved) $('#name-input').value = saved;
+    }
+
+    function currentName() {
+      if (venName) return venName;
+      var typed = $('#name-input').value.trim();
+      if (typed) localStorage.setItem(LS_NAME, typed);
+      return typed;
     }
 
     $('#btn-host').addEventListener('click', function () {
-      var name = $('#name-input').value.trim();
+      var name = currentName();
       if (!name) return toast('Enter your name first.', true);
-      localStorage.setItem(LS_NAME, name);
       startHosting(name);
     });
 
     $('#btn-join').addEventListener('click', function () {
-      var name = $('#name-input').value.trim();
+      var name = currentName();
       var code = $('#code-input').value;
       if (!name) return toast('Enter your name first.', true);
       if (!Net.normalizeCode(code)) return toast('Enter a room code.', true);
-      localStorage.setItem(LS_NAME, name);
       startJoining(name, code);
     });
   }
