@@ -659,9 +659,10 @@ var GameUI = (function () {
           if (e.card.uid === uid) entry = e;
         });
       }
-      var text = window.prompt('Note for this card (empty clears it):', entry ? entry.note || '' : '');
-      if (text === null) return;
-      act({ a: 'note', uid: uid, text: text });
+      Dlg.prompt('Note for this card (empty clears it):', entry ? entry.note || '' : '').then(function (text) {
+        if (text === null) return;
+        act({ a: 'note', uid: uid, text: text });
+      });
       return;
     }
     if (kind === 'give') {
@@ -674,28 +675,33 @@ var GameUI = (function () {
         var tlist = targets.map(function (id, i) {
           return (i + 1) + ': ' + (lastView.names[id] || id);
         }).join('\n');
-        var tpick = parseInt(window.prompt('Give control of this card to whom?\n' + tlist, '1'), 10);
-        if (!tpick || tpick < 1 || tpick > targets.length) return;
-        to = targets[tpick - 1];
+        Dlg.promptNumber('Give control of this card to whom?\n' + tlist, '1').then(function (tpick) {
+          if (!tpick || tpick < 1 || tpick > targets.length) return;
+          act({ a: 'giveControl', uid: uid, to: targets[tpick - 1] });
+        });
+        return;
       }
       act({ a: 'giveControl', uid: uid, to: to });
       return;
     }
     if (kind === 'counterX') {
-      var cin = window.prompt(
-        'Counters to add — a number, or prefix r/b for the red/blue kind\n(e.g. "5", "-3", "r4", "b2"):', '');
+      Dlg.prompt(
+        'Counters to add — a number, or prefix r/b for the red/blue kind\n(e.g. "5", "-3", "r4", "b2"):', ''
+      ).then(function (cin) {
       if (!cin) return;
       var cm = cin.trim().match(/^([rb]?)\s*(-?\d+)$/i);
       var cd = cm && parseInt(cm[2], 10);
       if (!cd) return;
       var ck = !cm[1] ? 1 : cm[1].toLowerCase() === 'r' ? 2 : 3;
       act({ a: 'counter', uid: uid, d: cd, kind: ck });
+      });
       return;
     }
     if (kind === 'clone') {
-      var cc = parseInt(window.prompt('How many copies?', '1'), 10);
-      if (!cc || cc < 1) return;
-      act({ a: 'clone', uid: uid, count: Math.min(cc, 10) });
+      Dlg.promptNumber('How many copies?', '1').then(function (cc) {
+        if (!cc || cc < 1) return;
+        act({ a: 'clone', uid: uid, count: Math.min(cc, 10) });
+      });
       return;
     }
     if (kind === 'make-token') {
@@ -707,19 +713,24 @@ var GameUI = (function () {
       }
       var toks = (tEntry && tEntry.card.tokens) || [];
       if (!toks.length) return;
-      var chosen = toks[0];
+      var askCount = function (chosen) {
+        Dlg.promptNumber('How many?', '1').then(function (tc) {
+          if (!tc || tc < 1) return;
+          tc = Math.min(tc, 10);
+          Scryfall.fetchToken(chosen.id)
+            .then(function (tok) { act({ a: 'tokenFrom', card: tok, count: tc }); })
+            .catch(function () { act({ a: 'tokenFrom', card: { name: chosen.name }, count: tc }); });
+        });
+      };
       if (toks.length > 1) {
         var listing = toks.map(function (t, i) { return (i + 1) + ': ' + t.name; }).join('\n');
-        var pick = parseInt(window.prompt('Which token?\n' + listing, '1'), 10);
-        if (!pick || pick < 1 || pick > toks.length) return;
-        chosen = toks[pick - 1];
+        Dlg.promptNumber('Which token?\n' + listing, '1').then(function (pick) {
+          if (!pick || pick < 1 || pick > toks.length) return;
+          askCount(toks[pick - 1]);
+        });
+      } else {
+        askCount(toks[0]);
       }
-      var tc = parseInt(window.prompt('How many?', '1'), 10);
-      if (!tc || tc < 1) return;
-      tc = Math.min(tc, 10);
-      Scryfall.fetchToken(chosen.id)
-        .then(function (tok) { act({ a: 'tokenFrom', card: tok, count: tc }); })
-        .catch(function () { act({ a: 'tokenFrom', card: { name: chosen.name }, count: tc }); });
       return;
     }
     var map = {
@@ -817,35 +828,40 @@ var GameUI = (function () {
       return;
     }
     if (kind === 'reveal') {
-      var rv = parseInt(window.prompt('Reveal how many cards from the top of your library? (0 stops revealing)', '1'), 10);
-      if (isNaN(rv) || rv < 0) return;
-      act(rv === 0 ? { a: 'endReveal' } : { a: 'reveal', n: Math.min(rv, 20) });
+      Dlg.promptNumber('Reveal how many cards from the top of your library? (0 stops revealing)', '1').then(function (rv) {
+        if (rv === null || rv < 0) return;
+        act(rv === 0 ? { a: 'endReveal' } : { a: 'reveal', n: Math.min(rv, 20) });
+      });
       return;
     }
     if (kind === 'drawX') {
-      var dn = parseInt(window.prompt('Draw how many cards?', '2'), 10);
-      if (!dn || dn < 1) return;
-      act({ a: 'draw', n: Math.min(dn, 20) });
+      Dlg.promptNumber('Draw how many cards?', '2').then(function (dn) {
+        if (!dn || dn < 1) return;
+        act({ a: 'draw', n: Math.min(dn, 20) });
+      });
       return;
     }
     if (kind === 'millX') {
-      var mn = parseInt(window.prompt('Mill how many cards (top of library → graveyard)?', '3'), 10);
-      if (!mn || mn < 1) return;
-      act({ a: 'mill', n: Math.min(mn, 100) });
+      Dlg.promptNumber('Mill how many cards (top of library → graveyard)?', '3').then(function (mn) {
+        if (!mn || mn < 1) return;
+        act({ a: 'mill', n: Math.min(mn, 100) });
+      });
       return;
     }
     if (kind === 'exileTopX') {
-      var xn = parseInt(window.prompt('Exile how many cards from the top of your library?', '3'), 10);
-      if (!xn || xn < 1) return;
-      act({ a: 'exileTop', n: Math.min(xn, 100) });
+      Dlg.promptNumber('Exile how many cards from the top of your library?', '3').then(function (xn) {
+        if (!xn || xn < 1) return;
+        act({ a: 'exileTop', n: Math.min(xn, 100) });
+      });
       return;
     }
     if (kind === 'dx') {
-      var din = window.prompt('Roll what? A number of sides ("100") or dice-count d sides ("3d8"):', '');
-      if (!din || !din.trim()) return;
-      var dm = din.trim().match(/^(?:(\d+)\s*[dD])?\s*(\d+)$/);
-      if (!dm) return;
-      act({ a: 'roll', sides: parseInt(dm[2], 10), count: dm[1] ? parseInt(dm[1], 10) : 1 });
+      Dlg.prompt('Roll what? A number of sides ("100") or dice-count d sides ("3d8"):', '').then(function (din) {
+        if (!din || !din.trim()) return;
+        var dm = din.trim().match(/^(?:(\d+)\s*[dD])?\s*(\d+)$/);
+        if (!dm) return;
+        act({ a: 'roll', sides: parseInt(dm[2], 10), count: dm[1] ? parseInt(dm[1], 10) : 1 });
+      });
       return;
     }
     if (kind === 'resign') {
@@ -921,23 +937,26 @@ var GameUI = (function () {
   /* -------- shared prompt flows + hotkeys -------- */
 
   function promptScry() {
-    var sn = parseInt(window.prompt('Look at how many cards from the top of your library?', '3'), 10);
-    if (!sn || sn < 1) return;
-    act({ a: 'peek', n: Math.min(sn, 20) });
+    Dlg.promptNumber('Look at how many cards from the top of your library?', '3').then(function (sn) {
+      if (!sn || sn < 1) return;
+      act({ a: 'peek', n: Math.min(sn, 20) });
+    });
   }
 
   function promptToken() {
-    var input = window.prompt('Token to create — a name, or a count + name (e.g. "Goblin" or "3 Treasure"):', '');
-    if (!input || !input.trim()) return;
-    var tm = input.trim().match(/^(\d+)\s*x?\s+(.+)$/i);
-    if (tm) act({ a: 'token', name: tm[2], count: parseInt(tm[1], 10) });
-    else act({ a: 'token', name: input.trim(), count: 1 });
+    Dlg.prompt('Token to create — a name, or a count + name (e.g. "Goblin" or "3 Treasure"):', '').then(function (input) {
+      if (!input || !input.trim()) return;
+      var tm = input.trim().match(/^(\d+)\s*x?\s+(.+)$/i);
+      if (tm) act({ a: 'token', name: tm[2], count: parseInt(tm[1], 10) });
+      else act({ a: 'token', name: input.trim(), count: 1 });
+    });
   }
 
   function promptPlayerCounter() {
-    var name = window.prompt('Player counter to add (poison, energy, experience…):', 'poison');
-    if (!name || !name.trim()) return;
-    act({ a: 'pcounter', name: name.trim(), d: 1 });
+    Dlg.prompt('Player counter to add (poison, energy, experience…):', 'poison').then(function (name) {
+      if (!name || !name.trim()) return;
+      act({ a: 'pcounter', name: name.trim(), d: 1 });
+    });
   }
 
   var hotkeysInstalled = false;
@@ -1042,9 +1061,10 @@ var GameUI = (function () {
         btn.addEventListener('contextmenu', function (ev) {
           ev.preventDefault();
           ev.stopPropagation();
-          var amt = parseInt(window.prompt('Change life by how much?', '5'), 10);
-          if (!amt || amt < 1) return;
-          act({ a: 'life', d: la === 'life-' ? -amt : amt });
+          Dlg.promptNumber('Change life by how much?', '5').then(function (amt) {
+            if (!amt || amt < 1) return;
+            act({ a: 'life', d: la === 'life-' ? -amt : amt });
+          });
         });
       }
     });

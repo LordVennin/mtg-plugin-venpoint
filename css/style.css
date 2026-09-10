@@ -715,3 +715,23 @@ button.ctx {
   .draft-layout .card-preview { order: 3; }
   .card-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
 }
+
+
+/* ---- in-page prompt dialog (window.prompt is missing in Electron) ---- */
+.dlg-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex; align-items: center; justify-content: center;
+}
+.dlg {
+  background: #23252a; border: 1px solid #3a3d44; border-radius: 10px;
+  width: min(380px, calc(100vw - 40px));
+  padding: 16px; box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+.dlg-msg { white-space: pre-line; font-size: 14px; margin-bottom: 10px; }
+.dlg-input {
+  width: 100%; box-sizing: border-box; margin-bottom: 12px;
+  background: #17181c; color: inherit; border: 1px solid #3a3d44;
+  border-radius: 6px; padding: 8px 10px; font-size: 14px;
+}
+.dlg-actions { display: flex; justify-content: flex-end; gap: 8px; }
