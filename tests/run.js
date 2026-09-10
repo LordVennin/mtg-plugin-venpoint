@@ -1271,6 +1271,19 @@ section('Scryfall slim() back faces');
   };
   global.fetch = async () => ({ ok: true, json: async () => fixture });
   const Scryfall = require('../js/scryfall.js');
+
+  section('hiResImg');
+  assert(
+    Scryfall.hiResImg('https://cards.scryfall.io/normal/front/a/b/abc.jpg') ===
+      'https://cards.scryfall.io/large/front/a/b/abc.jpg',
+    'normal URLs upgrade to the large rendition'
+  );
+  assert(Scryfall.hiResImg(null) === null, 'null passes through');
+  assert(
+    Scryfall.hiResImg('https://example.com/weird.jpg') === 'https://example.com/weird.jpg',
+    'unrecognized URLs pass through unchanged'
+  );
+
   Scryfall.resolve(['Delver of Secrets // Insectile Aberration', 'Fire // Ice']).then(r => {
     const dv = r.cards['delver of secrets // insectile aberration'];
     assert(dv.img === 'https://x/front.jpg' && dv.pt === '1/1', 'DFC front face is the card');

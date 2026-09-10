@@ -1231,7 +1231,7 @@
 
   function buildPreviewHtml(card) {
     var body = card.img
-      ? '<img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) +
+      ? '<img src="' + escapeHtml(Scryfall.hiResImg(card.img)) + '" alt="' + escapeHtml(card.name) +
         '" onerror="this.style.display=\'none\'">'
       : '<div class="preview-text"><strong>' + escapeHtml(card.name) + '</strong></div>';
     // Transform / MDFC: show the whole back face (art + text) so drafters
@@ -1242,7 +1242,7 @@
       back = '<div class="preview-otherface">' +
         '<div class="preview-name">Back face: ' + escapeHtml(b.name) +
           (b.pt ? ' <span class="preview-pt">' + escapeHtml(b.pt) + '</span>' : '') + '</div>' +
-        (b.img ? '<img class="preview-backimg" src="' + escapeHtml(b.img) + '" alt="' + escapeHtml(b.name) +
+        (b.img ? '<img class="preview-backimg" src="' + escapeHtml(Scryfall.hiResImg(b.img)) + '" alt="' + escapeHtml(b.name) +
           '" onerror="this.style.display=\'none\'">' : '') +
         (b.type ? '<div class="preview-type">' + escapeHtml(b.type) + '</div>' : '') +
         (b.text ? '<div class="preview-oracle">' + escapeHtml(b.text).replace(/\n/g, '<br>') + '</div>' : '') +

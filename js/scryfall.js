@@ -377,7 +377,17 @@ var Scryfall = (function () {
     });
   }
 
+  /**
+   * The 672px "large" rendition of a stored "normal" (488px) image URL —
+   * for big previews, where the extra pixels visibly matter (Chromium's
+   * downscaling is softer than Firefox's, so headroom helps most there).
+   */
+  function hiResImg(img) {
+    return img && img.indexOf('/normal/') !== -1 ? img.replace('/normal/', '/large/') : img;
+  }
+
   return {
+    hiResImg: hiResImg,
     resolve: resolve,
     toCardObjects: toCardObjects,
     fetchToken: fetchToken,

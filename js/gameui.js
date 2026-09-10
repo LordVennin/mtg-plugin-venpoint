@@ -335,7 +335,7 @@ var GameUI = (function () {
     return '<div class="preview-otherface"><div class="preview-name">' + label +
       ': ' + escapeHtml(f.name) +
       (f.pt ? ' <span class="preview-pt">' + escapeHtml(f.pt) + '</span>' : '') + '</div>' +
-      (f.img ? '<img class="preview-backimg" src="' + escapeHtml(f.img) + '" alt="' + escapeHtml(f.name) +
+      (f.img ? '<img class="preview-backimg" src="' + escapeHtml(Scryfall.hiResImg(f.img)) + '" alt="' + escapeHtml(f.name) +
         '" onerror="this.style.display=\'none\'">' : '') +
       (f.type ? '<div class="preview-type">' + escapeHtml(f.type) + '</div>' : '') +
       (f.text ? '<div class="preview-oracle">' + escapeHtml(f.text).replace(/\n/g, '<br>') + '</div>' : '') +
@@ -358,7 +358,7 @@ var GameUI = (function () {
       card = card.real;
     }
     var body = card.img
-      ? '<img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.name) +
+      ? '<img src="' + escapeHtml(Scryfall.hiResImg(card.img)) + '" alt="' + escapeHtml(card.name) +
         '" onerror="this.style.display=\'none\'">'
       : '<div class="preview-text"><strong>' + escapeHtml(card.name) + '</strong></div>';
     var cardNote = noteByUid[previewUid]
