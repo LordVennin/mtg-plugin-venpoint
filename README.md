@@ -51,6 +51,25 @@ draft traffic is direct browser-to-browser. To use your own
 `index.html?peerhost=your.server&peerport=9000` (add `&peerinsecure=1` for
 plain `ws://` during local testing).
 
+## Two card games
+
+The first choice on the home screen is the **game**: 🃏 Magic: The
+Gathering (everything below) or 🎴 **Yu-Gi-Oh!** Guests always inherit the
+room's game, whatever their own gate says.
+
+Yu-Gi-Oh! tables are constructed-only: everyone pastes a deck (or builds
+one in the workshop, which searches the full card database via
+[YGOPRODeck](https://ygoprodeck.com/api-guide/)). Games start at **8000 LP
+with 5-card opening hands** and no mulligans. **Extra-deck cards (Fusion /
+Synchro / XYZ / Link) are detected automatically** — they start in a
+separate ✨ extra deck: yours is browsable (click the chip to read,
+summon, send, or banish), opponents see only the count, and extra-deck
+monsters on the field get a "→ Extra deck" return action. Everything else
+on the play surface — positions (tap), set cards (face down), banishing
+(exile), the graveyard, chains (the stack), dice, counters, tokens, solo
+playtesting — is the same battle-tested machinery. Workshop decks, stats
+(level curve, monster/spell/trap split), and saves are kept per game.
+
 ## Game modes
 
 - **Sealed** — every player opens real boosters from **any paper set in

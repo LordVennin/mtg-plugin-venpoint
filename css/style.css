@@ -412,6 +412,15 @@ button.gact.primary { background: var(--accent); border-color: var(--accent); co
 .deck-icon.mine-deck { cursor: pointer; }
 .deck-icon.mine-deck:hover { border-color: var(--accent); box-shadow: 0 0 6px rgba(120, 170, 255, 0.4); }
 
+/* the YGO extra deck chip */
+.extra-icon { background: linear-gradient(145deg, #4a3b1e, #2e2412); border-color: #8a6d2f; }
+.extra-icon .deck-count { color: #e8cf8a; }
+.extra-icon.mine-extra { cursor: pointer; }
+.extra-icon.mine-extra:hover { border-color: var(--accent); box-shadow: 0 0 6px rgba(120, 170, 255, 0.4); }
+
+/* the game gate on the home screen */
+.game-gate { margin-bottom: 14px; }
+
 /* player counters (poison, energy, ...) */
 .pchip {
   background: #2b2233; border: 1px solid #6a4a7a; color: #d8b8e8;

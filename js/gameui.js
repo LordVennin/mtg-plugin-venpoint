@@ -208,6 +208,30 @@ var GameUI = (function () {
     if (!openPile) return '';
     var pid = openPile.pid, zone = openPile.zone;
     if (!view.zones[pid]) { openPile = null; return ''; }
+    // The extra deck browser: owner-only, natural order, summon buttons.
+    if (zone === 'extra') {
+      if (pid !== view.you) { openPile = null; return ''; }
+      return modalPreviewPane() + '<div class="search-inner">' +
+        '<h3>Your extra deck (' + view.extra.length + ')</h3>' +
+        '<p class="hint">Only you can browse it — opponents see the count. Click a card to read it.</p>' +
+        '<div class="search-grid">' +
+        view.extra.map(function (c) {
+          indexCard(c);
+          return '<div class="search-item">' + cardHtml(c, { mine: false }) +
+            '<div class="search-item-name">' + escapeHtml(c.name) + '</div>' +
+            '<div class="search-btns">' +
+              '<button class="pile-act" data-uid="' + c.uid + '" data-op="field">Summon</button>' +
+              '<button class="pile-act" data-uid="' + c.uid + '" data-op="gy">Yard</button>' +
+            '</div><div class="search-btns">' +
+              '<button class="pile-act" data-uid="' + c.uid + '" data-op="banish">Banish</button>' +
+              '<button class="pile-act" data-uid="' + c.uid + '" data-op="hand">Hand</button>' +
+            '</div></div>';
+        }).join('') +
+        (view.extra.length ? '' : '<p class="hint">empty</p>') +
+        '</div>' +
+        '<div class="search-footer"><button id="btn-close-pile" class="primary">Close</button></div>' +
+      '</div>';
+    }
     var cards = view.zones[pid][zone];
     var mine = pid === view.you;
     var who = mine ? 'Your' : escapeHtml(view.names[pid] || pid) + '’s';
@@ -229,6 +253,7 @@ var GameUI = (function () {
             '<button class="pile-act" data-uid="' + c.uid + '" data-op="bottom">Bottom</button>' +
             '<button class="pile-act" data-uid="' + c.uid + '" data-op="shuffle">Shuffle</button>' +
             (c.commander ? '<button class="pile-act" data-uid="' + c.uid + '" data-op="cmd">Command</button>' : '') +
+            (c.extra ? '<button class="pile-act" data-uid="' + c.uid + '" data-op="xtra">Extra</button>' : '') +
           '</div>';
         }
         return '<div class="search-item">' + cardHtml(c, { mine: false }) +
@@ -265,7 +290,9 @@ var GameUI = (function () {
         b('playfd', '🂠 Play face down') + b('discard', 'Discard') +
         b('hand-top', '⤒ Library top') + b('hand-bot', '⤓ Library bottom') +
         (view.bottoming > 0 ? b('bottom', '⤓ Bottom (mulligan)') : '') +
-        (isCommanderCard(view, 'hand', selected.uid) ? b('hand-cmd', '→ Command zone') : '');
+        (isCommanderCard(view, 'hand', selected.uid) ? b('hand-cmd', '→ Command zone') : '') +
+        (view.hand.some(function (c) { return c.uid === selected.uid && c.extra; })
+          ? b('hand-xtra', '→ Extra deck') : '');
     }
     if (selected.zone === 'battlefield') {
       if (!full) {
@@ -302,7 +329,8 @@ var GameUI = (function () {
         b('to-graveyard', '→ Graveyard') + b('to-exile', '→ Exile') + b('to-hand', '→ Hand') +
         b('to-library', '→ Shuffle in') +
         b('bf-top', '⤒ Library top') + b('bf-bot', '⤓ Library bottom') +
-        (entry && entry.card.commander ? b('bf-cmd', '→ Command zone') : '');
+        (entry && entry.card.commander ? b('bf-cmd', '→ Command zone') : '') +
+        (entry && entry.card.extra ? b('bf-xtra', '→ Extra deck') : '');
     }
     if (selected.zone === 'graveyard') {
       return b('gy-hand', '→ Hand') + b('gy-field', '→ Battlefield') +
@@ -442,6 +470,16 @@ var GameUI = (function () {
     }).join('');
   }
 
+  /** The extra deck (YGO) as a chip: owner's opens a browser, others count. */
+  function extraIconHtml(view, pid, mine) {
+    var count = view.zones[pid].extraCount | 0;
+    if (view.game !== 'ygo' && !count) return '';
+    return '<span class="deck-icon extra-icon' + (mine ? ' mine-extra' : '') + '"' +
+      (mine ? ' title="Your extra deck — click to browse and summon"'
+            : ' title="' + count + ' cards in their extra deck"') +
+      '>✨<span class="deck-count">' + count + '</span></span>';
+  }
+
   /** The library as a card-back tile. Yours is a drag source + menu anchor. */
   function deckIconHtml(count, mine) {
     return '<span class="deck-icon' + (mine ? ' mine-deck' : '') + '"' +
@@ -463,6 +501,7 @@ var GameUI = (function () {
         '<span class="stat">♥ ' + view.life[pid] + '</span>' +
         '<span class="stat">✋ ' + z.handCount + '</span>' +
         deckIconHtml(z.libraryCount, false) +
+        extraIconHtml(view, pid, false) +
         pcounterChips(view, pid, false) +
       '</div>' +
       revealStrip(view, pid, false) +
@@ -542,6 +581,7 @@ var GameUI = (function () {
         '<div class="player-bar">' +
           '<span class="pname">' + escapeHtml(view.names[me] || 'You') + '</span>' + turnBadge(me) +
           deckIconHtml(mz.libraryCount, true) +
+          extraIconHtml(view, me, true) +
           '<button class="gact" data-act="life-">−</button>' +
           '<span class="stat">♥ ' + view.life[me] + '</span>' +
           '<button class="gact" data-act="life+">+</button>' +
@@ -549,7 +589,7 @@ var GameUI = (function () {
           '<button class="gact" data-act="draw" title="hotkey: d">Draw</button>' +
           '<button class="gact" data-act="deckMenu" title="search, shuffle, scry, mill, reveal… (or click your 📚 deck)">📚 Deck ▾</button>' +
           '<button class="gact" data-act="untapAll" title="hotkey: u">Untap all</button>' +
-          (view.turn === 1 ? '<button class="gact" data-act="mulligan">Mulligan</button>' : '') +
+          (view.turn === 1 && view.game !== 'ygo' ? '<button class="gact" data-act="mulligan">Mulligan</button>' : '') +
           '<button class="gact" data-act="revealHand" title="show your whole hand publicly (toggles)">' +
             (view.openHands && view.openHands[me] ? '🖐 Hide hand' : '🖐 Reveal hand') + '</button>' +
           '<button class="gact" data-act="discardRandom" title="discard a random card">🎲🗑 Discard random</button>' +
@@ -767,6 +807,8 @@ var GameUI = (function () {
       'ex-gy': { a: 'zoneMove', from: 'exile', uid: uid, to: 'graveyard' },
       'ex-lib': { a: 'zoneMove', from: 'exile', uid: uid, to: 'library' },
       'to-stack': { a: 'toStack', uid: uid },
+      'bf-xtra': { a: 'toExtra', uid: uid, from: 'battlefield' },
+      'hand-xtra': { a: 'toExtra', uid: uid, from: 'hand' },
       'stk-bf': { a: 'stackMove', uid: uid, to: 'battlefield' },
       'stk-gy': { a: 'stackMove', uid: uid, to: 'graveyard' },
       'stk-counter': { a: 'stackMove', uid: uid, to: 'graveyard', countered: true },
@@ -1082,6 +1124,15 @@ var GameUI = (function () {
         } catch (e) { /* some browsers are picky mid-testing */ }
       });
     });
+    // Your extra deck chip opens the extra-deck browser (YGO).
+    board.querySelectorAll('.extra-icon.mine-extra').forEach(function (chip) {
+      chip.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        closeCardMenu();
+        openPile = { pid: lastView.you, zone: 'extra' };
+        rerender();
+      });
+    });
     // Your deck icon: click/right-click for the library menu; drag it onto
     // your hand or battlefield to play the top card there sight unseen.
     board.querySelectorAll('.deck-icon.mine-deck').forEach(function (deck) {
@@ -1262,14 +1313,20 @@ var GameUI = (function () {
         var uid = btn.getAttribute('data-uid');
         var zone = openPile.zone;
         var other = zone === 'graveyard' ? 'exile' : 'graveyard';
-        var ops = {
+        var ops = zone === 'extra' ? {
+          field: { a: 'extraMove', uid: uid, to: 'battlefield' },
+          gy: { a: 'extraMove', uid: uid, to: 'graveyard' },
+          banish: { a: 'extraMove', uid: uid, to: 'exile' },
+          hand: { a: 'extraMove', uid: uid, to: 'hand' }
+        } : {
           hand: { a: 'zoneMove', from: zone, uid: uid, to: 'hand' },
           field: { a: 'zoneMove', from: zone, uid: uid, to: 'battlefield' },
           cross: { a: 'zoneMove', from: zone, uid: uid, to: other },
           shuffle: { a: 'zoneMove', from: zone, uid: uid, to: 'library' },
           top: { a: 'toLib', from: zone, uid: uid, pos: 'top' },
           bottom: { a: 'toLib', from: zone, uid: uid, pos: 'bottom' },
-          cmd: { a: 'toCommand', uid: uid, from: zone }
+          cmd: { a: 'toCommand', uid: uid, from: zone },
+          xtra: { a: 'toExtra', uid: uid, from: zone }
         };
         var op = ops[btn.getAttribute('data-op')];
         if (op) act(op);

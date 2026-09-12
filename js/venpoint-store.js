@@ -47,9 +47,10 @@ var VenpointStore = (function () {
   return {
     user: user,
     available: available,
-    /** Every saved deck, {name: {text, updated}} — one storage entry. */
-    loadDecks: function () {
-      return call('GET', 'decks')
+    /** Every saved deck, {name: {text, updated}} — one storage entry per
+     *  game ('decks' for MTG, 'decks-ygo' for Yu-Gi-Oh!). */
+    loadDecks: function (key) {
+      return call('GET', key || 'decks')
         .then(function (json) {
           try { return JSON.parse(json.value) || {}; } catch (e) { return {}; }
         })
@@ -58,8 +59,8 @@ var VenpointStore = (function () {
           throw err;
         });
     },
-    saveDecks: function (decks) {
-      return call('PUT', 'decks', { value: JSON.stringify(decks) });
+    saveDecks: function (decks, key) {
+      return call('PUT', key || 'decks', { value: JSON.stringify(decks) });
     }
   };
 })();

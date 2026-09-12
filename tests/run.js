@@ -426,6 +426,63 @@ section('The casting stack');
     "resigning sweeps the player's stack cards to their graveyard");
 }
 
+section('Yu-Gi-Oh! games: 8000 LP, 5-card hands, the extra deck');
+{
+  const main = Array.from({ length: 40 }, (_, i) => ({ name: 'M' + i }));
+  const extra = Array.from({ length: 3 }, (_, i) => ({ name: 'X' + i, extra: true }));
+  const g = new Game.Game(['a', 'b'],
+    { a: main.concat(extra), b: main.slice() },
+    { a: 'Yugi', b: 'Kaiba' },
+    { game: 'ygo', startLife: 8000, handSize: 5, rng: seededRng(21) });
+
+  let v = g.viewFor('a');
+  assert(v.game === 'ygo', 'the view carries the game system');
+  assert(v.life.a === 8000 && v.life.b === 8000, 'both start at 8000 LP');
+  assert(v.hand.length === 5 && v.zones.b.handCount === 5, 'opening hands are 5 cards');
+  assert(v.extra.length === 3 && v.extra.every(c => /^X/.test(c.name)),
+    'extra-deck cards were split out automatically');
+  assert(v.zones.a.libraryCount === 35, 'the main deck holds only main-deck cards (40 - 5 drawn)');
+  assert(g.viewFor('b').extra.length === 0 && g.viewFor('b').zones.a.extraCount === 3,
+    "opponents see the extra deck's count, never its cards");
+
+  // Summon from the extra deck, then return it.
+  const xUid = v.extra[0].uid;
+  g.apply('a', { a: 'extraMove', uid: xUid, to: 'battlefield' });
+  v = g.viewFor('b');
+  assert(v.zones.a.battlefield.length === 1 && v.zones.a.extraCount === 2,
+    'extraMove battlefield summons the card');
+  assert(/Yugi summons X0 from their extra deck\./.test(v.log.map(l => l.text).join(' ')),
+    'summoning is logged');
+  g.apply('a', { a: 'toExtra', uid: xUid, from: 'battlefield' });
+  v = g.viewFor('a');
+  assert(v.zones.a.battlefield.length === 0 && v.extra.length === 3,
+    'toExtra returns it from the battlefield');
+
+  // Only extra-flagged cards may enter; only your own may leave.
+  let threw = false;
+  const handCard = v.hand[0];
+  try { g.apply('a', { a: 'toExtra', uid: handCard.uid, from: 'hand' }); } catch (e) {
+    threw = /extra-deck cards/i.test(e.message);
+  }
+  assert(threw && g.viewFor('a').hand.some(c => c.uid === handCard.uid),
+    'a normal card is refused and stays in hand');
+  threw = false;
+  try { g.apply('b', { a: 'extraMove', uid: v.extra[0].uid, to: 'battlefield' }); } catch (e) { threw = true; }
+  assert(threw, "you can't summon from someone else's extra deck");
+
+  // Send to graveyard and banish work too.
+  g.apply('a', { a: 'extraMove', uid: g.viewFor('a').extra[0].uid, to: 'graveyard' });
+  g.apply('a', { a: 'extraMove', uid: g.viewFor('a').extra[0].uid, to: 'exile' });
+  v = g.viewFor('b');
+  assert(v.zones.a.graveyard.length === 1 && v.zones.a.exile.length === 1 && v.zones.a.extraCount === 1,
+    'extra cards can be sent to the graveyard or banished');
+
+  // No game opts -> classic MTG defaults, untouched.
+  const gm = new Game.Game(['a', 'b'], { a: main.slice(), b: main.slice() }, {}, { rng: seededRng(4) });
+  assert(gm.viewFor('a').game === 'mtg' && gm.viewFor('a').hand.length === 7 && gm.life.a === 20,
+    'MTG games keep 20 life and 7-card hands');
+}
+
 section('Solo playtest (one-player game)');
 {
   const mkDeck = (prefix, n) => Array.from({ length: n }, (_, i) => ({ name: prefix + i }));
@@ -1465,8 +1522,67 @@ section('Scryfall slim() back faces');
               'collection lookups fall back to api/cards/collection when Scryfall is down');
             assert(urls.some(u => u.indexOf('api.scryfall.com') !== -1),
               'Scryfall was tried first');
-            console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
-            process.exit(failures ? 1 : 0);
+
+            // ---- YGO card module (YGOPRODeck mapping) ----
+            section('YGO card module (YGOPRODeck mapping)');
+            const YGOMOD = require('../js/ygo.js');
+            const FIX = {
+              'dark magician': {
+                name: 'Dark Magician', type: 'Normal Monster',
+                humanReadableCardType: 'Normal Monster', frameType: 'normal',
+                desc: 'The ultimate wizard.', race: 'Spellcaster', attribute: 'DARK',
+                atk: 2500, def: 2100, level: 7,
+                card_images: [{ image_url: 'https://images.ygoprodeck.com/images/cards/46986414.jpg' }],
+                card_prices: [{ tcgplayer_price: '0.33' }]
+              },
+              'blue-eyes ultimate dragon': {
+                name: 'Blue-Eyes Ultimate Dragon', type: 'Fusion Monster',
+                humanReadableCardType: 'Fusion Monster', frameType: 'fusion',
+                desc: 'Fusion of three Blue-Eyes.', race: 'Dragon', attribute: 'LIGHT',
+                atk: 4500, def: 3800, level: 12,
+                card_images: [{ image_url: 'https://x/beud.jpg' }],
+                card_prices: [{ tcgplayer_price: '5.00' }]
+              },
+              'decode talker': {
+                name: 'Decode Talker', type: 'Link Monster',
+                humanReadableCardType: 'Link Monster', frameType: 'link',
+                desc: 'Link stuff.', race: 'Cyberse', attribute: 'DARK',
+                atk: 2300, linkval: 3,
+                card_images: [{ image_url: 'https://x/dt.jpg' }],
+                card_prices: [{ tcgplayer_price: '1.00' }]
+              },
+              'mystical space typhoon': {
+                name: 'Mystical Space Typhoon', type: 'Spell Card',
+                humanReadableCardType: 'Quick-Play Spell', frameType: 'spell',
+                desc: 'Destroy a spell/trap.', race: 'Quick-Play',
+                card_images: [{ image_url: 'https://x/mst.jpg' }],
+                card_prices: [{ tcgplayer_price: '0.20' }]
+              }
+            };
+            global.fetch = async (url) => {
+              const q = decodeURIComponent(String(url).split('name=')[1] || '');
+              const hits = q.split('|').map(n => FIX[n.toLowerCase()]).filter(Boolean);
+              if (!hits.length) return { ok: false, status: 400, json: async () => ({ error: 'no match' }) };
+              return { ok: true, status: 200, json: async () => ({ data: hits }) };
+            };
+            return YGOMOD.resolve(['Dark Magician', 'Blue-Eyes Ultimate Dragon', 'Decode Talker',
+              'Mystical Space Typhoon', 'Totally Fake Card']).then(ry => {
+              const dm = ry.cards['dark magician'];
+              assert(dm && dm.pt === '2500/2100' && /Level 7/.test(dm.type) && !dm.extra,
+                'main-deck monster mapped (ATK/DEF as pt, level in the type line)');
+              assert(dm.price === '0.33' && /46986414\.jpg/.test(dm.img), 'price and art mapped');
+              assert(ry.cards['blue-eyes ultimate dragon'].extra === true,
+                'fusion monsters are flagged extra-deck');
+              const dt = ry.cards['decode talker'];
+              assert(dt.extra === true && /Link-3/.test(dt.type) && dt.pt === '2300/—',
+                'link monsters: extra-deck, Link-N, no DEF');
+              const mst = ry.cards['mystical space typhoon'];
+              assert(!mst.extra && mst.pt === '' && /Quick-Play Spell/.test(mst.type), 'spells map cleanly');
+              assert(ry.notFound.length === 1 && ry.notFound[0] === 'Totally Fake Card',
+                'unknown names are reported, not fatal');
+              console.log('\n' + (failures ? failures + ' TEST(S) FAILED' : 'All tests passed.'));
+              process.exit(failures ? 1 : 0);
+            });
           });
           });
         });

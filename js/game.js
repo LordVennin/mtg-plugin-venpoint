@@ -102,6 +102,8 @@ var MTGGame = (function () {
     this.names = names || {};
     this.rng = opts.rng || Math.random;
     this.commander = !!opts.commander;
+    this.game = opts.game || 'mtg'; // 'mtg' | 'ygo' — the UI gates game-specific chrome
+    this.handSize = opts.handSize || 7;
 
     this.life = {};
     this.zones = {};
@@ -123,10 +125,12 @@ var MTGGame = (function () {
     this.players.forEach(function (id) {
       var command = [];
       var deck = [];
+      var extra = [];
       ((decks[id]) || []).forEach(function (c) {
         var card = Object.assign({}, c);
         if (!card.uid) card.uid = 'g' + (++uidCounter);
         if (card.commander) command.push(card);
+        else if (card.extra) extra.push(card); // YGO Fusion/Synchro/XYZ/Link
         else deck.push(card);
       });
       this.life[id] = startLife;
@@ -136,13 +140,14 @@ var MTGGame = (function () {
         battlefield: [], // entries: {card, tapped, counters, row, attachedTo, faceDown, flipped}
         graveyard: [],
         exile: [],
-        command: command
+        command: command,
+        extra: extra // owner-browsable, never shuffled; others see a count
       };
     }, this);
 
-    this.players.forEach(function (id) { this._draw(id, 7); }, this);
-    this._log(null, 'Game started at ' + startLife + ' life — everyone draws 7. ' +
-      this.name(this.active) + ' goes first.');
+    this.players.forEach(function (id) { this._draw(id, this.handSize); }, this);
+    this._log(null, 'Game started at ' + startLife + ' life — everyone draws ' +
+      this.handSize + '. ' + this.name(this.active) + ' goes first.');
   }
 
   Game.prototype.name = function (id) { return this.names[id] || id; };
@@ -240,9 +245,9 @@ var MTGGame = (function () {
         var owed = this.players.length > 2 ? mullCount - 1 : mullCount;
         z.library = shuffle(z.library.concat(z.hand), this.rng);
         z.hand = [];
-        this._draw(pid, 7);
+        this._draw(pid, this.handSize);
         this.bottoming[pid] = Math.max(0, Math.min(owed, z.hand.length));
-        this._log(pid, me + ' takes mulligan #' + mullCount + ' — draws 7' +
+        this._log(pid, me + ' takes mulligan #' + mullCount + ' — draws ' + this.handSize +
           (this.bottoming[pid]
             ? ' and must put ' + this.bottoming[pid] + ' card' + (this.bottoming[pid] === 1 ? '' : 's') + ' on the bottom.'
             : (this.players.length > 2 && mullCount === 1 ? ' (first mulligan is free in multiplayer).' : '.')));
@@ -574,6 +579,52 @@ var MTGGame = (function () {
         }
         break;
       }
+      case 'extraMove': {
+        // YGO: a card leaves YOUR extra deck for a real zone (summon, send…).
+        var xc = takeByUid(z.extra, action.uid, function (c) { return c.uid; });
+        if (!xc) throw new Error('Card not in your extra deck');
+        var xDest = action.to;
+        if (xDest === 'battlefield') {
+          z.battlefield.push(permanent(xc));
+          this._log(pid, me + ' summons ' + xc.name + ' from their extra deck.');
+        } else if (xDest === 'graveyard') {
+          z.graveyard.push(xc);
+          this._log(pid, me + ' sends ' + xc.name + ' from their extra deck to the graveyard.');
+        } else if (xDest === 'exile') {
+          z.exile.push(xc);
+          this._log(pid, me + ' banishes ' + xc.name + ' from their extra deck.');
+        } else if (xDest === 'hand') {
+          z.hand.push(xc);
+          this._log(pid, me + ' takes ' + xc.name + ' from their extra deck into their hand.');
+        } else {
+          z.extra.push(xc); // put it back — bad destination
+          throw new Error('Bad destination');
+        }
+        break;
+      }
+      case 'toExtra': {
+        // The card returns to the extra deck it came from.
+        var xFrom = action.from;
+        var xMoved = null;
+        if (xFrom === 'battlefield') {
+          var xEntry = takeByUid(z.battlefield, action.uid, function (e) { return e.card.uid; });
+          if (xEntry) { this._detachDependents(action.uid); xMoved = xEntry.card; }
+        } else if (xFrom === 'graveyard' || xFrom === 'exile' || xFrom === 'hand') {
+          xMoved = takeByUid(z[xFrom], action.uid, function (c) { return c.uid; });
+        } else {
+          throw new Error('Bad source zone');
+        }
+        if (!xMoved) throw new Error('Card not in your ' + xFrom);
+        if (!xMoved.extra) {
+          // Only extra-deck cards live there — put it back.
+          if (xFrom === 'battlefield') z.battlefield.push(permanent(xMoved));
+          else z[xFrom].push(xMoved);
+          throw new Error('Only extra-deck cards (Fusion/Synchro/XYZ/Link) go there');
+        }
+        z.extra.push(xMoved);
+        this._log(pid, me + ' returns ' + xMoved.name + ' to their extra deck.');
+        break;
+      }
       case 'resign': {
         if (this.resigned[pid]) throw new Error('Already resigned');
         // Their permanents leave the table; anything attached to them frees up.
@@ -873,6 +924,7 @@ var MTGGame = (function () {
     var view = {
       you: pid || null,
       commander: this.commander,
+      game: this.game,
       names: this.names,
       players: this.players.slice(),
       turn: this.turn,
@@ -928,9 +980,12 @@ var MTGGame = (function () {
         }),
         graveyard: z.graveyard.slice(),
         exile: z.exile.slice(),
-        command: z.command.slice() // command zone is public
+        command: z.command.slice(), // command zone is public
+        extraCount: z.extra.length // contents are the owner's business
       };
     }, this);
+    // Your own extra deck face-up (YGO); everyone else gets the count above.
+    view.extra = self ? self.extra.slice() : [];
     return view;
   };
 

@@ -21,6 +21,12 @@
 <!-- ============ HOME ============ -->
 <section id="screen-home">
   <div class="panel">
+    <fieldset class="sub-modes game-gate">
+      <legend>Game</legend>
+      <label class="radio"><input type="radio" name="gamegate" id="gg-mtg" checked> 🃏 Magic: The Gathering</label>
+      <label class="radio"><input type="radio" name="gamegate" id="gg-ygo"> 🎴 Yu-Gi-Oh! (constructed — 8000 LP, 5-card hands, extra deck)</label>
+    </fieldset>
+
     <label for="name-input">Your name</label>
     <input id="name-input" maxlength="24" placeholder="e.g. Ven" autocomplete="nickname">
 
@@ -107,7 +113,7 @@
     </div>
 
     <div id="deck-submit-panel" hidden>
-      <label for="ds-text">Your deck — paste a Moxfield/Archidekt list. In Commander mode, mark your
+      <label for="ds-text" id="ds-label">Your deck — paste a Moxfield/Archidekt list. In Commander mode, mark your
         commander with a <code>Commander</code> section header or a <code>*CMDR*</code> marker.</label>
       <div class="preset-row" data-preset-for="deck" data-target="ds-text" hidden></div>
       <textarea id="ds-text" rows="8" placeholder="1 Sol Ring&#10;1 Arcane Signet&#10;…&#10;&#10;Commander&#10;1 Krenko, Mob Boss"></textarea>
@@ -118,7 +124,7 @@
     </div>
 
     <div id="host-panel" hidden>
-      <fieldset>
+      <fieldset id="mode-fieldset">
         <legend>Game mode</legend>
         <label class="radio"><input type="radio" name="mode" id="mode-sealed"> Sealed (open real boosters from any set, build a deck)</label>
         <label class="radio"><input type="radio" name="mode" id="mode-cube" checked> Cube draft (booster packs from a cube)</label>
@@ -298,6 +304,7 @@
 <script src="js/draft.js?v=20260910b"></script>
 <script src="js/game.js?v=20260910b"></script>
 <script src="js/scryfall.js?v=20260910b"></script>
+<script src="js/ygo.js?v=20260910b"></script>
 <script src="js/venpoint-store.js?v=20260910b"></script>
 <script src="js/net.js?v=20260910b"></script>
 <script src="js/dialog.js?v=20260910b"></script>
