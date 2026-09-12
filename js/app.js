@@ -19,6 +19,7 @@
   var $ = function (sel) { return document.querySelector(sel); };
   var LS_SETUP = 'mtgdraft.setup.v1';
   var LS_NAME = 'mtgdraft.name.v1';
+  var LS_TCG = 'mtgdraft.tcg.v1';
 
   var App = {
     role: null,          // 'host' | 'guest'
@@ -37,6 +38,7 @@
     soloCards: null,     // the resolved deck, kept for instant restarts
     soloCommander: false,
     soloReturn: 'solo',  // where "End match" lands: 'solo' setup or 'workshop'
+    tcg: 'mtg',          // which card game this client is set to: 'mtg' | 'ygo'
     sets: null,          // Scryfall set catalog for sealed, once loaded
     presets: null,       // site-owner preset lists (lists/ directory), once loaded
     postGame: 'lobby',   // which screen a finished match returns to: lobby|build|done
@@ -67,6 +69,41 @@
     el.className = isError ? 'toast error show' : 'toast show';
     clearTimeout(toast._t);
     toast._t = setTimeout(function () { el.className = 'toast'; }, 4000);
+  }
+
+  /* ---------------- which card game (the first gate) ---------------- */
+
+  /** The game this table is playing: the host's/local gate choice, or the
+   *  lobby's when joined as a guest (the room dictates). */
+  function currentTcg() {
+    if (App.role === 'guest' && App.lobby && App.lobby.tcg) return App.lobby.tcg;
+    return App.tcg;
+  }
+
+  /** The card database matching the current game. Same interface both ways:
+   *  resolve / toCardObjects / searchCards. */
+  function cardSource() {
+    return currentTcg() === 'ygo' ? YGO : Scryfall;
+  }
+
+  /** Engine options for the current game, merged over mode-specific ones. */
+  function systemGameOpts(base) {
+    if (currentTcg() === 'ygo') {
+      return Object.assign({}, base || {}, { game: 'ygo', startLife: 8000, handSize: 5 });
+    }
+    return base || {};
+  }
+
+  function initTcgGate() {
+    var saved = localStorage.getItem(LS_TCG);
+    if (saved === 'ygo') { App.tcg = 'ygo'; $('#gg-ygo').checked = true; }
+    ['mtg', 'ygo'].forEach(function (g) {
+      $('#gg-' + g).addEventListener('change', function () {
+        App.tcg = $('#gg-ygo').checked ? 'ygo' : 'mtg';
+        try { localStorage.setItem(LS_TCG, App.tcg); } catch (e) { /* fine */ }
+        renderPresetRows(); // preset files are per-game
+      });
+    });
   }
 
   /* ---------------- home screen ---------------- */
@@ -264,6 +301,7 @@
     return {
       players: App.players.map(function (p) { return { id: p.id, name: p.name, connected: p.connected }; }),
       mode: App.setup.mode,
+      tcg: App.tcg,
       poolInfo: poolInfoText(),
       deckReady: Object.keys(App.decks),
       started: !!App.engine || !!App.game || !!App.sealedPools
@@ -305,7 +343,8 @@
         ? 'Jumpstart: ' + s.jsPacks.length + ' packs · everyone picks ' + s.jsPacksPerPlayer
         : 'Jumpstart: no packs loaded yet';
     }
-    var label = s.mode === 'commander' ? 'Commander' : 'Constructed';
+    var label = s.mode === 'commander' ? 'Commander'
+      : App.tcg === 'ygo' ? 'Yu-Gi-Oh! constructed' : 'Constructed';
     return label + ': ' + Object.keys(App.decks).length + '/' + App.players.length + ' decks submitted';
   }
 
@@ -314,7 +353,7 @@
   function loadSavedSetup() {
     try {
       var raw = localStorage.getItem(LS_SETUP);
-      if (!raw) return;
+      if (!raw) { onModeChange(); return; } // nothing saved — still apply game gating
       var s = JSON.parse(raw);
       if (s.mode) $('#mode-' + s.mode).checked = true;
       if (s.cubeVariant) $('#cv-' + s.cubeVariant).checked = true;
@@ -359,6 +398,9 @@
   function isDeckMode(mode) { return mode === 'constructed' || mode === 'commander'; }
 
   function onModeChange() {
+    // Yu-Gi-Oh! tables are constructed-only (drafting is an MTG thing here).
+    if (App.tcg === 'ygo') $('#mode-constructed').checked = true;
+    $('#mode-fieldset').hidden = App.tcg === 'ygo';
     var mode = $('#mode-sealed').checked ? 'sealed'
       : $('#mode-cube').checked ? 'cube'
       : $('#mode-jumpstart').checked ? 'jumpstart'
@@ -561,7 +603,8 @@
       var names = {};
       App.players.forEach(function (p) { names[p.id] = p.name; });
       try {
-        App.game = new MTGGame.Game(ids, App.decks, names, { commander: s.mode === 'commander' });
+        App.game = new MTGGame.Game(ids, App.decks, names,
+          systemGameOpts({ commander: s.mode === 'commander' }));
       } catch (err) {
         return toast(err.message, true);
       }
@@ -701,7 +744,7 @@
       btn.textContent = 'Loading cards…';
       var finish = function () { btn.disabled = false; btn.textContent = 'Load & submit deck'; };
       var submit = function (resolved) {
-        var cards = Scryfall.toCardObjects(names, resolved);
+        var cards = cardSource().toCardObjects(names, resolved);
         var cmdrSet = {};
         parsed.commanders.forEach(function (n) { cmdrSet[n.toLowerCase()] = true; });
         cards.forEach(function (c) { if (cmdrSet[c.name.toLowerCase()]) c.commander = true; });
@@ -717,11 +760,11 @@
         $('#ds-status').className = 'pool-report ok';
         finish();
       };
-      Scryfall.resolve(names, function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; },
+      cardSource().resolve(names, function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; },
         MTGParser.collectSetHints(parsed.entries))
         .then(function (res) { submit(res.cards); })
         .catch(function () {
-          toast('Scryfall unreachable — submitting without card images.', true);
+          toast('The card database is unreachable — submitting without card images.', true);
           submit({});
         });
     });
@@ -772,7 +815,13 @@
       var matches = (App.presets || []).filter(function (p) {
         return formats.indexOf(p.format) !== -1;
       });
-      if (!matches.length) { row.hidden = true; row.innerHTML = ''; return; }
+      // The preset files are all MTG lists; a Yu-Gi-Oh! table keeps only the
+      // deck row (for "My deck:" entries), preset-less.
+      var isDeckRow = row.getAttribute('data-preset-for') === 'deck';
+      if (currentTcg() === 'ygo') matches = [];
+      if (!matches.length && !(isDeckRow && currentTcg() === 'ygo')) {
+        row.hidden = true; row.innerHTML = ''; return;
+      }
       row.hidden = false;
       // A filter box above the dropdown — these lists have grown large.
       var buildOptions = function (q) {
@@ -879,7 +928,7 @@
     }
     try {
       App.game = new MTGGame.Game(ids, decks, names,
-        (mode === 'cube' || mode === 'sealed') ? cubeGameOpts() : {});
+        systemGameOpts((mode === 'cube' || mode === 'sealed') ? cubeGameOpts() : {}));
     } catch (err) {
       return toast(err.message, true);
     }
@@ -1047,9 +1096,47 @@
       '" title="' + escapeHtml(c.name) + '">' + cardFace(c) + cmdBtn + '</div>';
   }
 
+  /** Yu-Gi-Oh! stats: value, level/rank curve, monster/spell/trap split. */
+  function ygoDeckStatsHtml(deck) {
+    var value = 0;
+    var unpriced = 0;
+    deck.forEach(function (c) {
+      var p = parseFloat(c.price);
+      if (isNaN(p)) unpriced++; else value += p;
+    });
+    var valueLine = '💰 TCG value: $' + value.toFixed(2) +
+      (unpriced ? ' <span class="stat-dim">(' + unpriced + ' unpriced)</span>' : '');
+
+    var counts = { Monsters: 0, 'Extra deck': 0, Spells: 0, Traps: 0, Other: 0 };
+    deck.forEach(function (c) { counts[wsGroupOf(c)]++; });
+    var typeLine = Object.keys(counts).filter(function (t) { return counts[t]; })
+      .map(function (t) { return t + ' <b>' + counts[t] + '</b>'; }).join(' · ');
+
+    // Level/rank/link curve over monsters, bucketed 1..11 and 12+.
+    var curve = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    deck.forEach(function (c) {
+      var lvl = c.level | 0;
+      if (lvl > 0) curve[Math.min(lvl, 12) - 1]++;
+    });
+    var max = Math.max.apply(null, curve.concat([1]));
+    var bars = curve.map(function (n, i) {
+      var h = n ? Math.max(4, Math.round(n / max * 48)) : 0;
+      var label = (i === 11 ? '12+' : i + 1);
+      return '<div class="curve-col" title="' + n + ' monster(s) at level/rank ' + label + '">' +
+        '<span class="curve-count">' + (n || '') + '</span>' +
+        '<div class="curve-track"><div class="curve-bar" style="height:' + h + 'px"></div></div>' +
+        '<span class="curve-mv">' + label + '</span></div>';
+    }).join('');
+
+    return '<div class="stat-row">' + valueLine + '</div>' +
+      '<div class="curve">' + bars + '</div>' +
+      '<div class="stat-row stat-types">' + typeLine + '</div>';
+  }
+
   /** Value, mana curve, and type breakdown of any card list. */
   function deckStatsHtml(deck) {
     if (!deck.length) return '<span class="hint">Deck stats appear as you add cards.</span>';
+    if (currentTcg() === 'ygo') return ygoDeckStatsHtml(deck);
 
     var value = 0;
     var unpriced = 0;
@@ -1412,7 +1499,7 @@
     var name = ($('#name-input').value || '').trim() || 'You';
     try {
       App.game = new MTGGame.Game(['solo'], { solo: App.soloCards }, { solo: name },
-        { commander: App.soloCommander });
+        systemGameOpts({ commander: App.soloCommander }));
     } catch (err) {
       return toast(err.message, true);
     }
@@ -1449,7 +1536,7 @@
       btn.textContent = 'Loading cards…';
       var finish = function () { btn.disabled = false; btn.textContent = '▶ Start the test game'; };
       var begin = function (resolved) {
-        var cards = Scryfall.toCardObjects(names, resolved);
+        var cards = cardSource().toCardObjects(names, resolved);
         var cmdrSet = {};
         parsed.commanders.forEach(function (n) { cmdrSet[n.toLowerCase()] = true; });
         cards.forEach(function (c) { if (cmdrSet[c.name.toLowerCase()]) c.commander = true; });
@@ -1458,11 +1545,11 @@
         finish();
         startSoloGame();
       };
-      Scryfall.resolve(names, function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; },
+      cardSource().resolve(names, function (d, t) { btn.textContent = 'Loading cards… ' + d + '/' + t; },
         MTGParser.collectSetHints(parsed.entries))
         .then(function (res) { begin(res.cards); })
         .catch(function () {
-          toast('Scryfall unreachable — playing with text-only cards.', true);
+          toast('The card database is unreachable — playing with text-only cards.', true);
           begin({});
         });
     });
@@ -1643,6 +1730,11 @@
     }).join('');
     $('#lobby-info').textContent = info || '';
     $('#deck-submit-panel').hidden = !isDeckMode(mode);
+    $('#ds-label').innerHTML = currentTcg() === 'ygo'
+      ? 'Your deck — one card per line (<code>3 Blue-Eyes White Dragon</code>). Extra-deck cards ' +
+        '(Fusion / Synchro / XYZ / Link) are detected automatically and start in your extra deck.'
+      : 'Your deck — paste a Moxfield/Archidekt list. In Commander mode, mark your ' +
+        'commander with a <code>Commander</code> section header or a <code>*CMDR*</code> marker.';
     // The deck picker lists YOUR saved workshop decks — those are keyed by
     // player name, which doesn't exist yet when presets first render at page
     // load. Rebuild once the panel is shown (or the name changed).
@@ -1878,12 +1970,14 @@
    * everywhere-else escape hatch.
    */
   var DeckStore = (function () {
-    var KEY = 'mtgdraft.mydecks.v1';
+    // Decks are namespaced per game — an MTG list and a YGO list never mix.
+    function lsKey() { return App.tcg === 'ygo' ? 'mtgdraft.mydecks.ygo.v1' : 'mtgdraft.mydecks.v1'; }
+    function vpKey() { return App.tcg === 'ygo' ? 'decks-ygo' : 'decks'; }
     function localAll() {
-      try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; }
+      try { return JSON.parse(localStorage.getItem(lsKey())) || {}; } catch (e) { return {}; }
     }
     function localWrite(all) {
-      try { localStorage.setItem(KEY, JSON.stringify(all)); } catch (e) { /* cache only */ }
+      try { localStorage.setItem(lsKey(), JSON.stringify(all)); } catch (e) { /* cache only */ }
     }
     function owner() {
       // A Venpoint session makes the account's username the canonical owner;
@@ -1891,6 +1985,8 @@
       return (VenpointStore.available() && VenpointStore.user()) ||
         ($('#name-input').value || '').trim();
     }
+    /** The relay files each game's decks under a suffixed owner. */
+    function relayOwner() { return owner() + (App.tcg === 'ygo' ? '-ygo' : ''); }
     function relay(path, opts) {
       return fetch('api/decks' + path, opts).then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -1909,11 +2005,11 @@
         Object.keys(localAll()).forEach(function (n) { names[n] = true; });
         var p;
         if (VenpointStore.available()) {
-          p = VenpointStore.loadDecks().then(function (decks) {
+          p = VenpointStore.loadDecks(vpKey()).then(function (decks) {
             Object.keys(decks).forEach(function (n) { names[n] = true; });
           }).catch(function () { /* venpoint unreachable — local only */ });
         } else if (owner()) {
-          p = relay('?owner=' + encodeURIComponent(owner())).then(function (json) {
+          p = relay('?owner=' + encodeURIComponent(relayOwner())).then(function (json) {
             (json.decks || []).forEach(function (d) { names[d.name] = true; });
           }).catch(function () { /* no relay (static hosting) — local only */ });
         } else {
@@ -1924,7 +2020,7 @@
       load: function (name) {
         var local = localAll()[name];
         if (VenpointStore.available()) {
-          return VenpointStore.loadDecks()
+          return VenpointStore.loadDecks(vpKey())
             .then(function (decks) {
               if (decks[name]) return decks[name].text;
               if (local) return local.text;
@@ -1936,7 +2032,7 @@
             });
         }
         if (!owner()) return local ? Promise.resolve(local.text) : Promise.reject(new Error('not found'));
-        return relay('/get?owner=' + encodeURIComponent(owner()) + '&name=' + encodeURIComponent(name))
+        return relay('/get?owner=' + encodeURIComponent(relayOwner()) + '&name=' + encodeURIComponent(name))
           .then(function (json) { return json.text; })
           .catch(function () {
             if (local) return local.text;
@@ -1954,10 +2050,10 @@
         all[name] = { text: text, updated: Date.now() };
         localWrite(all);
         if (VenpointStore.available()) {
-          return VenpointStore.loadDecks()
+          return VenpointStore.loadDecks(vpKey())
             .then(function (decks) {
               decks[name] = { text: text, updated: Date.now() };
-              return VenpointStore.saveDecks(decks);
+              return VenpointStore.saveDecks(decks, vpKey());
             })
             .then(function () { return 'venpoint'; }, function (err) {
               if (vpRefused(err)) throw err; // quota/auth message, verbatim
@@ -1968,7 +2064,7 @@
         return fetch('api/decks/save', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ owner: owner(), name: name, text: text })
+          body: JSON.stringify({ owner: relayOwner(), name: name, text: text })
         }).then(function (r) {
           if (r.ok) return 'relay';
           return r.json().catch(function () { return {}; }).then(function (json) {
@@ -1981,11 +2077,11 @@
         delete all[name];
         localWrite(all);
         if (VenpointStore.available()) {
-          return VenpointStore.loadDecks()
+          return VenpointStore.loadDecks(vpKey())
             .then(function (decks) {
               if (!(name in decks)) return null;
               delete decks[name];
-              return VenpointStore.saveDecks(decks);
+              return VenpointStore.saveDecks(decks, vpKey());
             })
             .catch(function () { /* local delete is enough */ });
         }
@@ -1993,7 +2089,7 @@
         return relay('/delete', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ owner: owner(), name: name })
+          body: JSON.stringify({ owner: relayOwner(), name: name })
         }).catch(function () { /* local delete is enough */ });
       }
     };
@@ -2007,7 +2103,10 @@
     'Enchantments', 'Artifacts', 'Battles', 'Other', 'Lands'];
 
   function openWorkshop() {
-    WS = WS || { entries: [], commander: null, cards: {}, deckName: '' };
+    // Each game gets its own workshop session — an MTG deck in progress
+    // shouldn't bleed into a Yu-Gi-Oh! one.
+    if (WS && WS.tcg !== App.tcg) WS = null;
+    WS = WS || { entries: [], commander: null, cards: {}, deckName: '', tcg: App.tcg };
     show('workshop');
     wsRefreshDeckList();
     wsRender();
@@ -2028,17 +2127,31 @@
     return out;
   }
 
+  var WS_YGO_ORDER = ['Monsters', 'Extra deck', 'Spells', 'Traps', 'Other'];
+
+  /** Grouping bucket for one card, per the current game. */
+  function wsGroupOf(card) {
+    if (currentTcg() !== 'ygo') return MTGParser.cardMainType(card.type);
+    if (card.extra) return 'Extra deck';
+    var t = card.type || '';
+    return /Monster/i.test(t) ? 'Monsters'
+      : /Spell/i.test(t) ? 'Spells'
+      : /Trap/i.test(t) ? 'Traps' : 'Other';
+  }
+
   function wsRender() {
+    var isYgo = currentTcg() === 'ygo';
     var total = WS.entries.reduce(function (s, e) { return s + e.count; }, 0) +
       (WS.commander ? 1 : 0);
     $('#ws-stats').innerHTML =
       '<div class="stat-row"><b>' + total + '</b> cards</div>' + deckStatsHtml(wsExpanded());
 
-    $('#ws-commander').innerHTML = WS.commander
+    // Yu-Gi-Oh! has no commander — the slot disappears entirely.
+    $('#ws-commander').innerHTML = isYgo ? '' : (WS.commander
       ? '<span class="ws-cmd-label">⭐ Commander:</span> <span class="ws-row-name">' +
         escapeHtml(WS.commander.name) + '</span>' +
         '<button id="ws-uncmd" title="back to the main deck">↩</button>'
-      : '<span class="ws-cmd-label">⭐ Commander:</span> <span class="hint">none — hit ★ on a card (needed for commander games)</span>';
+      : '<span class="ws-cmd-label">⭐ Commander:</span> <span class="hint">none — hit ★ on a card (needed for commander games)</span>');
     var uncmd = $('#ws-uncmd');
     if (uncmd) uncmd.addEventListener('click', function () {
       wsAddByName(WS.commander.name, WS.commander.set);
@@ -2049,10 +2162,10 @@
     // Entries, grouped by type in a fixed order.
     var groups = {};
     WS.entries.forEach(function (e) {
-      var t = MTGParser.cardMainType(wsCard(e.name).type);
+      var t = wsGroupOf(wsCard(e.name));
       (groups[t] = groups[t] || []).push(e);
     });
-    $('#ws-list').innerHTML = WS_TYPE_ORDER.filter(function (t) { return groups[t]; })
+    $('#ws-list').innerHTML = (isYgo ? WS_YGO_ORDER : WS_TYPE_ORDER).filter(function (t) { return groups[t]; })
       .map(function (t) {
         var rows = groups[t].sort(function (a, b) { return a.name.localeCompare(b.name); })
           .map(function (e) {
@@ -2063,7 +2176,7 @@
               '<span class="ws-row-name">' + escapeHtml(e.name) + '</span>' +
               (c.cost ? '<span class="ws-row-cost">' + escapeHtml(c.cost) + '</span>' : '') +
               '<span class="ws-row-price">' + (c.price ? '$' + escapeHtml(c.price) : '') + '</span>' +
-              '<button class="ws-cmd" title="make this the commander">★</button>' +
+              (isYgo ? '' : '<button class="ws-cmd" title="make this the commander">★</button>') +
               '<button class="ws-rm" title="remove all copies">×</button>' +
             '</div>';
           }).join('');
@@ -2090,7 +2203,8 @@
         WS.entries = WS.entries.filter(function (e) { return e !== entry; });
         wsRender();
       });
-      row.querySelector('.ws-cmd').addEventListener('click', function () {
+      var cmdBtn = row.querySelector('.ws-cmd');
+      if (cmdBtn) cmdBtn.addEventListener('click', function () {
         if (WS.commander) wsAddByName(WS.commander.name, WS.commander.set); // old one back
         WS.commander = { name: entry.name, set: entry.set };
         entry.count--;
@@ -2129,7 +2243,7 @@
     var box = $('#ws-results');
     if (q.length < 2) { box.innerHTML = ''; return; }
     box.innerHTML = '<p class="hint">Searching…</p>';
-    Scryfall.searchCards(q, 2)
+    cardSource().searchCards(q, 2)
       .then(function (r) {
         if ($('#ws-search').value.trim() !== q) return; // stale response
         var cards = r.cards.slice(0, 60);
@@ -2191,7 +2305,7 @@
     if (WS.commander) names.push(WS.commander.name);
     var hints = MTGParser.collectSetHints(parsed.entries);
     $('#ws-status').textContent = 'Loading card data…';
-    Scryfall.resolve(names, null, hints)
+    cardSource().resolve(names, null, hints)
       .then(function (res) {
         Object.keys(res.cards).forEach(function (k) { WS.cards[k] = res.cards[k]; });
         $('#ws-status').textContent = '';
@@ -2209,12 +2323,14 @@
 
   function initWorkshop() {
     $('#btn-workshop').addEventListener('click', function () {
-      if (!($('#name-input').value || '').trim()) {
+      var typed = ($('#name-input').value || '').trim();
+      // A Venpoint session already has an identity — no typed name needed.
+      if (!typed && !(VenpointStore.available() && VenpointStore.user())) {
         toast('Enter your name first — saved decks are filed under it.', true);
         $('#name-input').focus();
         return;
       }
-      localStorage.setItem(LS_NAME, $('#name-input').value.trim());
+      if (typed) localStorage.setItem(LS_NAME, typed);
       openWorkshop();
     });
     $('#ws-back').addEventListener('click', function () { show('home'); });
@@ -2314,6 +2430,7 @@
   /* ---------------- boot ---------------- */
 
   document.addEventListener('DOMContentLoaded', function () {
+    initTcgGate(); // restore the game choice first — everything reads it
     initHome();
     initHostPanel();
     loadPresets();
