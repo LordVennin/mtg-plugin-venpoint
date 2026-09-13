@@ -1,0 +1,45 @@
+@name YGO Structure Deck: Order of the Spellcasters (SR08)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Apprentice Magician
+1 Crusader of Endymion
+1 Dark Magician of Chaos
+1 Defender, the Magical Knight
+1 Disenchanter
+1 Droll & Lock Bird
+1 Endymion, the Master Magician
+1 Endymion, the Mighty Master of Magic
+1 Fairy Tail - Luna
+1 Magical Abductor
+1 Magical Exemplar
+1 Magical Something
+1 Magical Undertaker
+1 Magician of Faith
+1 Magister of Endymion
+1 Mythical Beast Cerberus
+1 Mythical Beast Medusa
+1 Reflection of Endymion
+1 Servant of Endymion
+1 Spellbook Magician of Prophecy
+1 Summoner Monk
+1 Day-Breaker the Shining Magical Warrior
+1 Arcane Barrier
+1 Dwimmered Path
+1 Endymion's Lab
+1 Left Arm Offering
+1 Magical Blast
+1 Magical Citadel of Endymion
+1 Magical Dimension
+1 Pot of Desires
+1 Spell Power Grasp
+1 Spell Power Mastery
+1 Spellbook of Power
+1 Spellbook of Secrets
+1 Spellbook of Wisdom
+1 Terraforming
+1 Extra Buck
+1 Gagagashield
+1 Magician's Circle
+1 Mythical Bestiamorph
+1 Pitch-Black Power Stone

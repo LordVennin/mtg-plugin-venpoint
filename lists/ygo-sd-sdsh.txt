@@ -1,0 +1,53 @@
+@name YGO Structure Deck: Shaddoll Showdown (SDSH)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Armageddon Knight
+1 Black Luster Soldier - Envoy of the Beginning
+1 Dark Armed Dragon
+1 Electromagnetic Turtle
+1 Fairy Tail - Sleeper
+1 Felis, Lightsworn Archer
+1 Kuribandit
+1 Lava Golem
+1 Mathematician
+1 Naelshaddoll Ariel
+1 Performage Trick Clown
+1 Peropero Cerperus
+1 Qadshaddoll Keios
+1 Reeshaddoll Wendi
+1 Shaddoll Beast
+1 Shaddoll Dragon
+1 Shaddoll Falco
+1 Shaddoll Hedgehog
+1 Shaddoll Hound
+1 Shaddoll Squamata
+1 Shaddoll Zefracore
+1 Shaddoll Zefranaga
+1 El Shaddoll Anoyatyllis
+1 El Shaddoll Apkallone
+1 El Shaddoll Construct
+1 El Shaddoll Grysta
+1 El Shaddoll Shekhinaga
+1 El Shaddoll Wendigo
+1 El Shaddoll Winda
+1 Shaddoll Construct
+1 Allure of Darkness
+1 Curse of the Shadow Prison
+1 El Shaddoll Fusion
+1 Foolish Burial
+1 Instant Fusion
+1 Living Fossil
+1 Nephe Shaddoll Fusion
+1 Pot of Avarice
+1 Shaddoll Fusion
+1 Super Polymerization
+1 Twin Twisters
+1 Lost Wind
+1 Necro Fusion
+1 Purushaddoll Aeon
+1 Resh Shaddoll Incarnation
+1 Shaddoll Core
+1 Sinister Shadow Games
+1 Subterror Succession
+1 Unending Nightmare

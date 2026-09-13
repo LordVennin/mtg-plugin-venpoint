@@ -1,0 +1,52 @@
+@name YGO Structure Deck: Sacred Beasts (SDSA)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Chaos Core
+1 Chaos Hunter
+1 Chaos Summoning Beast
+1 Danger! Chupacabra!
+1 Dark Beckoning Beast
+1 Dark Summoning Beast
+1 Farfa, Malebranche of the Burning Abyss
+1 Grave Squirmer
+1 Hamon, Lord of Striking Thunder
+1 Mad Reloader
+1 Phantasm Token
+1 Phantasmal Martyr Token
+1 Phantom of Chaos
+1 Phantom Skyblaster
+1 Puppet Master
+1 Radian, the Multidimensional Kaiju
+1 Rainbow Dark Dragon
+1 Raviel, Lord of Phantasms
+1 Raviel, Lord of Phantasms - Shimmering Scraper
+1 Stygian Street Patrol
+1 The Fabled Cerburrel
+1 Tragoedia
+1 Uria, Lord of Searing Flames
+1 Armityle the Chaos Phantasm
+1 Phantasm Emperor Trilojig
+1 Cerulean Skyfire
+1 Dimension Fusion Destruction
+1 Fallen Paradise
+1 Field Barrier
+1 Mound of the Bound Creator
+1 Mystical Space Typhoon
+1 One for One
+1 Opening of the Spirit Gates
+1 Owner's Seal
+1 Phantasmal Martyrs
+1 Pot of Desires
+1 Set Rotation
+1 Spell Chronicle
+1 Swords of Concealing Light
+1 Terraforming
+1 The Beginning of the End
+1 Awakening of the Sacred Beasts
+1 Dark Factory of More Production
+1 Escape from the Dark Dimension
+1 Hyper Blaze
+1 Imperial Custom
+1 Mistake
+1 Shapesister

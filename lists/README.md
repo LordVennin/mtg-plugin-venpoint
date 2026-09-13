@@ -27,6 +27,7 @@ the same syntax you would paste into the matching box in the app:
 | `jumpstart` | jumpstart packs                                   | `# Pack Name` headers + cards |
 | `deck`      | ready deck (constructed lobby)                    | one card per line |
 | `commander` | ready deck (commander lobby)                      | deck list + `Commander` section or `*CMDR*` marker |
+| `ygo-deck`  | ready deck (Yu-Gi-Oh! tables — the picker shows these instead of the MTG files) | one card per line |
 
 `@name` is the label players see; it defaults to the filename.
 

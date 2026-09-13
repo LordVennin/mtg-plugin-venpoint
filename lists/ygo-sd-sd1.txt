@@ -1,0 +1,32 @@
+@name YGO Structure Deck: Dragon's Roar (SD1)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Armed Dragon LV3
+1 Armed Dragon LV5
+1 Black Dragon's Chick
+1 Element Dragon
+1 Luster Dragon
+1 Masked Dragon
+1 Red-Eyes Black Dragon
+1 Red-Eyes Darkness Dragon
+1 Twin-Headed Behemoth
+1 Creature Swap
+1 Heavy Storm
+1 Mystical Space Typhoon
+1 Nobleman of Crossout
+1 Pot of Greed
+1 Premature Burial
+1 Reload
+1 Snatch Steal
+1 Stamping Destruction
+1 Swords of Revealing Light
+1 The Graveyard in the Fourth Dimension
+1 Call of the Haunted
+1 Ceasefire
+1 Curse of Anubis
+1 Dragon's Rage
+1 Interdimensional Matter Transporter
+1 Reckless Greed
+1 The Dragon's Bead
+1 Trap Jammer

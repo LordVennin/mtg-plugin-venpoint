@@ -1,0 +1,46 @@
+@name YGO Structure Deck: Zombie Horde (SR07)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Beast of the Pharaoh
+1 Doomking Balerdroch
+1 Endless Decay
+1 Glow-Up Bloom
+1 Goblin Zombie
+1 Gozuki
+1 Immortal Ruler
+1 Isolde, Belle of the Underworld
+1 Kasha
+1 Malevolent Mech - Goku En
+1 Marionette Mite
+1 Mezuki
+1 Necroworld Banshee
+1 Paladin of the Cursed Dragon
+1 Pyramid Turtle
+1 Red-Eyes Zombie Dragon
+1 Scapeghost
+1 Shiranui Solitaire
+1 Shutendoji
+1 Tatsunecro
+1 Tristan, Knight of the Underworld
+1 Uni-Zombie
+1 Zombie Master
+1 Red-Eyes Zombie Necro Dragon
+1 Book of Life
+1 Burial from a Different Dimension
+1 Call of the Mummy
+1 Dragged Down into the Grave
+1 Foolish Burial
+1 Monster Gate
+1 Overpowering Eye
+1 Shared Ride
+1 Zombie Necronize
+1 Zombie Power Struggle
+1 Zombie World
+1 Anti-Spell Fragrance
+1 Haunted Shrine
+1 Mask of Restrict
+1 Metaverse
+1 Needlebug Nest
+1 Return of the Zombies
+1 Trap of the Imperial Tomb

@@ -1,0 +1,45 @@
+@name YGO Structure Deck: Mechanized Madness (SR10)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Commander Covington
+1 Deskbot 001
+1 Deskbot 003
+1 Genex Ally Birdman
+1 Jizukiru, the Star Destroying Kaiju
+1 Lefty Driver
+1 Machina Air Raider
+1 Machina Cannon
+1 Machina Citadel
+1 Machina Defender
+1 Machina Force
+1 Machina Fortress
+1 Machina Gearframe
+1 Machina Irradiator
+1 Machina Megaform
+1 Machina Peacekeeper
+1 Machina Possesstorage
+1 Machina Sniper
+1 Machina Soldier
+1 Righty Driver
+1 Scrap Recycler
+1 Snow Plow Hustle Rustle
+1 Torque Tune Gear
+1 Cosmic Cyclone
+1 Iron Call
+1 Iron Draw
+1 Limiter Removal
+1 Machina Armored Unit
+1 Machina Defense Perimeter
+1 Machina Redeployment
+1 Magnet Reverse
+1 Pot of Avarice
+1 Supply Squad
+1 Ties of the Brethren
+1 Unauthorized Reactivation
+1 Back to the Front
+1 Begone, Knave!
+1 Cyber Summon Blaster
+1 Machina Overdrive
+1 Solemn Strike
+1 Trap Trick

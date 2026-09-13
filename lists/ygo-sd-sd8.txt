@@ -1,0 +1,40 @@
+@name YGO Structure Deck: Lord of the Storm (SD8)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Birdface
+1 Bladefly
+1 Flying Kamakiri #1
+1 Harpie Girl
+1 Harpie Lady 1
+1 Harpie Lady 2
+1 Harpie Lady 3
+1 Harpie Lady Sisters
+1 Harpie's Pet Baby Dragon
+1 Lady Ninja Yae
+1 Roc from the Valley of Haze
+1 Silpheed
+1 Simorgh, Bird of Divinity
+1 Slate Warrior
+1 Sonic Duck
+1 Sonic Shooter
+1 Swift Birdman Joe
+1 Card Destruction
+1 Elegant Egotist
+1 Harpies' Hunting Ground
+1 Heavy Storm
+1 Lightning Vortex
+1 Mystical Space Typhoon
+1 Nobleman of Crossout
+1 Reload
+1 Triangle Ecstasy Spark
+1 Aqua Chorus
+1 Call of the Haunted
+1 Dark Coffin
+1 Dust Tornado
+1 Hysteric Party
+1 Icarus Attack
+1 Magic Jammer
+1 Ninjitsu Art of Transformation
+1 Reckless Greed
+1 Sakuretsu Armor

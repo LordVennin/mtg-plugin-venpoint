@@ -94,6 +94,32 @@
     return base || {};
   }
 
+  /** Static screens carry MTG-flavored examples by default; swap the copy
+   *  whenever the gate changes so a Yu-Gi-Oh! player never sees Sol Rings. */
+  function applyTcgText() {
+    var ygo = App.tcg === 'ygo';
+    $('#home-host-title').textContent = ygo ? 'Host a game' : 'Host a draft';
+    $('#home-join-title').textContent = ygo ? 'Join a game' : 'Join a draft';
+    $('#home-ws-hint').textContent = ygo
+      ? 'Build and manage full decks — search the whole Yu-Gi-Oh! card database, save them for game night. No room needed.'
+      : 'Build and manage full custom decks — search all of Magic, save them for game night. No room needed.';
+    $('#solo-hint').innerHTML = ygo
+      ? 'Paste a deck list, or grab a preset / one of your saved decks below. One card per line ' +
+        '(<code>3 Blue-Eyes White Dragon</code>) — extra-deck cards are split out automatically. ' +
+        'Games start at 8000 LP with 5-card hands.'
+      : 'Paste a deck list, or grab a preset / one of your saved decks below. ' +
+        'Mark a commander with a <code>Commander</code> header (or <code>*CMDR*</code> on its line) ' +
+        'to start commander-style — command zone, 40 life. Everything on the play surface works: ' +
+        'draw, mulligan, scry, mill, dice, tokens…';
+    $('#solo-text').placeholder = ygo
+      ? '3 Blue-Eyes White Dragon\n3 Mystical Space Typhoon\n1 Blue-Eyes Ultimate Dragon\n…'
+      : '4 Lightning Bolt\n4 Monastery Swiftspear\n20 Mountain\n…';
+    $('#ws-search').placeholder = ygo ? '🔍 Search all of Yu-Gi-Oh!…' : '🔍 Search all of Magic…';
+    $('#ws-syntax-hint').innerHTML = ygo
+      ? 'Type part of a card name (<code>blue-eyes</code>, <code>mirror force</code>). Click a result to add it.'
+      : 'Full Scryfall syntax works: <code>t:goblin o:haste c:r cmc&lt;3</code>. Click a result to add it.';
+  }
+
   function initTcgGate() {
     var saved = localStorage.getItem(LS_TCG);
     if (saved === 'ygo') { App.tcg = 'ygo'; $('#gg-ygo').checked = true; }
@@ -102,8 +128,10 @@
         App.tcg = $('#gg-ygo').checked ? 'ygo' : 'mtg';
         try { localStorage.setItem(LS_TCG, App.tcg); } catch (e) { /* fine */ }
         renderPresetRows(); // preset files are per-game
+        applyTcgText();
       });
     });
+    applyTcgText();
   }
 
   /* ---------------- home screen ---------------- */
@@ -811,14 +839,15 @@
 
   function renderPresetRows() {
     document.querySelectorAll('.preset-row').forEach(function (row) {
-      var formats = PRESET_FORMATS[row.getAttribute('data-preset-for')] || [];
+      var isDeckRow = row.getAttribute('data-preset-for') === 'deck';
+      // Preset files are per-game: the Yu-Gi-Oh! deck picker offers the
+      // @format ygo-deck files (structure decks); MTG rows keep theirs.
+      var formats = currentTcg() === 'ygo'
+        ? (isDeckRow ? ['ygo-deck'] : [])
+        : PRESET_FORMATS[row.getAttribute('data-preset-for')] || [];
       var matches = (App.presets || []).filter(function (p) {
         return formats.indexOf(p.format) !== -1;
       });
-      // The preset files are all MTG lists; a Yu-Gi-Oh! table keeps only the
-      // deck row (for "My deck:" entries), preset-less.
-      var isDeckRow = row.getAttribute('data-preset-for') === 'deck';
-      if (currentTcg() === 'ygo') matches = [];
       if (!matches.length && !(isDeckRow && currentTcg() === 'ygo')) {
         row.hidden = true; row.innerHTML = ''; return;
       }
@@ -1729,12 +1758,17 @@
         (p.connected ? '' : ' (disconnected)') + '</li>';
     }).join('');
     $('#lobby-info').textContent = info || '';
+    $('#btn-close-room-lobby').hidden = App.role !== 'host';
+    $('#btn-leave-room').hidden = App.role !== 'guest';
     $('#deck-submit-panel').hidden = !isDeckMode(mode);
     $('#ds-label').innerHTML = currentTcg() === 'ygo'
       ? 'Your deck — one card per line (<code>3 Blue-Eyes White Dragon</code>). Extra-deck cards ' +
         '(Fusion / Synchro / XYZ / Link) are detected automatically and start in your extra deck.'
       : 'Your deck — paste a Moxfield/Archidekt list. In Commander mode, mark your ' +
         'commander with a <code>Commander</code> section header or a <code>*CMDR*</code> marker.';
+    $('#ds-text').placeholder = currentTcg() === 'ygo'
+      ? '3 Blue-Eyes White Dragon\n3 Mystical Space Typhoon\n1 Blue-Eyes Ultimate Dragon\n…'
+      : '1 Sol Ring\n1 Arcane Signet\n…\n\nCommander\n1 Krenko, Mob Boss';
     // The deck picker lists YOUR saved workshop decks — those are keyed by
     // player name, which doesn't exist yet when presets first render at page
     // load. Rebuild once the panel is shown (or the name changed).
@@ -2448,6 +2482,13 @@
     });
     $('#btn-close-room-build').addEventListener('click', hostCloseRoom);
     $('#btn-close-room-done').addEventListener('click', hostCloseRoom);
+    $('#btn-close-room-lobby').addEventListener('click', hostCloseRoom);
+    $('#btn-leave-room').addEventListener('click', function () {
+      if (!window.confirm('Leave this room?')) return;
+      clearRejoin(); // a deliberate exit must not auto-rejoin on the reload
+      try { if (App.conn) App.conn.close(); } catch (e) { /* already gone */ }
+      window.location.reload();
+    });
     $('#btn-copy-code').addEventListener('click', function () {
       var code = $('#room-code').textContent;
       if (navigator.clipboard && navigator.clipboard.writeText) {

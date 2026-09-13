@@ -1,0 +1,32 @@
+@name YGO Structure Deck: Zombie Madness (SD2)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Dark Dust Spirit
+1 Despair from the Dark
+1 Double Coston
+1 Master Kyonshee
+1 Pyramid Turtle
+1 Regenerating Mummy
+1 Ryu Kokki
+1 Soul-Absorbing Bone Tower
+1 Spirit Reaper
+1 Vampire Genesis
+1 Vampire Lady
+1 Vampire Lord
+1 Book of Life
+1 Call of the Mummy
+1 Card of Safe Return
+1 Creature Swap
+1 Giant Trunade
+1 Heavy Storm
+1 Mystical Space Typhoon
+1 Nobleman of Crossout
+1 Pot of Greed
+1 Reload
+1 Snatch Steal
+1 Compulsory Evacuation Device
+1 Dust Tornado
+1 Magic Jammer
+1 Reckless Greed
+1 Torrential Tribute

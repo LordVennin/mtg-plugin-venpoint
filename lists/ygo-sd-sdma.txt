@@ -1,0 +1,42 @@
+@name YGO Structure Deck: Marik (TCG) (SDMA)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Bowganian
+1 Dark Jeroid
+1 Drillago
+1 Gil Garth
+1 Gravekeeper's Assailant
+1 Gravekeeper's Cannonholder
+1 Gravekeeper's Chief
+1 Gravekeeper's Commandant
+1 Gravekeeper's Curse
+1 Gravekeeper's Descendant
+1 Gravekeeper's Guard
+1 Gravekeeper's Spear Soldier
+1 Gravekeeper's Spy
+1 Gravekeeper's Visionary
+1 Lava Golem
+1 Legendary Fiend
+1 Mystic Tomato
+1 Mystical Beast of Serket
+1 Newdoria
+1 Viser Des
+1 Allure of Darkness
+1 Book of Moon
+1 Creature Swap
+1 Dark Room of Nightmare
+1 Foolish Burial
+1 Magical Stone Excavation
+1 Mystical Space Typhoon
+1 Necrovalley
+1 Nightmare's Steelcage
+1 Temple of the Kings
+1 Acid Trap Hole
+1 Coffin Seller
+1 Dark Illusion
+1 Malevolent Catastrophe
+1 Metal Reflect Slime
+1 Mirror Force
+1 Nightmare Wheel
+1 Skull Invitation

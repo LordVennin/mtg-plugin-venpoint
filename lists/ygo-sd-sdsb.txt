@@ -1,0 +1,48 @@
+@name YGO Structure Deck: Soulburner (SDSB)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Ash Blossom & Joyous Spring
+1 Dogoran, the Mad Flame Kaiju
+1 Fencing Fire Ferret
+1 Flamvell Firedog
+1 Formud Skipper
+1 Inferno
+1 Red Resonator
+1 Salamangreat Beat Bison
+1 Salamangreat Falco
+1 Salamangreat Fowl
+1 Salamangreat Foxer
+1 Salamangreat Foxy
+1 Salamangreat Gazelle
+1 Salamangreat Jack Jaguar
+1 Salamangreat Meer
+1 Salamangreat Mole
+1 Salamangreat Parro
+1 Salamangreat Raccoon
+1 Salamangreat Spinny
+1 Salamangreat Wolvie
+1 True King Agnimazud, the Vanisher
+1 Volcanic Shell
+1 Duelittle Chimera
+1 Flame Administrator
+1 Salamangreat Balelynx
+1 Salamangreat Heatleo
+1 Salamangreat Miragestallio
+1 Circle of the Fire Kings
+1 Link Bound
+1 Magic Planter
+1 Monster Reincarnation
+1 Salamangreat Circle
+1 Salamangreat Claw
+1 Salamangreat Sanctuary
+1 Transmodify
+1 Will of the Salamangreat
+1 Backfire
+1 Break Off Trap Hole
+1 Gozen Match
+1 Salamangreat Gift
+1 Salamangreat Rage
+1 Salamangreat Roar
+1 The Transmigration Prophecy
+1 Threatening Roar

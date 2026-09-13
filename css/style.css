@@ -421,6 +421,10 @@ button.gact.primary { background: var(--accent); border-color: var(--accent); co
 /* the game gate on the home screen */
 .game-gate { margin-bottom: 14px; }
 
+/* the way back out of a lobby */
+.lobby-exit { border-top: 1px solid #2c3140; padding-top: 12px; margin-top: 18px; }
+.lobby-exit button { font-size: 13px; }
+
 /* player counters (poison, energy, ...) */
 .pchip {
   background: #2b2233; border: 1px solid #6a4a7a; color: #d8b8e8;

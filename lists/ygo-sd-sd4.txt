@@ -1,0 +1,36 @@
+@name YGO Structure Deck: Fury from the Deep (SD4)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 7 Colored Fish
+1 Amphibious Bugroth MK-3
+1 Creeping Doom Manta
+1 Fenrir
+1 Levia-Dragon - Daedalus
+1 Mermaid Knight
+1 Mobius the Frost Monarch
+1 Mother Grizzly
+1 Ocean Dragon Lord - Neo-Daedalus
+1 Sea Serpent Warrior of Darkness
+1 Space Mambo
+1 Star Boy
+1 Tribe-Infecting Virus
+1 Unshaven Angler
+1 A Legendary Ocean
+1 Big Wave Small Wave
+1 Creature Swap
+1 Hammer Shot
+1 Heavy Storm
+1 Mystical Space Typhoon
+1 Pot of Greed
+1 Premature Burial
+1 Reload
+1 Salvage
+1 Snatch Steal
+1 Call of the Haunted
+1 Dust Tornado
+1 Gravity Bind
+1 Spell Shield Type-8
+1 Tornado Wall
+1 Torrential Tribute
+1 Xing Zhen Hu

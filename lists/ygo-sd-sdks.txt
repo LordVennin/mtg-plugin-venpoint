@@ -1,0 +1,48 @@
+@name YGO Structure Deck: Seto Kaiba (SDKS)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 A-Assault Core
+1 B-Buster Drake
+1 Blizzard Dragon
+1 Blue-Eyes White Dragon
+1 C-Crush Wyvern
+1 Des Feral Imp
+1 Enraged Battle Ox
+1 Heavy Mech Support Armor
+1 Heavy Mech Support Platform
+1 Interplanetarypurplythorny Dragon
+1 Kaiser Glider
+1 Keeper of the Shrine
+1 Lord of D.
+1 Luster Dragon
+1 Peten the Dark Clown
+1 Vampire Lord
+1 X-Head Cannon
+1 Y-Dragon Head
+1 Z-Metal Tank
+1 A-to-Z-Dragon Buster Cannon
+1 ABC-Dragon Buster
+1 XY-Dragon Cannon
+1 XYZ-Dragon Cannon
+1 XZ-Tank Cannon
+1 Burst Stream of Destruction
+1 Enemy Controller
+1 Frontline Base
+1 Limiter Removal
+1 Majesty with Eyes of Blue
+1 Megamorph
+1 Shrink
+1 Silent Doom
+1 The Flute of Summoning Dragon
+1 Union Hangar
+1 Call of the Haunted
+1 Cloning
+1 Crush Card Virus
+1 Fiendish Chain
+1 Final Attack Orders
+1 Interdimensional Matter Transporter
+1 Negate Attack
+1 Ring of Destruction
+1 Roll Out!
+1 Union Scramble

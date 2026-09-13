@@ -1,0 +1,5 @@
+@name YGO Structure Deck: Dinosaur's Rage Special Set (SD09)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Five-Headed Dragon

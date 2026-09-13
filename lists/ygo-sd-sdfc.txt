@@ -1,0 +1,50 @@
+@name YGO Structure Deck: Freezing Chains (SDFC)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Aqua Spirit
+1 Blizzed, Defender of the Ice Barrier
+1 Cryomancer of the Ice Barrier
+1 Dai-sojo of the Ice Barrier
+1 Dance Princess of the Ice Barrier
+1 Defender of the Ice Barrier
+1 Dupe Frog
+1 Fishborg Launcher
+1 General Gantala of the Ice Barrier
+1 General Grunard of the Ice Barrier
+1 General Raiho of the Ice Barrier
+1 General Wayne of the Ice Barrier
+1 Genex Controller
+1 Genex Undine
+1 Hexa Spirit of the Ice Barrier
+1 Medium of the Ice Barrier
+1 Moulinglacia the Elemental Lord
+1 Prior of the Ice Barrier
+1 Revealer of the Ice Barrier
+1 Ronintoadin
+1 Silent Angler
+1 Speaker for the Ice Barriers
+1 Spellbreaker of the Ice Barrier
+1 Strategist of the Ice Barrier
+1 Warlock of the Ice Barrier
+1 Zuijin of the Ice Barrier
+1 Brionac, Dragon of the Ice Barrier
+1 Dewloren, Tiger King of the Ice Barrier
+1 Gungnir, Dragon of the Ice Barrier
+1 Trishula, Dragon of the Ice Barrier
+1 Trishula, Zero Dragon of the Ice Barrier
+1 Freezing Chains of the Ice Barrier
+1 Magic Triangle of the Ice Barrier
+1 Medallion of the Ice Barrier
+1 Mirror of the Ice Barrier
+1 Salvage
+1 Surface
+1 Where Arf Thou?
+1 Winds Over the Ice Barrier
+1 Appointer of the Red Lotus
+1 Crackdown
+1 Eisbahn
+1 Fiendish Chain
+1 Heavy Storm Duster
+1 Mind Drain
+1 Terror of Trishula

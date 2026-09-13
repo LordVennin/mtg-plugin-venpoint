@@ -1,0 +1,53 @@
+@name YGO Structure Deck: The Crimson King (SDCK)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Absolute King Back Jack
+1 Ascator, Dawnwalker
+1 Assault Beast
+1 Battle Fader
+1 Bone Archfiend
+1 Creation Resonator
+1 Crimson Resonator
+1 Danger! Chupacabra!
+1 Danger! Nessie!
+1 Dark Resonator
+1 Fire Ant Ascator
+1 Magical King Moonstar
+1 Phantom King Hydride
+1 Psi-Reflector
+1 Red Dragon Archfiend/Assault Mode
+1 Red Resonator
+1 Red Sprinter
+1 Red Warg
+1 Soul Resonator
+1 Synkron Resonator
+1 Vice Dragon
+1 Vision Resonator
+1 Wandering King Wildwind
+1 Witch of the Black Forest
+1 Hot Red Dragon Archfiend Abyss
+1 Hot Red Dragon Archfiend Bane
+1 Hot Red Dragon Archfiend King Calamity
+1 Red Dragon Archfiend
+1 Red Nova Dragon
+1 Red Rising Dragon
+1 Red Supernova Dragon
+1 Scarlight Red Dragon Archfiend
+1 Scarred Dragon Archfiend
+1 Absolute Powerforce
+1 Burning Soul
+1 Crimson Gaia
+1 Pot of Extravagance
+1 Resonator Call
+1 Resonator Command
+1 Resonator Engine
+1 Assault Mode Activate
+1 Fiendish Chain
+1 Fiendish Golem
+1 King's Synchro
+1 Powerful Rebirth
+1 Red Reign
+1 Red Zone
+1 Terrors of the Overroot
+1 Time to Stand Up

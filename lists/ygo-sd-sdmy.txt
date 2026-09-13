@@ -1,0 +1,49 @@
+@name YGO Structure Deck: Yugi Muto (SDMY)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Alpha The Electromagnet Warrior
+1 Alpha The Magnet Warrior
+1 Berfomet
+1 Berserkion the Electromagna Warrior
+1 Beta The Electromagnet Warrior
+1 Beta The Magnet Warrior
+1 Buster Blader
+1 Dark Magician
+1 Dark Magician Girl
+1 Gamma The Electromagnet Warrior
+1 Gamma the Magnet Warrior
+1 Gazelle the King of Mythical Beasts
+1 Giant Soldier of Stone
+1 Jack's Knight
+1 King's Knight
+1 Kuriboh
+1 Kuribohrn
+1 Obnoxious Celtic Guard
+1 Queen's Knight
+1 Skilled Dark Magician
+1 Skilled White Magician
+1 Twin-Headed Behemoth
+1 Valkyrion the Magna Warrior
+1 Arcana Knight Joker
+1 Buster Blader, the Dragon Destroyer Swordsman
+1 Chimera the Flying Mythical Beast
+1 Dark Paladin
+1 Imperion Magnum the Superconductive Battlebot
+1 Attack the Moon!
+1 Dark Magic Attack
+1 Dark Magic Curtain
+1 Dark Magic Inheritance
+1 De-Fusion
+1 Magnetic Field
+1 Mystic Box
+1 Polymerization
+1 Spell Shattering Arrow
+1 Swords of Concealing Light
+1 Swords of Revealing Light
+1 Magic Cylinder
+1 Magician's Circle
+1 Magnet Conversion
+1 Mirror Force
+1 Rock Bombardment
+1 Soul Rope

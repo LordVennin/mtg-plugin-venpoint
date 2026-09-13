@@ -1,0 +1,36 @@
+@name YGO Structure Deck: Invincible Fortress (SD7)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Criosphinx
+1 Exxod, Master of The Guard
+1 Giant Rat
+1 Gigantes
+1 Golem Sentry
+1 Great Spirit
+1 Guardian Sphinx
+1 Guardian Statue
+1 Hieracosphinx
+1 Maharaghi
+1 Medusa Worm
+1 Megarock Dragon
+1 Moai Interceptor Cannons
+1 Sand Moth
+1 Stone Statue of the Aztecs
+1 Brain Control
+1 Canyon
+1 Ectoplasmer
+1 Hammer Shot
+1 Magical Mallet
+1 Mystical Space Typhoon
+1 Premature Burial
+1 Shield & Sword
+1 Shifting Shadows
+1 Swords of Revealing Light
+1 Compulsory Evacuation Device
+1 Magic Drain
+1 Ordeal of a Traveler
+1 Reckless Greed
+1 Robbin' Goblin
+1 Ultimate Offering
+1 Waboku

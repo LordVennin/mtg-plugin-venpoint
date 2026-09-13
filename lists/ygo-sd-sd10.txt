@@ -1,0 +1,41 @@
+@name YGO Structure Deck: Machine Re-Volt (SD10)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Ancient Gear
+1 Ancient Gear Beast
+1 Ancient Gear Cannon
+1 Ancient Gear Engineer
+1 Ancient Gear Gadjiltron Chimera
+1 Ancient Gear Gadjiltron Dragon
+1 Ancient Gear Golem
+1 Ancient Gear Soldier
+1 Boot-Up Soldier - Dread Dynamo
+1 Cannon Soldier
+1 Gear Golem the Moving Fortress
+1 Green Gadget
+1 Heavy Mech Support Platform
+1 Mechanicalchaser
+1 Red Gadget
+1 Yellow Gadget
+1 Ancient Gear Castle
+1 Ancient Gear Drill
+1 Ancient Gear Explosive
+1 Ancient Gear Factory
+1 Ancient Gear Fist
+1 Ancient Gear Tank
+1 Ancient Gear Workshop
+1 Enemy Controller
+1 Heavy Storm
+1 Limiter Removal
+1 Machine Duplication
+1 Mystical Space Typhoon
+1 Pot of Avarice
+1 Weapon Change
+1 Covering Fire
+1 Micro Ray
+1 Rare Metalmorph
+1 Roll Out!
+1 Sakuretsu Armor
+1 Stronghold the Moving Fortress
+1 Ultimate Offering

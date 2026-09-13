@@ -1,0 +1,49 @@
+@name YGO Structure Deck: Dark World (SR13)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Absolute King Back Jack
+1 Beiige, Vanguard of Dark World
+1 Broww, Huntsman of Dark World
+1 Brron, Mad King of Dark World
+1 Ceruli, Guru of Dark World
+1 Danger! Bigfoot!
+1 Danger! Mothman!
+1 Danger! Thunderbird!
+1 Danger!? Tsuchinoko?
+1 Fabled Raven
+1 Genta, Gateman of Dark World
+1 Goldd, Wu-Lord of Dark World
+1 Grapha, Dragon Lord of Dark World
+1 Gren, Tactician of Dark World
+1 Kahkki, Guerilla of Dark World
+1 Latinum, Exarch of Dark World
+1 Lilith, Lady of Lament
+1 Lucent, Netherlord of Dark World
+1 Parl, Hermit of Dark World
+1 Reign-Beaux, Overking of Dark World
+1 Reign-Beaux, Overlord of Dark World
+1 Renge, Gatekeeper of Dark World
+1 Scarr, Scout of Dark World
+1 Sillva, Warlord of Dark World
+1 Snoww, Unlight of Dark World
+1 Zure, Knight of Dark World
+1 Grapha, Dragon Overlord of Dark World
+1 Card Destruction
+1 Charge Into a Dark World
+1 Dark World Accession
+1 Dark World Archives
+1 Dark World Dealings
+1 Dark World Lightning
+1 Dark World Puppetry
+1 Dragged Down into the Grave
+1 Gateway to Dark World
+1 The Gates of Dark World
+1 Dark Smog
+1 Dark World Brainwashing
+1 Dark World Punishment
+1 Deck Devastation Virus
+1 Mind Crush
+1 Paleozoic Dinomischus
+1 Skill Drain
+1 The Forces of Darkness

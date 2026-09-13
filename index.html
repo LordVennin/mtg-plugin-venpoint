@@ -32,19 +32,19 @@
 
     <div class="split">
       <div class="split-col">
-        <h2>Host a draft</h2>
+        <h2 id="home-host-title">Host a draft</h2>
         <p class="hint">You'll get a room code to share. Your browser runs the draft — keep the tab open.</p>
         <button id="btn-host" class="primary">Create room</button>
       </div>
       <div class="split-col">
-        <h2>Join a draft</h2>
+        <h2 id="home-join-title">Join a draft</h2>
         <input id="code-input" placeholder="Room code, e.g. K7XQ2" maxlength="8" style="text-transform:uppercase">
         <button id="btn-join" class="primary">Join room</button>
       </div>
     </div>
     <div class="workshop-entry">
       <h2>Deck workshop</h2>
-      <p class="hint">Build and manage full custom decks — search all of Magic, save them for game night. No room needed.</p>
+      <p class="hint" id="home-ws-hint">Build and manage full custom decks — search all of Magic, save them for game night. No room needed.</p>
       <button id="btn-workshop">🛠 Open the deck workshop</button>
     </div>
     <div class="workshop-entry">
@@ -59,7 +59,7 @@
 <section id="screen-solo" hidden>
   <div class="panel">
     <h2>🧪 Solo playtest</h2>
-    <p class="hint">Paste a deck list, or grab a preset / one of your saved decks below.
+    <p class="hint" id="solo-hint">Paste a deck list, or grab a preset / one of your saved decks below.
       Mark a commander with a <code>Commander</code> header (or <code>*CMDR*</code> on its line)
       to start commander-style — command zone, 40 life. Everything on the play surface works:
       draw, mulligan, scry, mill, dice, tokens…</p>
@@ -78,7 +78,7 @@
     <aside class="ws-search">
       <h3>Add cards</h3>
       <input id="ws-search" placeholder="🔍 Search all of Magic…" autocomplete="off">
-      <p class="hint">Full Scryfall syntax works: <code>t:goblin o:haste c:r cmc&lt;3</code>. Click a result to add it.</p>
+      <p class="hint" id="ws-syntax-hint">Full Scryfall syntax works: <code>t:goblin o:haste c:r cmc&lt;3</code>. Click a result to add it.</p>
       <div id="ws-results" class="card-grid ws-results"></div>
     </aside>
     <div class="ws-main">
@@ -194,6 +194,11 @@
       <div class="actions">
         <button id="btn-start" class="primary" disabled>Start draft</button>
       </div>
+    </div>
+
+    <div class="actions lobby-exit">
+      <button id="btn-close-room-lobby" hidden title="End the room for everyone and return to the start screen">⏹ Close room</button>
+      <button id="btn-leave-room" hidden title="Leave this room and return to the start screen">← Leave room</button>
     </div>
   </div>
 </section>

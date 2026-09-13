@@ -1,0 +1,52 @@
+@name YGO Structure Deck: Cyber Strike (SDCS)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Attachment Cybern
+1 Cyber Dragon
+1 Cyber Dragon Core
+1 Cyber Dragon Drei
+1 Cyber Dragon Herz
+1 Cyber Dragon Nachster
+1 Cyber Dragon Vier
+1 Cyber Dragon Zwei
+1 Cyber Pharos
+1 Cyber Phoenix
+1 Cyber Valley
+1 Cyberdark Cannon
+1 Cyberdark Chimera
+1 Cyberdark Claw
+1 Cyberdark Edge
+1 Cyberdark Horn
+1 Cyberdark Keel
+1 Gale Dogra
+1 Gizmek Orochi, the Serpentron Sky Slasher
+1 Jizukiru, the Star Destroying Kaiju
+1 Leng Ling
+1 Chimeratech Overdragon
+1 Cyber End Dragon
+1 Cyberdark Dragon
+1 Cyberdark End Dragon
+1 Cyberdarkness Dragon
+1 Cyber Emergency
+1 Cyber Eternal
+1 Cyber Repair Plant
+1 Cyberdark Impact!
+1 Cyberdark Inferno
+1 Cyberdark Realm
+1 Cyberload Fusion
+1 Cybernetic Horizon
+1 Fusion Deployment
+1 Fusion Tag
+1 Future Fusion
+1 Limiter Removal
+1 Machine Duplication
+1 Overload Fusion
+1 Power Bond
+1 Call of the Haunted
+1 Cyberdark Invasion
+1 Cybernetic Overflow
+1 Cybernetic Revolution
+1 Infinite Impermanence
+1 Paleozoic Canadia
+1 Power Wall

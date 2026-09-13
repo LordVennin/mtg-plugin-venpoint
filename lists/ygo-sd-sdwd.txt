@@ -1,0 +1,45 @@
+@name YGO Structure Deck: Blue-Eyes White Destiny (SDWD)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Ash Blossom & Joyous Spring
+1 Blue-Eyes Abyss Dragon
+1 Blue-Eyes Alternative White Dragon
+1 Blue-Eyes Chaos Dragon
+1 Blue-Eyes Chaos MAX Dragon
+1 Blue-Eyes Jet Dragon
+1 Blue-Eyes White Dragon
+1 Dictator of D.
+1 Dragon Spirit of White
+1 Effect Veiler
+1 Maiden of White
+1 Master with Eyes of Blue
+1 Neo Kaiser Sea Horse
+1 Nibiru, the Primal Being
+1 Sage with Eyes of Blue
+1 The White Stone of Ancients
+1 The White Stone of Legend
+1 Azure-Eyes Silver Dragon
+1 Blue-Eyes Spirit Dragon
+1 Blue-Eyes Twin Burst Dragon
+1 Blue-Eyes Tyrant Dragon
+1 Blue-Eyes Ultimate Dragon
+1 Blue-Eyes Ultimate Spirit Dragon
+1 Hieratic Seal of the Heavenly Spheres
+1 Indigo-Eyes Silver Dragon
+1 Neo Blue-Eyes Ultimate Dragon
+1 Spirit with Eyes of Blue
+1 Burst Stream of Destruction
+1 Called by the Grave
+1 Chaos Form
+1 Mausoleum of White
+1 Roar of the Blue-Eyed Dragons
+1 The Melody of Awakening Dragon
+1 Trade-In
+1 Ultimate Fusion
+1 Wishes for Eyes of Blue
+1 Destined Rivals
+1 Infinite Impermanence
+1 Majesty of the White Dragons
+1 The Ultimate Creature of Destruction
+1 True Light

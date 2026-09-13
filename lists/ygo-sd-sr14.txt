@@ -1,0 +1,52 @@
+@name YGO Structure Deck: Fire Kings (SR14)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Alpha, the Master of Beasts
+1 Blaster, Dragon Ruler of Infernos
+1 Bonfire Colossus
+1 Burner, Dragon Ruler of Sparks
+1 Coach Captain Bearman
+1 Coach Soldier Wolfbark
+1 Dogoran, the Mad Flame Kaiju
+1 Droll & Lock Bird
+1 Fencing Fire Ferret
+1 Fire King Avatar Arvata
+1 Fire King Avatar Barong
+1 Fire King Avatar Garunix
+1 Fire King Avatar Kirin
+1 Fire King Avatar Rangbali
+1 Fire King Avatar Yaksha
+1 Fire King High Avatar Garunix
+1 Fire King High Avatar Kirin
+1 Firebrand Hymnist
+1 Infernal Flame Emperor
+1 Legendary Fire King Ponix
+1 Royal Firestorm Guards
+1 Sacred Fire King Garunix
+1 Sacred Phoenix of Nephthys
+1 Spirit of Flames
+1 The Blazing Mars
+1 True King Agnimazud, the Vanisher
+1 Coach King Giantrainer
+1 Diamond Dire Wolf
+1 Garunix Eternity, Hyang of the Fire Kings
+1 Hiita the Fire Charmer, Ablaze
+1 Circle of the Fire Kings
+1 Dark Hole
+1 Fire Formation - Tenki
+1 Fire King Island
+1 Fire King Sanctuary
+1 Fire King Sky Burn
+1 Herald of the Abyss
+1 Onslaught of the Fire Kings
+1 Rekindling
+1 Trade-In
+1 Chain Destruction
+1 Echelon of the Fire Kings
+1 Flamvell Counter
+1 Infinite Impermanence
+1 Powersink Stone
+1 Solemn Judgment
+1 Spiritual Fire Art - Kurenai
+1 Torrential Tribute

@@ -1,0 +1,46 @@
+@name YGO Structure Deck: Wave of Light (SR05)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Airknight Parshath
+1 Archlord Kristya
+1 Athena
+1 Bountiful Artemis
+1 D.D. Sprite
+1 Eva
+1 Gellenduo
+1 Guiding Ariadne
+1 Guiding Light
+1 Hanewata
+1 Harvest Angel of Wisdom
+1 Hecatrice
+1 Herald of Green Light
+1 Herald of Orange Light
+1 Herald of Purple Light
+1 Honest
+1 Layard the Liberator
+1 Meltiel, Sage of the Sky
+1 Minerva, Scholar of the Sky
+1 Neo-Parshath, the Sky Paladin
+1 Nova Summoner
+1 Power Angel Valkyria
+1 Sacred Arch-Airknight Parshath
+1 Splendid Venus
+1 Synthetic Seraphim Token
+1 Tethys, Goddess of Light
+1 Cards from the Sky
+1 Celestial Transformation
+1 The Sanctuary in the Sky
+1 The Sanctum of Parshath
+1 Ties of the Brethren
+1 Valhalla, Hall of the Fallen
+1 Dark Bribe
+1 Divine Punishment
+1 Drastic Drop Off
+1 Light of Judgment
+1 Miraculous Descent
+1 Rebirth of Parshath
+1 Recall
+1 Solemn Warning
+1 Synthetic Seraphim
+1 Ultimate Providence

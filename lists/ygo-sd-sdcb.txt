@@ -1,0 +1,50 @@
+@name YGO Structure Deck: Legend of the Crystal Beasts (SDCB)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Ash Blossom & Joyous Spring
+1 Contact "C"
+1 Crystal Beast Amber Mammoth
+1 Crystal Beast Amethyst Cat
+1 Crystal Beast Cobalt Eagle
+1 Crystal Beast Emerald Tortoise
+1 Crystal Beast Rainbow Dragon
+1 Crystal Beast Ruby Carbuncle
+1 Crystal Beast Sapphire Pegasus
+1 Crystal Beast Topaz Tiger
+1 Crystal Keeper
+1 Crystal Master
+1 Dimension Shifter
+1 Ghost Belle & Haunted Mansion
+1 Hamon, Lord of Striking Thunder
+1 Rainbow Dark Dragon
+1 Rainbow Dragon
+1 Rainbow Overdragon
+1 Ultimate Crystal Rainbow Dragon Overdrive
+1 Advanced Dark
+1 Ancient City - Rainbow Ruins
+1 Awakening of the Crystal Ultimates
+1 Cosmic Cyclone
+1 Crystal Abundance
+1 Crystal Aegis
+1 Crystal Beacon
+1 Crystal Blessing
+1 Crystal Bond
+1 Crystal Promise
+1 Crystal Release
+1 Crystal Tree
+1 Foolish Burial Goods
+1 Rainbow Bridge
+1 Rainbow Bridge of the Heart
+1 Rainbow Refraction
+1 Rare Value
+1 The Melody of Awakening Dragon
+1 Counter Gem
+1 Crystal Boon
+1 Crystal Brilliance
+1 Crystal Conclave
+1 Crystal Miracle
+1 Crystal Pair
+1 Ferret Flames
+1 Metaverse
+1 Ultimate Crystal Magic

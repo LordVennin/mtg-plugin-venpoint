@@ -1,0 +1,50 @@
+@name YGO Structure Deck: Beware of Traptrix (SDBT)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Artifact Moralltach
+1 Ash Blossom & Joyous Spring
+1 Fire Hand
+1 Gadarla, the Mystery Dust Kaiju
+1 Ice Hand
+1 Kumongous, the Sticky String Kaiju
+1 Lonefire Blossom
+1 Mekk-Knight Blue Sky
+1 Mekk-Knight Purple Nightfall
+1 Resonance Insect
+1 Retaliating "C"
+1 Rose Lover
+1 Sauge de Fleur
+1 Thunder Hand
+1 Traptrix Arachnocampa
+1 Traptrix Atrax
+1 Traptrix Dionaea
+1 Traptrix Genlisea
+1 Traptrix Mantis
+1 Traptrix Myrmeleo
+1 Traptrix Nepenthes
+1 Traptrix Pudica
+1 Traptrix Vesiculo
+1 Traptrix Allomerus
+1 Traptrix Atypus
+1 Traptrix Cularia
+1 Traptrix Pinguicula
+1 Traptrix Rafflesia
+1 Traptrix Sera
+1 Harpie's Feather Duster
+1 Raigeki
+1 Traptantalizing Tune
+1 Traptrip Garden
+1 Artifact Sanctum
+1 Bottomless Trap Hole
+1 Evenly Matched
+1 Floodgate Trap Hole
+1 Gravedigger's Trap Hole
+1 Naturia Sacred Tree
+1 Terrifying Trap Hole Nightmare
+1 The Phantom Knights of Shade Brigandine
+1 Trap Hole
+1 Trap Trick
+1 Traptrix Holeutea
+1 Traptrix Trap Hole Nightmare
+1 Void Trap Hole

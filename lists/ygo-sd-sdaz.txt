@@ -1,0 +1,50 @@
+@name YGO Structure Deck: Albaz Strike (SDAZ)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Albion the Shrouded Dragon
+1 Artifact Scythe
+1 Black Dragon Collapserpent
+1 Chaos Dragon Levianeer
+1 Dogmatika Fleurdelis, the Knighted
+1 Effect Veiler
+1 Fallen of Albaz
+1 Ghost Ogre & Snow Rabbit
+1 Keeper of Dragon Magic
+1 Omni Dragon Brotaur
+1 Radian, the Multidimensional Kaiju
+1 Red-Eyes Darkness Metal Dragon
+1 Springans Kitt
+1 Starliege Seyfert
+1 Summoner Monk
+1 The Golden Swordsoul
+1 Thunder King, the Lightningstrike Kaiju
+1 Tri-Brigade Mercourier
+1 White Dragon Wyverburster
+1 Albion the Branded Dragon
+1 Brigrand the Glory Dragon
+1 Lubellion the Searing Dragon
+1 Mirrorjade the Iceblade Dragon
+1 Sprind the Irondash Dragon
+1 Titaniklad the Ash Dragon
+1 Branded Bond
+1 Branded Fusion
+1 Branded in White
+1 Branded Lost
+1 Called by the Grave
+1 Dark Ruler No More
+1 Fusion Gate
+1 Fusion Recycling Plant
+1 Fusion Substitute
+1 Gold Sarcophagus
+1 Pot of Extravagance
+1 Back to the Front
+1 Branded Retribution
+1 Branded Sword
+1 Dimensional Barrier
+1 Judgment of the Branded
+1 Necro Fusion
+1 Screams of the Branded
+1 There Can Be Only One
+1 Waking the Dragon
+1 Warning Point

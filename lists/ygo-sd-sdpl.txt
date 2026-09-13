@@ -1,0 +1,46 @@
+@name YGO Structure Deck: Powercode Link (SDPL)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Antialian
+1 Cosmic Compass
+1 Cyberse Gadget
+1 Datacorn
+1 Effect Veiler
+1 Flame Bufferlo
+1 Garbage Collector
+1 Genex Ally Birdman
+1 Goblindbergh
+1 Juragedo
+1 Lady Debug
+1 Launcher Commander
+1 Magical Merchant
+1 Mecha Phantom Beast Tetherwolf
+1 Phantom Skyblaster
+1 Reborn Tengu
+1 Sea Archiver
+1 Segmental Dragon
+1 Skull Meister
+1 Storm Cipher
+1 LANphorhynchus
+1 Powercode Talker
+1 Traffic Ghost
+1 Cynet Storm
+1 Fires of Doomsday
+1 Forbidden Chalice
+1 Night Beam
+1 Offerings to the Doomed
+1 One for One
+1 Reasoning
+1 Scapegoat
+1 Swords of Revealing Light
+1 Terraforming
+1 Blazing Mirror Force
+1 Call of the Haunted
+1 Debunk
+1 Packet Link
+1 Reckless Greed
+1 Safe Zone
+1 Trap Stun
+1 Traptrix Trap Hole Nightmare
+1 Wild Tornado

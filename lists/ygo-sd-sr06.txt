@@ -1,0 +1,46 @@
+@name YGO Structure Deck: Lair of Darkness (SR06)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Absolute King Back Jack
+1 Ahrima, the Wicked Warden
+1 Archfiend Cavalry
+1 Archfiend Emperor, the First Lord of Horror
+1 Caius the Mega Monarch
+1 Darkest Diabolos, Lord of the Lair
+1 Diabolos, King of the Abyss
+1 Duke Shade, the Sinister Shadow Lord
+1 Fiendish Rhino Warrior
+1 Infernal Dragon
+1 Kuribandit
+1 Legendary Maju Garzett
+1 Lich Lord, King of the Underworld
+1 Lilith, Lady of Lament
+1 Mist Archfiend
+1 Phantom of Chaos
+1 Plague Wolf
+1 Prometheus, King of the Shadows
+1 Relinkuriboh
+1 Stygian Street Patrol
+1 Torment Token
+1 Tour Guide From the Underworld
+1 Vanity's Fiend
+1 Allure of Darkness
+1 Boogie Trap
+1 Fires of Doomsday
+1 Foolish Burial Goods
+1 Hand Destruction
+1 Lair of Darkness
+1 Recurring Nightmare
+1 Veil of Darkness
+1 Crush Card Virus
+1 Curse of Darkness
+1 Darklight
+1 Deck Devastation Virus
+1 Eradicator Epidemic Virus
+1 Full Force Virus
+1 Grinning Grave Virus
+1 Mind Crush
+1 Rise to Full Height
+1 Sinister Yorishiro
+1 Trap of Darkness

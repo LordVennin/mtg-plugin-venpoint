@@ -1,0 +1,50 @@
+@name YGO Structure Deck: Rokket Revolt (SDRR)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Absorouter Dragon
+1 Anesthrokket Dragon
+1 Autorokket Dragon
+1 Background Dragon
+1 Checksum Dragon
+1 Defrag Dragon
+1 Dragon Knight of Creation
+1 Exploderokket Dragon
+1 Gateway Dragon
+1 Keeper of the Shrine
+1 Labradorite Dragon
+1 Magnarokket Dragon
+1 Metalrokket Dragon
+1 Paladin of Felgrand
+1 Raiden, Hand of the Lightsworn
+1 Rokket Recharger
+1 Rokket Synchron
+1 Rokket Tracer
+1 Shelrokket Dragon
+1 Silverrokket Dragon
+1 World Chalice Guardragon
+1 Booster Dragon
+1 Borreload Dragon
+1 Borreload Furious Dragon
+1 Quadborrel Dragon
+1 Topologic Zeroboros
+1 Triple Burst Dragon
+1 Boot Sector Launch
+1 Borrel Regenerator
+1 Borrel Supplier
+1 Dragon Shrine
+1 Polymerization
+1 Quick Launch
+1 Rapid Trigger
+1 Return of the Dragon Lords
+1 Ruins of the Divine Dragon Lords
+1 Squib Draw
+1 Twin Twisters
+1 Execute Protocols
+1 Imperial Order
+1 Link Turret
+1 Magic Cylinder
+1 Mirror Force
+1 Mirror Force Launcher
+1 Red Reboot
+1 Zero-Day Blaster

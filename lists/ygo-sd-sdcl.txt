@@ -1,0 +1,47 @@
+@name YGO Structure Deck: Cyberse Link (SDCL)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Backlinker
+1 Backup Secretary
+1 Balancer Lord
+1 Boot Staggered
+1 Card Trooper
+1 Cliant
+1 Crane Crane
+1 Cyberse Wizard
+1 Debris Dragon
+1 Digitron
+1 Dotscaper
+1 Dual Assembwurm
+1 Glow-Up Bulb
+1 Jester Confit
+1 Kinka-byo
+1 Launcher Commander
+1 Magician of Faith
+1 Mathematician
+1 ROM Cloudia
+1 Stack Reviver
+1 Summoner Monk
+1 Tragoedia
+1 Binary Sorceress
+1 Encode Talker
+1 Tri-Gate Wizard
+1 Cosmic Cyclone
+1 Cynet Backdoor
+1 D.D.R. - Different Dimension Reincarnation
+1 Gold Sarcophagus
+1 Mind Control
+1 Moon Mirror Shield
+1 Shuffle Reborn
+1 Soul Charge
+1 Where Arf Thou?
+1 Dimensional Barrier
+1 Ghosts From the Past
+1 Miracle's Wake
+1 Powerful Rebirth
+1 Premature Return
+1 Quantum Cat
+1 Recoded Alive
+1 Storming Mirror Force
+1 Swamp Mirrorer

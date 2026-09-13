@@ -1,0 +1,45 @@
+@name YGO Structure Deck: Spirit Charmers (SDCH)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Aussa the Earth Charmer
+1 Awakening of the Possessed - Greater Inari Fire
+1 Awakening of the Possessed - Nefariouser Archfiend
+1 Dark Doriado
+1 Denko Sekka
+1 Effect Veiler
+1 Eria the Water Charmer
+1 Fairy Tail - Luna
+1 Fairy Tail - Rella
+1 Fairy Tail - Sleeper
+1 Familiar-Possessed - Aussa
+1 Familiar-Possessed - Eria
+1 Familiar-Possessed - Hiita
+1 Familiar-Possessed - Wynn
+1 Hiita the Fire Charmer
+1 Inari Fire
+1 Jigabyte
+1 Nefarious Archfiend Eater of Nefariousness
+1 Ranryu
+1 Witch of the Black Forest
+1 Witchcrafter Golem Aruru
+1 Wynn the Wind Charmer
+1 Awakening of the Possessed
+1 Book of Eclipse
+1 Dark Ruler No More
+1 Grand Spiritual Art - Ichirin
+1 Raigeki
+1 Secret Village of the Spellcasters
+1 Spellbook of Knowledge
+1 Spirit Charmers
+1 Terraforming
+1 Twin Twisters
+1 Dimensional Barrier
+1 Metaverse
+1 Possessed Partnerships
+1 Solemn Warning
+1 Spiritual Earth Art - Kurogane
+1 Spiritual Fire Art - Kurenai
+1 Spiritual Water Art - Aoi
+1 Spiritual Wind Art - Miyabi
+1 Unpossessed

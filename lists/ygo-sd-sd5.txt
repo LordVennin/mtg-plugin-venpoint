@@ -1,0 +1,40 @@
+@name YGO Structure Deck: Warrior's Triumph (SD5)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Armed Samurai - Ben Kei
+1 Command Knight
+1 D.D. Warrior Lady
+1 Dark Blade
+1 Exiled Force
+1 Gearfried the Iron Knight
+1 Gearfried the Swordmaster
+1 Gilford the Legend
+1 Goblin Attack Force
+1 Marauding Captain
+1 Mataza the Zapper
+1 Mystic Swordsman LV2
+1 Mystic Swordsman LV4
+1 Ninja Grandmaster Sasuke
+1 Obnoxious Celtic Guard
+1 Swift Gaia the Fierce Knight
+1 Warrior Lady of the Wasteland
+1 Divine Sword - Phoenix Blade
+1 Fairy of the Spring
+1 Fusion Sword Murasame Blade
+1 Giant Trunade
+1 Heavy Storm
+1 Lightning Blade
+1 Lightning Vortex
+1 Mystical Space Typhoon
+1 Reinforcement of the Army
+1 Release Restraint
+1 Reload
+1 Snatch Steal
+1 Swords of Concealing Light
+1 The Warrior Returning Alive
+1 Wicked-Breaking Flamberge - Baou
+1 Blast with Chain
+1 Call of the Haunted
+1 Magic Jammer
+1 Royal Decree

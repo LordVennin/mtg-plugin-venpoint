@@ -1,0 +1,35 @@
+@name YGO Structure Deck: Blaze of Destruction (SD3)
+@format ygo-deck
+# 1 copy of each card in the product — the API has no per-card counts,
+# so bump the numbers on staples to taste.
+1 Blazing Inpachi
+1 Fox Fire
+1 Gaia Soul the Combustible Collective
+1 Great Angus
+1 Infernal Flame Emperor
+1 Inferno
+1 Little Chimera
+1 Molten Zombie
+1 Raging Flame Sprite
+1 Solar Flare Dragon
+1 Thestalos the Firestorm Monarch
+1 UFO Turtle
+1 Ultimate Baseball Kid
+1 Dark Room of Nightmare
+1 Heavy Storm
+1 Level Limit - Area B
+1 Meteor of Destruction
+1 Molten Destruction
+1 Mystical Space Typhoon
+1 Necklace of Command
+1 Nobleman of Crossout
+1 Pot of Greed
+1 Premature Burial
+1 Reload
+1 Snatch Steal
+1 Tribute to the Doomed
+1 Backfire
+1 Call of the Haunted
+1 Dust Tornado
+1 Jar of Greed
+1 Spell Shield Type-8
